@@ -1,0 +1,20 @@
+# Gradle / IDE
+.gradle/
+build/
+out/
+run/
+runs/
+*.iml
+.idea/
+.vscode/
+*.ipr
+*.iws
+classes/
+bin/
+repo/
+*.log
+
+# Système
+.DS_Store
+Thumbs.db
+desktop.ini

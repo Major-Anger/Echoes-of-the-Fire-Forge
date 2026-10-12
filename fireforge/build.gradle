@@ -1,0 +1,17 @@
+evaluationDependsOn(':core')
+
+dependencies {
+    implementation project(':core')
+}
+
+neoForge {
+    mods {
+        // En jeu de développement, on charge le Core et l'épisode ensemble
+        "${project(':core').mod_id}" {
+            sourceSet(project(':core').sourceSets.main)
+        }
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
