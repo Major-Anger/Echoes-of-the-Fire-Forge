@@ -43,3 +43,45 @@
 
 ## Plan de conception
 - Fire Forge : `docs/plan-fire-forge.md` (validé). Le relire avant de coder quoi que ce soit.
+
+## État d'avancement (à tenir à jour)
+- **Echoes Core** : fait (âmes et barre d'âmes, Échos, lore, livre guide, détection des épisodes).
+- **Fire Forge**, étapes du plan :
+  1. Découverte (machine comprimée, pièces, plans, génération, butin) : faite.
+  2. La forge (bloc de 2, interface custom avec marteau, jauges, entonnoirs, enclume visible) : faite.
+  3. Les raretés (composant `echoes_fireforge:forging`, chances affichées dans l'interface,
+     attributs réels, résistance au feu, enchantement rare de l'offrande, infobulle) : faite.
+  4. **Prochaine étape** : la fêlure (tags de tolérance par matériau, craquements pendant la
+     reforge, réflexe en actionnant le soufflet, son/tremblement/étincelles, manqué = Fêlé).
+     Voir la section 5 du plan. Ne pas commencer sans le feu vert d'Anger.
+  5. Les modules (chaudière empilable, réservoir de lave, module des âmes avec le Silt, deux feux).
+  6. Les effets des 8 Spéciaux (aujourd'hui tirés et affichés, sans effet), puis la liste « âme ».
+  7. Le guide : reporté par Anger.
+- Modèles et textures des modules déjà validés et présents (`models/block/module_*`),
+  pas encore branchés dans le code.
+
+## Points en attente (côté Anger)
+- Les textes de lore des plans sont provisoires : Anger les écrira.
+- Traduction anglaise « Stoker » pour Attiseur : à confirmer.
+- Proposé, sans réponse : masquer les lignes d'attributs absolues de vanilla dans l'infobulle.
+- Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
+  modifier son Silt tout de suite).
+
+## Façon de travailler
+- Écrire en français avec Anger. Branche de travail : `ccr-23832923-eezmsg`
+  (`git push -u origin ccr-23832923-eezmsg`). Pas de PR sans demande.
+- Commits signés `-c user.name="Anger" -c user.email="4nger.dud@gmail.com"`, un commit par étape.
+- Textures : générées par les scripts Python/PIL de `tools/textures/`, présentées sur une
+  planche d'aperçu (règles 4 et 5) avant intégration.
+- Après chaque étape : une planche de captures envoyée à Anger.
+- Le build doit rester sans avertissement (`-Xlint:deprecation`).
+- **Tests** : copier le dépôt dans un dossier temporaire et y ajouter des classes de test
+  (jamais dans le dépôt).
+  - Serveur : une classe abonnée à `ServerStartedEvent` affiche `CHECK OK/FAIL` puis
+    `server.halt(false)` ; lancer `./gradlew :fireforge:runServer`. FakePlayer pour le lore
+    et les menus ; les progrès (Échos) demandent un vrai `ServerPlayer` avec une fausse connexion.
+  - Client : `LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1280x800x24' ./gradlew :fireforge:runClient`
+    avec `--quickPlaySingleplayer world` (monde créé par le serveur puis copié dans `run/saves/world`),
+    `options.txt` avec `lang:fr_fr`, `guiScale:2`, `onboardAccessibility:false`. Un pilote sur
+    `ClientTickEvent.Post` prend les captures (`Screenshot.grab`) ; la souris se déplace par
+    réflexion sur les champs `xpos`/`ypos` de `MouseHandler`.
