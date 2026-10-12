@@ -1,0 +1,146 @@
+{
+ "textures": {
+  "band": "echoes_fireforge:block/module/iron_band",
+  "copper": "echoes_fireforge:block/module/boiler_side",
+  "ctop": "echoes_fireforge:block/module/boiler_top",
+  "particle": "echoes_fireforge:block/module/iron_band"
+ },
+ "elements": [
+  {
+   "from": [
+    3,
+    0,
+    3
+   ],
+   "to": [
+    13,
+    16,
+    13
+   ],
+   "faces": {
+    "north": {
+     "texture": "#copper",
+     "uv": [
+      0,
+      0,
+      10,
+      16
+     ]
+    },
+    "south": {
+     "texture": "#copper",
+     "uv": [
+      0,
+      0,
+      10,
+      16
+     ]
+    },
+    "east": {
+     "texture": "#copper",
+     "uv": [
+      0,
+      0,
+      10,
+      16
+     ]
+    },
+    "west": {
+     "texture": "#copper",
+     "uv": [
+      0,
+      0,
+      10,
+      16
+     ]
+    },
+    "up": {
+     "texture": "#ctop",
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#ctop",
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ]
+    }
+   }
+  },
+  {
+   "from": [
+    2.5,
+    7,
+    2.5
+   ],
+   "to": [
+    13.5,
+    8,
+    13.5
+   ],
+   "faces": {
+    "north": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "south": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "east": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "west": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "up": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      11.0
+     ]
+    },
+    "down": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      11.0
+     ]
+    }
+   }
+  }
+ ]
+}

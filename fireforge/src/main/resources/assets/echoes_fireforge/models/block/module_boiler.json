@@ -1,0 +1,351 @@
+{
+ "textures": {
+  "band": "echoes_fireforge:block/module/iron_band",
+  "copper": "echoes_fireforge:block/module/boiler_side",
+  "cfront": "echoes_fireforge:block/module/boiler_front",
+  "ctop": "echoes_fireforge:block/module/boiler_top",
+  "particle": "echoes_fireforge:block/module/iron_band"
+ },
+ "elements": [
+  {
+   "from": [
+    2,
+    0,
+    2
+   ],
+   "to": [
+    14,
+    1,
+    14
+   ],
+   "faces": {
+    "north": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      12,
+      1
+     ]
+    },
+    "south": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      12,
+      1
+     ]
+    },
+    "east": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      12,
+      1
+     ]
+    },
+    "west": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      12,
+      1
+     ]
+    },
+    "up": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      12,
+      12
+     ]
+    },
+    "down": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      12,
+      12
+     ]
+    }
+   }
+  },
+  {
+   "from": [
+    3,
+    1,
+    3
+   ],
+   "to": [
+    13,
+    16,
+    13
+   ],
+   "faces": {
+    "north": {
+     "texture": "#copper",
+     "uv": [
+      0,
+      0,
+      10,
+      15
+     ]
+    },
+    "south": {
+     "texture": "#cfront",
+     "uv": [
+      0,
+      0,
+      10,
+      15
+     ]
+    },
+    "east": {
+     "texture": "#copper",
+     "uv": [
+      0,
+      0,
+      10,
+      15
+     ]
+    },
+    "west": {
+     "texture": "#copper",
+     "uv": [
+      0,
+      0,
+      10,
+      15
+     ]
+    },
+    "up": {
+     "texture": "#ctop",
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#ctop",
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ]
+    }
+   }
+  },
+  {
+   "from": [
+    2.5,
+    3,
+    2.5
+   ],
+   "to": [
+    13.5,
+    4,
+    13.5
+   ],
+   "faces": {
+    "north": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "south": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "east": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "west": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "up": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      11.0
+     ]
+    },
+    "down": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      11.0
+     ]
+    }
+   }
+  },
+  {
+   "from": [
+    2.5,
+    13,
+    2.5
+   ],
+   "to": [
+    13.5,
+    14,
+    13.5
+   ],
+   "faces": {
+    "north": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "south": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "east": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "west": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      1
+     ]
+    },
+    "up": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      11.0
+     ]
+    },
+    "down": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      11.0,
+      11.0
+     ]
+    }
+   }
+  },
+  {
+   "from": [
+    13,
+    6,
+    6
+   ],
+   "to": [
+    16,
+    9,
+    10
+   ],
+   "faces": {
+    "north": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      3,
+      3
+     ]
+    },
+    "south": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      3,
+      3
+     ]
+    },
+    "east": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      4,
+      3
+     ]
+    },
+    "west": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      4,
+      3
+     ]
+    },
+    "up": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      3,
+      4
+     ]
+    },
+    "down": {
+     "texture": "#band",
+     "uv": [
+      0,
+      0,
+      3,
+      4
+     ]
+    }
+   }
+  }
+ ]
+}
