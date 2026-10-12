@@ -19,11 +19,16 @@ Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne l
 - Avec des pièces et le bon plan, on construit la forge.
 
 ## 2. La forge et ses modules
-- **Forge** : 2 blocs de long, une cheminée (dessus), un soufflet, une petite jauge d'eau.
-  L'avant porte l'interface.
+- **Forge** : 2 blocs de long, une petite jauge d'eau. L'avant porte l'interface.
+  - moitié gauche : le foyer et la cheminée (environ 1,9 bloc de haut, validé) ;
+    le **soufflet** sur la face avant, contre le foyer : on l'actionne pour le réflexe
+    de la fêlure (section 5) ;
+  - moitié droite : l'enclume, où l'objet en cours de reforge est visible.
 - **Trois côtés à modules**, un module par côté :
-  - **gauche** : la **chaudière** (agrandit la réserve d'eau) ;
-  - **arrière** : le **réservoir de lave** (jusqu'à 5 seaux, alimente la chaleur Fournaise) ;
+  - **gauche** : la **chaudière** (agrandit la réserve d'eau), empilable jusqu'à
+    **3 blocs de haut** au total ;
+  - **arrière** : le **réservoir de lave** (alimente la chaleur Fournaise), jusqu'à
+    **2 blocs de haut** et 5 seaux au total (répartition à confirmer) ;
   - **droite** : le **module d'amélioration** (Forge des âmes, avec le Silt).
 - Chaque côté accepte un module parmi plusieurs : d'autres mods pourront ajouter leurs
   propres modules sans modifier la forge.
