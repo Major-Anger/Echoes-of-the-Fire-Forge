@@ -40,3 +40,6 @@
 - Ne jamais modifier le dépôt Echoes of the Silt sans demande explicite (lecture seule).
 - NeoForge 1.21.1, textes du jeu en français et en anglais.
 - Anger est le seul auteur de la série.
+
+## Plan de conception
+- Fire Forge : `docs/plan-fire-forge.md` (validé). Le relire avant de coder quoi que ce soit.
