@@ -20,10 +20,13 @@ Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne l
 
 ## 2. La forge et ses modules
 - **Forge** : 2 blocs de long, une petite jauge d'eau. L'avant porte l'interface.
-  - moitié gauche : le foyer et la cheminée (environ 1,9 bloc de haut, validé) ;
-    le **soufflet** sur la face avant, contre le foyer : on l'actionne pour le réflexe
+  - le **foyer** (l'ouverture du feu) est **centré sur toute la face avant**, à cheval
+    sur les deux blocs ;
+  - la **cheminée** (environ 1,9 bloc de haut, validée telle quelle, même si la
+    chaudière pleine la dépasse) ;
+  - le **soufflet** sur la face avant, à gauche du foyer : on l'actionne pour le réflexe
     de la fêlure (section 5) ;
-  - moitié droite : l'enclume, où l'objet en cours de reforge est visible.
+  - l'**enclume** sur le dessus, où l'objet en cours de reforge est visible.
 - **Trois côtés à modules**, un module par côté :
   - **gauche** : la **chaudière** (agrandit la réserve d'eau), empilable jusqu'à
     **3 blocs de haut** au total ; **4 seaux par bloc** (12 au maximum) ;
