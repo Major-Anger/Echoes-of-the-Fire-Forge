@@ -5,6 +5,9 @@ import fr.anger.echoes.fireforge.forge.FireForgeBlockEntity.Status;
 import fr.anger.echoes.fireforge.forge.FireForgeMenu;
 import fr.anger.echoes.fireforge.forge.ForgeRules;
 import fr.anger.echoes.fireforge.forge.Heat;
+import fr.anger.echoes.fireforge.forging.Rarity;
+import fr.anger.echoes.fireforge.forging.RarityOdds;
+import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -15,6 +18,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 
 import java.util.List;
+import java.util.Locale;
 
 /** L'interface de la forge : fer sombre et laiton, et un marteau à la place d'un bouton. */
 public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
@@ -23,6 +27,8 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
     private static final int BRASS = 0xE0B85A, LIGHT = 0xD8CFC0, FADED = 0x9A8F80, WARN = 0xE0805A;
     private static final int HAMMER_X = 152, HAMMER_Y = 17, HAMMER_SIZE = 24;
     private static final int WATER_GAUGE_X = 9, HEAT_GAUGE_X = 47, GAUGE_Y = 19, GAUGE_H = 50;
+    /** Le volet des chances, accroché à droite de la forge. */
+    private static final int PANEL_W = 86, PANEL_H = 98;
 
     public FireForgeScreen(FireForgeMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -32,6 +38,12 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
         titleLabelY = 6;
         inventoryLabelX = 20;
         inventoryLabelY = 98;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        leftPos -= (PANEL_W + 2) / 2; // centre la forge et son volet ensemble
     }
 
     @Override
@@ -63,6 +75,33 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
             v = 24;
         }
         g.blit(TEXTURE, x + HAMMER_X, y + HAMMER_Y, u, v, HAMMER_SIZE, HAMMER_SIZE, 256, 256);
+        renderOdds(g, x + imageWidth + 2, y);
+    }
+
+    /** Les chances de chaque rareté, avec la chaleur, l'offrande posée et les plans lus par le joueur. */
+    private void renderOdds(GuiGraphics g, int px, int py) {
+        g.fill(px, py, px + PANEL_W, py + PANEL_H, 0xFF7A5A24);
+        g.fill(px + 1, py + 1, px + PANEL_W - 1, py + PANEL_H - 1, 0xFFA5822F);
+        g.fill(px + 2, py + 2, px + PANEL_W - 2, py + PANEL_H - 2, 0xFF2F2A2A);
+        g.drawString(font, Component.translatable("gui.echoes_fireforge.odds"), px + 6, py + 6, BRASS, false);
+        int offering = ForgeRules.offeringTier(menu.offering());
+        double[] odds = RarityOdds.compute(Plans.clientReadCount(), offering, menu.heat());
+        Rarity[] all = Rarity.values();
+        for (int i = 0; i < all.length; i++) {
+            int ly = py + 20 + i * 11;
+            boolean possible = odds[i] > 0.0001;
+            g.drawString(font, all[i].displayName(), px + 6, ly, possible ? all[i].color().getColor() : 0x55504A, false);
+            String value = possible ? formatOdds(odds[i]) : "—";
+            g.drawString(font, value, px + PANEL_W - 6 - font.width(value), ly, possible ? LIGHT : 0x55504A, false);
+        }
+        if (offering > 0) {
+            String enchant = formatOdds(RarityOdds.enchantChance(offering));
+            g.drawString(font, Component.translatable("gui.echoes_fireforge.enchant_odds", enchant), px + 6, py + PANEL_H - 13, 0xC58CE0, false);
+        }
+    }
+
+    private static String formatOdds(double value) {
+        return value >= 9.95 ? Math.round(value) + " %" : String.format(Locale.ROOT, "%.1f %%", value).replace('.', ',');
     }
 
     @Override

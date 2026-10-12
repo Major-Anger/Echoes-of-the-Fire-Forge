@@ -1,9 +1,16 @@
 package fr.anger.echoes.fireforge.forge;
 
+import fr.anger.echoes.fireforge.forging.Forging;
+import fr.anger.echoes.fireforge.forging.ForgingData;
+import fr.anger.echoes.fireforge.forging.Rarity;
+import fr.anger.echoes.fireforge.plan.Plans;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
+import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -21,11 +28,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Le cœur de la forge (porté par la moitié gauche) : réserves d'eau et de lave, cases, reforge de 10 secondes.
- * À l'étape 2, la reforge consomme tout mais ne tire pas encore de rareté (étape 3).
+ * À la fin, l'objet reçoit une rareté tirée selon la chaleur, l'offrande et les plans lus par le forgeron.
  */
 public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -64,6 +75,9 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     private int progress;
     private Heat workHeat = Heat.NONE;
     private int workOffering;
+    private int workPlans;
+    @Nullable
+    private UUID smith;
 
     private final ContainerData data = new ContainerData() {
         @Override
@@ -145,9 +159,11 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         setChanged();
     }
 
-    /** Appelé par le marteau de l'interface. */
-    public boolean tryStart() {
+    /** Appelé par le marteau de l'interface : c'est le savoir (les plans lus) de ce joueur qui compte. */
+    public boolean tryStart(Player player) {
         if (status() != Status.READY || level == null) return false;
+        workPlans = Plans.readCount(player);
+        smith = player.getUUID();
         workOffering = ForgeRules.offeringTier(inventory.getStackInSlot(SLOT_OFFERING));
         inventory.extractItem(SLOT_OFFERING, 1, false);
         if (lavaCharges == 0) {
@@ -173,15 +189,46 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void finish() {
+        Rarity rarity = null;
+        Optional<Holder<Enchantment>> enchant = Optional.empty();
+        ItemStack stack = inventory.getStackInSlot(SLOT_ITEM);
+        if (level != null && !stack.isEmpty()) {
+            ItemStack forged = stack.copy();
+            ForgingData data = Forging.roll(forged, workHeat, workOffering, workPlans, level.getRandom());
+            forged.set(FFDataComponents.FORGING, data);
+            enchant = Forging.maybeEnchant(forged, workOffering, level.getRandom(), level.registryAccess());
+            inventory.setStackInSlot(SLOT_ITEM, forged); // reforger remplace la rareté précédente
+            rarity = data.rarity();
+        }
         working = false;
         progress = 0;
-        // Étape 3 : c'est ici que la rareté sera tirée (chaleur workHeat, offrande workOffering, plans lus).
         workHeat = Heat.NONE;
         workOffering = 0;
         setLit(false);
-        if (level != null) level.playSound(null, worldPosition, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.8F, 1.1F);
+        if (level != null && rarity != null) announce(rarity, enchant);
+        smith = null;
         setChanged();
         sync();
+    }
+
+    /** Le son et le message dépendent de ce qui sort de la forge. */
+    private void announce(Rarity rarity, Optional<Holder<Enchantment>> enchant) {
+        switch (rarity) {
+            case FELE -> level.playSound(null, worldPosition, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.6F, 0.6F);
+            case ATTISE -> level.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.5F, 0.7F);
+            case SPECIAL -> level.playSound(null, worldPosition, SoundEvents.BEACON_POWER_SELECT, SoundSource.BLOCKS, 1.0F, 0.8F);
+            default -> {}
+        }
+        level.playSound(null, worldPosition, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.8F, 1.1F);
+        Player player = smith != null ? level.getPlayerByUUID(smith) : null;
+        if (player != null && player.distanceToSqr(worldPosition.getCenter()) < 32 * 32) {
+            Component message = Component.translatable("message.echoes_fireforge.forged", rarity.displayName()).withStyle(ChatFormatting.GRAY);
+            if (enchant.isPresent()) {
+                message = message.copy().append(Component.translatable("message.echoes_fireforge.enchanted",
+                        enchant.get().value().description()).withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
+            player.displayClientMessage(message, true);
+        }
     }
 
     private void setLit(boolean lit) {
@@ -206,6 +253,8 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         tag.putInt("progress", progress);
         tag.putInt("heat", workHeat.level());
         tag.putInt("offering", workOffering);
+        tag.putInt("plans", workPlans);
+        if (smith != null) tag.putUUID("smith", smith);
     }
 
     @Override
@@ -218,6 +267,8 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         progress = tag.getInt("progress");
         workHeat = Heat.byLevel(tag.getInt("heat"));
         workOffering = tag.getInt("offering");
+        workPlans = tag.getInt("plans");
+        smith = tag.hasUUID("smith") ? tag.getUUID("smith") : null;
     }
 
     @Override

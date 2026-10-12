@@ -118,6 +118,12 @@ chère, plus la chance est haute.
 - **Ordre des calculs** : chances de départ → plans lus → offrande → plafond de chaleur →
   risque de fêlure (réflexe). Les chances s'affichent dans l'interface de la forge.
 - Compatible avec les enchantements, conservée lors du passage à la netherite.
+- **Chiffres codés (étape 3)** : chaque plan lu fait passer **2 %** des raretés basses (Fêlé, puis
+  Brut) vers les hautes, en proportion de leurs chances de départ ; l'offrande fait passer
+  **4 / 8 / 14 %** (petit / bon / gros coup de pouce) et donne **3 / 7 / 15 %** de chance d'enchantement
+  rare (poids 1 ou 2 dans le jeu, compatible, ni trésor ni malédiction). Les statistiques
+  s'appliquent comme de vrais attributs ; la résistance au feu et à la lave réduit ces dégâts.
+  Les Spéciaux sont tirés et affichés ; leurs effets arrivent à l'étape 6.
 
 ### Spéciaux (liste de base)
 | Nom | Pièce | Effet | Contrepartie | Raison dans l'histoire |

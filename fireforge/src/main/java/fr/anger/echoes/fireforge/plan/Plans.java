@@ -1,5 +1,6 @@
 package fr.anger.echoes.fireforge.plan;
 
+import fr.anger.echoes.core.client.ClientLore;
 import fr.anger.echoes.core.lore.Lore;
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import net.minecraft.resources.ResourceLocation;
@@ -29,6 +30,13 @@ public final class Plans {
         for (ResourceLocation entry : Lore.read(player)) {
             if (entry.getNamespace().equals(EchoesFireForge.MOD_ID) && entry.getPath().startsWith("plan/")) count++;
         }
+        return count;
+    }
+
+    /** Nombre de plans lus, côté client (pour afficher les chances dans la forge). */
+    public static int clientReadCount() {
+        int count = ClientLore.hasRead(FORGE) ? 1 : 0;
+        for (int n = 1; n <= COUNT; n++) if (ClientLore.hasRead(attiseur(n))) count++;
         return count;
     }
 

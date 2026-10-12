@@ -1,6 +1,7 @@
 package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
+import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -20,4 +21,10 @@ public final class FFDataComponents {
             COMPONENTS.registerComponentType("plan_number", builder -> builder
                     .persistent(ExtraCodecs.intRange(1, Plans.COUNT))
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
+
+    /** Ce que la forge a laissé sur une arme ou une armure : rareté, statistiques, Spécial. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ForgingData>> FORGING =
+            COMPONENTS.registerComponentType("forging", builder -> builder
+                    .persistent(ForgingData.CODEC)
+                    .networkSynchronized(ForgingData.STREAM_CODEC));
 }

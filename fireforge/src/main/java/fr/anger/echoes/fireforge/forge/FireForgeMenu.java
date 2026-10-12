@@ -99,11 +99,14 @@ public class FireForgeMenu extends AbstractContainerMenu {
     public Status status() { return Status.values()[Math.max(0, Math.min(Status.values().length - 1, data.get(4)))]; }
     public boolean isWorking() { return status() == Status.WORKING; }
 
+    /** L'offrande posée (pour afficher les chances côté client). */
+    public ItemStack offering() { return getSlot(SLOT_OFFERING).getItem(); }
+
     // ------------------------------------------------------------------ actions
 
     @Override
     public boolean clickMenuButton(Player player, int id) {
-        return id == BUTTON_FORGE && forge != null && forge.tryStart();
+        return id == BUTTON_FORGE && forge != null && forge.tryStart(player);
     }
 
     @Override
