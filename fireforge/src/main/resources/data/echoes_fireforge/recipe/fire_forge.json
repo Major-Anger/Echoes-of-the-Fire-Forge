@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SPC",
+    "VIG",
+    "CFC"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:bucket"
+    },
+    "P": {
+      "item": "echoes_fireforge:engraved_plate"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "V": {
+      "item": "echoes_fireforge:machine_valve"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "G": {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    "F": {
+      "item": "echoes_fireforge:forge_plan"
+    }
+  },
+  "result": {
+    "id": "echoes_fireforge:fire_forge",
+    "count": 1
+  }
+}

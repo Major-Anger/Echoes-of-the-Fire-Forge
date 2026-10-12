@@ -17,6 +17,9 @@ public final class FFItems {
     public static final DeferredItem<BlockItem> COMPRESSED_MACHINE =
             ITEMS.registerSimpleBlockItem(FFBlocks.COMPRESSED_MACHINE, new Item.Properties().fireResistant());
 
+    public static final DeferredItem<BlockItem> FIRE_FORGE =
+            ITEMS.registerSimpleBlockItem(FFBlocks.FIRE_FORGE, new Item.Properties().fireResistant());
+
     // Les pièces de machine
     public static final DeferredItem<Item> MACHINE_GEAR = ITEMS.registerSimpleItem("machine_gear", new Item.Properties().fireResistant());
     public static final DeferredItem<Item> MACHINE_VALVE = ITEMS.registerSimpleItem("machine_valve", new Item.Properties().fireResistant());

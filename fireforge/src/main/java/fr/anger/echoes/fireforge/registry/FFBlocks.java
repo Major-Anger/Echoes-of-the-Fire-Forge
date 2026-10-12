@@ -1,6 +1,7 @@
 package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
+import fr.anger.echoes.fireforge.forge.FireForgeBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -24,4 +25,14 @@ public final class FFBlocks {
                     .requiresCorrectToolForDrops()
                     .strength(30.0F, 1200.0F)
                     .sound(SoundType.ANCIENT_DEBRIS)));
+
+    /** La Forge des Attiseurs (2 blocs). Le foyer éclaire quand elle travaille. */
+    public static final DeferredBlock<FireForgeBlock> FIRE_FORGE = BLOCKS.register("fire_forge",
+            () -> new FireForgeBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .requiresCorrectToolForDrops()
+                    .strength(5.0F, 1200.0F)
+                    .sound(SoundType.ANVIL)
+                    .noOcclusion()
+                    .lightLevel(state -> state.getValue(FireForgeBlock.LIT) ? 13 : 0)));
 }

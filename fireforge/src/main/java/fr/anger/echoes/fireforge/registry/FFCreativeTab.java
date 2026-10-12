@@ -19,6 +19,7 @@ public final class FFCreativeTab {
             .title(Component.translatable("itemGroup.echoes_fireforge"))
             .icon(() -> new ItemStack(FFItems.MACHINE_GEAR.get()))
             .displayItems((params, output) -> {
+                output.accept(FFItems.FIRE_FORGE.get());
                 output.accept(FFItems.COMPRESSED_MACHINE.get());
                 output.accept(FFItems.MACHINE_GEAR.get());
                 output.accept(FFItems.MACHINE_VALVE.get());

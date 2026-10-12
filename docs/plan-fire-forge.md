@@ -53,6 +53,12 @@ Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne l
   environ 10 secondes par reforge.
 - La chaleur est celle du combustible **en train de brûler**, affichée par une jauge.
 - Reforger **remplace** la rareté précédente.
+- **Interface** (étape 2, codée) : fer sombre et laiton ; un **marteau** à la place d'un bouton
+  lance la reforge ; jauges d'eau et de chaleur, panneau d'état (ce qui manque) ; l'objet en cours
+  est posé sur l'enclume. Entonnoirs : combustible par le dessus, eau par les côtés, récipients
+  vides par le dessous.
+- **Réserve d'eau de la forge seule : 1 seau** ; une reforge consomme une fiole (¼ de seau).
+- **Reforgeable pour l'instant** : épées, haches, armures (tag `echoes_fireforge:reforgeable`).
 
 ## 4. La chaleur (fixe la rareté maximum)
 | Combustible | Chaleur | Rareté max |
