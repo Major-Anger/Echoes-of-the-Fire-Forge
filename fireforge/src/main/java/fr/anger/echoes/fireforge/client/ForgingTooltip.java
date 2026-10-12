@@ -2,6 +2,7 @@ package fr.anger.echoes.fireforge.client;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forging.ForgingData;
+import fr.anger.echoes.fireforge.forging.ForgingEvents;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -9,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.GatherSkippedAttributeTooltipsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.ArrayList;
@@ -39,6 +41,16 @@ public final class ForgingTooltip {
         });
         List<Component> tooltip = event.getToolTip();
         tooltip.addAll(Math.min(1, tooltip.size()), lines);
+    }
+
+    /** Les modificateurs de la forge s'affichent déjà en pourcentage : on retire leurs lignes vanilla en valeur absolue. */
+    @SubscribeEvent
+    public static void onSkippedAttributes(GatherSkippedAttributeTooltipsEvent event) {
+        ForgingData data = event.getStack().get(FFDataComponents.FORGING);
+        if (data == null) return;
+        for (ForgingData.StatRoll roll : data.stats()) {
+            event.skipId(ForgingEvents.modifierId(roll.stat()));
+        }
     }
 
     /** +4,2 % en français, +4.2% en anglais. */

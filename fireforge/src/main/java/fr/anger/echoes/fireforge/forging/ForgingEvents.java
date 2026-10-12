@@ -3,6 +3,7 @@ package fr.anger.echoes.fireforge.forging;
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -33,9 +34,13 @@ public final class ForgingEvents {
             Holder<Attribute> attribute = roll.stat().attribute();
             if (attribute == null) continue; // résistance au feu : voir onDamage
             double amount = roll.stat().amount(roll.percent(), itemValue(event.getDefaultModifiers(), attribute));
-            event.addModifier(attribute, new AttributeModifier(
-                    EchoesFireForge.id("forging/" + roll.stat().getSerializedName()), amount, roll.stat().operation()), group);
+            event.addModifier(attribute, new AttributeModifier(modifierId(roll.stat()), amount, roll.stat().operation()), group);
         }
+    }
+
+    /** L'identifiant du modificateur d'attribut posé par la forge pour cette statistique. */
+    public static ResourceLocation modifierId(ForgeStat stat) {
+        return EchoesFireForge.id("forging/" + stat.getSerializedName());
     }
 
     /** Ce que l'objet donne déjà à cet attribut (ses modificateurs d'origine, armures comprises), base du pourcentage. */

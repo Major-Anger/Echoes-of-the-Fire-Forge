@@ -38,7 +38,7 @@
 - Le contenu croisé vit dans l'épisode le plus récent (la Forge connaît le Silt, pas l'inverse).
 - Le Core sera sorti dans son propre dépôt avant la sortie publique.
 - Ne jamais modifier le dépôt Echoes of the Silt sans demande explicite (lecture seule).
-- NeoForge 1.21.1, textes du jeu en français et en anglais.
+- NeoForge 1.21.1, textes du jeu en français et en anglais. Attiseur = « Stoker » en anglais (validé).
 - Anger est le seul auteur de la série.
 
 ## Plan de conception
@@ -62,8 +62,8 @@
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
-- Traduction anglaise « Stoker » pour Attiseur : à confirmer.
-- Proposé, sans réponse : masquer les lignes d'attributs absolues de vanilla dans l'infobulle.
+- Étape 4 : aperçu et plan envoyés, en attente de validation (coût en eau du soufflet à vide,
+  statistiques du bouclier, effet de plusieurs craquements ratés). Bouclier : tolérance du fer.
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 
