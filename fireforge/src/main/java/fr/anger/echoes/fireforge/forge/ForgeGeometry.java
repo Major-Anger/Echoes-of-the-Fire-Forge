@@ -40,6 +40,17 @@ public final class ForgeGeometry {
         return new Vec3(pos.getX() + r[0] / 16.0, pos.getY() + y / 16.0, pos.getZ() + r[1] / 16.0);
     }
 
+    /** L'inverse de {@link #point} : un point du monde ramené dans le modèle (en pixels), pour ce bloc. */
+    public static double[] toModel(BlockPos pos, Direction facing, Vec3 world) {
+        double x = (world.x - pos.getX()) * 16, z = (world.z - pos.getZ()) * 16;
+        for (int i = 0; i < quarterTurns(facing); i++) {
+            double nx = z;   // inverse de (x, z) -> (16 - z, x)
+            z = 16 - x;
+            x = nx;
+        }
+        return new double[]{x, (world.y - pos.getY()) * 16, z};
+    }
+
     /** Une boîte du modèle (en pixels), tournée selon l'orientation. */
     public static VoxelShape box(Direction facing, double x1, double y1, double z1, double x2, double y2, double z2) {
         int turns = quarterTurns(facing);

@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-/** L'objet à reforger, posé à plat sur l'enclume (la moitié droite de la forge). */
+/** L'objet à reforger, posé à plat sur l'enclume (la moitié droite de la forge). Il tremble quand ça craque. */
 public class FireForgeRenderer implements BlockEntityRenderer<FireForgeBlockEntity> {
 
     private final BlockEntityRendererProvider.Context context;
@@ -37,6 +37,10 @@ public class FireForgeRenderer implements BlockEntityRenderer<FireForgeBlockEnti
 
         pose.pushPose();
         pose.translate(spot.x, spot.y, spot.z);
+        if (forge.isCracking()) {
+            float t = forge.getLevel().getGameTime() + partialTick;
+            pose.translate(Math.sin(t * 2.7) * 0.02, Math.abs(Math.sin(t * 3.9)) * 0.015, Math.cos(t * 3.1) * 0.02);
+        }
         pose.mulPose(Axis.YP.rotationDegrees(-facing.toYRot()));
         pose.mulPose(Axis.XP.rotationDegrees(90));
         pose.scale(0.5F, 0.5F, 0.5F);

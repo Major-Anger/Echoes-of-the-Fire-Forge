@@ -73,5 +73,16 @@
   "special.echoes_fireforge.lunettes.drawback": "Vision réduite en plein jour, hors du Nether.",
   "special.echoes_fireforge.linceul_de_cendre": "Linceul de cendre",
   "special.echoes_fireforge.linceul_de_cendre.effect": "Immunité à l'effet Wither.",
-  "special.echoes_fireforge.linceul_de_cendre.drawback": "Régénération naturelle ralentie."
+  "special.echoes_fireforge.linceul_de_cendre.drawback": "Régénération naturelle ralentie.",
+  "status.echoes_fireforge.cracking": "Ça craque ! Souffle !",
+  "status.echoes_fireforge.avoided": "Fêlure évitée !",
+  "status.echoes_fireforge.cracked": "Trop tard : fendu.",
+  "gui.echoes_fireforge.cracks": "Fêlures : %s",
+  "tooltip.echoes_fireforge.cracks": "Trop chaud pour ce métal : la forge craquera %s fois. Actionne le soufflet à temps.",
+  "tooltip.echoes_fireforge.bellows": "Soufflet",
+  "tooltip.echoes_fireforge.bellows.help": "Quand ça craque, un jet de vapeur évite la fêlure.",
+  "tooltip.echoes_fireforge.bellows.cost": "Souffler pour rien : %s mB d'eau",
+  "message.echoes_fireforge.crack": "Ça craque ! Vite, le soufflet !",
+  "message.echoes_fireforge.avoided": "Fêlure évitée !",
+  "message.echoes_fireforge.cracked": "Trop tard : l'objet s'est fendu."
 }

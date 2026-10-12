@@ -32,6 +32,15 @@ public final class ForgeRules {
     /** Durée d'une reforge : 10 secondes. */
     public static final int REFORGE_TICKS = 200;
 
+    /** Fêlure (section 5 du plan) : chaque craquement laisse 1,5 s pour actionner le soufflet. */
+    public static final int CRACK_WINDOW = 30;
+    /** Les craquements tombent entre la 2e et la 8e seconde, au moins 2 s l'un après l'autre. */
+    public static final int CRACK_FIRST = 40, CRACK_LAST = 160, CRACK_SPACING = 40;
+    /** Le soufflet souffle de la vapeur : un coup qui ne rattrape rien coûte un peu d'eau. */
+    public static final int BELLOWS_WATER = 50;
+    /** Le temps de regonfler le soufflet entre deux coups. */
+    public static final int BELLOWS_COOLDOWN = 6;
+
     private static TagKey<Item> tag(String path) {
         return TagKey.create(Registries.ITEM, EchoesFireForge.id(path));
     }

@@ -23,7 +23,7 @@ public final class Forging {
 
     private Forging() {}
 
-    /** Emplacement où l'objet se porte : armure (tête, torse…) ou arme (main). */
+    /** Emplacement où l'objet se porte : armure (tête, torse…), bouclier (main secondaire) ou arme (main). */
     public static EquipmentSlot slotOf(ItemStack stack) {
         Equipable equipable = Equipable.get(stack);
         return equipable != null ? equipable.getEquipmentSlot() : EquipmentSlot.MAINHAND;
@@ -48,7 +48,7 @@ public final class Forging {
 
     public static ForgingData rollFor(ItemStack stack, Rarity rarity, RandomSource random) {
         EquipmentSlot slot = slotOf(stack);
-        List<ForgeStat> pool = new ArrayList<>(Arrays.asList(slot.isArmor() ? ForgeStat.ARMOR_STATS : ForgeStat.WEAPON));
+        List<ForgeStat> pool = new ArrayList<>(Arrays.asList(ForgeStat.poolFor(slot)));
         List<StatRoll> stats = new ArrayList<>();
         Optional<Special> special = Optional.empty();
         switch (rarity) {
@@ -59,7 +59,7 @@ public final class Forging {
                 stats.add(take(pool, random, 2, 6));
             }
             case ATTISE -> {
-                int bonuses = random.nextBoolean() ? 2 : 3;
+                int bonuses = Math.min(random.nextBoolean() ? 2 : 3, pool.size() - 1); // le bouclier n'a que 3 statistiques
                 for (int i = 0; i < bonuses; i++) stats.add(take(pool, random, 4, 9));
                 stats.add(take(pool, random, -3, -6)); // la contrepartie
             }

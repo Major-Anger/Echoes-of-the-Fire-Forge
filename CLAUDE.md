@@ -51,10 +51,10 @@
   2. La forge (bloc de 2, interface custom avec marteau, jauges, entonnoirs, enclume visible) : faite.
   3. Les raretés (composant `echoes_fireforge:forging`, chances affichées dans l'interface,
      attributs réels, résistance au feu, enchantement rare de l'offrande, infobulle) : faite.
-  4. **Prochaine étape** : la fêlure (tags de tolérance par matériau, craquements pendant la
-     reforge, réflexe en actionnant le soufflet, son/tremblement/étincelles, manqué = Fêlé).
-     Voir la section 5 du plan. Ne pas commencer sans le feu vert d'Anger.
-  5. Les modules (chaudière empilable, réservoir de lave, module des âmes avec le Silt, deux feux).
+  4. La fêlure (tolérance par matériau, craquements, réflexe au soufflet dans l'interface ou
+     dans le monde, vapeur qui coûte de l'eau à vide, bouclier reforgeable) : faite.
+  5. **Prochaine étape** : les modules (chaudière empilable, réservoir de lave, module des âmes
+     avec le Silt, deux feux). Aperçu ou plan d'abord, puis le feu vert d'Anger.
   6. Les effets des 8 Spéciaux (aujourd'hui tirés et affichés, sans effet), puis la liste « âme ».
   7. Le guide : reporté par Anger.
 - Modèles et textures des modules déjà validés et présents (`models/block/module_*`),
@@ -62,8 +62,6 @@
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
-- Étape 4 : aperçu et plan envoyés, en attente de validation (coût en eau du soufflet à vide,
-  statistiques du bouclier, effet de plusieurs craquements ratés). Bouclier : tolérance du fer.
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 

@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -30,6 +31,14 @@ public enum ForgeStat implements StringRepresentable {
     public static final Codec<ForgeStat> CODEC = StringRepresentable.fromEnum(ForgeStat::values);
     public static final ForgeStat[] WEAPON = {DAMAGE, ATTACK_SPEED, REACH, KNOCKBACK};
     public static final ForgeStat[] ARMOR_STATS = {ARMOR, TOUGHNESS, KNOCKBACK_RESISTANCE, MOVE_SPEED, FIRE_RESISTANCE};
+    /** Bouclier, actif dans la main secondaire. */
+    public static final ForgeStat[] SHIELD = {TOUGHNESS, KNOCKBACK_RESISTANCE, MOVE_SPEED};
+
+    /** Les statistiques possibles pour un objet porté à cet emplacement. */
+    public static ForgeStat[] poolFor(EquipmentSlot slot) {
+        if (slot.isArmor()) return ARMOR_STATS;
+        return slot == EquipmentSlot.OFFHAND ? SHIELD : WEAPON;
+    }
 
     private final String key;
     @Nullable

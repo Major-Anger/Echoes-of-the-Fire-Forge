@@ -73,5 +73,16 @@
   "special.echoes_fireforge.lunettes.drawback": "Reduced vision in daylight, outside the Nether.",
   "special.echoes_fireforge.linceul_de_cendre": "Ash Shroud",
   "special.echoes_fireforge.linceul_de_cendre.effect": "Immune to the Wither effect.",
-  "special.echoes_fireforge.linceul_de_cendre.drawback": "Slower natural regeneration."
+  "special.echoes_fireforge.linceul_de_cendre.drawback": "Slower natural regeneration.",
+  "status.echoes_fireforge.cracking": "It cracks! Blow!",
+  "status.echoes_fireforge.avoided": "Crack avoided!",
+  "status.echoes_fireforge.cracked": "Too late: split.",
+  "gui.echoes_fireforge.cracks": "Cracks: %s",
+  "tooltip.echoes_fireforge.cracks": "Too hot for this metal: the forge will crack %s time(s). Work the bellows in time.",
+  "tooltip.echoes_fireforge.bellows": "Bellows",
+  "tooltip.echoes_fireforge.bellows.help": "When it cracks, a jet of steam prevents the crack.",
+  "tooltip.echoes_fireforge.bellows.cost": "Blowing for nothing: %s mB of water",
+  "message.echoes_fireforge.crack": "It cracks! Quick, the bellows!",
+  "message.echoes_fireforge.avoided": "Crack avoided!",
+  "message.echoes_fireforge.cracked": "Too late: the item split."
 }

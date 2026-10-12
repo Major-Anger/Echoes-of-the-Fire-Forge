@@ -128,13 +128,21 @@ public class FireForgeBlock extends BaseEntityBlock {
 
     // ------------------------------------------------------------------ interaction
 
+    /** Clic droit : sur le soufflet, on l'actionne ; ailleurs, on ouvre la forge. */
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer
-                && level.getBlockEntity(mainPos(pos, state)) instanceof FireForgeBlockEntity forge) {
-            serverPlayer.openMenu(forge, buf -> buf.writeBlockPos(forge.getBlockPos()));
+        if (!level.isClientSide && level.getBlockEntity(mainPos(pos, state)) instanceof FireForgeBlockEntity forge) {
+            if (isOnBellows(state, pos, hit.getLocation())) forge.blowBellows(player);
+            else if (player instanceof ServerPlayer serverPlayer) serverPlayer.openMenu(forge, buf -> buf.writeBlockPos(forge.getBlockPos()));
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    /** Le soufflet : sur la face avant de la moitié gauche, à gauche du foyer (x 1 à 7, y 2 à 8 dans le modèle). */
+    public static boolean isOnBellows(BlockState state, BlockPos pos, Vec3 hit) {
+        if (state.getValue(PART) != ForgePart.LEFT) return false;
+        double[] m = ForgeGeometry.toModel(pos, state.getValue(FACING), hit);
+        return m[0] >= 0.5 && m[0] <= 7.5 && m[1] >= 1.5 && m[1] <= 8.5 && m[2] >= 15.9;
     }
 
     // ------------------------------------------------------------------ logique
@@ -154,8 +162,22 @@ public class FireForgeBlock extends BaseEntityBlock {
 
     // ------------------------------------------------------------------ forme
 
+    /** Forme visée : le soufflet, qui dépasse sur l'avant, se vise et s'actionne. */
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        VoxelShape body = body(state);
+        return state.getValue(PART) == ForgePart.LEFT
+                ? Shapes.or(body, ForgeGeometry.box(state.getValue(FACING), 1, 2, 16, 7, 8, 21))  // soufflet
+                : body;
+    }
+
+    /** Collisions : sans le soufflet, qui dépasse dans le bloc de devant. */
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return body(state);
+    }
+
+    private static VoxelShape body(BlockState state) {
         Direction facing = state.getValue(FACING);
         VoxelShape base = ForgeGeometry.box(facing, 0, 0, 0, 16, 12, 16);
         return state.getValue(PART) == ForgePart.LEFT

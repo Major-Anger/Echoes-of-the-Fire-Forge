@@ -1,4 +1,4 @@
-"""Interface de la Forge des Attiseurs (256 x 256) : fond, marteau, jauges. Dessin original.
+"""Interface de la Forge des Attiseurs (256 x 256) : fond, marteau, jauges, soufflet. Dessin original.
 
 Usage : python3 make_gui_textures.py <dossier de sortie>
 Les positions doivent correspondre à FireForgeMenu et FireForgeScreen.
@@ -122,6 +122,60 @@ for x in range(56):
     ember = tuple(int(c1 + (c2 - c1) * t) for c1, c2 in zip((150, 40, 15), (255, 200, 90)))
     for y in range(5):
         px[200 + x, 100 + y] = (tuple(min(255, c + 25) for c in ember) if y == 1 else ember) + (255,)
+
+
+# ---------------------------------------------------------------- soufflet (26 x 22) : normal, survolé, écrasé, alerte (y = 192)
+# Vu de côté : deux planches en coin, du cuir en accordéon, une buse de laiton tournée vers le feu (à gauche).
+BOIS = [(86, 54, 30), (122, 80, 46), (150, 102, 60)]
+CUIR = [(62, 34, 24), (92, 54, 36), (124, 78, 52)]
+ALERTE = (255, 120, 40)
+
+
+def bellows(press=0.0, hover=False, alert=False):
+    b = Image.new('RGBA', (26, 22), (0, 0, 0, 0))
+    bp = b.load()
+
+    def put(x, y, c):
+        if 0 <= x < 26 and 0 <= y < 22:
+            bp[x, y] = c + (255,)
+
+    cy, hinge, opening = 10, 8, 7 - 5 * press
+
+    def top(x):
+        return int(round(cy - 1 - max(0, x - hinge) / (22 - hinge) * opening))
+
+    def bottom(x):
+        return int(round(cy + 1 + max(0, x - hinge) / (22 - hinge) * opening))
+
+    for x in range(hinge, 23):
+        a, z = top(x), bottom(x)
+        put(x, a - 1, BOIS[2]); put(x, a, BOIS[1]); put(x, z, BOIS[1]); put(x, z + 1, BOIS[0])
+        for y in range(a + 1, z):
+            band = int((y - a) / (z - a) * 5)   # plis parallèles aux planches : des chevrons vers la charnière
+            put(x, y, CUIR[2] if band % 2 == 0 else CUIR[0] if x % 5 == 0 else CUIR[1])
+    for x in (23, 24, 25):                     # poignées
+        put(x, top(22) - 1, BOIS[2]); put(x, bottom(22) + 1, BOIS[0])
+    for x in (12, 17, 21):                     # clous de laiton
+        put(x, top(x) - 1, LAITON_CLAIR); put(x, bottom(x) + 1, LAITON)
+    for y in range(cy - 2, cy + 3):            # charnière
+        put(hinge - 1, y, LAITON)
+    for x in range(1, hinge - 1):              # buse
+        put(x, cy - 1, LAITON_CLAIR); put(x, cy, LAITON); put(x, cy + 1, LAITON_SOMBRE)
+    src = b.copy().load()                      # contour (rouge-orange quand ça craque)
+    for y in range(22):
+        for x in range(26):
+            if src[x, y][3] == 0 and any(0 <= x + dx < 26 and 0 <= y + dy < 22 and src[x + dx, y + dy][3] > 0
+                                         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                bp[x, y] = (ALERTE if alert else SUIE) + (255,)
+    if hover:
+        r, g, bl, a = b.split()
+        b = Image.merge('RGBA', (r.point(lambda v: min(255, int(v * 1.2))), g.point(lambda v: min(255, int(v * 1.2))),
+                                 bl.point(lambda v: min(255, int(v * 1.1))), a))
+    return b
+
+
+for i, sprite in enumerate([bellows(), bellows(hover=True), bellows(press=1.0), bellows(alert=True)]):
+    img.alpha_composite(sprite, (i * 26, 192))
 
 img.save(os.path.join(OUT, 'fire_forge.png'))
 print('ok')

@@ -23,6 +23,8 @@ public class FireForgeMenu extends AbstractContainerMenu {
 
     /** Bouton du marteau (envoyé au serveur par le clic). */
     public static final int BUTTON_FORGE = 0;
+    /** Bouton du soufflet (rattrape une fêlure). */
+    public static final int BUTTON_BELLOWS = 1;
 
     // Positions des cases dans l'interface (coin haut gauche de l'objet)
     public static final int WATER_X = 23, WATER_Y = 19, EMPTIES_X = 23, EMPTIES_Y = 53, FUEL_X = 61, FUEL_Y = 36;
@@ -35,7 +37,7 @@ public class FireForgeMenu extends AbstractContainerMenu {
 
     /** Côté client : les cases et les données arrivent du serveur. */
     public FireForgeMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf buf) {
-        this(containerId, playerInventory, clientForge(playerInventory, buf.readBlockPos()), new SimpleContainerData(5));
+        this(containerId, playerInventory, clientForge(playerInventory, buf.readBlockPos()), new SimpleContainerData(DATA_COUNT));
     }
 
     @Nullable
@@ -97,16 +99,25 @@ public class FireForgeMenu extends AbstractContainerMenu {
     public Heat heat() { return Heat.byLevel(data.get(2)); }
     public int progress() { return data.get(3); }
     public Status status() { return Status.values()[Math.max(0, Math.min(Status.values().length - 1, data.get(4)))]; }
-    public boolean isWorking() { return status() == Status.WORKING; }
+    public boolean isWorking() { return status().isWorking(); }
 
     /** L'offrande posée (pour afficher les chances côté client). */
     public ItemStack offering() { return getSlot(SLOT_OFFERING).getItem(); }
+
+    /** L'objet sur l'enclume (pour annoncer le risque de fêlure côté client). */
+    public ItemStack item() { return getSlot(SLOT_ITEM).getItem(); }
 
     // ------------------------------------------------------------------ actions
 
     @Override
     public boolean clickMenuButton(Player player, int id) {
-        return id == BUTTON_FORGE && forge != null && forge.tryStart(player);
+        if (forge == null) return false;
+        if (id == BUTTON_FORGE) return forge.tryStart(player);
+        if (id == BUTTON_BELLOWS) {
+            forge.blowBellows(player);
+            return true;
+        }
+        return false;
     }
 
     @Override

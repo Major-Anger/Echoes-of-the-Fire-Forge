@@ -29,6 +29,11 @@ public enum Heat {
         return ordinal();
     }
 
+    /** Le nom utilisé dans les tags et les traductions (tiede, chaud…). */
+    public String getSerializedName() {
+        return key;
+    }
+
     public Component displayName() {
         return Component.translatable("heat.echoes_fireforge." + key);
     }

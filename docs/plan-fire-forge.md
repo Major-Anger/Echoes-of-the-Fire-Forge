@@ -58,7 +58,7 @@ Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne l
   est posé sur l'enclume. Entonnoirs : combustible par le dessus, eau par les côtés, récipients
   vides par le dessous.
 - **Réserve d'eau de la forge seule : 1 seau** ; une reforge consomme une fiole (¼ de seau).
-- **Reforgeable pour l'instant** : épées, haches, armures (tag `echoes_fireforge:reforgeable`).
+- **Reforgeable pour l'instant** : épées, haches, armures, bouclier (tag `echoes_fireforge:reforgeable`).
 
 ## 4. La chaleur (fixe la rareté maximum)
 | Combustible | Chaleur | Rareté max |
@@ -75,7 +75,7 @@ Un tirage au-dessus du plafond **redescend au plafond**.
 | Matériau | Supporte jusqu'à |
 |---|---|
 | Cuir, bois, or | Chaud |
-| Pierre, mailles, fer | Ardent |
+| Pierre, mailles, fer, bouclier | Ardent |
 | Diamant | Brûlant |
 | Netherite | tout |
 
@@ -87,8 +87,21 @@ Un tirage au-dessus du plafond **redescend au plafond**.
 - **Fêlé n'abîme pas l'objet** : seulement un malus de statistique, pas de perte de durabilité.
 - **Objets d'autres mods** : tolérance rangée dans des tags ; à défaut, déduite de
   l'ingrédient de réparation ; sinon « jusqu'à Ardent ».
-- **Armes et armures particulières** (arcs, arbalètes, trident, masse, bouclier, élytres,
-  carapace de tortue…) : au cas par cas.
+- **Armes et armures particulières** (arcs, arbalètes, trident, masse, élytres,
+  carapace de tortue…) : au cas par cas. Le bouclier est traité comme du fer.
+- **Chiffres codés (étape 4)** :
+  - chaque palier au-dessus de la tolérance = 1 craquement (3 au plus), à un moment au hasard
+    entre la 2e et la 8e seconde, au moins 2 s entre deux ; **1,5 s** pour réagir ;
+  - le soufflet s'actionne dans l'interface (sous le combustible) ou d'un clic droit sur le
+    soufflet de la forge ; il souffle de la **vapeur** : un coup qui ne rattrape rien coûte
+    **50 mB d'eau**, sans 50 mB d'eau il ne souffle pas ; 0,3 s pour se regonfler ;
+  - un seul raté suffit : l'objet sortira Fêlé, et les craquements suivants n'ont plus lieu ;
+  - tags `echoes_fireforge:tolerance/chaud|ardent|brulant|fournaise`, puis l'ingrédient de
+    réparation (cuir, planches, or : Chaud ; pierre, fer : Ardent ; diamant : Brûlant ;
+    netherite : tout), sinon Ardent ;
+  - le volet des chances annonce « Fêlures : n » ; quand ça craque, le cadre de l'interface
+    rougit, des étincelles jaillissent, l'objet tremble sur l'enclume, et la vapeur sort de
+    la buse du soufflet vers le foyer.
 
 ## 6. L'offrande
 | Offrande | Coup de pouce |
@@ -115,6 +128,8 @@ chère, plus la chance est haute.
   l'objet** (+6 % de dégâts sur une épée de 7 = +0,42). L'infobulle affiche les pourcentages.
 - **Armes** : dégâts, vitesse d'attaque, portée, recul.
 - **Armures** : armure, robustesse, résistance au recul, vitesse, résistance au feu et à la lave.
+- **Bouclier** (main secondaire) : robustesse, résistance au recul, vitesse. Aucun Spécial ne
+  lui va pour l'instant : un tirage Spécial devient Attisé.
 - **Ordre des calculs** : chances de départ → plans lus → offrande → plafond de chaleur →
   risque de fêlure (réflexe). Les chances s'affichent dans l'interface de la forge.
 - Compatible avec les enchantements, conservée lors du passage à la netherite.
