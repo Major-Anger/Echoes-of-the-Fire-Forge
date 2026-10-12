@@ -9,14 +9,19 @@ Une maladie les a changés en wither squelettes ; on ne dit jamais si elle vient
 Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne les modifie pas).
 
 ## 1. Découverte
-- **Machine comprimée** : bloc rare, à la profondeur des débris antiques, à miner au minimum
-  avec une pioche en diamant.
-- En la minant : des **pièces de machine** (engrenage, soupape, plaque gravée…) et parfois
-  un **plan**.
+- **Machine comprimée** : bloc rare, placé comme les débris antiques mais avec **un bloc de moins
+  par filon** (grands filons : 2 au plus, entre Y 8 et 24 ; petits filons : 1, sur toute la hauteur
+  du Nether), jamais au contact de l'air. Pioche en diamant au minimum ; toucher de soie : le bloc.
+  Mesuré : environ 1,0 par chunk (débris : 1,7).
+- En la minant : **1 pièce de machine** au hasard (engrenage, soupape, plaque gravée) et
+  **15 % de chance d'un plan** : le Plan de la Forge (40 % des plans) ou un Plan d'Attiseur I à V.
+- Les plans ne sont pas consommés quand on les lit (clic droit). Textes de lore provisoires :
+  à écrire par Anger.
 - **Plans** : lus, ils sont enregistrés dans le lore du Core (`echoes_fireforge:plan/…`),
   révèlent une page effacée du guide, et chaque plan lu **améliore les chances de rareté**
   (le joueur « imagine » la technique et la maîtrise peu à peu).
-- Avec des pièces et le bon plan, on construit la forge.
+- **Recette de la forge** (étape 2) : seau vide, plaque gravée, cuivre / soupape, bloc de fer,
+  engrenage / cuivre, Plan de la Forge (consommé), cuivre.
 
 ## 2. La forge et ses modules
 - **Forge** : 2 blocs de long, une petite jauge d'eau. L'avant porte l'interface.

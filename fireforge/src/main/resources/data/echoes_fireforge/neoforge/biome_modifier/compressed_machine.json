@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": [
+    "echoes_fireforge:compressed_machine_large",
+    "echoes_fireforge:compressed_machine_small"
+  ],
+  "step": "underground_decoration"
+}

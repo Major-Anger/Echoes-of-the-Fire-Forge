@@ -1,1 +1,15 @@
-{}
+{
+  "itemGroup.echoes_fireforge": "Echoes of the Fire Forge",
+  "block.echoes_fireforge.compressed_machine": "Compressed Machine",
+  "item.echoes_fireforge.machine_gear": "Gear",
+  "item.echoes_fireforge.machine_valve": "Valve",
+  "item.echoes_fireforge.engraved_plate": "Engraved Plate",
+  "item.echoes_fireforge.forge_plan": "Forge Plan",
+  "item.echoes_fireforge.attiseur_plan": "Stoker's Plan",
+  "item.echoes_fireforge.attiseur_plan.numbered": "Stoker's Plan %s",
+  "tooltip.echoes_fireforge.plan": "A thin engraved sheet of brass.",
+  "tooltip.echoes_fireforge.plan.read": "Deciphered",
+  "tooltip.echoes_fireforge.plan.unread": "Right-click to decipher it",
+  "message.echoes_fireforge.plan.read": "You decipher the %s.",
+  "message.echoes_fireforge.plan.known": "You already know the %s."
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "echoes_fireforge:block/compressed_machine_top",
+    "side": "echoes_fireforge:block/compressed_machine_side"
+  }
+}
