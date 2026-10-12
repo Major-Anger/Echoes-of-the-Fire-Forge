@@ -96,4 +96,4 @@ dependencies { implementation "fr.anger.echoes:echoes_core:0.1.0" }
 
 ## Auteurs
 
-Anger, SpeedY, Helnyxie. Tous droits réservés.
+Anger. Tous droits réservés.
