@@ -34,7 +34,8 @@ public final class SoulBarOverlay implements LayeredDraw.Layer {
         graphics.pose().pushPose();
         graphics.pose().scale(SCALE, SCALE, SCALE);
 
-        int x = (int) ((graphics.guiWidth() / 2) / SCALE - 97 - 29 - 10 - BANNER_WIDTH + 59);
+        // À gauche de la barre d'outils ; sur un écran étroit, on la garde quand même entière à l'écran
+        int x = Math.max(2, (int) ((graphics.guiWidth() / 2) / SCALE - 97 - 29 - 10 - BANNER_WIDTH + 59));
         int y = (int) ((graphics.guiHeight() / SCALE) - 25);
 
         int fill = (int) (((float) souls / ClientSouls.max()) * BAR_WIDTH);

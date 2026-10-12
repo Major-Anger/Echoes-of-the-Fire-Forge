@@ -25,6 +25,7 @@ public final class EchoesCore {
 
     public EchoesCore(IEventBus modBus, ModContainer container) {
         CoreAttachments.ATTACHMENT_TYPES.register(modBus);
+        CoreItems.ITEMS.register(modBus);
         modBus.addListener(CoreNetwork::register);
         container.registerConfig(ModConfig.Type.COMMON, CoreConfig.SPEC);
     }

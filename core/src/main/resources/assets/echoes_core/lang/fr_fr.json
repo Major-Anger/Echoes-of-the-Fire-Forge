@@ -1,3 +1,13 @@
 {
-  "message.echoes_core.echo": "Un écho s'éveille en toi. %s"
+  "message.echoes_core.echo": "Un écho s'éveille en toi. %s",
+
+  "item.echoes_core.guide_book": "Guide d'Echoes",
+  "guide.echoes_core.title": "Echoes",
+  "guide.echoes_core.subtitle": "Le guide de l'aventurier",
+  "guide.echoes_core.chapters": "Chapitres",
+  "guide.echoes_core.entries": "Sommaire",
+  "guide.echoes_core.back": "« Retour",
+  "guide.echoes_core.erased": "page effacée",
+  "guide.echoes_core.missing_recipe": "Recette introuvable",
+  "guide.echoes_core.enchant_levels": "%s (niveau max %s)"
 }

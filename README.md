@@ -5,9 +5,9 @@ installés ensemble, ils se reconnaissent et débloquent du contenu croisé.
 
 | Dossier | Mod | Identifiant | Rôle |
 |---|---|---|---|
-| `core/` | Echoes Core | `echoes_core` | Bibliothèque commune, toujours requise (comme YUNG's API). N'ajoute rien de visible à part la barre d'âmes. |
+| `core/` | Echoes Core | `echoes_core` | Bibliothèque commune, toujours requise (comme YUNG's API). N'ajoute en jeu que la barre d'âmes et le livre guide. |
 | `fireforge/` | Echoes of the Fire Forge | `echoes_fireforge` | Épisode. |
-| *(dépôt à part)* | Echoes of the Silt | `echoes_silt` *(à confirmer)* | Premier épisode. |
+| *(dépôt à part)* | Echoes of the Silt | `echoes_silt` | Premier épisode. |
 
 ## Ce que le Core partage entre les épisodes
 
@@ -18,6 +18,9 @@ installés ensemble, ils se reconnaissent et débloquent du contenu croisé.
   (`SoulBar.showWhen`) ou dessiner autour (`SoulBar.decorate`).
 - **Les Échos** (`Echoes`) : des succès qui laissent un bonus permanent. Chaque épisode enregistre les siens.
 - **Le lore** (`Lore`) : ce que le joueur a lu, tous épisodes confondus (`echoes_silt:tablet/3`...).
+- **Le livre guide** : un seul livre pour toute la série, donné à la première connexion. Chaque épisode y ajoute
+  ses chapitres sans Java (voir plus bas). Chapitres cachés, pages « effacées » révélées par le lore, chapitres
+  ou entrées qui n'apparaissent que si un autre épisode est installé.
 - **Des événements** (`LoreReadEvent`, `EchoAwakenedEvent`) : un épisode réagit à ce qui se passe dans un autre
   sans dépendre de son code.
 - **La détection des épisodes** (`EchoesMods.isLoaded`).
@@ -32,6 +35,47 @@ installés ensemble, ils se reconnaissent et débloquent du contenu croisé.
    ```json
    "neoforge:conditions": [ { "type": "neoforge:mod_loaded", "modid": "echoes_silt" } ]
    ```
+
+## Le livre guide
+
+Chaque épisode fournit ses fichiers dans `assets/<mod>/echoes_guide/` :
+
+```
+echoes_guide/book.json              les chapitres de l'épisode
+echoes_guide/entries/<id>.json      une entrée = une suite de pages
+```
+
+`book.json` :
+```json
+{
+  "order": 1,
+  "intro": "guide.echoes_silt.intro",
+  "categories": [
+    { "id": "chronicles", "icon": "echoes_silt:watcher_tablet",
+      "title": "guide.echoes_silt.cat.chronicles", "description": "guide.echoes_silt.cat.chronicles.desc",
+      "hidden": true,
+      "entries": ["chronicles/tablet_1", "chronicles/tablet_2"] }
+  ]
+}
+```
+- `order` : place de l'épisode dans le livre (1 = Silt, 2 = Forge...).
+- `hidden` : chapitre caché tant que le joueur n'a lu aucune entrée de lore de cet épisode.
+- `requires` (chapitre ou entrée) : `["echoes_silt"]` = n'apparaît que si ces mods sont installés.
+- Un chapitre nommé avec l'identifiant complet d'un autre épisode (`"id": "echoes_silt:chronicles"`)
+  ajoute ses entrées à ce chapitre.
+
+Entrée :
+```json
+{ "title": "...", "icon": "echoes_silt:watcher_tablet",
+  "lore": "echoes_silt:tablet/3", "label": "III",
+  "pages": [ { "type": "text", "title": "...", "text": "..." } ] }
+```
+- `lore` : la page reste « effacée » tant que cette entrée de lore n'a pas été lue (`Lore.markRead`).
+- `label` : affiché devant le titre (« III — Ce qui chante ») et sur la page effacée.
+- Types de page fournis : `text`, `spotlight`, `crafting`, `smelting`, `entity`, `enchantment`, `image`.
+  Un épisode ajoute les siens en Java avec `Guide.registerPageType` (ex. les runes du Chant),
+  et peut transformer le texte avec `Guide.addTextFilter` (ex. la folie de Carcosa).
+- `Guide.openLore(id)` ouvre le livre directement sur la page d'une tablette qu'on vient de lire.
 
 ## Compiler et lancer
 

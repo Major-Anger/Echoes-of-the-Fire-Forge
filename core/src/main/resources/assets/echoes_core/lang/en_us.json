@@ -1,3 +1,13 @@
 {
-  "message.echoes_core.echo": "An echo wakes within you. %s"
+  "message.echoes_core.echo": "An echo wakes within you. %s",
+
+  "item.echoes_core.guide_book": "Echoes Guide",
+  "guide.echoes_core.title": "Echoes",
+  "guide.echoes_core.subtitle": "The adventurer's guide",
+  "guide.echoes_core.chapters": "Chapters",
+  "guide.echoes_core.entries": "Contents",
+  "guide.echoes_core.back": "« Back",
+  "guide.echoes_core.erased": "erased page",
+  "guide.echoes_core.missing_recipe": "Recipe not found",
+  "guide.echoes_core.enchant_levels": "%s (max level %s)"
 }
