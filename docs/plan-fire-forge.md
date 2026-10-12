@@ -26,10 +26,11 @@ Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne l
   - moitié droite : l'enclume, où l'objet en cours de reforge est visible.
 - **Trois côtés à modules**, un module par côté :
   - **gauche** : la **chaudière** (agrandit la réserve d'eau), empilable jusqu'à
-    **3 blocs de haut** au total ;
+    **3 blocs de haut** au total ; **4 seaux par bloc** (12 au maximum) ;
   - **arrière** : le **réservoir de lave** (alimente la chaleur Fournaise), jusqu'à
-    **2 blocs de haut** et 5 seaux au total (répartition à confirmer) ;
+    **2 blocs de haut** ; **5 seaux par bloc** (10 au maximum) ;
   - **droite** : le **module d'amélioration** (Forge des âmes, avec le Silt).
+- Chaque bloc ajouté à une réserve ajoute sa propre capacité.
 - Chaque côté accepte un module parmi plusieurs : d'autres mods pourront ajouter leurs
   propres modules sans modifier la forge.
 
