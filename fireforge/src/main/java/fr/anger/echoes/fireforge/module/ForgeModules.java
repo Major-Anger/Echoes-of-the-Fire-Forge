@@ -24,8 +24,13 @@ public final class ForgeModules {
      * @param maxHeight     le nombre de blocs empilés pris en compte
      * @param waterPerBlock l'eau (en mB) que chaque bloc ajoute à la réserve
      * @param lavaPerBlock  la lave (en mB) que chaque bloc ajoute à la réserve
+     * @param soulFire      le module donne accès au feu des âmes et à ses options (module des âmes)
      */
-    public record Type(ModuleSide side, int maxHeight, int waterPerBlock, int lavaPerBlock) {}
+    public record Type(ModuleSide side, int maxHeight, int waterPerBlock, int lavaPerBlock, boolean soulFire) {
+        public Type(ModuleSide side, int maxHeight, int waterPerBlock, int lavaPerBlock) {
+            this(side, maxHeight, waterPerBlock, lavaPerBlock, false);
+        }
+    }
 
     private static final Map<Block, Type> TYPES = new ConcurrentHashMap<>();
 

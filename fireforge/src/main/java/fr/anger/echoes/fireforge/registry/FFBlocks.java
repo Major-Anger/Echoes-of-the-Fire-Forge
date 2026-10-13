@@ -35,7 +35,7 @@ public final class FFBlocks {
                     .strength(5.0F, 1200.0F)
                     .sound(SoundType.ANVIL)
                     .noOcclusion()
-                    .lightLevel(state -> state.getValue(FireForgeBlock.LIT) ? 13 : 0)));
+                    .lightLevel(state -> !state.getValue(FireForgeBlock.LIT) ? 0 : state.getValue(FireForgeBlock.SOUL) ? 10 : 13)));
 
     /** Module de gauche : la chaudière, fermée (elle marche aussi dans le Nether). Empilable sur 3 blocs. */
     public static final DeferredBlock<ForgeModuleBlock> BOILER = BLOCKS.register("boiler",
@@ -55,4 +55,14 @@ public final class FFBlocks {
                     .sound(SoundType.NETHERITE_BLOCK)
                     .noOcclusion()
                     .lightLevel(state -> 6)));
+
+    /** Module de droite (avec le Silt) : le cristal des âmes ouvre le feu des âmes. */
+    public static final DeferredBlock<ForgeModuleBlock> SOUL_MODULE = BLOCKS.register("soul_module",
+            () -> new ForgeModuleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_CYAN)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.0F, 6.0F)
+                    .sound(SoundType.AMETHYST)
+                    .noOcclusion()
+                    .lightLevel(state -> 5)));
 }

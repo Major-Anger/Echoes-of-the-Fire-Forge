@@ -1,63 +1,123 @@
 {
   "variants": {
-    "facing=south,lit=false,part=left": {
+    "facing=south,lit=false,part=left,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_left"
     },
-    "facing=south,lit=true,part=left": {
+    "facing=south,lit=false,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul"
+    },
+    "facing=south,lit=false,part=right,soul=false": {
+      "model": "echoes_fireforge:block/fire_forge_right"
+    },
+    "facing=south,lit=false,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul"
+    },
+    "facing=south,lit=true,part=left,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_left"
     },
-    "facing=south,lit=false,part=right": {
+    "facing=south,lit=true,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul"
+    },
+    "facing=south,lit=true,part=right,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_right"
     },
-    "facing=south,lit=true,part=right": {
-      "model": "echoes_fireforge:block/fire_forge_right"
+    "facing=south,lit=true,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul"
     },
-    "facing=west,lit=false,part=left": {
+    "facing=west,lit=false,part=left,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_left",
       "y": 90
     },
-    "facing=west,lit=true,part=left": {
-      "model": "echoes_fireforge:block/fire_forge_left",
+    "facing=west,lit=false,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul",
       "y": 90
     },
-    "facing=west,lit=false,part=right": {
-      "model": "echoes_fireforge:block/fire_forge_right",
-      "y": 90
-    },
-    "facing=west,lit=true,part=right": {
+    "facing=west,lit=false,part=right,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_right",
       "y": 90
     },
-    "facing=north,lit=false,part=left": {
+    "facing=west,lit=false,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul",
+      "y": 90
+    },
+    "facing=west,lit=true,part=left,soul=false": {
+      "model": "echoes_fireforge:block/fire_forge_left",
+      "y": 90
+    },
+    "facing=west,lit=true,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul",
+      "y": 90
+    },
+    "facing=west,lit=true,part=right,soul=false": {
+      "model": "echoes_fireforge:block/fire_forge_right",
+      "y": 90
+    },
+    "facing=west,lit=true,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul",
+      "y": 90
+    },
+    "facing=north,lit=false,part=left,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_left",
       "y": 180
     },
-    "facing=north,lit=true,part=left": {
+    "facing=north,lit=false,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul",
+      "y": 180
+    },
+    "facing=north,lit=false,part=right,soul=false": {
+      "model": "echoes_fireforge:block/fire_forge_right",
+      "y": 180
+    },
+    "facing=north,lit=false,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul",
+      "y": 180
+    },
+    "facing=north,lit=true,part=left,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_left",
       "y": 180
     },
-    "facing=north,lit=false,part=right": {
+    "facing=north,lit=true,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul",
+      "y": 180
+    },
+    "facing=north,lit=true,part=right,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_right",
       "y": 180
     },
-    "facing=north,lit=true,part=right": {
-      "model": "echoes_fireforge:block/fire_forge_right",
+    "facing=north,lit=true,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul",
       "y": 180
     },
-    "facing=east,lit=false,part=left": {
+    "facing=east,lit=false,part=left,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_left",
       "y": 270
     },
-    "facing=east,lit=true,part=left": {
+    "facing=east,lit=false,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul",
+      "y": 270
+    },
+    "facing=east,lit=false,part=right,soul=false": {
+      "model": "echoes_fireforge:block/fire_forge_right",
+      "y": 270
+    },
+    "facing=east,lit=false,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul",
+      "y": 270
+    },
+    "facing=east,lit=true,part=left,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_left",
       "y": 270
     },
-    "facing=east,lit=false,part=right": {
+    "facing=east,lit=true,part=left,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_left_soul",
+      "y": 270
+    },
+    "facing=east,lit=true,part=right,soul=false": {
       "model": "echoes_fireforge:block/fire_forge_right",
       "y": 270
     },
-    "facing=east,lit=true,part=right": {
-      "model": "echoes_fireforge:block/fire_forge_right",
+    "facing=east,lit=true,part=right,soul=true": {
+      "model": "echoes_fireforge:block/fire_forge_right_soul",
       "y": 270
     }
   }

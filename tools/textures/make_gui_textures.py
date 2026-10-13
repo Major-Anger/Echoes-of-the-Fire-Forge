@@ -198,5 +198,29 @@ for y in range(38):
         bulle = (x + y * 3) % 11 == 0
         px[220 + x, 48 + y] = (tuple(min(255, c + 45) for c in lave) if bulle or x == 1 else lave) + (255,)
 
+
+# ---------------------------------------------------------------- panneau des âmes (étape 5b) : flammes 9 x 9, cadenas 5 x 6, chaleur cyan
+FLAMME = ["...#.....", "...##....", "..###....", "..####...", ".#####.#.", ".#######.", "#########", "#########", ".#######."]
+
+
+def flame(ox, oy, outer, inner):
+    for j, row in enumerate(FLAMME):
+        for i, ch in enumerate(row):
+            if ch == '#':
+                px[ox + i, oy + j] = (inner if 2 <= i <= 6 and j >= 5 else outer) + (255,)
+
+
+flame(114, 192, (225, 110, 36), (255, 186, 82))     # feu normal
+flame(124, 192, (54, 196, 206), (170, 244, 240))    # feu des âmes
+for j, row in enumerate([".###.", "#...#", "#...#", "#####", "##.##", "#####"]):
+    for i, ch in enumerate(row):
+        if ch == '#':
+            px[134 + i, 192 + j] = (110, 230, 230, 255)
+for y in range(50):
+    t = y / 49
+    froid = tuple(int(c1 + (c2 - c1) * t) for c1, c2 in zip((170, 244, 240), (18, 90, 110)))
+    for x in range(8):
+        px[230 + x, 48 + y] = (tuple(min(255, c + 20) for c in froid) if x == 1 else froid) + (255,)
+
 img.save(os.path.join(OUT, 'fire_forge.png'))
 print('ok')

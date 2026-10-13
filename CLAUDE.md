@@ -56,18 +56,19 @@
   5. Les modules, en deux temps :
      - 5a, chaudière empilable et réservoir de lave (réserves, seaux, tuyaux, jauge de lave,
        API `ForgeModules` pour les autres mods) : faite ;
-     - 5b, **prochaine étape** : le module des âmes avec le Silt (deux feux, options en âmes).
-       Plan validé (voir le plan, section 8) ; faire d'abord l'aperçu du panneau des âmes et du
-       foyer bleu, et attendre le feu vert d'Anger.
-  6. Les effets des 8 Spéciaux (aujourd'hui tirés et affichés, sans effet), puis la liste « âme ».
+     - 5b, le module des âmes avec le Silt (feu des âmes et foyer bleu, verrouiller, garantir,
+       relancer, panneau des âmes) : faite.
+  6. **Prochaine étape** : les effets des 8 Spéciaux (aujourd'hui tirés et affichés, sans effet),
+     puis la liste « âme » (le feu des âmes tire pour l'instant dans la liste de base).
+     Aperçu ou plan d'abord, puis le feu vert d'Anger.
   7. Le guide : reporté par Anger.
-- Le modèle `module_soul` est validé et présent, pas encore branché (étape 5b).
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
 - Dépôt du Silt : le commit `2ab0c05` a supprimé les sources sans ajouter les nouvelles (signalé
-  à Anger). Ses épées sont dans `#minecraft:swords` : la Forge les reforge déjà (tolérance par
-  défaut : Ardent) ; leur tolérance est à décider avec la 5b.
+  à Anger). La recette du module des âmes suppose `echoes_silt:soul_crystal` et
+  `echoes_silt:resonant_crystal` (noms lus dans l'ancienne version) : à vérifier quand le dépôt
+  sera réparé.
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 

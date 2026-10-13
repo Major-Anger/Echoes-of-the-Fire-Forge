@@ -1,0 +1,36 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "echoes_silt"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " R ",
+    "SKS",
+    "CPC"
+  ],
+  "key": {
+    "R": {
+      "item": "echoes_silt:resonant_crystal"
+    },
+    "S": {
+      "item": "echoes_silt:soul_crystal"
+    },
+    "K": {
+      "item": "minecraft:sculk_catalyst"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "P": {
+      "item": "echoes_fireforge:engraved_plate"
+    }
+  },
+  "result": {
+    "id": "echoes_fireforge:soul_module",
+    "count": 1
+  }
+}

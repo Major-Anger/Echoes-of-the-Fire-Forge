@@ -3,6 +3,10 @@ package fr.anger.echoes.fireforge.forge;
 import fr.anger.echoes.fireforge.forging.Forging;
 import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.Rarity;
+import fr.anger.echoes.fireforge.forging.RarityOdds;
+import fr.anger.echoes.fireforge.forging.ForgeStat;
+import fr.anger.echoes.core.soul.Souls;
+import net.minecraft.server.level.ServerPlayer;
 import fr.anger.echoes.fireforge.module.ForgeModules;
 import fr.anger.echoes.fireforge.module.ModuleLayout;
 import fr.anger.echoes.fireforge.module.ModuleSide;
@@ -41,6 +45,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,14 +57,18 @@ import java.util.UUID;
 public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
 
     /** Données envoyées à l'interface : eau, capacité, chaleur, progression, état, lave, capacité de lave. */
-    public static final int DATA_COUNT = 7;
+    public static final int DATA_COUNT = 9;
+    /** Données 7 : les choix du module des âmes, en bits. Données 8 : le bonus verrouillé (+1, 0 = aucun). */
+    public static final int FLAG_SOUL_MODULE = 1, FLAG_SOUL_FIRE = 2, FLAG_GUARANTEE = 4, FLAG_REROLL = 8;
     public static final int SLOT_ITEM = 0, SLOT_OFFERING = 1, SLOT_FUEL = 2, SLOT_WATER = 3, SLOT_EMPTIES = 4, SLOTS = 5;
 
     /** Ce que l'interface affiche (et pourquoi la forge ne peut pas démarrer). */
     public enum Status {
         READY, WORKING, NO_ITEM, NO_OFFERING, NO_WATER, NO_FUEL, EMPTIES_FULL,
         /** Pendant la reforge : ça craque (il faut le soufflet), fêlure évitée, ou l'objet s'est fendu. */
-        CRACKING, AVOIDED, CRACKED;
+        CRACKING, AVOIDED, CRACKED,
+        /** Relancer (module des âmes) : l'objet n'a jamais été reforgé, il n'y a rien à relancer. */
+        NOT_FORGED;
 
         public boolean isWorking() {
             return this == WORKING || this == CRACKING || this == AVOIDED || this == CRACKED;
@@ -86,7 +95,10 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if (slot == SLOT_ITEM) sync();
+            if (slot == SLOT_ITEM) {
+                if (!working) lockIndex = -1; // un autre objet : son bonus verrouillé n'a plus de sens
+                sync();
+            }
         }
     };
 
@@ -97,6 +109,16 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     private int waterCapacity = ForgeRules.BASE_WATER_CAPACITY;
     private int lavaCapacity = ForgeRules.BASE_LAVA_CAPACITY;
     private int moduleRefresh;
+    // le module des âmes (étape 5b) : le feu choisi et les options payées en âmes
+    private boolean soulModule;
+    private boolean soulFire;
+    private int lockIndex = -1;
+    private boolean guarantee;
+    private boolean reroll;
+    // ce que la reforge en cours a payé
+    private boolean workSoulFire, workGuarantee, workReroll;
+    @Nullable
+    private ForgingData.StatRoll workLock;
     private boolean working;
     private int progress;
     private Heat workHeat = Heat.NONE;
@@ -129,6 +151,9 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
                 case 4 -> status().ordinal();
                 case 5 -> lava;
                 case 6 -> lavaCapacity;
+                case 7 -> (soulModule ? FLAG_SOUL_MODULE : 0) | (soulFire ? FLAG_SOUL_FIRE : 0)
+                        | (guarantee ? FLAG_GUARANTEE : 0) | (reroll ? FLAG_REROLL : 0);
+                case 8 -> lockIndex + 1;
                 default -> 0;
             };
         }
@@ -186,6 +211,11 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
             return cracked ? Status.CRACKED : Status.WORKING;
         }
         if (inventory.getStackInSlot(SLOT_ITEM).isEmpty()) return Status.NO_ITEM;
+        if (rerolling()) {
+            // relancer : ni combustible ni offrande, mais il faut un objet déjà reforgé (et de l'eau pour la vapeur)
+            if (!inventory.getStackInSlot(SLOT_ITEM).has(FFDataComponents.FORGING)) return Status.NOT_FORGED;
+            return water < ForgeRules.WATER_PER_REFORGE ? Status.NO_WATER : Status.READY;
+        }
         if (inventory.getStackInSlot(SLOT_OFFERING).isEmpty()) return Status.NO_OFFERING;
         if (water < ForgeRules.WATER_PER_REFORGE) return Status.NO_WATER;
         if (nextHeat() == Heat.NONE) return Status.NO_FUEL;
@@ -319,6 +349,85 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (player != null && player.distanceToSqr(worldPosition.getCenter()) < 32 * 32) player.displayClientMessage(message, true);
     }
 
+    // ------------------------------------------------------------------ le module des âmes (étape 5b)
+
+    public boolean hasSoulModule() {
+        return soulModule;
+    }
+
+    public boolean soulFire() {
+        return soulFire;
+    }
+
+    /** Relancer est coché (feu normal seulement). */
+    public boolean rerolling() {
+        return soulModule && !soulFire && reroll;
+    }
+
+    /** Le choix du feu : il reste d'une reforge à l'autre. */
+    public void selectFire(boolean soul) {
+        if (working || !soulModule || soul == soulFire) return;
+        soulFire = soul;
+        if (soul) clearOptions();
+        updateSoulLook();
+        setChanged();
+    }
+
+    /** Verrouiller : coché, il garde le premier bonus (on en choisit un autre dans la liste) ; décoché, plus rien. */
+    public void toggleLock() {
+        if (!canChooseOptions()) return;
+        lockIndex = lockIndex >= 0 || Forging.bonuses(inventory.getStackInSlot(SLOT_ITEM)).isEmpty() ? -1 : 0;
+        setChanged();
+    }
+
+    public void selectLock(int index) {
+        if (!canChooseOptions() || index < 0 || index >= Forging.bonuses(inventory.getStackInSlot(SLOT_ITEM)).size()) return;
+        lockIndex = index == lockIndex ? -1 : index;
+        setChanged();
+    }
+
+    public void toggleGuarantee() {
+        if (!canChooseOptions() || reroll) return;
+        guarantee = !guarantee;
+        setChanged();
+    }
+
+    public void toggleReroll() {
+        if (!canChooseOptions()) return;
+        reroll = !reroll;
+        if (reroll) guarantee = false; // la rareté ne change pas : rien à garantir
+        setChanged();
+    }
+
+    private boolean canChooseOptions() {
+        return !working && soulModule && !soulFire;
+    }
+
+    private void clearOptions() {
+        lockIndex = -1;
+        guarantee = false;
+        reroll = false;
+    }
+
+    /** Ce que coûtera la prochaine reforge, en âmes. */
+    public int soulCost() {
+        if (!soulModule) return 0;
+        if (soulFire) return ForgeRules.SOUL_FIRE_COST;
+        int cost = 0;
+        if (lockIndex >= 0) cost += ForgeRules.LOCK_COST;
+        if (guarantee && !reroll) cost += ForgeRules.GUARANTEE_COST;
+        if (reroll) cost += ForgeRules.REROLL_COST;
+        return cost;
+    }
+
+    /** Le foyer passe au bleu quand le feu des âmes est choisi. */
+    private void updateSoulLook() {
+        if (level == null) return;
+        BlockState state = getBlockState();
+        boolean look = soulModule && soulFire;
+        if (state.getValue(FireForgeBlock.SOUL) != look) level.setBlock(worldPosition, state.setValue(FireForgeBlock.SOUL, look), Block.UPDATE_ALL);
+    }
+
     // ------------------------------------------------------------------ réserves et modules
 
     /**
@@ -330,6 +439,7 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (level == null) return;
         Direction facing = getBlockState().getValue(FireForgeBlock.FACING);
         int newWater = ForgeRules.BASE_WATER_CAPACITY, newLava = ForgeRules.BASE_LAVA_CAPACITY;
+        boolean soul = false;
         for (ModuleSide side : ModuleSide.values()) {
             for (BlockPos base : ModuleLayout.bases(worldPosition, facing, side)) {
                 // un bloc pas encore chargé : on ne conclut rien (sinon on viderait la réserve pour rien)
@@ -341,12 +451,22 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
                 while (height < type.maxHeight() && level.getBlockState(base.above(height)).is(state.getBlock())) height++;
                 newWater += height * type.waterPerBlock();
                 newLava += height * type.lavaPerBlock();
+                if (type.soulFire() && height > 0) soul = true;
                 break; // un seul module par côté (derrière : le premier trouvé)
             }
         }
-        boolean changed = newWater != waterCapacity || newLava != lavaCapacity;
+        boolean changed = newWater != waterCapacity || newLava != lavaCapacity || soul != soulModule;
         waterCapacity = newWater;
         lavaCapacity = newLava;
+        if (soul != soulModule) {
+            soulModule = soul;
+            if (!soul) {
+                // le module est parti : retour au feu normal, sans option
+                soulFire = false;
+                clearOptions();
+            }
+            updateSoulLook();
+        }
         if (water > waterCapacity) {
             water = waterCapacity;
             spill(ParticleTypes.CLOUD, SoundEvents.FIRE_EXTINGUISH);
@@ -415,20 +535,40 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     /** Appelé par le marteau de l'interface : c'est le savoir (les plans lus) de ce joueur qui compte. */
     public boolean tryStart(Player player) {
         if (status() != Status.READY || level == null) return false;
+        // les âmes se paient au coup de marteau, avant de toucher à quoi que ce soit
+        int cost = soulCost();
+        if (cost > 0 && !(player instanceof ServerPlayer serverPlayer && Souls.spend(serverPlayer, cost))) {
+            player.displayClientMessage(Component.translatable("message.echoes_fireforge.no_souls", cost).withStyle(ChatFormatting.RED), true);
+            return false;
+        }
+        ItemStack item = inventory.getStackInSlot(SLOT_ITEM);
+        List<ForgingData.StatRoll> bonuses = Forging.bonuses(item);
+        workLock = soulModule && !soulFire && lockIndex >= 0 && lockIndex < bonuses.size() ? bonuses.get(lockIndex) : null;
+        workSoulFire = soulModule && soulFire;
+        workReroll = rerolling();
+        workGuarantee = soulModule && !soulFire && guarantee && !workReroll;
         workPlans = Plans.readCount(player);
         smith = player.getUUID();
-        workOffering = ForgeRules.offeringTier(inventory.getStackInSlot(SLOT_OFFERING));
-        inventory.extractItem(SLOT_OFFERING, 1, false);
-        ItemStack fuel = inventory.getStackInSlot(SLOT_FUEL);
-        workHeat = nextHeat();
-        if (consumesFuelSlot()) {
-            ItemStack empty = ForgeRules.emptyContainer(fuel);
-            if (fuel.is(Items.LAVA_BUCKET)) lava += ForgeRules.BUCKET; // la réserve n'avait pas la place : il brûle ici
-            inventory.extractItem(SLOT_FUEL, 1, false);
-            if (!empty.isEmpty()) inventory.insertItem(SLOT_EMPTIES, empty, false);
+        if (workReroll) {
+            // relancer : la rareté est gardée, ni combustible ni offrande
+            workOffering = 0;
+            workHeat = Heat.NONE;
+        } else {
+            workOffering = ForgeRules.offeringTier(inventory.getStackInSlot(SLOT_OFFERING));
+            inventory.extractItem(SLOT_OFFERING, 1, false);
+            ItemStack fuel = inventory.getStackInSlot(SLOT_FUEL);
+            workHeat = nextHeat();
+            if (consumesFuelSlot()) {
+                ItemStack empty = ForgeRules.emptyContainer(fuel);
+                if (fuel.is(Items.LAVA_BUCKET)) lava += ForgeRules.BUCKET; // la réserve n'avait pas la place : il brûle ici
+                inventory.extractItem(SLOT_FUEL, 1, false);
+                if (!empty.isEmpty()) inventory.insertItem(SLOT_EMPTIES, empty, false);
+            }
+            if (workHeat == Heat.FOURNAISE) lava = Math.min(lavaCapacity, Math.max(0, lava - ForgeRules.LAVA_PER_REFORGE));
         }
-        if (workHeat == Heat.FOURNAISE) lava = Math.min(lavaCapacity, Math.max(0, lava - ForgeRules.LAVA_PER_REFORGE));
-        crackTicks = scheduleCracks(Tolerance.cracks(inventory.getStackInSlot(SLOT_ITEM), workHeat), level.getRandom());
+        // la flamme froide ne fend jamais
+        int cracks = workSoulFire || workReroll ? 0 : Tolerance.cracks(item, workHeat);
+        crackTicks = scheduleCracks(cracks, level.getRandom());
         nextCrack = 0;
         windowEnd = -1;
         cracked = false;
@@ -449,10 +589,18 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         ItemStack stack = inventory.getStackInSlot(SLOT_ITEM);
         if (level != null && !stack.isEmpty()) {
             ItemStack forged = stack.copy();
-            // un craquement manqué : l'objet sort Fêlé, quel que soit le tirage
-            ForgingData data = cracked
-                    ? Forging.rollFor(forged, Rarity.FELE, level.getRandom())
-                    : Forging.roll(forged, workHeat, workOffering, workPlans, level.getRandom());
+            ForgingData previous = stack.get(FFDataComponents.FORGING);
+            ForgingData data;
+            if (workReroll && previous != null) {
+                data = Forging.rollFor(forged, previous.rarity(), level.getRandom()); // même rareté, nouvelles valeurs
+            } else if (cracked) {
+                data = Forging.rollFor(forged, Rarity.FELE, level.getRandom()); // un craquement manqué : Fêlé, quoi qu'il arrive
+            } else {
+                double[] odds = RarityOdds.compute(workPlans, workOffering, workHeat);
+                if (workGuarantee) odds = RarityOdds.guarantee(odds);
+                data = Forging.rollFor(forged, Forging.pick(odds, level.getRandom()), level.getRandom());
+            }
+            if (workLock != null) data = Forging.keep(data, workLock);
             forged.set(FFDataComponents.FORGING, data);
             enchant = Forging.maybeEnchant(forged, workOffering, level.getRandom(), level.registryAccess());
             inventory.setStackInSlot(SLOT_ITEM, forged); // reforger remplace la rareté précédente
@@ -467,6 +615,9 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         windowEnd = -1;
         cracked = false;
         avoidedTicks = 0;
+        workSoulFire = workGuarantee = workReroll = false;
+        workLock = null;
+        clearOptions(); // les options se décochent après chaque reforge ; le choix du feu reste
         setLit(false);
         if (level != null && rarity != null) announce(rarity, enchant);
         smith = null;
@@ -511,6 +662,18 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         tag.putInt("lava_mb", lava);
         tag.putInt("water_capacity", waterCapacity);
         tag.putInt("lava_capacity", lavaCapacity);
+        tag.putBoolean("soul_module", soulModule);
+        tag.putBoolean("soul_fire", soulFire);
+        tag.putInt("lock", lockIndex);
+        tag.putBoolean("guarantee", guarantee);
+        tag.putBoolean("reroll", reroll);
+        tag.putBoolean("work_soul", workSoulFire);
+        tag.putBoolean("work_guarantee", workGuarantee);
+        tag.putBoolean("work_reroll", workReroll);
+        if (workLock != null) {
+            tag.putString("work_lock", workLock.stat().getSerializedName());
+            tag.putFloat("work_lock_percent", workLock.percent());
+        }
         tag.putBoolean("working", working);
         tag.putInt("progress", progress);
         tag.putInt("heat", workHeat.level());
@@ -533,6 +696,21 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         lava = tag.contains("lava_mb") ? tag.getInt("lava_mb") : tag.getInt("lava") * ForgeRules.LAVA_PER_REFORGE;
         if (tag.contains("water_capacity")) waterCapacity = tag.getInt("water_capacity");
         if (tag.contains("lava_capacity")) lavaCapacity = tag.getInt("lava_capacity");
+        soulModule = tag.getBoolean("soul_module");
+        soulFire = tag.getBoolean("soul_fire");
+        lockIndex = tag.contains("lock") ? tag.getInt("lock") : -1;
+        guarantee = tag.getBoolean("guarantee");
+        reroll = tag.getBoolean("reroll");
+        workSoulFire = tag.getBoolean("work_soul");
+        workGuarantee = tag.getBoolean("work_guarantee");
+        workReroll = tag.getBoolean("work_reroll");
+        workLock = null;
+        if (tag.contains("work_lock")) {
+            String key = tag.getString("work_lock");
+            for (ForgeStat stat : ForgeStat.values()) {
+                if (stat.getSerializedName().equals(key)) workLock = new ForgingData.StatRoll(stat, tag.getFloat("work_lock_percent"));
+            }
+        }
         working = tag.getBoolean("working");
         progress = tag.getInt("progress");
         workHeat = Heat.byLevel(tag.getInt("heat"));

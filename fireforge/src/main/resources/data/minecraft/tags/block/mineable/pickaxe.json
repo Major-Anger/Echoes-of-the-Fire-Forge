@@ -3,6 +3,7 @@
     "echoes_fireforge:compressed_machine",
     "echoes_fireforge:fire_forge",
     "echoes_fireforge:boiler",
-    "echoes_fireforge:lava_tank"
+    "echoes_fireforge:lava_tank",
+    "echoes_fireforge:soul_module"
   ]
 }

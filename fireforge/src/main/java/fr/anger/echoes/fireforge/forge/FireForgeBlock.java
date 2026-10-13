@@ -49,10 +49,12 @@ public class FireForgeBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<ForgePart> PART = EnumProperty.create("part", ForgePart.class);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    /** Le feu des âmes est choisi : le foyer passe au bleu (étape 5b). */
+    public static final BooleanProperty SOUL = BooleanProperty.create("soul");
 
     public FireForgeBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(PART, ForgePart.LEFT).setValue(LIT, false));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(PART, ForgePart.LEFT).setValue(LIT, false).setValue(SOUL, false));
     }
 
     @Override
@@ -62,7 +64,7 @@ public class FireForgeBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PART, LIT);
+        builder.add(FACING, PART, LIT, SOUL);
     }
 
     @Override
@@ -95,7 +97,7 @@ public class FireForgeBlock extends BaseEntityBlock {
         if (direction == ForgeGeometry.partnerDirection(state.getValue(FACING), state.getValue(PART))) {
             boolean partnerOk = neighbor.is(this) && neighbor.getValue(PART) != state.getValue(PART)
                     && neighbor.getValue(FACING) == state.getValue(FACING);
-            return partnerOk ? state.setValue(LIT, neighbor.getValue(LIT)) : Blocks.AIR.defaultBlockState();
+            return partnerOk ? state.setValue(LIT, neighbor.getValue(LIT)).setValue(SOUL, neighbor.getValue(SOUL)) : Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, direction, neighbor, level, pos, neighborPos);
     }
@@ -195,9 +197,11 @@ public class FireForgeBlock extends BaseEntityBlock {
         Vec3 top = ForgeGeometry.point(pos, facing, 6, 30, 5);
         level.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, top.x, top.y, top.z, 0, 0.05, 0);
         // flammes dans le foyer, centré sur les deux blocs (x = 16 dans le modèle de gauche)
+        boolean soul = state.getValue(SOUL);
         for (int i = 0; i < 2; i++) {
             Vec3 fire = ForgeGeometry.point(pos, facing, 16 + (random.nextDouble() - 0.5) * 10, 2 + random.nextDouble() * 3, 15.5);
-            level.addParticle(random.nextBoolean() ? ParticleTypes.SMALL_FLAME : ParticleTypes.FLAME, fire.x, fire.y, fire.z, 0, 0.01, 0);
+            var flame = soul ? ParticleTypes.SOUL_FIRE_FLAME : random.nextBoolean() ? ParticleTypes.SMALL_FLAME : ParticleTypes.FLAME;
+            level.addParticle(flame, fire.x, fire.y, fire.z, 0, 0.01, 0);
         }
         if (random.nextInt(8) == 0) {
             level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.8F, 0.9F, false);

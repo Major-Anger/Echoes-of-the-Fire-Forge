@@ -6,7 +6,9 @@ import fr.anger.echoes.fireforge.forge.FireForgeMenu;
 import fr.anger.echoes.fireforge.forge.ForgeRules;
 import fr.anger.echoes.fireforge.forge.Heat;
 import fr.anger.echoes.fireforge.forge.Tolerance;
+import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.Rarity;
+import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import fr.anger.echoes.fireforge.forging.RarityOdds;
 import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.ChatFormatting;
@@ -41,6 +43,8 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
 
     /** Le soufflet reste écrasé quelques ticks après un clic. */
     private int bellowsPressed;
+    /** Le panneau des âmes, à gauche, quand le module des âmes est branché. */
+    private SoulPanel souls;
 
     public FireForgeScreen(FireForgeMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -55,7 +59,20 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
     @Override
     protected void init() {
         super.init();
-        leftPos -= (PANEL_W + 2) / 2; // centre la forge et son volet ensemble
+        souls = new SoulPanel(menu, font, TEXTURE);
+        layout();
+    }
+
+    /** Centre la forge et ses volets : les chances à droite, les âmes à gauche (si le module est branché). */
+    private void layout() {
+        int soulWidth = menu.hasSoulModule() ? SoulPanel.W + 2 : 0;
+        int total = soulWidth + imageWidth + 2 + PANEL_W;
+        leftPos = (width - total) / 2 + soulWidth;
+    }
+
+    /** Le marteau peut frapper : la forge est prête et le forgeron a de quoi payer. */
+    private boolean canForge() {
+        return menu.status() == Status.READY && souls.affordable();
     }
 
     @Override
@@ -68,7 +85,8 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
         if (water > 0) g.blit(TEXTURE, x + WATER_GAUGE_X, y + GAUGE_Y + GAUGE_H - water, 200, 48 + GAUGE_H - water, 8, water, 256, 256);
         // jauge de chaleur (un cran par niveau)
         int heat = menu.heat().level() * GAUGE_H / Heat.FOURNAISE.level();
-        if (heat > 0) g.blit(TEXTURE, x + HEAT_GAUGE_X, y + GAUGE_Y + GAUGE_H - heat, 210, 48 + GAUGE_H - heat, 8, heat, 256, 256);
+        int heatU = menu.hasSoulModule() && menu.soulFire() ? 230 : 210; // flamme froide : la jauge passe au cyan
+        if (heat > 0) g.blit(TEXTURE, x + HEAT_GAUGE_X, y + GAUGE_Y + GAUGE_H - heat, heatU, 48 + GAUGE_H - heat, 8, heat, 256, 256);
         // lave du réservoir
         if (menu.showsLava()) {
             g.blit(TEXTURE, x + LAVA_X, y + LAVA_Y, 104, 192, LAVA_W, LAVA_H, 256, 256);
@@ -85,7 +103,7 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
             boolean down = (minecraft.level.getGameTime() / 6) % 2 == 0;
             u = down ? 224 : 200;
             v = down ? 24 : 0;
-        } else if (menu.status() == Status.READY) {
+        } else if (canForge()) {
             u = overHammer(mouseX, mouseY) ? 224 : 200;
             v = 0;
         } else {
@@ -100,6 +118,7 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
         g.blit(TEXTURE, x + BELLOWS_X, y + BELLOWS_Y, sprite * BELLOWS_W, BELLOWS_V, BELLOWS_W, BELLOWS_H, 256, 256);
         if (cracking) renderCrack(g, x, y);
         renderOdds(g, x + imageWidth + 2, y);
+        if (menu.hasSoulModule()) souls.render(g, x - 2 - SoulPanel.W, y, mouseX, mouseY);
     }
 
     /** Ça craque : le cadre rougit par à-coups, des étincelles jaillissent autour de l'objet. */
@@ -125,10 +144,12 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
     protected void containerTick() {
         super.containerTick();
         if (bellowsPressed > 0) bellowsPressed--;
+        layout(); // le module des âmes peut être posé ou retiré pendant que l'interface est ouverte
     }
 
     /** Combien de fois l'objet posé craquera à cette chaleur (0 si aucun risque). */
     private int cracks() {
+        if (menu.hasSoulModule() && (menu.soulFire() || menu.reroll())) return 0; // flamme froide, ou rien à chauffer
         return Tolerance.cracks(menu.item(), menu.heat());
     }
 
@@ -140,6 +161,15 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
         g.drawString(font, Component.translatable("gui.echoes_fireforge.odds"), px + 6, py + 6, BRASS, false);
         int offering = ForgeRules.offeringTier(menu.offering());
         double[] odds = RarityOdds.compute(Plans.clientReadCount(), offering, menu.heat());
+        ForgingData current = menu.item().get(FFDataComponents.FORGING);
+        if (menu.hasSoulModule() && menu.reroll() && current != null) {
+            // relancer : la rareté est gardée
+            odds = new double[Rarity.values().length];
+            odds[current.rarity().ordinal()] = 100;
+            offering = 0;
+        } else if (menu.hasSoulModule() && menu.guarantee() && !menu.soulFire()) {
+            odds = RarityOdds.guarantee(odds);
+        }
         Rarity[] all = Rarity.values();
         for (int i = 0; i < all.length; i++) {
             int ly = py + 20 + i * 11;
@@ -175,8 +205,16 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
             case AVOIDED -> SAFE;
             default -> WARN;
         };
-        List<FormattedCharSequence> lines = font.split(Component.translatable("status.echoes_fireforge." + status.name().toLowerCase()), 62);
+        String key = status.name().toLowerCase();
+        if (status == Status.READY && !souls.affordable()) {
+            key = "no_souls";
+            color = WARN;
+        } else if (status == Status.READY && menu.hasSoulModule() && menu.reroll()) {
+            key = "reroll";
+        }
+        List<FormattedCharSequence> lines = font.split(Component.translatable("status.echoes_fireforge." + key), 62);
         for (int i = 0; i < Math.min(2, lines.size()); i++) g.drawString(font, lines.get(i), 128, 60 + i * 10, color, false);
+        if (menu.hasSoulModule() && menu.reroll()) return; // relancer : pas de feu
         Heat heat = menu.heat();
         g.drawString(font, heat == Heat.NONE ? Component.translatable("heat.echoes_fireforge.cold") : heat.displayName(), 128, 79, heat == Heat.NONE ? FADED : BRASS, false);
     }
@@ -185,6 +223,7 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
     protected void renderTooltip(GuiGraphics g, int mouseX, int mouseY) {
         super.renderTooltip(g, mouseX, mouseY);
         if (menu.getCarried().isEmpty()) {
+            if (menu.hasSoulModule() && souls.tooltip(g, mouseX, mouseY, leftPos - 2 - SoulPanel.W, topPos)) return;
             if (inside(mouseX, mouseY, WATER_GAUGE_X - 1, GAUGE_Y - 1, 10, GAUGE_H + 2)) {
                 List<Component> lines = new ArrayList<>();
                 lines.add(Component.translatable("tooltip.echoes_fireforge.water", menu.water(), menu.waterCapacity()));
@@ -215,7 +254,15 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && overHammer(mouseX, mouseY) && menu.status() == Status.READY) {
+        if (button == 0 && menu.hasSoulModule() && !menu.isWorking()) {
+            int id = souls.click(mouseX, mouseY, leftPos - 2 - SoulPanel.W, topPos);
+            if (id >= 0) {
+                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F, 0.6F));
+                return true;
+            }
+        }
+        if (button == 0 && overHammer(mouseX, mouseY) && canForge()) {
             minecraft.gameMode.handleInventoryButtonClick(menu.containerId, FireForgeMenu.BUTTON_FORGE);
             minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ANVIL_PLACE, 1.4F, 0.4F));
             return true;
@@ -232,6 +279,14 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
     public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
         super.render(g, mouseX, mouseY, partialTick);
         renderTooltip(g, mouseX, mouseY);
+    }
+
+    /** Un clic sur un volet n'est pas un clic « dehors » (sinon l'objet tenu tomberait par terre). */
+    @Override
+    protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int button) {
+        boolean odds = mouseX >= guiLeft + imageWidth && mouseX < guiLeft + imageWidth + 2 + PANEL_W && mouseY >= guiTop && mouseY < guiTop + PANEL_H;
+        boolean soul = menu.hasSoulModule() && mouseX >= guiLeft - 2 - SoulPanel.W && mouseX < guiLeft && mouseY >= guiTop && mouseY < guiTop + SoulPanel.H;
+        return !odds && !soul && super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, button);
     }
 
     private boolean overBellows(double mouseX, double mouseY) {

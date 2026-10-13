@@ -1,5 +1,6 @@
 package fr.anger.echoes.fireforge.registry;
 
+import fr.anger.echoes.core.compat.EchoesMods;
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +23,7 @@ public final class FFCreativeTab {
                 output.accept(FFItems.FIRE_FORGE.get());
                 output.accept(FFItems.BOILER.get());
                 output.accept(FFItems.LAVA_TANK.get());
+                if (EchoesMods.isLoaded(EchoesMods.SILT)) output.accept(FFItems.SOUL_MODULE.get());
                 output.accept(FFItems.COMPRESSED_MACHINE.get());
                 output.accept(FFItems.MACHINE_GEAR.get());
                 output.accept(FFItems.MACHINE_VALVE.get());

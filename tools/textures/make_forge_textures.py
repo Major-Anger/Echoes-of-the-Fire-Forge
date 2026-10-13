@@ -34,14 +34,18 @@ PAL = {
 }
 
 
-def save(rows, name):
+# Le feu des âmes (avec le Silt) : la même braise, en flamme froide.
+SOUL = dict(PAL, h=(18, 70, 84), F=(54, 196, 206), f=(170, 244, 240))
+
+
+def save(rows, name, pal=PAL):
     rows = rows + ["." * 16] * (16 - len(rows))
     img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
     for y, row in enumerate(rows):
         assert len(row) == 16, (name, y, row, len(row))
         for x, ch in enumerate(row):
-            if PAL[ch]:
-                img.putpixel((x, y), PAL[ch] + (255,))
+            if pal[ch]:
+                img.putpixel((x, y), pal[ch] + (255,))
     img.save(os.path.join(OUT, name + '.png'))
 
 
@@ -96,6 +100,8 @@ for y in range(y0, H):
 front_rows = [''.join(r) for r in front]
 save([r[:16] for r in front_rows], 'forge_front_left')
 save([r[16:] for r in front_rows], 'forge_front_right')
+save([r[:16] for r in front_rows], 'forge_front_left_soul', SOUL)
+save([r[16:] for r in front_rows], 'forge_front_right_soul', SOUL)
 save([''.join(r) for r in plates(16, H)], 'forge_side')
 
 # ---------------------------------------------------------------- dessus : plaque de fer, rebord de laiton, suie

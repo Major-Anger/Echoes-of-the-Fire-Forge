@@ -64,4 +64,23 @@ public final class RarityOdds {
         for (int i = 2; i < odds.length; i++) upperBase += Rarity.values()[i].baseChance();
         for (int i = 2; i < odds.length; i++) odds[i] += moved * Rarity.values()[i].baseChance() / upperBase;
     }
+
+    /**
+     * Garantir (module des âmes) : ni Fêlé ni Brut au tirage. Leurs chances passent aux raretés possibles au-dessus,
+     * en proportion. Si la chaleur plafonne à Brut, rien n'est possible au-dessus : on sort Brut.
+     */
+    public static double[] guarantee(double[] odds) {
+        double[] out = odds.clone();
+        double above = 0;
+        for (int i = Rarity.TREMPE.ordinal(); i < out.length; i++) above += out[i];
+        out[Rarity.FELE.ordinal()] = 0;
+        if (above <= 0) {
+            java.util.Arrays.fill(out, 0);
+            out[Rarity.BRUT.ordinal()] = 100;
+            return out;
+        }
+        out[Rarity.BRUT.ordinal()] = 0;
+        for (int i = Rarity.TREMPE.ordinal(); i < out.length; i++) out[i] = out[i] * 100.0 / above;
+        return out;
+    }
 }

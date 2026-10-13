@@ -54,7 +54,7 @@ public final class ForgingTooltip {
     }
 
     /** +4,2 % en français, +4.2% en anglais. */
-    private static String percent(float value) {
+    static String percent(float value) {
         boolean french = Minecraft.getInstance().getLanguageManager().getSelected().startsWith("fr");
         String number = String.format(french ? Locale.FRANCE : Locale.ROOT, "%+.1f", value);
         return french ? number + " %" : number + "%";

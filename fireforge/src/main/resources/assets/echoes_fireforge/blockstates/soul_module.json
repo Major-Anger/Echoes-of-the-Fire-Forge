@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=south,section=bottom": {
+      "model": "echoes_fireforge:block/module_soul"
+    },
+    "facing=south,section=middle": {
+      "model": "echoes_fireforge:block/module_soul"
+    },
+    "facing=south,section=top": {
+      "model": "echoes_fireforge:block/module_soul"
+    },
+    "facing=west,section=bottom": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 90
+    },
+    "facing=west,section=middle": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 90
+    },
+    "facing=west,section=top": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 90
+    },
+    "facing=north,section=bottom": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 180
+    },
+    "facing=north,section=middle": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 180
+    },
+    "facing=north,section=top": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 180
+    },
+    "facing=east,section=bottom": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 270
+    },
+    "facing=east,section=middle": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 270
+    },
+    "facing=east,section=top": {
+      "model": "echoes_fireforge:block/module_soul",
+      "y": 270
+    }
+  }
+}

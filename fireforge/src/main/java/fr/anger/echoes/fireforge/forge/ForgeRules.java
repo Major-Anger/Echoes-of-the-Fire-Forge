@@ -45,6 +45,9 @@ public final class ForgeRules {
     /** Le temps de regonfler le soufflet entre deux coups. */
     public static final int BELLOWS_COOLDOWN = 6;
 
+    /** Étape 5b, avec le module des âmes : prix en âmes du feu des âmes et des options du feu normal. */
+    public static final int SOUL_FIRE_COST = 10, LOCK_COST = 15, GUARANTEE_COST = 20, REROLL_COST = 10;
+
     private static TagKey<Item> tag(String path) {
         return TagKey.create(Registries.ITEM, EchoesFireForge.id(path));
     }

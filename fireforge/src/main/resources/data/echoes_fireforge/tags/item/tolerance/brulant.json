@@ -5,6 +5,14 @@
     "minecraft:diamond_helmet",
     "minecraft:diamond_chestplate",
     "minecraft:diamond_leggings",
-    "minecraft:diamond_boots"
+    "minecraft:diamond_boots",
+    {
+      "id": "echoes_silt:amacier_sword",
+      "required": false
+    },
+    {
+      "id": "echoes_silt:amacier_axe",
+      "required": false
+    }
   ]
 }

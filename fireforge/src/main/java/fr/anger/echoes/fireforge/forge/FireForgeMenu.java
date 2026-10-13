@@ -25,6 +25,8 @@ public class FireForgeMenu extends AbstractContainerMenu {
     public static final int BUTTON_FORGE = 0;
     /** Bouton du soufflet (rattrape une fêlure). */
     public static final int BUTTON_BELLOWS = 1;
+    /** Module des âmes : le choix du feu, les options, et le bonus à verrouiller (10 + son rang). */
+    public static final int BUTTON_FIRE_NORMAL = 2, BUTTON_FIRE_SOUL = 3, BUTTON_LOCK = 4, BUTTON_GUARANTEE = 5, BUTTON_REROLL = 6, BUTTON_LOCK_STAT = 10;
 
     // Positions des cases dans l'interface (coin haut gauche de l'objet)
     public static final int WATER_X = 23, WATER_Y = 19, EMPTIES_X = 23, EMPTIES_Y = 53, FUEL_X = 61, FUEL_Y = 36;
@@ -102,6 +104,24 @@ public class FireForgeMenu extends AbstractContainerMenu {
     public int lavaCapacity() { return Math.max(1, data.get(6)); }
     /** Un réservoir est branché (ou il reste de la lave dans le foyer) : on montre la jauge de lave. */
     public boolean showsLava() { return data.get(6) > ForgeRules.BASE_LAVA_CAPACITY || data.get(5) > 0; }
+    private boolean flag(int bit) { return (data.get(7) & bit) != 0; }
+    public boolean hasSoulModule() { return flag(FLAG_SOUL_MODULE); }
+    public boolean soulFire() { return flag(FLAG_SOUL_FIRE); }
+    public boolean guarantee() { return flag(FLAG_GUARANTEE); }
+    public boolean reroll() { return flag(FLAG_REROLL) && !soulFire(); }
+    /** Le rang du bonus verrouillé parmi les bonus de l'objet, ou -1. */
+    public int lockIndex() { return data.get(8) - 1; }
+
+    /** Le même calcul que la forge (pour l'afficher). */
+    public int soulCost() {
+        if (!hasSoulModule()) return 0;
+        if (soulFire()) return ForgeRules.SOUL_FIRE_COST;
+        int cost = lockIndex() >= 0 ? ForgeRules.LOCK_COST : 0;
+        if (guarantee() && !reroll()) cost += ForgeRules.GUARANTEE_COST;
+        if (reroll()) cost += ForgeRules.REROLL_COST;
+        return cost;
+    }
+
     public Status status() { return Status.values()[Math.max(0, Math.min(Status.values().length - 1, data.get(4)))]; }
     public boolean isWorking() { return status().isWorking(); }
 
@@ -121,7 +141,18 @@ public class FireForgeMenu extends AbstractContainerMenu {
             forge.blowBellows(player);
             return true;
         }
-        return false;
+        switch (id) {
+            case BUTTON_FIRE_NORMAL -> forge.selectFire(false);
+            case BUTTON_FIRE_SOUL -> forge.selectFire(true);
+            case BUTTON_LOCK -> forge.toggleLock();
+            case BUTTON_GUARANTEE -> forge.toggleGuarantee();
+            case BUTTON_REROLL -> forge.toggleReroll();
+            default -> {
+                if (id < BUTTON_LOCK_STAT || id >= BUTTON_LOCK_STAT + 8) return false;
+                forge.selectLock(id - BUTTON_LOCK_STAT);
+            }
+        }
+        return true;
     }
 
     @Override

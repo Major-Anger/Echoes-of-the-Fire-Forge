@@ -46,6 +46,24 @@ public final class Forging {
         return rollFor(stack, pick(RarityOdds.compute(plansRead, offeringTier, heat), random), random);
     }
 
+    /** Les bonus de l'objet qu'on peut verrouiller (module des âmes) : jamais une contrepartie. */
+    public static List<StatRoll> bonuses(ItemStack stack) {
+        ForgingData data = stack.get(fr.anger.echoes.fireforge.registry.FFDataComponents.FORGING);
+        if (data == null) return List.of();
+        return data.stats().stream().filter(roll -> roll.percent() > 0).toList();
+    }
+
+    /**
+     * Le bonus verrouillé reste, avec sa valeur, quoi que donne le nouveau tirage : il remplace la même
+     * statistique si elle a été tirée, sinon il s'ajoute.
+     */
+    public static ForgingData keep(ForgingData data, StatRoll locked) {
+        List<StatRoll> stats = new ArrayList<>();
+        for (StatRoll roll : data.stats()) if (roll.stat() != locked.stat()) stats.add(roll);
+        stats.add(0, locked);
+        return new ForgingData(data.rarity(), List.copyOf(stats), data.special());
+    }
+
     public static ForgingData rollFor(ItemStack stack, Rarity rarity, RandomSource random) {
         EquipmentSlot slot = slotOf(stack);
         List<ForgeStat> pool = new ArrayList<>(Arrays.asList(ForgeStat.poolFor(slot)));

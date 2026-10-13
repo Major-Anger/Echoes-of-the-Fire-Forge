@@ -169,7 +169,13 @@ chère, plus la chance est haute.
 | Linceul de cendre | toute armure | immunité à l'effet Wither | régénération naturelle ralentie | protection contre les « noyés de cendre » (sans dire d'où vient la maladie) |
 
 ## 8. Avec le Silt : la Forge des âmes résonnantes
-- **Étape 5b (validée, à coder après son aperçu)** : feu des âmes = 10 âmes par reforge, foyer
+- **Étape 5b (codée)** : panneau des âmes à gauche de la forge ; le choix du feu reste d'une
+  reforge à l'autre, les options se décochent après chaque reforge ; Verrouiller et Garantir se
+  cumulent, Relancer se cumule avec Verrouiller (Garantir grisé) ; on ne verrouille qu'un bonus,
+  gardé même si le tirage sort Brut ou Fêlé ; les âmes se paient au coup de marteau (sinon
+  « Pas assez d'âmes ») ; au feu des âmes, les Spéciaux viennent de la liste de base jusqu'à
+  l'étape 6 ; l'Âmacier du Silt tient jusqu'à Brûlant (tag), les autres armes du Silt suivent
+  leur matériau. Détail du plan validé : feu des âmes = 10 âmes par reforge, foyer
   bleu ; au feu normal, options payées en âmes : verrouiller un bonus (15), garantir (pas de Fêlé
   ni de Brut au tirage, une fêlure ratée fend quand même : 20), relancer (garde la rareté, retire
   les valeurs, sans combustible ni offrande : 10). Recette du module : cristal résonnant en haut,

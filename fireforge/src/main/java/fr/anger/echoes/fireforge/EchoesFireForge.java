@@ -44,6 +44,7 @@ public final class EchoesFireForge {
                 ForgeRules.BOILER_MAX_HEIGHT, ForgeRules.BOILER_WATER_PER_BLOCK, 0));
         ForgeModules.register(FFBlocks.LAVA_TANK.get(), new ForgeModules.Type(ModuleSide.BACK,
                 ForgeRules.LAVA_TANK_MAX_HEIGHT, 0, ForgeRules.LAVA_TANK_PER_BLOCK));
+        ForgeModules.register(FFBlocks.SOUL_MODULE.get(), new ForgeModules.Type(ModuleSide.RIGHT, 1, 0, 0, true));
     }
 
     public static ResourceLocation id(String path) {
