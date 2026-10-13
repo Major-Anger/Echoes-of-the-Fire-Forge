@@ -41,6 +41,22 @@ Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne l
 - Chaque bloc ajouté à une réserve ajoute sa propre capacité.
 - Chaque côté accepte un module parmi plusieurs : d'autres mods pourront ajouter leurs
   propres modules sans modifier la forge.
+- **Codé (étape 5a)** :
+  - la chaudière se pose contre le côté gauche de la moitié du foyer, le réservoir derrière l'une
+    ou l'autre moitié (un seul compte) ; un module ailleurs ne fait rien ; il prend l'orientation
+    de la forge, et la pile choisit ses modèles (bas avec manomètre, milieu, haut avec soupape) ;
+  - réserves : forge seule 1 seau d'eau et 1 seau de lave ; chaudière +4 seaux d'eau par bloc
+    (13 au plus) ; réservoir +5 seaux de lave par bloc (11 au plus avec le foyer) ;
+  - remplissage : clic droit avec un seau ou une fiole sur le module (un seau ne se vide pas à
+    moitié), seau de lave posé en combustible versé dans la réserve, tuyaux d'autres mods
+    (capacité de fluide NeoForge, remplissage seulement) ;
+  - **le combustible posé passe avant la lave** : la réserve de lave ne sert que si la case
+    combustible est vide ;
+  - un module cassé : la réserve rétrécit, le surplus est perdu (vapeur, ou fumée pour la lave) ;
+  - recettes : chaudière = cuivre partout, soupape au centre, seau en bas au milieu ;
+    réservoir = fer, verre de chaque côté, soupape au centre, plaque gravée en bas au milieu ;
+  - pour les autres mods : `ForgeModules.register(bloc, new ForgeModules.Type(côté, hauteur,
+    eau par bloc, lave par bloc))`.
 
 ## 3. Fonctionnement
 - **Objet à reforger** : à la main uniquement (pas d'entonnoir).
@@ -153,6 +169,12 @@ chère, plus la chance est haute.
 | Linceul de cendre | toute armure | immunité à l'effet Wither | régénération naturelle ralentie | protection contre les « noyés de cendre » (sans dire d'où vient la maladie) |
 
 ## 8. Avec le Silt : la Forge des âmes résonnantes
+- **Étape 5b (validée, à coder après son aperçu)** : feu des âmes = 10 âmes par reforge, foyer
+  bleu ; au feu normal, options payées en âmes : verrouiller un bonus (15), garantir (pas de Fêlé
+  ni de Brut au tirage, une fêlure ratée fend quand même : 20), relancer (garde la rareté, retire
+  les valeurs, sans combustible ni offrande : 10). Recette du module : cristal résonnant en haut,
+  cristal des âmes / catalyseur de sculk / cristal des âmes au milieu, cuivre / plaque gravée /
+  cuivre en bas ; le bloc existe toujours, la recette seulement avec le Silt.
 - **Module de droite**, fabriqué avec `echoes_silt:soul_crystal`, `echoes_silt:resonant_crystal`
   et `minecraft:sculk_catalyst`.
 - **À chaque reforge, le joueur choisit son feu :**

@@ -3,6 +3,9 @@ package fr.anger.echoes.fireforge.forge;
 import fr.anger.echoes.fireforge.forging.Forging;
 import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.Rarity;
+import fr.anger.echoes.fireforge.module.ForgeModules;
+import fr.anger.echoes.fireforge.module.ModuleLayout;
+import fr.anger.echoes.fireforge.module.ModuleSide;
 import fr.anger.echoes.fireforge.plan.Plans;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
@@ -28,6 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -47,8 +51,8 @@ import java.util.UUID;
  */
 public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
 
-    /** Données envoyées à l'interface : eau, capacité, chaleur, progression, état. */
-    public static final int DATA_COUNT = 5;
+    /** Données envoyées à l'interface : eau, capacité, chaleur, progression, état, lave, capacité de lave. */
+    public static final int DATA_COUNT = 7;
     public static final int SLOT_ITEM = 0, SLOT_OFFERING = 1, SLOT_FUEL = 2, SLOT_WATER = 3, SLOT_EMPTIES = 4, SLOTS = 5;
 
     /** Ce que l'interface affiche (et pourquoi la forge ne peut pas démarrer). */
@@ -87,7 +91,12 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     };
 
     private int water;
-    private int lavaCharges;
+    /** La lave du foyer et du réservoir, en mB. */
+    private int lava;
+    /** Capacités, recalculées d'après les modules posés autour de la forge. */
+    private int waterCapacity = ForgeRules.BASE_WATER_CAPACITY;
+    private int lavaCapacity = ForgeRules.BASE_LAVA_CAPACITY;
+    private int moduleRefresh;
     private boolean working;
     private int progress;
     private Heat workHeat = Heat.NONE;
@@ -107,12 +116,19 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     private final ContainerData data = new ContainerData() {
         @Override
         public int get(int index) {
+            // les données d'un menu voyagent en entiers courts : on borne (un module d'un autre mod pourrait voir grand)
+            return Math.min(Short.MAX_VALUE, raw(index));
+        }
+
+        private int raw(int index) {
             return switch (index) {
                 case 0 -> water;
                 case 1 -> waterCapacity();
                 case 2 -> (working ? workHeat : nextHeat()).level();
                 case 3 -> progress;
                 case 4 -> status().ordinal();
+                case 5 -> lava;
+                case 6 -> lavaCapacity;
                 default -> 0;
             };
         }
@@ -138,14 +154,29 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         return working;
     }
 
-    /** Capacité d'eau. La chaudière l'agrandira (étape 5). */
+    /** Capacité d'eau : la forge seule, plus la chaudière. */
     public int waterCapacity() {
-        return ForgeRules.BASE_WATER_CAPACITY;
+        return waterCapacity;
     }
 
-    /** La chaleur que donnera la prochaine reforge. */
+    /** Capacité de lave : le foyer seul, plus le réservoir. */
+    public int lavaCapacity() {
+        return lavaCapacity;
+    }
+
+    public int water() {
+        return water;
+    }
+
+    public int lava() {
+        return lava;
+    }
+
+    /** La chaleur que donnera la prochaine reforge : le combustible posé passe avant la lave. */
     public Heat nextHeat() {
-        return lavaCharges > 0 ? Heat.FOURNAISE : Heat.ofFuel(inventory.getStackInSlot(SLOT_FUEL));
+        Heat fuel = Heat.ofFuel(inventory.getStackInSlot(SLOT_FUEL));
+        if (fuel != Heat.NONE) return fuel;
+        return lava >= ForgeRules.LAVA_PER_REFORGE ? Heat.FOURNAISE : Heat.NONE;
     }
 
     public Status status() {
@@ -159,9 +190,18 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (water < ForgeRules.WATER_PER_REFORGE) return Status.NO_WATER;
         if (nextHeat() == Heat.NONE) return Status.NO_FUEL;
         // un seau de lave rend un seau vide : il faut de la place pour lui
-        ItemStack empty = lavaCharges == 0 ? ForgeRules.emptyContainer(inventory.getStackInSlot(SLOT_FUEL)) : ItemStack.EMPTY;
+        ItemStack empty = consumesFuelSlot() ? ForgeRules.emptyContainer(inventory.getStackInSlot(SLOT_FUEL)) : ItemStack.EMPTY;
         if (!empty.isEmpty() && !canStoreEmpty(empty)) return Status.EMPTIES_FULL;
         return Status.READY;
+    }
+
+    /**
+     * La prochaine reforge brûle-t-elle ce qui est posé en combustible ? Oui, sauf un seau de lave quand la réserve
+     * a déjà de quoi faire : il attend alors d'y être versé.
+     */
+    private boolean consumesFuelSlot() {
+        ItemStack fuel = inventory.getStackInSlot(SLOT_FUEL);
+        return !fuel.isEmpty() && !(fuel.is(Items.LAVA_BUCKET) && lava >= ForgeRules.LAVA_PER_REFORGE);
     }
 
     private boolean canStoreEmpty(ItemStack empty) {
@@ -176,7 +216,9 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, FireForgeBlockEntity forge) {
-        forge.fillWater();
+        if (forge.moduleRefresh-- <= 0) forge.refreshModules();
+        forge.pourWaterSlot();
+        forge.pourLavaSlot();
         if (forge.bellowsCooldown > 0) forge.bellowsCooldown--;
         if (forge.working) forge.workTick();
     }
@@ -277,8 +319,88 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (player != null && player.distanceToSqr(worldPosition.getCenter()) < 32 * 32) player.displayClientMessage(message, true);
     }
 
-    /** Verse l'eau des seaux et fioles dans la chaudière, et range le récipient vide. */
-    private void fillWater() {
+    // ------------------------------------------------------------------ réserves et modules
+
+    /**
+     * Relit les modules posés autour de la forge et recalcule les capacités. Si un module a été retiré,
+     * ce qui ne tient plus dans la réserve est perdu (un jet de vapeur, ou de la fumée pour la lave).
+     */
+    public void refreshModules() {
+        moduleRefresh = 10;
+        if (level == null) return;
+        Direction facing = getBlockState().getValue(FireForgeBlock.FACING);
+        int newWater = ForgeRules.BASE_WATER_CAPACITY, newLava = ForgeRules.BASE_LAVA_CAPACITY;
+        for (ModuleSide side : ModuleSide.values()) {
+            for (BlockPos base : ModuleLayout.bases(worldPosition, facing, side)) {
+                // un bloc pas encore chargé : on ne conclut rien (sinon on viderait la réserve pour rien)
+                for (int y = 0; y < 4; y++) if (!level.isLoaded(base.above(y))) return;
+                BlockState state = level.getBlockState(base);
+                ForgeModules.Type type = ForgeModules.get(state);
+                if (type == null || type.side() != side) continue;
+                int height = 0;
+                while (height < type.maxHeight() && level.getBlockState(base.above(height)).is(state.getBlock())) height++;
+                newWater += height * type.waterPerBlock();
+                newLava += height * type.lavaPerBlock();
+                break; // un seul module par côté (derrière : le premier trouvé)
+            }
+        }
+        boolean changed = newWater != waterCapacity || newLava != lavaCapacity;
+        waterCapacity = newWater;
+        lavaCapacity = newLava;
+        if (water > waterCapacity) {
+            water = waterCapacity;
+            spill(ParticleTypes.CLOUD, SoundEvents.FIRE_EXTINGUISH);
+        }
+        if (lava > lavaCapacity) {
+            lava = lavaCapacity;
+            spill(ParticleTypes.LARGE_SMOKE, SoundEvents.LAVA_EXTINGUISH);
+        }
+        if (changed) setChanged();
+    }
+
+    private void spill(net.minecraft.core.particles.SimpleParticleType particle, net.minecraft.sounds.SoundEvent sound) {
+        level.playSound(null, worldPosition, sound, SoundSource.BLOCKS, 0.8F, 1.0F);
+        if (level instanceof ServerLevel server) {
+            Vec3 c = worldPosition.getCenter();
+            server.sendParticles(particle, c.x, c.y + 0.5, c.z, 12, 0.4, 0.3, 0.4, 0.02);
+        }
+        setChanged();
+    }
+
+    /** Verse de l'eau dans la réserve (seau sur la chaudière, tuyau d'un autre mod). @return la quantité acceptée */
+    public int fillWater(int amount, boolean simulate) {
+        int accepted = Math.max(0, Math.min(amount, waterCapacity - water));
+        if (!simulate && accepted > 0) {
+            water += accepted;
+            setChanged();
+        }
+        return accepted;
+    }
+
+    /** Verse de la lave dans la réserve (seau sur le réservoir, tuyau d'un autre mod). @return la quantité acceptée */
+    public int fillLava(int amount, boolean simulate) {
+        int accepted = Math.max(0, Math.min(amount, lavaCapacity - lava));
+        if (!simulate && accepted > 0) {
+            lava += accepted;
+            setChanged();
+        }
+        return accepted;
+    }
+
+    /** Un seau de lave posé en combustible est versé dans la réserve s'il y a la place pour tout le seau. */
+    private void pourLavaSlot() {
+        ItemStack stack = inventory.getStackInSlot(SLOT_FUEL);
+        if (!stack.is(Items.LAVA_BUCKET) || lava + ForgeRules.BUCKET > lavaCapacity) return;
+        ItemStack empty = ForgeRules.emptyContainer(stack);
+        if (!canStoreEmpty(empty)) return;
+        inventory.extractItem(SLOT_FUEL, 1, false);
+        inventory.insertItem(SLOT_EMPTIES, empty, false);
+        lava += ForgeRules.BUCKET;
+        setChanged();
+    }
+
+    /** Verse l'eau des seaux et fioles dans la réserve, et range le récipient vide. */
+    private void pourWaterSlot() {
         ItemStack stack = inventory.getStackInSlot(SLOT_WATER);
         int amount = ForgeRules.waterAmount(stack);
         if (amount == 0 || water + amount > waterCapacity()) return;
@@ -297,18 +419,15 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         smith = player.getUUID();
         workOffering = ForgeRules.offeringTier(inventory.getStackInSlot(SLOT_OFFERING));
         inventory.extractItem(SLOT_OFFERING, 1, false);
-        if (lavaCharges == 0) {
-            ItemStack fuel = inventory.getStackInSlot(SLOT_FUEL);
-            Heat heat = Heat.ofFuel(fuel);
+        ItemStack fuel = inventory.getStackInSlot(SLOT_FUEL);
+        workHeat = nextHeat();
+        if (consumesFuelSlot()) {
             ItemStack empty = ForgeRules.emptyContainer(fuel);
+            if (fuel.is(Items.LAVA_BUCKET)) lava += ForgeRules.BUCKET; // la réserve n'avait pas la place : il brûle ici
             inventory.extractItem(SLOT_FUEL, 1, false);
-            if (heat == Heat.FOURNAISE) lavaCharges = ForgeRules.REFORGES_PER_LAVA_BUCKET;
             if (!empty.isEmpty()) inventory.insertItem(SLOT_EMPTIES, empty, false);
-            workHeat = heat;
-        } else {
-            workHeat = Heat.FOURNAISE;
         }
-        if (workHeat == Heat.FOURNAISE) lavaCharges--;
+        if (workHeat == Heat.FOURNAISE) lava = Math.min(lavaCapacity, Math.max(0, lava - ForgeRules.LAVA_PER_REFORGE));
         crackTicks = scheduleCracks(Tolerance.cracks(inventory.getStackInSlot(SLOT_ITEM), workHeat), level.getRandom());
         nextCrack = 0;
         windowEnd = -1;
@@ -389,7 +508,9 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         super.saveAdditional(tag, registries);
         tag.put("inventory", inventory.serializeNBT(registries));
         tag.putInt("water", water);
-        tag.putInt("lava", lavaCharges);
+        tag.putInt("lava_mb", lava);
+        tag.putInt("water_capacity", waterCapacity);
+        tag.putInt("lava_capacity", lavaCapacity);
         tag.putBoolean("working", working);
         tag.putInt("progress", progress);
         tag.putInt("heat", workHeat.level());
@@ -408,7 +529,10 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         super.loadAdditional(tag, registries);
         if (tag.contains("inventory")) inventory.deserializeNBT(registries, tag.getCompound("inventory"));
         water = tag.getInt("water");
-        lavaCharges = tag.getInt("lava");
+        // avant l'étape 5, la lave se comptait en reforges restantes
+        lava = tag.contains("lava_mb") ? tag.getInt("lava_mb") : tag.getInt("lava") * ForgeRules.LAVA_PER_REFORGE;
+        if (tag.contains("water_capacity")) waterCapacity = tag.getInt("water_capacity");
+        if (tag.contains("lava_capacity")) lavaCapacity = tag.getInt("lava_capacity");
         working = tag.getBoolean("working");
         progress = tag.getInt("progress");
         workHeat = Heat.byLevel(tag.getInt("heat"));

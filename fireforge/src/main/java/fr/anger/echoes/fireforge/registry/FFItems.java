@@ -20,6 +20,12 @@ public final class FFItems {
     public static final DeferredItem<BlockItem> FIRE_FORGE =
             ITEMS.registerSimpleBlockItem(FFBlocks.FIRE_FORGE, new Item.Properties().fireResistant());
 
+    public static final DeferredItem<BlockItem> BOILER =
+            ITEMS.registerSimpleBlockItem(FFBlocks.BOILER, new Item.Properties().fireResistant());
+
+    public static final DeferredItem<BlockItem> LAVA_TANK =
+            ITEMS.registerSimpleBlockItem(FFBlocks.LAVA_TANK, new Item.Properties().fireResistant());
+
     // Les pièces de machine
     public static final DeferredItem<Item> MACHINE_GEAR = ITEMS.registerSimpleItem("machine_gear", new Item.Properties().fireResistant());
     public static final DeferredItem<Item> MACHINE_VALVE = ITEMS.registerSimpleItem("machine_valve", new Item.Properties().fireResistant());

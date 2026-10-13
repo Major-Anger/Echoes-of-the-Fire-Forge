@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "GVG",
+    "IPI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "V": {
+      "item": "echoes_fireforge:machine_valve"
+    },
+    "P": {
+      "item": "echoes_fireforge:engraved_plate"
+    }
+  },
+  "result": {
+    "id": "echoes_fireforge:lava_tank",
+    "count": 1
+  }
+}

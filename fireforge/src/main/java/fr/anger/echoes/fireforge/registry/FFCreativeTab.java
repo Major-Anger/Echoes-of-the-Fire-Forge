@@ -20,6 +20,8 @@ public final class FFCreativeTab {
             .icon(() -> new ItemStack(FFItems.MACHINE_GEAR.get()))
             .displayItems((params, output) -> {
                 output.accept(FFItems.FIRE_FORGE.get());
+                output.accept(FFItems.BOILER.get());
+                output.accept(FFItems.LAVA_TANK.get());
                 output.accept(FFItems.COMPRESSED_MACHINE.get());
                 output.accept(FFItems.MACHINE_GEAR.get());
                 output.accept(FFItems.MACHINE_VALVE.get());

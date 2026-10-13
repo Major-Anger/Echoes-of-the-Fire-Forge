@@ -84,5 +84,13 @@
   "tooltip.echoes_fireforge.bellows.cost": "Blowing for nothing: %s mB of water",
   "message.echoes_fireforge.crack": "It cracks! Quick, the bellows!",
   "message.echoes_fireforge.avoided": "Crack avoided!",
-  "message.echoes_fireforge.cracked": "Too late: the item split."
+  "message.echoes_fireforge.cracked": "Too late: the item split.",
+  "block.echoes_fireforge.boiler": "Boiler",
+  "block.echoes_fireforge.lava_tank": "Lava Tank",
+  "message.echoes_fireforge.module.unlinked": "This module isn't linked to any forge.",
+  "message.echoes_fireforge.module.full": "The reserve is full.",
+  "tooltip.echoes_fireforge.water.boiler": "Boiler: +%s mB",
+  "tooltip.echoes_fireforge.lava": "Lava: %s / %s mB",
+  "tooltip.echoes_fireforge.lava.reforges": "%s reforges at Furnace heat",
+  "tooltip.echoes_fireforge.lava.rule": "Fuel in the slot burns before the lava"
 }

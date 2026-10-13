@@ -2,6 +2,7 @@ package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forge.FireForgeBlock;
+import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -35,4 +36,23 @@ public final class FFBlocks {
                     .sound(SoundType.ANVIL)
                     .noOcclusion()
                     .lightLevel(state -> state.getValue(FireForgeBlock.LIT) ? 13 : 0)));
+
+    /** Module de gauche : la chaudière, fermée (elle marche aussi dans le Nether). Empilable sur 3 blocs. */
+    public static final DeferredBlock<ForgeModuleBlock> BOILER = BLOCKS.register("boiler",
+            () -> new ForgeModuleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F, 6.0F)
+                    .sound(SoundType.COPPER)
+                    .noOcclusion()));
+
+    /** Module de l'arrière : le réservoir de lave, qui nourrit la chaleur Fournaise. Empilable sur 2 blocs. */
+    public static final DeferredBlock<ForgeModuleBlock> LAVA_TANK = BLOCKS.register("lava_tank",
+            () -> new ForgeModuleBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F, 1200.0F)
+                    .sound(SoundType.NETHERITE_BLOCK)
+                    .noOcclusion()
+                    .lightLevel(state -> 6)));
 }

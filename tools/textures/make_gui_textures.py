@@ -1,4 +1,4 @@
-"""Interface de la Forge des Attiseurs (256 x 256) : fond, marteau, jauges, soufflet. Dessin original.
+"""Interface de la Forge des Attiseurs (256 x 256) : fond, marteau, jauges, soufflet, lave. Dessin original.
 
 Usage : python3 make_gui_textures.py <dossier de sortie>
 Les positions doivent correspondre à FireForgeMenu et FireForgeScreen.
@@ -176,6 +176,27 @@ def bellows(press=0.0, hover=False, alert=False):
 
 for i, sprite in enumerate([bellows(), bellows(hover=True), bellows(press=1.0), bellows(alert=True)]):
     img.alpha_composite(sprite, (i * 26, 192))
+
+
+# ---------------------------------------------------------------- jauge de lave (réservoir) : cadre 10 x 40 en (104, 192), remplissage 8 x 38 en (220, 48)
+cadre = Image.new('RGBA', (10, 40), (0, 0, 0, 0))
+cp = cadre.load()
+for y in range(40):
+    for x in range(10):
+        c = FOND_JAUGE
+        if y == 0 or x == 0:
+            c = SUIE
+        elif y == 39 or x == 9:
+            c = FER_CLAIR
+        cp[x, y] = c + (255,)
+img.alpha_composite(cadre, (104, 192))
+for y in range(38):
+    t = y / 37
+    lave = tuple(int(c1 + (c2 - c1) * t) for c1, c2 in zip((255, 200, 90), (190, 60, 10)))
+    for x in range(8):
+        # quelques bulles plus claires, comme derrière le hublot du réservoir
+        bulle = (x + y * 3) % 11 == 0
+        px[220 + x, 48 + y] = (tuple(min(255, c + 45) for c in lave) if bulle or x == 1 else lave) + (255,)
 
 img.save(os.path.join(OUT, 'fire_forge.png'))
 print('ok')

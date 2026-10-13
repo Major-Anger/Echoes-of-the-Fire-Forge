@@ -98,6 +98,10 @@ public class FireForgeMenu extends AbstractContainerMenu {
     public int waterCapacity() { return Math.max(1, data.get(1)); }
     public Heat heat() { return Heat.byLevel(data.get(2)); }
     public int progress() { return data.get(3); }
+    public int lava() { return data.get(5); }
+    public int lavaCapacity() { return Math.max(1, data.get(6)); }
+    /** Un réservoir est branché (ou il reste de la lave dans le foyer) : on montre la jauge de lave. */
+    public boolean showsLava() { return data.get(6) > ForgeRules.BASE_LAVA_CAPACITY || data.get(5) > 0; }
     public Status status() { return Status.values()[Math.max(0, Math.min(Status.values().length - 1, data.get(4)))]; }
     public boolean isWorking() { return status().isWorking(); }
 

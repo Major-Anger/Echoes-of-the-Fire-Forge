@@ -53,15 +53,21 @@
      attributs réels, résistance au feu, enchantement rare de l'offrande, infobulle) : faite.
   4. La fêlure (tolérance par matériau, craquements, réflexe au soufflet dans l'interface ou
      dans le monde, vapeur qui coûte de l'eau à vide, bouclier reforgeable) : faite.
-  5. **Prochaine étape** : les modules (chaudière empilable, réservoir de lave, module des âmes
-     avec le Silt, deux feux). Aperçu ou plan d'abord, puis le feu vert d'Anger.
+  5. Les modules, en deux temps :
+     - 5a, chaudière empilable et réservoir de lave (réserves, seaux, tuyaux, jauge de lave,
+       API `ForgeModules` pour les autres mods) : faite ;
+     - 5b, **prochaine étape** : le module des âmes avec le Silt (deux feux, options en âmes).
+       Plan validé (voir le plan, section 8) ; faire d'abord l'aperçu du panneau des âmes et du
+       foyer bleu, et attendre le feu vert d'Anger.
   6. Les effets des 8 Spéciaux (aujourd'hui tirés et affichés, sans effet), puis la liste « âme ».
   7. Le guide : reporté par Anger.
-- Modèles et textures des modules déjà validés et présents (`models/block/module_*`),
-  pas encore branchés dans le code.
+- Le modèle `module_soul` est validé et présent, pas encore branché (étape 5b).
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
+- Dépôt du Silt : le commit `2ab0c05` a supprimé les sources sans ajouter les nouvelles (signalé
+  à Anger). Ses épées sont dans `#minecraft:swords` : la Forge les reforge déjà (tolérance par
+  défaut : Ardent) ; leur tolérance est à décider avec la 5b.
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 

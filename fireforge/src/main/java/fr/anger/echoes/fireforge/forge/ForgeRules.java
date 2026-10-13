@@ -27,8 +27,12 @@ public final class ForgeRules {
     public static final int BUCKET = 1000;
     public static final int BOTTLE = 250;
     public static final int WATER_PER_REFORGE = 250;
-    /** Un seau de lave vaut 4 reforges. */
-    public static final int REFORGES_PER_LAVA_BUCKET = 4;
+    /** Le foyer seul garde 1 seau de lave ; une reforge à la Fournaise en brûle un quart (4 reforges par seau). */
+    public static final int BASE_LAVA_CAPACITY = 1000;
+    public static final int LAVA_PER_REFORGE = 250;
+    /** Modules (étape 5) : la chaudière ajoute 4 seaux d'eau par bloc (3 blocs), le réservoir 5 seaux de lave (2 blocs). */
+    public static final int BOILER_WATER_PER_BLOCK = 4000, BOILER_MAX_HEIGHT = 3;
+    public static final int LAVA_TANK_PER_BLOCK = 5000, LAVA_TANK_MAX_HEIGHT = 2;
     /** Durée d'une reforge : 10 secondes. */
     public static final int REFORGE_TICKS = 200;
 

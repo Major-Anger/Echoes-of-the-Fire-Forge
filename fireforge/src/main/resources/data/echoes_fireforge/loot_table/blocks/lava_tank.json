@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:lava_tank"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "echoes_fireforge:blocks/lava_tank"
+}

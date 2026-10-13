@@ -20,6 +20,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,6 +31,8 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
     private static final int BRASS = 0xE0B85A, LIGHT = 0xD8CFC0, FADED = 0x9A8F80, WARN = 0xE0805A, HOT = 0xFF8C3C, SAFE = 0x8CDC8C;
     private static final int HAMMER_X = 152, HAMMER_Y = 17, HAMMER_SIZE = 24;
     private static final int WATER_GAUGE_X = 9, HEAT_GAUGE_X = 47, GAUGE_Y = 19, GAUGE_H = 50;
+    /** La jauge de lave, à droite du combustible, quand un réservoir est branché. */
+    private static final int LAVA_X = 80, LAVA_Y = 17, LAVA_W = 10, LAVA_H = 40;
     /** Le soufflet, sous le combustible : sprites normal, survolé, écrasé, alerte (26 x 22, en y = 192). */
     private static final int BELLOWS_X = 62, BELLOWS_Y = 60, BELLOWS_W = 26, BELLOWS_H = 22, BELLOWS_V = 192;
     /** Le volet des chances, accroché à droite de la forge. */
@@ -66,6 +69,12 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
         // jauge de chaleur (un cran par niveau)
         int heat = menu.heat().level() * GAUGE_H / Heat.FOURNAISE.level();
         if (heat > 0) g.blit(TEXTURE, x + HEAT_GAUGE_X, y + GAUGE_Y + GAUGE_H - heat, 210, 48 + GAUGE_H - heat, 8, heat, 256, 256);
+        // lave du réservoir
+        if (menu.showsLava()) {
+            g.blit(TEXTURE, x + LAVA_X, y + LAVA_Y, 104, 192, LAVA_W, LAVA_H, 256, 256);
+            int lava = Math.min(LAVA_H - 2, menu.lava() * (LAVA_H - 2) / menu.lavaCapacity());
+            if (lava > 0) g.blit(TEXTURE, x + LAVA_X + 1, y + LAVA_Y + LAVA_H - 1 - lava, 220, 48 + LAVA_H - 2 - lava, 8, lava, 256, 256);
+        }
         // progression de la reforge
         int done = menu.progress() * 56 / ForgeRules.REFORGE_TICKS;
         if (done > 0) g.blit(TEXTURE, x + 126, y + 46, 200, 100, done, 5, 256, 256);
@@ -177,7 +186,16 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
         super.renderTooltip(g, mouseX, mouseY);
         if (menu.getCarried().isEmpty()) {
             if (inside(mouseX, mouseY, WATER_GAUGE_X - 1, GAUGE_Y - 1, 10, GAUGE_H + 2)) {
-                g.renderTooltip(font, Component.translatable("tooltip.echoes_fireforge.water", menu.water(), menu.waterCapacity()), mouseX, mouseY);
+                List<Component> lines = new ArrayList<>();
+                lines.add(Component.translatable("tooltip.echoes_fireforge.water", menu.water(), menu.waterCapacity()));
+                int extra = menu.waterCapacity() - ForgeRules.BASE_WATER_CAPACITY;
+                if (extra > 0) lines.add(Component.translatable("tooltip.echoes_fireforge.water.boiler", extra).withStyle(ChatFormatting.GRAY));
+                g.renderComponentTooltip(font, lines, mouseX, mouseY);
+            } else if (menu.showsLava() && inside(mouseX, mouseY, LAVA_X, LAVA_Y, LAVA_W, LAVA_H)) {
+                g.renderComponentTooltip(font, List.of(
+                        Component.translatable("tooltip.echoes_fireforge.lava", menu.lava(), menu.lavaCapacity()).withStyle(ChatFormatting.GOLD),
+                        Component.translatable("tooltip.echoes_fireforge.lava.reforges", menu.lava() / ForgeRules.LAVA_PER_REFORGE).withStyle(ChatFormatting.GRAY),
+                        Component.translatable("tooltip.echoes_fireforge.lava.rule").withStyle(ChatFormatting.GRAY)), mouseX, mouseY);
             } else if (inside(mouseX, mouseY, HEAT_GAUGE_X - 1, GAUGE_Y - 1, 10, GAUGE_H + 2)) {
                 Heat heat = menu.heat();
                 g.renderTooltip(font, heat == Heat.NONE ? Component.translatable("heat.echoes_fireforge.cold") : heat.displayName(), mouseX, mouseY);

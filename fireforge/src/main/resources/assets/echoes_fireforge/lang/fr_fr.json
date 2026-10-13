@@ -84,5 +84,13 @@
   "tooltip.echoes_fireforge.bellows.cost": "Souffler pour rien : %s mB d'eau",
   "message.echoes_fireforge.crack": "Ça craque ! Vite, le soufflet !",
   "message.echoes_fireforge.avoided": "Fêlure évitée !",
-  "message.echoes_fireforge.cracked": "Trop tard : l'objet s'est fendu."
+  "message.echoes_fireforge.cracked": "Trop tard : l'objet s'est fendu.",
+  "block.echoes_fireforge.boiler": "Chaudière",
+  "block.echoes_fireforge.lava_tank": "Réservoir de lave",
+  "message.echoes_fireforge.module.unlinked": "Ce module n'est relié à aucune forge.",
+  "message.echoes_fireforge.module.full": "La réserve est pleine.",
+  "tooltip.echoes_fireforge.water.boiler": "Chaudière : +%s mB",
+  "tooltip.echoes_fireforge.lava": "Lave : %s / %s mB",
+  "tooltip.echoes_fireforge.lava.reforges": "%s reforges à la Fournaise",
+  "tooltip.echoes_fireforge.lava.rule": "Le combustible posé passe avant la lave"
 }
