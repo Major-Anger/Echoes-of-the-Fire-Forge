@@ -38,7 +38,7 @@
 - Le contenu croisé vit dans l'épisode le plus récent (la Forge connaît le Silt, pas l'inverse).
 - Le Core sera sorti dans son propre dépôt avant la sortie publique.
 - Ne jamais modifier le dépôt Echoes of the Silt sans demande explicite (lecture seule).
-- NeoForge 1.21.1, textes du jeu en français et en anglais. Attiseur = « Stoker » en anglais (validé).
+- NeoForge 1.21.1, textes du jeu en français et en anglais. Attiseur = « Stoker », Veilleur = « Watcher » en anglais (validés).
 - Anger est le seul auteur de la série.
 
 ## Plan de conception
@@ -67,7 +67,6 @@
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
-- Traduction anglaise « Watchers » pour les Veilleurs (Lame des Veilleurs = Watchers' Blade) : à confirmer.
 - Dépôt du Silt : depuis le commit `2ab0c05` (encore vrai au `2864444`), les sources manquent sans ajouter les nouvelles (signalé
   à Anger). La recette du module des âmes suppose `echoes_silt:soul_crystal` et
   `echoes_silt:resonant_crystal` (noms lus dans l'ancienne version) : à vérifier quand le dépôt
