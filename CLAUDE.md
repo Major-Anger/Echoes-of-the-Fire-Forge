@@ -58,14 +58,17 @@
        API `ForgeModules` pour les autres mods) : faite ;
      - 5b, le module des âmes avec le Silt (feu des âmes et foyer bleu, verrouiller, garantir,
        relancer, panneau des âmes) : faite.
-  6. **Prochaine étape** : les effets des 8 Spéciaux (aujourd'hui tirés et affichés, sans effet),
-     puis la liste « âme » (le feu des âmes tire pour l'instant dans la liste de base).
-     Aperçu ou plan d'abord, puis le feu vert d'Anger.
-  7. Le guide : reporté par Anger.
+  6. Les Spéciaux, en deux temps :
+     - 6a, les effets des 8 Spéciaux de base (`forging/SpecialEffects`, brouillard des Lunettes
+       dans `client/SpecialFog`) : faite ;
+     - 6b, la liste « âme » : la mécanique est faite, avec un seul Spécial (Lame des Veilleurs).
+       **Anger réfléchit à la liste** : ne pas inventer d'autres Spéciaux âme sans lui.
+  7. Le guide : reporté par Anger. Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
-- Dépôt du Silt : le commit `2ab0c05` a supprimé les sources sans ajouter les nouvelles (signalé
+- Traduction anglaise « Watchers » pour les Veilleurs (Lame des Veilleurs = Watchers' Blade) : à confirmer.
+- Dépôt du Silt : depuis le commit `2ab0c05` (encore vrai au `2864444`), les sources manquent sans ajouter les nouvelles (signalé
   à Anger). La recette du module des âmes suppose `echoes_silt:soul_crystal` et
   `echoes_silt:resonant_crystal` (noms lus dans l'ancienne version) : à vérifier quand le dépôt
   sera réparé.

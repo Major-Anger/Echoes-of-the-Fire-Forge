@@ -65,6 +65,14 @@ public final class Forging {
     }
 
     public static ForgingData rollFor(ItemStack stack, Rarity rarity, RandomSource random) {
+        return rollFor(stack, rarity, false, random);
+    }
+
+    /**
+     * @param soulFire au feu des âmes, un Spécial vient de la liste âme s'il y en a un pour cette pièce,
+     *                 sinon de la liste de base
+     */
+    public static ForgingData rollFor(ItemStack stack, Rarity rarity, boolean soulFire, RandomSource random) {
         EquipmentSlot slot = slotOf(stack);
         List<ForgeStat> pool = new ArrayList<>(Arrays.asList(ForgeStat.poolFor(slot)));
         List<StatRoll> stats = new ArrayList<>();
@@ -82,8 +90,9 @@ public final class Forging {
                 stats.add(take(pool, random, -3, -6)); // la contrepartie
             }
             case SPECIAL -> {
-                List<Special> fitting = Arrays.stream(Special.values()).filter(s -> s.fits(slot)).toList();
-                if (fitting.isEmpty()) return rollFor(stack, Rarity.ATTISE, random);
+                List<Special> fitting = Arrays.stream(Special.values()).filter(s -> s.fits(slot) && s.soul() && soulFire).toList();
+                if (fitting.isEmpty()) fitting = Arrays.stream(Special.values()).filter(s -> s.fits(slot) && !s.soul()).toList();
+                if (fitting.isEmpty()) return rollFor(stack, Rarity.ATTISE, soulFire, random);
                 special = Optional.of(fitting.get(random.nextInt(fitting.size())));
             }
             default -> {}

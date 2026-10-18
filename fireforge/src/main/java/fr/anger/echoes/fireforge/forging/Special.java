@@ -8,7 +8,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 
 /**
  * Les effets Spéciaux (liste validée, docs/plan-fire-forge.md). Chacun a sa contrepartie.
- * Étape 3 : ils sont tirés et affichés. Leurs effets en jeu arrivent à l'étape 6.
+ * Leurs effets en jeu sont dans {@link SpecialEffects} (étape 6). Les Spéciaux « âme » ne sortent que du feu
+ * des âmes (module des âmes, avec le Silt) ; la liste âme est provisoire, Anger la complétera.
  */
 public enum Special implements StringRepresentable {
     SOUPAPE("soupape", EquipmentSlot.MAINHAND),
@@ -18,16 +19,29 @@ public enum Special implements StringRepresentable {
     PAS_DE_FONDEUR("pas_de_fondeur", EquipmentSlot.LEGS),
     SOUFFLET("soufflet", EquipmentSlot.FEET),
     LUNETTES("lunettes", EquipmentSlot.HEAD),
-    LINCEUL_DE_CENDRE("linceul_de_cendre", null); // n'importe quelle pièce d'armure
+    LINCEUL_DE_CENDRE("linceul_de_cendre", null), // n'importe quelle pièce d'armure
+    // liste âme (feu des âmes) : un seul pour valider la mécanique
+    LAME_DES_VEILLEURS("lame_des_veilleurs", EquipmentSlot.MAINHAND, true);
 
     public static final Codec<Special> CODEC = StringRepresentable.fromEnum(Special::values);
 
     private final String key;
     private final EquipmentSlot slot;
+    private final boolean soul;
 
     Special(String key, EquipmentSlot slot) {
+        this(key, slot, false);
+    }
+
+    Special(String key, EquipmentSlot slot, boolean soul) {
         this.key = key;
         this.slot = slot;
+        this.soul = soul;
+    }
+
+    /** Un Spécial de la liste âme (il ne sort que du feu des âmes). */
+    public boolean soul() {
+        return soul;
     }
 
     /** Ce Spécial peut-il tomber sur un objet porté à cet emplacement ? */
@@ -37,7 +51,7 @@ public enum Special implements StringRepresentable {
     }
 
     public Component displayName() {
-        return Component.translatable("special.echoes_fireforge." + key).withStyle(ChatFormatting.LIGHT_PURPLE);
+        return Component.translatable("special.echoes_fireforge." + key).withStyle(soul ? ChatFormatting.AQUA : ChatFormatting.LIGHT_PURPLE);
     }
 
     public Component effect() {

@@ -5,6 +5,7 @@ import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.Rarity;
 import fr.anger.echoes.fireforge.forging.RarityOdds;
 import fr.anger.echoes.fireforge.forging.ForgeStat;
+import fr.anger.echoes.fireforge.forging.Special;
 import fr.anger.echoes.core.soul.Souls;
 import net.minecraft.server.level.ServerPlayer;
 import fr.anger.echoes.fireforge.module.ForgeModules;
@@ -592,13 +593,15 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
             ForgingData previous = stack.get(FFDataComponents.FORGING);
             ForgingData data;
             if (workReroll && previous != null) {
-                data = Forging.rollFor(forged, previous.rarity(), level.getRandom()); // même rareté, nouvelles valeurs
+                // même rareté, nouvelles valeurs (un Spécial âme reste dans la liste âme)
+                boolean soulList = previous.special().map(Special::soul).orElse(false);
+                data = Forging.rollFor(forged, previous.rarity(), soulList, level.getRandom());
             } else if (cracked) {
                 data = Forging.rollFor(forged, Rarity.FELE, level.getRandom()); // un craquement manqué : Fêlé, quoi qu'il arrive
             } else {
                 double[] odds = RarityOdds.compute(workPlans, workOffering, workHeat);
                 if (workGuarantee) odds = RarityOdds.guarantee(odds);
-                data = Forging.rollFor(forged, Forging.pick(odds, level.getRandom()), level.getRandom());
+                data = Forging.rollFor(forged, Forging.pick(odds, level.getRandom()), workSoulFire, level.getRandom());
             }
             if (workLock != null) data = Forging.keep(data, workLock);
             forged.set(FFDataComponents.FORGING, data);

@@ -168,6 +168,27 @@ chère, plus la chance est haute.
 | Lunettes d'Attiseur | casque | on voit clair dans la lave | vision réduite en plein jour, hors du Nether | leurs lunettes de forge |
 | Linceul de cendre | toute armure | immunité à l'effet Wither | régénération naturelle ralentie | protection contre les « noyés de cendre » (sans dire d'où vient la maladie) |
 
+### Effets codés (étape 6a)
+| Spécial | Chiffres |
+|---|---|
+| Soupape | joueur touché : Cécité 1 s ; monstre : perd sa cible, Lenteur II et Cécité 1 s ; 4 coups en moins de 3 s : feu 2 s pour le porteur |
+| Marteau-pilon | un coup sur trois ×2 avec recul ; vitesse d'attaque −10 % (dans les attributs de l'arme) |
+| Montée en pression | +5 % de vitesse d'attaque par coup sur la même cible, 25 % au plus ; autre cible, 3 s sans frapper ou arme rangée : tout retombe, Lenteur 1 s |
+| Chaudière | feu et lave −50 % (avant l'armure) ; mouillée : Lenteur I, et encore 5 s après |
+| Pas de fondeur | aucun dégât des blocs de magma ; ~40 % plus vite dans la lave ; −6 % de vitesse hors de la lave |
+| Soufflet | accroupi + saut : environ 3 blocs de haut ; 2 s de recharge ; 4 points d'usure |
+| Lunettes d'Attiseur | lave : 12 blocs de vue ; plein jour à ciel ouvert hors du Nether : brouillard −40 % |
+| Linceul de cendre | immunité au Wither ; la faim soigne deux fois moins (Régénération et Soin instantané inchangés) |
+
+### Liste âme (étape 6b, provisoire)
+Le feu des âmes tire d'abord dans la liste âme, s'il y a un Spécial âme pour la pièce, sinon dans
+la liste de base. Relancer un Spécial âme reste dans la liste âme. Anger complétera la liste ; pour
+l'instant, un seul Spécial valide la mécanique :
+
+| Nom | Pièce | Effet | Contrepartie |
+|---|---|---|---|
+| Lame des Veilleurs | arme | chaque ennemi tué rend 1 âme | −10 % de dégâts en plein jour (les Veilleurs vivent dans le noir) |
+
 ## 8. Avec le Silt : la Forge des âmes résonnantes
 - **Étape 5b (codée)** : panneau des âmes à gauche de la forge ; le choix du feu reste d'une
   reforge à l'autre, les options se décochent après chaque reforge ; Verrouiller et Garantir se
