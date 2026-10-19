@@ -74,7 +74,8 @@ Les débris antiques sont des fossiles de leurs machines, inutilisables (on ne l
   est posé sur l'enclume. Entonnoirs : combustible par le dessus, eau par les côtés, récipients
   vides par le dessous.
 - **Réserve d'eau de la forge seule : 1 seau** ; une reforge consomme une fiole (¼ de seau).
-- **Reforgeable pour l'instant** : épées, haches, armures, bouclier (tag `echoes_fireforge:reforgeable`).
+- **Reforgeable** : épées, haches, armures, bouclier, et depuis l'étape 6c arc, arbalète, trident, masse
+  (tag `echoes_fireforge:reforgeable`).
 
 ## 4. La chaleur (fixe la rareté maximum)
 | Combustible | Chaleur | Rareté max |
@@ -202,6 +203,22 @@ Lore vérifié : rien ne décrit le Sift, rien ne tranche.
   plus seulement à « la main ». Les 3 Spéciaux de base (Soupape, Marteau-pilon, Montée en
   pression) restent pour épée et hache. Arc, arbalète, trident, masse n'ont pas de Spécial de
   base : au feu normal, un tirage Spécial devient Attisé (comme le bouclier).
+- **Codé (étape 6c)** :
+  - type d'arme reconnu par la classe de l'objet ou les tags communs `c:tools/bow`, `c:tools/crossbow`,
+    `c:tools/spear` (trident), `c:tools/mace`, puis `minecraft:axes` ; toute autre arme de corps à corps
+    compte comme une épée ; ces tags `c:` sont aussi dans `echoes_fireforge:reforgeable` ;
+  - tolérances (tags) : arc et arbalète Chaud, trident et masse Brûlant ;
+  - la Lame des Veilleurs (liste âme) est, comme les 3 Spéciaux de base, pour épée et hache ;
+  - arc : dégâts des flèches, vitesse de tension, vitesse des flèches ; arbalète : dégâts des flèches,
+    vitesse de rechargement, vitesse des flèches (3 statistiques, comme le bouclier : Attisé = 2 bonus et
+    1 contrepartie) ;
+  - dégâts des flèches : en % des dégâts de base de la flèche ; vitesse des flèches : en % de leur vitesse
+    au départ, sans changer les dégâts (compensés), elle porte plus loin et plus droit ;
+  - tension et rechargement : le temps d'utilisation avance plus vite ou plus lentement (à +5 %, un tick
+    sur vingt compte double ; à −5 %, un tick sur vingt ne compte pas), à l'écran comme en jeu ;
+  - dans le volet des chances, quand aucun Spécial n'est possible pour la pièce (avec le feu choisi),
+    Spécial affiche « — » et sa chance est comptée dans Attisé (vaut aussi pour le bouclier) ;
+  - panneau des âmes : une ligne de bonus trop longue finit par « … » et s'affiche entière en infobulle.
 
 **6d, Spéciaux âme sans dépendance au Silt** :
 | Spécial | Pièce | Effet | Contrepartie | Raison |

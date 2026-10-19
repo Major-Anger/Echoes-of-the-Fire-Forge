@@ -63,9 +63,9 @@
        dans `client/SpecialFog`) : faite ;
      - 6b, la liste « âme » : la mécanique est faite, avec un seul Spécial (Lame des Veilleurs) ;
      - 6c, 6d, 6e : la liste âme d'Anger, **plan validé** (plan, section « Suite de la liste
-       âme »). **Prochaine étape : 6c** (arc, arbalète, trident, masse reforgeables ; Spéciaux par
-       type d'arme), puis 6d (Écho de lame, Carreau muet, Harpon des rivières, Glas, Pas feutré,
-       Regard du Veilleur), puis 6e (Urne close, Fendeuse de racines, Corde chantante, avec deux
+       âme ») ; 6c (arc, arbalète, trident, masse reforgeables ; Spéciaux par type d'arme,
+       `forging/WeaponType`) : faite. **Prochaine étape : 6d** (Écho de lame, Carreau muet,
+       Harpon des rivières, Glas, Pas feutré, Regard du Veilleur), puis 6e (Urne close, Fendeuse de racines, Corde chantante, avec deux
        événements à ajouter au Core) (sources du Silt disponibles depuis `77e1de5`).
        Ne pas inventer d'autres Spéciaux âme sans Anger.
   7. Le guide : reporté par Anger. Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
@@ -78,9 +78,6 @@
   (`fr.anger.echoes.core`, dépendance Maven locale `fr.anger.echoes:echoes_core:0.1.0`, tâche
   `corepublish`), point d'entrée de la Gueule `SiltRules.noise(Player, float)`. La 6e est donc
   débloquée. Testé en jeu par Anger avec les deux épisodes chargés : tout fonctionne.
-- À corriger avant la 6c : dans le panneau des âmes, une ligne de bonus trop longue est coupée
-  (en anglais « +5.0% Knockback » devient « Knockbac ») : élargir le panneau ou montrer la ligne
-  entière en infobulle (`client/SoulPanel`).
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 

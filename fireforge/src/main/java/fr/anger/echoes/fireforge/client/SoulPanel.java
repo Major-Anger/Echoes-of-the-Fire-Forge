@@ -26,7 +26,7 @@ final class SoulPanel {
     private static final int BRASS = 0xE0B85A, LIGHT = 0xD8CFC0, FADED = 0x7A7268, CYAN = 0x6EE6E6, RED = 0xE06050, ORANGE = 0xFFAA3C;
     private static final int FIRE_Y = 28, FIRE_SIZE = 20, NORMAL_X = 6, SOUL_X = 30;
     private static final int OPTIONS_Y = 56, ROW = 12, CONTENT_Y = 97, LINE = 11, COST_Y = 177;
-    private static final int MAX_LOCK_LINES = 4;
+    private static final int MAX_LOCK_LINES = 4, BONUS_W = W - 22;
 
     private final FireForgeMenu menu;
     private final Font font;
@@ -88,9 +88,9 @@ final class SoulPanel {
                     if (locked) g.fill(x + 4, cy - 2, x + W - 4, cy + 9, 0xFF1E3C3E);
                     else if (inside(mouseX, mouseY, x + 4, cy - 2, W - 8, LINE)) g.fill(x + 4, cy - 2, x + W - 4, cy + 9, 0xFF3A3430);
                     if (locked) g.blit(texture, x + 6, cy, 134, 192, 5, 6, 256, 256);
-                    ForgingData.StatRoll roll = bonuses.get(i);
-                    Component line = Component.literal(ForgingTooltip.percent(roll.percent()) + " ").append(roll.stat().displayName());
-                    g.drawString(font, font.plainSubstrByWidth(line.getString(), W - 22), x + 14, cy, 0x55FF55, false);
+                    String line = bonusLine(bonuses.get(i));
+                    if (font.width(line) > BONUS_W) line = font.plainSubstrByWidth(line, BONUS_W - font.width("…")) + "…"; // en entier dans l'infobulle
+                    g.drawString(font, line, x + 14, cy, 0x55FF55, false);
                     cy += LINE;
                 }
                 cy += 3;
@@ -113,6 +113,20 @@ final class SoulPanel {
         g.fill(x + 6, y + COST_Y - 6, x + W - 6, y + COST_Y - 5, 0xFF46403C);
         int cost = menu.soulCost();
         g.drawString(font, Component.translatable("gui.echoes_fireforge.cost", cost), x + 6, y + COST_Y, affordable() ? CYAN : RED, false);
+    }
+
+    private static String bonusLine(ForgingData.StatRoll roll) {
+        return ForgingTooltip.percent(roll.percent()) + " " + roll.stat().displayName().getString();
+    }
+
+    /** La ligne de bonus visée (sous le titre « verrouiller »), ou -1. */
+    private int bonusAt(double mouseX, double mouseY, int x, int y) {
+        int lines = Math.min(MAX_LOCK_LINES, bonuses().size());
+        for (int i = 0; i < lines; i++) {
+            // les lignes des bonus suivent le titre (10 px), comme dans render
+            if (inside(mouseX, mouseY, x + 4, y + CONTENT_Y + 10 + LINE * i - 2, W - 8, LINE)) return i;
+        }
+        return -1;
     }
 
     private Component currentRarity() {
@@ -148,12 +162,8 @@ final class SoulPanel {
         if (inside(mouseX, mouseY, x + 4, y + OPTIONS_Y - 2, W - 8, ROW)) return FireForgeMenu.BUTTON_LOCK;
         if (inside(mouseX, mouseY, x + 4, y + OPTIONS_Y + ROW - 2, W - 8, ROW)) return FireForgeMenu.BUTTON_GUARANTEE;
         if (inside(mouseX, mouseY, x + 4, y + OPTIONS_Y + 2 * ROW - 2, W - 8, ROW)) return FireForgeMenu.BUTTON_REROLL;
-        int lines = Math.min(MAX_LOCK_LINES, bonuses().size());
-        for (int i = 0; i < lines; i++) {
-            // les lignes des bonus suivent le titre (10 px), comme dans render
-            if (inside(mouseX, mouseY, x + 4, y + CONTENT_Y + 10 + LINE * i - 2, W - 8, LINE)) return FireForgeMenu.BUTTON_LOCK_STAT + i;
-        }
-        return -1;
+        int bonus = bonusAt(mouseX, mouseY, x, y);
+        return bonus >= 0 ? FireForgeMenu.BUTTON_LOCK_STAT + bonus : -1;
     }
 
     /** Les infobulles du panneau. @return true si une infobulle a été dessinée */
@@ -172,6 +182,12 @@ final class SoulPanel {
         }
         if (!menu.soulFire() && inside(mouseX, mouseY, x + 4, y + OPTIONS_Y + 2 * ROW - 2, W - 8, ROW)) {
             g.renderTooltip(font, font.split(Component.translatable("gui.echoes_fireforge.reroll.help", currentRarity()), 160), mouseX, mouseY);
+            return true;
+        }
+        int bonus = menu.soulFire() ? -1 : bonusAt(mouseX, mouseY, x, y);
+        if (bonus >= 0 && font.width(bonusLine(bonuses().get(bonus))) > BONUS_W) {
+            // une ligne coupée (« +5.0% Knockb… ») : la ligne entière
+            g.renderTooltip(font, Component.literal(bonusLine(bonuses().get(bonus))).withStyle(ChatFormatting.GREEN), mouseX, mouseY);
             return true;
         }
         return false;

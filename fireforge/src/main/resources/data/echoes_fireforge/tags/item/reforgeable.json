@@ -3,6 +3,10 @@
     "#minecraft:swords",
     "#minecraft:axes",
     "#minecraft:enchantable/armor",
-    "minecraft:shield"
+    "minecraft:shield",
+    "#c:tools/bow",
+    "#c:tools/crossbow",
+    "#c:tools/spear",
+    "#c:tools/mace"
   ]
 }

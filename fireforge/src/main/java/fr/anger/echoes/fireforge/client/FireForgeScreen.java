@@ -6,6 +6,7 @@ import fr.anger.echoes.fireforge.forge.FireForgeMenu;
 import fr.anger.echoes.fireforge.forge.ForgeRules;
 import fr.anger.echoes.fireforge.forge.Heat;
 import fr.anger.echoes.fireforge.forge.Tolerance;
+import fr.anger.echoes.fireforge.forging.Forging;
 import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.Rarity;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
@@ -169,6 +170,11 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
             offering = 0;
         } else if (menu.hasSoulModule() && menu.guarantee() && !menu.soulFire()) {
             odds = RarityOdds.guarantee(odds);
+        }
+        // pas de Spécial pour cette pièce (bouclier, arc, arbalète, trident, masse au feu normal) : il devient Attisé
+        if (Forging.specials(menu.item(), menu.hasSoulModule() && menu.soulFire()).isEmpty()) {
+            odds[Rarity.ATTISE.ordinal()] += odds[Rarity.SPECIAL.ordinal()];
+            odds[Rarity.SPECIAL.ordinal()] = 0;
         }
         Rarity[] all = Rarity.values();
         for (int i = 0; i < all.length; i++) {

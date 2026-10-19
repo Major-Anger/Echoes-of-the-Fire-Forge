@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -26,18 +27,28 @@ public enum ForgeStat implements StringRepresentable {
     TOUGHNESS("toughness", Attributes.ARMOR_TOUGHNESS, 0.0, 1.0, true),
     KNOCKBACK_RESISTANCE("knockback_resistance", Attributes.KNOCKBACK_RESISTANCE, 0.0, 1.0, true),
     MOVE_SPEED("move_speed", Attributes.MOVEMENT_SPEED, 0.0, 0.0, false),
-    FIRE_RESISTANCE("fire_resistance", null, 0.0, 0.0, false); // pas d'attribut : appliqué aux dégâts de feu et de lave
+    FIRE_RESISTANCE("fire_resistance", null, 0.0, 0.0, false), // pas d'attribut : appliqué aux dégâts de feu et de lave
+    // arc et arbalète (étape 6c) : pas d'attribut, appliqués aux flèches tirées et au temps de tension (ForgingEvents)
+    ARROW_DAMAGE("arrow_damage", null, 0.0, 0.0, false),
+    DRAW_SPEED("draw_speed", null, 0.0, 0.0, false),
+    RELOAD_SPEED("reload_speed", null, 0.0, 0.0, false),
+    ARROW_SPEED("arrow_speed", null, 0.0, 0.0, false);
 
     public static final Codec<ForgeStat> CODEC = StringRepresentable.fromEnum(ForgeStat::values);
     public static final ForgeStat[] WEAPON = {DAMAGE, ATTACK_SPEED, REACH, KNOCKBACK};
     public static final ForgeStat[] ARMOR_STATS = {ARMOR, TOUGHNESS, KNOCKBACK_RESISTANCE, MOVE_SPEED, FIRE_RESISTANCE};
     /** Bouclier, actif dans la main secondaire. */
     public static final ForgeStat[] SHIELD = {TOUGHNESS, KNOCKBACK_RESISTANCE, MOVE_SPEED};
+    public static final ForgeStat[] BOW = {ARROW_DAMAGE, DRAW_SPEED, ARROW_SPEED};
+    public static final ForgeStat[] CROSSBOW = {ARROW_DAMAGE, RELOAD_SPEED, ARROW_SPEED};
 
-    /** Les statistiques possibles pour un objet porté à cet emplacement. */
-    public static ForgeStat[] poolFor(EquipmentSlot slot) {
+    /** Les statistiques possibles pour cet objet : armure, bouclier, arc, arbalète ou arme de corps à corps (trident et masse compris). */
+    public static ForgeStat[] poolFor(ItemStack stack) {
+        EquipmentSlot slot = Forging.slotOf(stack);
         if (slot.isArmor()) return ARMOR_STATS;
-        return slot == EquipmentSlot.OFFHAND ? SHIELD : WEAPON;
+        if (slot == EquipmentSlot.OFFHAND) return SHIELD;
+        WeaponType type = WeaponType.of(stack);
+        return type == WeaponType.BOW ? BOW : type == WeaponType.CROSSBOW ? CROSSBOW : WEAPON;
     }
 
     private final String key;

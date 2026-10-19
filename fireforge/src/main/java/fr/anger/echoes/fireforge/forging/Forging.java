@@ -73,8 +73,7 @@ public final class Forging {
      *                 sinon de la liste de base
      */
     public static ForgingData rollFor(ItemStack stack, Rarity rarity, boolean soulFire, RandomSource random) {
-        EquipmentSlot slot = slotOf(stack);
-        List<ForgeStat> pool = new ArrayList<>(Arrays.asList(ForgeStat.poolFor(slot)));
+        List<ForgeStat> pool = new ArrayList<>(Arrays.asList(ForgeStat.poolFor(stack)));
         List<StatRoll> stats = new ArrayList<>();
         Optional<Special> special = Optional.empty();
         switch (rarity) {
@@ -85,19 +84,29 @@ public final class Forging {
                 stats.add(take(pool, random, 2, 6));
             }
             case ATTISE -> {
-                int bonuses = Math.min(random.nextBoolean() ? 2 : 3, pool.size() - 1); // le bouclier n'a que 3 statistiques
+                int bonuses = Math.min(random.nextBoolean() ? 2 : 3, pool.size() - 1); // bouclier, arc et arbalète n'ont que 3 statistiques
                 for (int i = 0; i < bonuses; i++) stats.add(take(pool, random, 4, 9));
                 stats.add(take(pool, random, -3, -6)); // la contrepartie
             }
             case SPECIAL -> {
-                List<Special> fitting = Arrays.stream(Special.values()).filter(s -> s.fits(slot) && s.soul() && soulFire).toList();
-                if (fitting.isEmpty()) fitting = Arrays.stream(Special.values()).filter(s -> s.fits(slot) && !s.soul()).toList();
+                List<Special> fitting = specials(stack, soulFire);
                 if (fitting.isEmpty()) return rollFor(stack, Rarity.ATTISE, soulFire, random);
                 special = Optional.of(fitting.get(random.nextInt(fitting.size())));
             }
             default -> {}
         }
         return new ForgingData(rarity, List.copyOf(stats), special);
+    }
+
+    /**
+     * Les Spéciaux qui peuvent tomber sur cet objet : au feu des âmes, ceux de la liste âme s'il y en a pour cette pièce,
+     * sinon ceux de la liste de base. Vide (bouclier, arc, arbalète, trident, masse au feu normal) : un tirage Spécial
+     * devient Attisé.
+     */
+    public static List<Special> specials(ItemStack stack, boolean soulFire) {
+        List<Special> fitting = Arrays.stream(Special.values()).filter(s -> s.fits(stack) && s.soul() && soulFire).toList();
+        if (fitting.isEmpty()) fitting = Arrays.stream(Special.values()).filter(s -> s.fits(stack) && !s.soul()).toList();
+        return fitting;
     }
 
     /** Une statistique pas encore tirée, avec un pourcentage entre a et b (arrondi au dixième). */

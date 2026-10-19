@@ -5,38 +5,52 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 /**
  * Les effets Spéciaux (liste validée, docs/plan-fire-forge.md). Chacun a sa contrepartie.
- * Leurs effets en jeu sont dans {@link SpecialEffects} (étape 6). Les Spéciaux « âme » ne sortent que du feu
+ * Leurs effets en jeu sont dans {@link SpecialEffects} (étape 6). Les Spéciaux d'arme sont liés à des types d'arme
+ * (étape 6c) : arc, arbalète, trident et masse n'ont pas de Spécial de base. Les Spéciaux « âme » ne sortent que du feu
  * des âmes (module des âmes, avec le Silt) ; la liste âme est provisoire, Anger la complétera.
  */
 public enum Special implements StringRepresentable {
-    SOUPAPE("soupape", EquipmentSlot.MAINHAND),
-    MARTEAU_PILON("marteau_pilon", EquipmentSlot.MAINHAND),
-    MONTEE_EN_PRESSION("montee_en_pression", EquipmentSlot.MAINHAND),
+    SOUPAPE("soupape", false, WeaponType.SWORD, WeaponType.AXE),
+    MARTEAU_PILON("marteau_pilon", false, WeaponType.SWORD, WeaponType.AXE),
+    MONTEE_EN_PRESSION("montee_en_pression", false, WeaponType.SWORD, WeaponType.AXE),
     CHAUDIERE("chaudiere", EquipmentSlot.CHEST),
     PAS_DE_FONDEUR("pas_de_fondeur", EquipmentSlot.LEGS),
     SOUFFLET("soufflet", EquipmentSlot.FEET),
     LUNETTES("lunettes", EquipmentSlot.HEAD),
     LINCEUL_DE_CENDRE("linceul_de_cendre", null), // n'importe quelle pièce d'armure
     // liste âme (feu des âmes) : un seul pour valider la mécanique
-    LAME_DES_VEILLEURS("lame_des_veilleurs", EquipmentSlot.MAINHAND, true);
+    LAME_DES_VEILLEURS("lame_des_veilleurs", true, WeaponType.SWORD, WeaponType.AXE);
 
     public static final Codec<Special> CODEC = StringRepresentable.fromEnum(Special::values);
 
     private final String key;
+    @Nullable
     private final EquipmentSlot slot;
     private final boolean soul;
+    /** Pour un Spécial d'arme : les types d'arme qui peuvent le porter (étape 6c). */
+    private final Set<WeaponType> weapons;
 
-    Special(String key, EquipmentSlot slot) {
-        this(key, slot, false);
-    }
-
-    Special(String key, EquipmentSlot slot, boolean soul) {
+    /** Un Spécial d'armure (slot null : n'importe quelle pièce). */
+    Special(String key, @Nullable EquipmentSlot slot) {
         this.key = key;
         this.slot = slot;
+        this.soul = false;
+        this.weapons = Set.of();
+    }
+
+    /** Un Spécial d'arme, lié à ces types d'arme. */
+    Special(String key, boolean soul, WeaponType... weapons) {
+        this.key = key;
+        this.slot = EquipmentSlot.MAINHAND;
         this.soul = soul;
+        this.weapons = Set.of(weapons);
     }
 
     /** Un Spécial de la liste âme (il ne sort que du feu des âmes). */
@@ -44,10 +58,12 @@ public enum Special implements StringRepresentable {
         return soul;
     }
 
-    /** Ce Spécial peut-il tomber sur un objet porté à cet emplacement ? */
-    public boolean fits(EquipmentSlot itemSlot) {
+    /** Ce Spécial peut-il tomber sur cet objet ? Une armure à sa place, une arme selon son type. */
+    public boolean fits(ItemStack stack) {
+        EquipmentSlot itemSlot = Forging.slotOf(stack);
         if (slot == null) return itemSlot.isArmor();
-        return slot == itemSlot;
+        if (slot != itemSlot) return false;
+        return slot != EquipmentSlot.MAINHAND || weapons.contains(WeaponType.of(stack));
     }
 
     public Component displayName() {
