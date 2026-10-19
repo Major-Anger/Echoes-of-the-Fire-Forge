@@ -77,7 +77,10 @@
   âmes bonne), tag `echoes_silt:biomass` présent, le Silt utilise les âmes du Core
   (`fr.anger.echoes.core`, dépendance Maven locale `fr.anger.echoes:echoes_core:0.1.0`, tâche
   `corepublish`), point d'entrée de la Gueule `SiltRules.noise(Player, float)`. La 6e est donc
-  débloquée. Pas encore fait : un test en jeu avec les deux épisodes chargés ensemble.
+  débloquée. Testé en jeu par Anger avec les deux épisodes chargés : tout fonctionne.
+- À corriger avant la 6c : dans le panneau des âmes, une ligne de bonus trop longue est coupée
+  (en anglais « +5.0% Knockback » devient « Knockbac ») : élargir le panneau ou montrer la ligne
+  entière en infobulle (`client/SoulPanel`).
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 
