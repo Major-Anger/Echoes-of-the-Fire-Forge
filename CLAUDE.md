@@ -66,16 +66,18 @@
        âme »). **Prochaine étape : 6c** (arc, arbalète, trident, masse reforgeables ; Spéciaux par
        type d'arme), puis 6d (Écho de lame, Carreau muet, Harpon des rivières, Glas, Pas feutré,
        Regard du Veilleur), puis 6e (Urne close, Fendeuse de racines, Corde chantante, avec deux
-       événements à ajouter au Core) quand les sources du Silt seront dans son dépôt.
+       événements à ajouter au Core) (sources du Silt disponibles depuis `77e1de5`).
        Ne pas inventer d'autres Spéciaux âme sans Anger.
   7. Le guide : reporté par Anger. Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
-- Dépôt du Silt : depuis le commit `2ab0c05` (encore vrai au `2864444`), les sources manquent sans ajouter les nouvelles (signalé
-  à Anger). La recette du module des âmes suppose `echoes_silt:soul_crystal` et
-  `echoes_silt:resonant_crystal` (noms lus dans l'ancienne version) : à vérifier quand le dépôt
-  sera réparé.
+- Dépôt du Silt : sources présentes depuis le commit `77e1de5` (vérifié en lecture seule) :
+  `echoes_silt:soul_crystal` et `echoes_silt:resonant_crystal` existent (recette du module des
+  âmes bonne), tag `echoes_silt:biomass` présent, le Silt utilise les âmes du Core
+  (`fr.anger.echoes.core`, dépendance Maven locale `fr.anger.echoes:echoes_core:0.1.0`, tâche
+  `corepublish`), point d'entrée de la Gueule `SiltRules.noise(Player, float)`. La 6e est donc
+  débloquée. Pas encore fait : un test en jeu avec les deux épisodes chargés ensemble.
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 
