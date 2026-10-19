@@ -189,6 +189,56 @@ l'instant, un seul Spécial valide la mécanique :
 |---|---|---|---|
 | Lame des Veilleurs | arme | chaque ennemi tué rend 1 âme | −10 % de dégâts en plein jour (les Veilleurs vivent dans le noir) |
 
+### Suite de la liste âme : étapes 6c, 6d, 6e (plan validé par Anger, à coder)
+Lore vérifié : rien ne décrit le Sift, rien ne tranche.
+
+**6c, nouvelles armes reforgeables** (prérequis) :
+| Arme | Tolérance | Statistiques |
+|---|---|---|
+| Trident, masse | jusqu'à Brûlant | celles des armes (dégâts, vitesse, portée, recul) |
+| Arc, arbalète | jusqu'à Chaud (bois et ficelle) | nouvelles : dégâts des flèches, vitesse de tension (arc) / de rechargement (arbalète), vitesse des flèches |
+
+- Les Spéciaux deviennent liés à un **type d'arme** (épée, hache, arc, arbalète, trident, masse),
+  plus seulement à « la main ». Les 3 Spéciaux de base (Soupape, Marteau-pilon, Montée en
+  pression) restent pour épée et hache. Arc, arbalète, trident, masse n'ont pas de Spécial de
+  base : au feu normal, un tirage Spécial devient Attisé (comme le bouclier).
+
+**6d, Spéciaux âme sans dépendance au Silt** :
+| Spécial | Pièce | Effet | Contrepartie | Raison |
+|---|---|---|---|---|
+| Écho de lame | épée et hache | un coup sur 5 répète 50 % de ses dégâts 1 s plus tard | 1 âme par écho (sans âme : pas d'écho) | le chant laisse ses ondes dans la pierre, comme la Roche d'écho |
+| Carreau muet | arbalète | carreaux sans son ni vibration ; la cible ne prévient pas les autres | rechargement 20 % plus lent | la vapeur d'écho de la Résonance étouffe les sons |
+| Harpon des rivières | trident | lancé, il ramène la créature touchée | 1 âme par lancer | les Veilleurs pêchaient le Poisson-lie dans les rivières d'âme du Récif |
+| Glas | masse | un coup en tombant sonne comme un gong et fige 1 s les monstres à 4 blocs | 3 âmes par coup de Glas | le gong des Instruments des Bâtisseurs |
+| Pas feutré | bottes | en courant, un pas sur deux sans vibration (sculk, Warden) ; le bruit de course envoyé au Silt réduit de moitié (via l'événement « bruit » du Core, voir 6e) | vitesse −5 % | les Veilleurs vivaient dans le silence |
+| Regard du Veilleur | casque | après avoir pris des dégâts, les monstres à 16 blocs ont Brillance 5 s (visible de tous : accepté, la Lanterne des âmes du Silt fait pareil) | la Vision nocturne dure moitié moins | ils veillaient dans le noir total |
+
+**6e, Spéciaux âme liés au Silt** (attendre que les sources du Silt soient dans son dépôt) :
+| Spécial | Pièce | Effet | Contrepartie | Raison |
+|---|---|---|---|---|
+| Urne close (ex-« Linceul d'urne ») | plastron | les âmes perdues sans être dépensées (usure du Silt, vol du Moissonneur déchu, Lanterne) sont réduites de moitié | les âmes gagnées −25 % | les Veilleurs gardaient leurs morts au chaud dans des urnes |
+| Fendeuse de racines | hache | +40 % de dégâts contre le tag `echoes_silt:biomass` | −10 % contre le reste | les Veilleurs forgeaient leurs armes contre la biomasse |
+| Corde chantante | arc | chaque tir sonne une note ; 3 touches d'affilée sur la même cible : la flèche suivante transperce avec +50 % de dégâts | chaque tir fait du bruit (dans le Silt, il remplit la Gueule) | la musique des Bâtisseurs |
+
+Faits du Silt (donnés par Anger, vérifiés dans son code) :
+- Les âmes ne se perdent pas à la mort. Tous les gains passent par `Souls.add` (ou la façade
+  `SoulHelper.add`) ; les pertes passives (usure −1 toutes les 30 s dans le Silt, 45 s avec
+  l'Écho « La chute » ; vol du Moissonneur déchu) passent par `Souls.add` négatif ; les vraies
+  dépenses (artefacts, Puits, Grimoire) par `Souls.spend`.
+- La Gueule n'écoute pas les vibrations : son appétit monte quand on court, frappe ou est
+  frappé, casse un bloc, ou qu'une explosion a lieu à moins de 32 blocs. Point d'entrée du
+  Silt : `SiltRules.noise(joueur, quantité)`.
+- Tag `echoes_silt:biomass` : contaminated_zombie, contaminated_skeleton, contaminated_spider,
+  rampeur, noeud_mere, grand_noeud_mere, digested, silt_tracker, dragged, carapace,
+  fallen_harvester (le Premier Veilleur n'y est pas, exprès : c'est le boss).
+
+Ajouts au **Core** (code, pas le guide) pour 6e :
+- un événement sur `Souls.add` (gains et pertes, montant modifiable) : l'Urne close réduit les
+  gains de 25 % et les pertes de moitié ; il ne touche pas à `Souls.spend` ;
+- un événement « bruit » (joueur, quantité, modifiable) : la Forge le déclenche (Corde
+  chantante) et le réduit (Pas feutré) ; le Silt l'écoute pour remplir la Gueule (Anger fera le
+  branchement côté Silt). Les épisodes restent indépendants.
+
 ## 8. Avec le Silt : la Forge des âmes résonnantes
 - **Étape 5b (codée)** : panneau des âmes à gauche de la forge ; le choix du feu reste d'une
   reforge à l'autre, les options se décochent après chaque reforge ; Verrouiller et Garantir se

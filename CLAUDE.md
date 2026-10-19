@@ -61,8 +61,13 @@
   6. Les Spéciaux, en deux temps :
      - 6a, les effets des 8 Spéciaux de base (`forging/SpecialEffects`, brouillard des Lunettes
        dans `client/SpecialFog`) : faite ;
-     - 6b, la liste « âme » : la mécanique est faite, avec un seul Spécial (Lame des Veilleurs).
-       **Anger réfléchit à la liste** : ne pas inventer d'autres Spéciaux âme sans lui.
+     - 6b, la liste « âme » : la mécanique est faite, avec un seul Spécial (Lame des Veilleurs) ;
+     - 6c, 6d, 6e : la liste âme d'Anger, **plan validé** (plan, section « Suite de la liste
+       âme »). **Prochaine étape : 6c** (arc, arbalète, trident, masse reforgeables ; Spéciaux par
+       type d'arme), puis 6d (Écho de lame, Carreau muet, Harpon des rivières, Glas, Pas feutré,
+       Regard du Veilleur), puis 6e (Urne close, Fendeuse de racines, Corde chantante, avec deux
+       événements à ajouter au Core) quand les sources du Silt seront dans son dépôt.
+       Ne pas inventer d'autres Spéciaux âme sans Anger.
   7. Le guide : reporté par Anger. Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
 
 ## Points en attente (côté Anger)
