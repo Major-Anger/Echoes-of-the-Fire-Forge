@@ -14,7 +14,7 @@ import java.util.Set;
  * Les effets Spéciaux (liste validée, docs/plan-fire-forge.md). Chacun a sa contrepartie.
  * Leurs effets en jeu sont dans {@link SpecialEffects} (étape 6). Les Spéciaux d'arme sont liés à des types d'arme
  * (étape 6c) : arc, arbalète, trident et masse n'ont pas de Spécial de base. Les Spéciaux « âme » ne sortent que du feu
- * des âmes (module des âmes, avec le Silt) ; la liste âme est provisoire, Anger la complétera.
+ * des âmes (module des âmes, avec le Silt) ; la liste âme est celle d'Anger (étapes 6b, 6d, 6e).
  */
 public enum Special implements StringRepresentable {
     SOUPAPE("soupape", false, WeaponType.SWORD, WeaponType.AXE),
@@ -25,8 +25,14 @@ public enum Special implements StringRepresentable {
     SOUFFLET("soufflet", EquipmentSlot.FEET),
     LUNETTES("lunettes", EquipmentSlot.HEAD),
     LINCEUL_DE_CENDRE("linceul_de_cendre", null), // n'importe quelle pièce d'armure
-    // liste âme (feu des âmes) : un seul pour valider la mécanique
-    LAME_DES_VEILLEURS("lame_des_veilleurs", true, WeaponType.SWORD, WeaponType.AXE);
+    // liste âme (feu des âmes), d'Anger : effets dans SoulSpecialEffects (étape 6d)
+    LAME_DES_VEILLEURS("lame_des_veilleurs", true, WeaponType.SWORD, WeaponType.AXE),
+    ECHO_DE_LAME("echo_de_lame", true, WeaponType.SWORD, WeaponType.AXE),
+    CARREAU_MUET("carreau_muet", true, WeaponType.CROSSBOW),
+    HARPON_DES_RIVIERES("harpon_des_rivieres", true, WeaponType.TRIDENT),
+    GLAS("glas", true, WeaponType.MACE),
+    PAS_FEUTRE("pas_feutre", EquipmentSlot.FEET, true),
+    REGARD_DU_VEILLEUR("regard_du_veilleur", EquipmentSlot.HEAD, true);
 
     public static final Codec<Special> CODEC = StringRepresentable.fromEnum(Special::values);
 
@@ -39,9 +45,14 @@ public enum Special implements StringRepresentable {
 
     /** Un Spécial d'armure (slot null : n'importe quelle pièce). */
     Special(String key, @Nullable EquipmentSlot slot) {
+        this(key, slot, false);
+    }
+
+    /** Un Spécial d'armure, de la liste de base ou de la liste âme. */
+    Special(String key, @Nullable EquipmentSlot slot, boolean soul) {
         this.key = key;
         this.slot = slot;
-        this.soul = false;
+        this.soul = soul;
         this.weapons = Set.of();
     }
 

@@ -135,7 +135,7 @@ public final class SpecialEffects {
 
     /** Un coup d'arme au corps à corps, porté par un joueur. */
     @Nullable
-    private static Player meleeAttacker(DamageSource source) {
+    static Player meleeAttacker(DamageSource source) {
         return source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player && source.getDirectEntity() == player ? player : null;
     }
 

@@ -230,6 +230,21 @@ Lore vérifié : rien ne décrit le Sift, rien ne tranche.
 | Pas feutré | bottes | en courant, un pas sur deux sans vibration (sculk, Warden) ; le bruit de course envoyé au Silt réduit de moitié (via l'événement « bruit » du Core, voir 6e) | vitesse −5 % | les Veilleurs vivaient dans le silence |
 | Regard du Veilleur | casque | après avoir pris des dégâts, les monstres à 16 blocs ont Brillance 5 s (visible de tous : accepté, la Lanterne des âmes du Silt fait pareil) | la Vision nocturne dure moitié moins | ils veillaient dans le noir total |
 
+- **Codé (étape 6d)**, dans `forging/SoulSpecialEffects` :
+  - Écho de lame : le 5e coup au corps à corps (compté par joueur) programme une onde magique de 50 %
+    des dégâts subis, 1 s plus tard ; l'âme se paie au moment de l'écho (sans âme, rien) ; l'onde
+    ne relance pas les autres Spéciaux ;
+  - Carreau muet : le carreau est silencieux, le son du tir est coupé, et les vibrations du tir,
+    de l'impact et du cri de la cible (ce tick) sont annulées ; rechargement −20 % ;
+  - Harpon des rivières : l'âme se paie au lancer (sans âme, lancer normal) ; la première créature
+    touchée est tirée vers le lanceur, et le recul du coup est annulé pour elle ;
+  - Glas : coup de masse « en tombant » (règle vanilla du coup écrasant) ; cloche, onde, et les monstres
+    à 4 blocs reçoivent Lenteur X 1 s et s'arrêtent net ;
+  - Pas feutré : en courant, un pas sur deux n'émet pas de vibration ; vitesse −5 % (modificateur
+    d'attribut) ; la moitié du bruit envoyé au Silt viendra avec l'événement « bruit » (6e) ;
+  - Regard du Veilleur : Brillance 5 s aux monstres à 16 blocs après chaque dégât reçu ; toute Vision
+    nocturne reçue voit sa durée divisée par deux (une seule fois par effet).
+
 **6e, Spéciaux âme liés au Silt** (attendre que les sources du Silt soient dans son dépôt) :
 | Spécial | Pièce | Effet | Contrepartie | Raison |
 |---|---|---|---|---|

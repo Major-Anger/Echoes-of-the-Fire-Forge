@@ -95,7 +95,8 @@ public final class ForgingEvents {
     public static void onUseTick(LivingEntityUseItemEvent.Tick event) {
         ForgingData data = event.getItem().get(FFDataComponents.FORGING);
         if (data == null) return;
-        float percent = data.percent(ForgeStat.DRAW_SPEED) + data.percent(ForgeStat.RELOAD_SPEED);
+        float percent = data.percent(ForgeStat.DRAW_SPEED) + data.percent(ForgeStat.RELOAD_SPEED)
+                + SoulSpecialEffects.reloadPenalty(event.getItem()); // Carreau muet : rechargement plus lent
         if (percent == 0) return;
         LivingEntity user = event.getEntity();
         Map<LivingEntity, Float> carry = user.level().isClientSide ? CLIENT_DRAW : SERVER_DRAW;
