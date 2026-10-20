@@ -65,9 +65,9 @@
      - 6c, 6d, 6e : la liste âme d'Anger, **plan validé** (plan, section « Suite de la liste
        âme ») ; 6c (arc, arbalète, trident, masse reforgeables ; Spéciaux par type d'arme,
        `forging/WeaponType`) : faite ; 6d (Écho de lame, Carreau muet, Harpon des rivières, Glas,
-       Pas feutré, Regard du Veilleur, dans `forging/SoulSpecialEffects`) : faite.
-       **Prochaine étape : 6e** (Urne close, Fendeuse de racines, Corde chantante, avec deux
-       événements à ajouter au Core) (sources du Silt disponibles depuis `77e1de5`).
+       Pas feutré, Regard du Veilleur, dans `forging/SoulSpecialEffects`) : faite ; 6e (Urne close,
+       Fendeuse de racines, Corde chantante, dans `forging/SiltSpecialEffects` ; événements du Core
+       `SoulChangeEvent` et `Noise`/`NoiseEvent`) : faite. L'étape 6 est finie.
        Ne pas inventer d'autres Spéciaux âme sans Anger.
   7. Le guide : reporté par Anger. Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
 
@@ -79,6 +79,9 @@
   (`fr.anger.echoes.core`, dépendance Maven locale `fr.anger.echoes:echoes_core:0.1.0`, tâche
   `corepublish`), point d'entrée de la Gueule `SiltRules.noise(Player, float)`. La 6e est donc
   débloquée. Testé en jeu par Anger avec les deux épisodes chargés : tout fonctionne.
+- Branchement du Silt sur les événements de la 6e (fait par Anger, voir le plan, « À faire côté
+  Silt ») : `Souls.lose` pour les pertes passives, `Souls.spend` pour les armes, bruit par `Noise.make`
+  et Gueule remplie depuis `NoiseEvent.Post`. En attendant, l'Urne close ne réduit aucune perte du Silt.
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 

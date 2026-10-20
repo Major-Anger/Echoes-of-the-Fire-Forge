@@ -5,11 +5,13 @@ import fr.anger.echoes.core.network.SoulSyncPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * Les âmes, partagées par tous les épisodes : celles récoltées dans le Silt se dépensent à la Forge.
  * Toutes les méthodes qui modifient la jauge la renvoient au client.
+ * {@link #add}, {@link #lose} et {@link #spend} postent un {@link SoulChangeEvent} que les autres mods peuvent modifier.
  */
 public final class Souls {
 
@@ -27,8 +29,23 @@ public final class Souls {
         return data(player).getMax();
     }
 
-    /** Ajoute (ou retire, si négatif) des âmes, dans les limites de la jauge. */
+    /**
+     * Ajoute des âmes gagnées, dans les limites de la jauge. Négatif, c'est une correction
+     * (remettre la jauge où on la veut) : pour une perte passive, préférer {@link #lose}, pour un coût, {@link #spend}.
+     */
     public static void add(ServerPlayer player, int amount) {
+        change(player, amount >= 0 ? SoulChangeEvent.Cause.GAIN : SoulChangeEvent.Cause.CORRECTION, amount);
+    }
+
+    /** Retire des âmes perdues sans être dépensées (usure, vol…), dans les limites de la jauge. */
+    public static void lose(ServerPlayer player, int amount) {
+        if (amount > 0) change(player, SoulChangeEvent.Cause.LOSS, -amount);
+    }
+
+    private static void change(ServerPlayer player, SoulChangeEvent.Cause cause, int amount) {
+        if (amount == 0) return;
+        amount = NeoForge.EVENT_BUS.post(new SoulChangeEvent(player, cause, amount)).getAmount();
+        if (amount == 0) return;
         SoulData data = data(player);
         data.setSouls(data.getSouls() + amount);
         sync(player);
@@ -50,6 +67,8 @@ public final class Souls {
         if (player.isCreative() || amount <= 0) return true;
         SoulData data = data(player);
         if (data.getSouls() < amount) return false;
+        amount = -NeoForge.EVENT_BUS.post(new SoulChangeEvent(player, SoulChangeEvent.Cause.SPEND, -amount)).getAmount();
+        if (amount == 0) return true;
         data.setSouls(data.getSouls() - amount);
         sync(player);
         return true;

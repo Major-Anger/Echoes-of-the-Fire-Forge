@@ -142,5 +142,14 @@
   "special.echoes_fireforge.pas_feutre.drawback": "−5 % de vitesse.",
   "special.echoes_fireforge.regard_du_veilleur": "Regard du Veilleur",
   "special.echoes_fireforge.regard_du_veilleur.effect": "Après un coup reçu, les monstres à 16 blocs brillent 5 s.",
-  "special.echoes_fireforge.regard_du_veilleur.drawback": "La Vision nocturne dure moitié moins."
+  "special.echoes_fireforge.regard_du_veilleur.drawback": "La Vision nocturne dure moitié moins.",
+  "special.echoes_fireforge.urne_close": "Urne close",
+  "special.echoes_fireforge.urne_close.effect": "Les âmes perdues sans être dépensées : moitié moins.",
+  "special.echoes_fireforge.urne_close.drawback": "Les âmes gagnées : 25 % de moins.",
+  "special.echoes_fireforge.fendeuse_de_racines": "Fendeuse de racines",
+  "special.echoes_fireforge.fendeuse_de_racines.effect": "+40 % de dégâts contre la biomasse.",
+  "special.echoes_fireforge.fendeuse_de_racines.drawback": "−10 % de dégâts contre le reste.",
+  "special.echoes_fireforge.corde_chantante": "Corde chantante",
+  "special.echoes_fireforge.corde_chantante.effect": "Chaque tir sonne une note ; après 3 touches d'affilée sur la même cible, la flèche suivante transperce avec +50 % de dégâts.",
+  "special.echoes_fireforge.corde_chantante.drawback": "Chaque tir fait du bruit."
 }

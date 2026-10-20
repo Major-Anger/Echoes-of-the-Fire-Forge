@@ -190,7 +190,7 @@ l'instant, un seul Spécial valide la mécanique :
 |---|---|---|---|
 | Lame des Veilleurs | arme | chaque ennemi tué rend 1 âme | −10 % de dégâts en plein jour (les Veilleurs vivent dans le noir) |
 
-### Suite de la liste âme : étapes 6c, 6d, 6e (plan validé par Anger, à coder)
+### Suite de la liste âme : étapes 6c, 6d, 6e (plan validé par Anger, codé)
 Lore vérifié : rien ne décrit le Sift, rien ne tranche.
 
 **6c, nouvelles armes reforgeables** (prérequis) :
@@ -245,7 +245,7 @@ Lore vérifié : rien ne décrit le Sift, rien ne tranche.
   - Regard du Veilleur : Brillance 5 s aux monstres à 16 blocs après chaque dégât reçu ; toute Vision
     nocturne reçue voit sa durée divisée par deux (une seule fois par effet).
 
-**6e, Spéciaux âme liés au Silt** (attendre que les sources du Silt soient dans son dépôt) :
+**6e, Spéciaux âme liés au Silt** :
 | Spécial | Pièce | Effet | Contrepartie | Raison |
 |---|---|---|---|---|
 | Urne close (ex-« Linceul d'urne ») | plastron | les âmes perdues sans être dépensées (usure du Silt, vol du Moissonneur déchu, Lanterne) sont réduites de moitié | les âmes gagnées −25 % | les Veilleurs gardaient leurs morts au chaud dans des urnes |
@@ -270,6 +270,30 @@ Ajouts au **Core** (code, pas le guide) pour 6e :
 - un événement « bruit » (joueur, quantité, modifiable) : la Forge le déclenche (Corde
   chantante) et le réduit (Pas feutré) ; le Silt l'écoute pour remplir la Gueule (Anger fera le
   branchement côté Silt). Les épisodes restent indépendants.
+
+- **Codé (étape 6e)** (choix d'Anger : tout passe par les événements du Core, la Forge n'appelle
+  jamais le code du Silt) :
+  - Core, `soul/SoulChangeEvent` : posté par `Souls.add` (cause `GAIN` si positif, `CORRECTION` si
+    négatif), par la nouvelle `Souls.lose(joueur, n)` (cause `LOSS`, les pertes passives) et par
+    `Souls.spend` (cause `SPEND`) ; la quantité est modifiable. `set` et `fill` ne le postent pas ;
+  - Core, `noise/Noise.make(joueur, force, cause)` : poste `NoiseEvent.Pre` (modifiable, annulable)
+    puis `NoiseEvent.Post` (le bruit final, à écouter) ; causes communes `echoes_core:run`, `attack`,
+    `hurt`, `break`, `explosion`, `shot`, `other` ;
+  - Urne close : seules les causes `LOSS` (moitié) et `GAIN` (−25 %) ; les dépenses et les corrections
+    ne sont pas touchées (sinon les armes du Silt payées en `Souls.add` négatif coûteraient moitié
+    moins, et la malédiction de `RelicEffects` laisserait passer des âmes). Les fractions d'âme sont
+    gardées d'une fois sur l'autre (4 pertes d'une âme en coûtent 2, 4 gains en rapportent 3) ;
+  - Fendeuse de racines : coups de hache au corps à corps seulement ;
+  - Corde chantante : note de flûte qui monte à chaque touche, carillon pour la flèche chantée ; une
+    autre cible relance la série à 1, un tir dans un bloc la casse ; la flèche chantée gagne un niveau
+    de perçage (access transformer sur `AbstractArrow.setPierceLevel`) ; bruit de tir : 3 (cause `shot`,
+    une frappe en vaut 2,5 dans le Silt) ;
+  - Pas feutré : le bruit de cause `run` réduit de moitié.
+- **À faire côté Silt (Anger, quand il veut)** : remplacer `Souls.add(p, -n)` par `Souls.lose(p, n)`
+  pour l'usure, le Moissonneur déchu et la Lanterne ; passer les armes (Claymore, Dagues jumelles,
+  Lame tourbillon) sur `Souls.spend` (gratuit en créatif) ; faire passer le bruit de course et les
+  appels à `SiltRules.noise` par `Noise.make` (avec la cause qui va bien), et remplir la Gueule depuis
+  `NoiseEvent.Post`. Republier le Core (`gradlew :core:publishToMavenLocal`) avant.
 
 ## 8. Avec le Silt : la Forge des âmes résonnantes
 - **Étape 5b (codée)** : panneau des âmes à gauche de la forge ; le choix du feu reste d'une

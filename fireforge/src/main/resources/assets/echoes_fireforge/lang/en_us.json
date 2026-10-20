@@ -142,5 +142,14 @@
   "special.echoes_fireforge.pas_feutre.drawback": "−5% speed.",
   "special.echoes_fireforge.regard_du_veilleur": "Watcher's Gaze",
   "special.echoes_fireforge.regard_du_veilleur.effect": "After taking a hit, monsters within 16 blocks glow for 5 s.",
-  "special.echoes_fireforge.regard_du_veilleur.drawback": "Night Vision lasts half as long."
+  "special.echoes_fireforge.regard_du_veilleur.drawback": "Night Vision lasts half as long.",
+  "special.echoes_fireforge.urne_close": "Sealed Urn",
+  "special.echoes_fireforge.urne_close.effect": "Souls lost without being spent: halved.",
+  "special.echoes_fireforge.urne_close.drawback": "Souls gained: 25% fewer.",
+  "special.echoes_fireforge.fendeuse_de_racines": "Rootcleaver",
+  "special.echoes_fireforge.fendeuse_de_racines.effect": "+40% damage against biomass.",
+  "special.echoes_fireforge.fendeuse_de_racines.drawback": "−10% damage against everything else.",
+  "special.echoes_fireforge.corde_chantante": "Singing String",
+  "special.echoes_fireforge.corde_chantante.effect": "Each shot rings a note; after 3 hits in a row on the same target, the next arrow pierces with +50% damage.",
+  "special.echoes_fireforge.corde_chantante.drawback": "Each shot makes noise."
 }

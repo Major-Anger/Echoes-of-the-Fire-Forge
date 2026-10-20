@@ -32,7 +32,10 @@ public enum Special implements StringRepresentable {
     HARPON_DES_RIVIERES("harpon_des_rivieres", true, WeaponType.TRIDENT),
     GLAS("glas", true, WeaponType.MACE),
     PAS_FEUTRE("pas_feutre", EquipmentSlot.FEET, true),
-    REGARD_DU_VEILLEUR("regard_du_veilleur", EquipmentSlot.HEAD, true);
+    REGARD_DU_VEILLEUR("regard_du_veilleur", EquipmentSlot.HEAD, true),
+    URNE_CLOSE("urne_close", EquipmentSlot.CHEST, true),
+    FENDEUSE_DE_RACINES("fendeuse_de_racines", true, WeaponType.AXE),
+    CORDE_CHANTANTE("corde_chantante", true, WeaponType.BOW);
 
     public static final Codec<Special> CODEC = StringRepresentable.fromEnum(Special::values);
 
