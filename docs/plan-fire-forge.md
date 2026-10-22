@@ -415,9 +415,23 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   éteint (synchronisé pour tous les joueurs) et donne au client de quoi dessiner le faisceau
   (porteur, position, direction) ; un faisceau simple par défaut, que le shader d'Anger remplace.
 
-### Questions encore ouvertes
-- Où vivra le shader d'Anger (la Forge ou le Core) ? Il n'est encore dans aucun dépôt.
-- Textures et modèles de l'établi, du bouilleur et des gabarits : planche d'aperçu avant intégration.
+- **Recharge** (validé) : 1 charbon et 1 seau d'eau pour 20 charges, en 10 secondes.
+- **Shader d'Anger** : pas encore de dépôt (un zip). Il vivra dans la Forge (seul usage pour
+  l'instant), derrière un point d'accroche client : sans lui, le faisceau simple par défaut.
+- **Textures** : `tools/textures/make_workbench_textures.py` (établi 2 blocs, bouilleur, 17 gabarits,
+  Plan de l'Établi ; gabarits rares en acier bleui par la trempe). Planche d'aperçu envoyée,
+  en attente de validation.
+
+### Découpage proposé
+- **8a, l'établi** : Plan de l'Établi (butin), bloc de 2, interface (pièce, gabarit, engrenage, la
+  clé), composant `echoes_fireforge:mechanism`, infobulle, gabarits (butin des coffres, duplication),
+  greffe gardée à la reforge. Aucun effet encore.
+- **8b, le bouilleur et la vapeur** : module de l'établi, panneau sur le côté, charges des pièces,
+  barre de vapeur.
+- **8c, les armures** : les 12 mécanismes, touches C, B, N ; sac et poches.
+- **8d, les armes** : Piston, Sillon, Frappe-sol, Treuil, Trident de trempe ; clic droit et bouclier.
+- **8e, la Lampe à vapeur et le guide** : lumière, faisceau par défaut, point d'accroche pour le
+  shader ; entrées du guide (chapitre « La Forge » et un plan de plus dans les Carnets).
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
