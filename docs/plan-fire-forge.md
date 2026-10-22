@@ -339,6 +339,78 @@ Ajouts au **Core** (code, pas le guide) pour 6e :
 Créatures (les Cendreux : Attiseurs à mi-chemin de la maladie), structures, Échos,
 objets particuliers au cas par cas, liste des Spéciaux version âme, ce que devient l'eau.
 
+## 11. L'Établi d'Attiseur et les mécanismes (proposition, en attente de validation d'Anger)
+Idée d'Anger. Les Attiseurs ne faisaient pas que forger : ils équipaient leurs armes et leurs
+armures de mécanismes pour vivre et travailler dans le Nether.
+
+### L'établi
+- **Établi d'Attiseur** (« Stoker's Workbench ») : bloc de 2 de long, comme la forge.
+- Fabriqué avec le **Plan de l'Établi** (consommé), un nouveau plan qui sort des machines
+  comprimées. Répartition proposée des plans (15 % de chance par machine, inchangé) : Plan de la
+  Forge 35 %, Plan de l'Établi 25 %, Plans d'Attiseur I à V 40 %.
+- Interface façon table de forgeron : la pièce, un gabarit, des pièces de machine, le résultat.
+- **Un mécanisme par pièce**, en plus de la rareté et du Spécial ; une nouvelle greffe remplace
+  l'ancienne ; le mécanisme reste quand on reforge. Composant `echoes_fireforge:mechanism`, une
+  ligne dans l'infobulle.
+
+### Les gabarits (comme les modèles d'armure)
+- Un **gabarit** par mécanisme. On le trouve dans les coffres de bastion et de forteresse, et plus
+  rarement dans les machines comprimées.
+- **Rares** (validé) : Sonde de prospection, Planeur à vapeur, Pistons de genoux, Ressorts.
+  Les autres sont communs. Chances proposées : commun 8 %, rare 2 % par coffre ; machine comprimée 2 %.
+- **Duplication** (validé) : gabarit + 3 engrenages + 1 bloc de cuivre → 2 gabarits ; un rare
+  demande en plus une plaque gravée.
+
+### La vapeur (armures seulement ; validé : pas pour tout)
+- Les mécanismes « à vapeur » ont une **barre de vapeur** (au-dessus de la barre d'objets, seulement
+  quand on en porte un). La pièce garde son eau : 1 seau par pièce, remplie d'un clic droit avec un
+  seau d'eau sur la pièce dans l'inventaire, ou à l'établi.
+- À vapeur : Planeur, Jet de vapeur, Pistons de genoux. Les autres n'en utilisent pas.
+- **Armes** : pas de vapeur, un léger temps de recharge (validé).
+
+### Les touches (configurables)
+- **Arme** : clic droit (validé). **Plastron** : B (validé). Proposé : **casque** C, **jambières** N.
+  Les bottes sont passives : pas de touche.
+
+### Les mécanismes d'armure (3 par emplacement)
+| Pièce | Mécanisme | Type | Effet proposé | Raison |
+|---|---|---|---|---|
+| Casque | Longue-vue | touche C tenue | zoom ×4 | surveiller les coulées de loin |
+| | Sonde de prospection (rare) | touche C | les minerais à 8 blocs brillent 5 s ; recharge 20 s | ils cherchaient le métal dans la roche |
+| | Lampe à vapeur | touche C | une lumière suit le joueur (allumée / éteinte) | travailler au fond des galeries |
+| Plastron | Sac dorsal | touche B | 9 cases en plus | porter les outils de forge |
+| | Planeur à vapeur (rare) | touche B tenue en l'air | chute ralentie et petites poussées ; vapeur : environ 8 s de vol par seau | traverser les lacs de lave |
+| | Jet de vapeur | touche B | une bouffée repousse les créatures à 4 blocs ; 200 mB, recharge 1 s | les soupapes de décharge |
+| Jambières | Poches | touche N | 6 cases en plus | les poches à outils |
+| | Pistons de genoux (rare) | touche N | un élan bref vers l'avant ; 150 mB | les pistons des machines |
+| | Ancre | passif | accroupi : aucun recul | tenir debout devant le souffle des fourneaux |
+| Bottes | Patins | passif | +20 % de vitesse sur pierre, basalte, pierre noire, briques, métal | les quais des forges |
+| | Ressorts (rare) | passif | saut +50 %, chute amortie de moitié | les amortisseurs des machines |
+| | Crampons | passif | monter un bloc sans sauter ; le sable des âmes ne ralentit plus | marcher dans le Nether |
+
+Sac et poches : pas de shulker ni de sac à l'intérieur ; le contenu suit la pièce si on la perd.
+
+### Les mécanismes d'arme
+| Mécanisme | Armes | Effet proposé (clic droit) | Recharge |
+|---|---|---|---|
+| Frappe-sol (zone) | épée, hache | onde de choc à 3 blocs : 60 % des dégâts et recul | 5 s |
+| Treuil (lancer) | épée, hache | l'arme part au bout d'une chaîne (10 blocs), frappe à 100 % et revient | 4 s |
+| Piston (perçant) | à confirmer | estocade en ligne sur 4 blocs, 100 % des dégâts | 3 s |
+| Trident de trempe | trident | ne se lance plus. Clic droit : **surchauffe** 8 s (+30 % de dégâts, met le feu), puis 6 s de refroidissement ; **dans l'eau ou sous la pluie**, la surchauffe fait de la vapeur : +50 % et pas de feu | 6 s |
+| — | masse | rien (validé) | — |
+
+Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
+
+### Questions encore ouvertes
+- Le Piston (perçant) : on le garde ? Sur quelles armes ?
+- Clic droit sur une arme : avec un bouclier en main gauche, le clic droit lève normalement le
+  bouclier. Proposé : bouclier en main gauche → le bouclier passe avant, le mécanisme se déclenche
+  accroupi + clic droit.
+- Trident de trempe : refuser la greffe sur un trident avec Loyauté ou Impulsion (ils ne serviraient
+  plus) ? Proposé : oui.
+- La Lampe à vapeur utilise-t-elle de la vapeur ? Proposé : non.
+- Textures et modèles de l'établi et des gabarits : planche d'aperçu avant intégration.
+
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
 avant toute intégration (règles 4 et 5).
