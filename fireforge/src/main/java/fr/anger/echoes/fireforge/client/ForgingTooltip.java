@@ -4,6 +4,7 @@ import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.ForgingEvents;
 import fr.anger.echoes.fireforge.mechanism.Mechanism;
+import fr.anger.echoes.fireforge.workbench.Steam;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -35,6 +36,10 @@ public final class ForgingTooltip {
         if (mechanism != null) {
             lines.add(Component.translatable("tooltip.echoes_fireforge.mechanism", mechanism.displayName()).withStyle(ChatFormatting.GOLD));
             lines.add(Component.literal("  ").append(mechanism.description()).withStyle(ChatFormatting.GRAY));
+            if (mechanism.steam()) {
+                lines.add(Component.literal("  ").append(Component.translatable("tooltip.echoes_fireforge.steam",
+                        Steam.charges(event.getItemStack()), Steam.CHARGES)).withStyle(ChatFormatting.WHITE));
+            }
         }
         List<Component> tooltip = event.getToolTip();
         tooltip.addAll(Math.min(1, tooltip.size()), lines);

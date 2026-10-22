@@ -1,4 +1,4 @@
-"""Interface de l'Établi d'Attiseur (256 x 256) : fond, la clé (4 états). Dessin original.
+"""Interface de l'Établi d'Attiseur (256 x 256) : fond, la clé (4 états), le panneau du bouilleur. Dessin original.
 
 Usage : python3 make_workbench_gui.py <dossier de sortie>
 Les positions doivent correspondre à WorkbenchMenu et WorkbenchScreen.
@@ -118,6 +118,59 @@ img.alpha_composite(normal, (176, 0))
 img.alpha_composite(hover, (200, 0))
 img.alpha_composite(off, (176, 24))
 img.alpha_composite(turn, (200, 24))
+
+# ---------------------------------------------------------------- le panneau du bouilleur (76 x 120, en 176, 48)
+CUIVRE_SOMBRE = (150, 82, 50)
+CUIVRE = (190, 108, 64)
+CUIVRE_CLAIR = (226, 150, 98)
+FOND_JAUGE = (22, 18, 18)
+PX, PY, PW, PH = 176, 48, 76, 120
+for y in range(PH):
+    for x in range(PW):
+        px[PX + x, PY + y] = (FER_SOMBRE if rnd.random() < 0.12 else FER) + (255,)
+for x in range(PW):
+    px[PX + x, PY] = CUIVRE_SOMBRE + (255,)
+    px[PX + x, PY + 1] = CUIVRE_CLAIR + (255,)
+    px[PX + x, PY + PH - 2] = CUIVRE + (255,)
+    px[PX + x, PY + PH - 1] = CUIVRE_SOMBRE + (255,)
+for y in range(PH):
+    px[PX, PY + y] = CUIVRE_SOMBRE + (255,)
+    px[PX + 1, PY + y] = CUIVRE_CLAIR + (255,)
+    px[PX + PW - 2, PY + y] = CUIVRE + (255,)
+    px[PX + PW - 1, PY + y] = CUIVRE_SOMBRE + (255,)
+inset(PX + 8, PY + 25, 18, 18)                  # combustible
+inset(PX + 30, PY + 31, 38, 6, FOND_JAUGE)      # le combustible déjà brûlé
+inset(PX + 8, PY + 48, 12, 64, FOND_JAUGE)      # jauge d'eau
+inset(PX + 45, PY + 77, 18, 18)                 # la pièce à recharger
+inset(PX + 26, PY + 100, 46, 6, FOND_JAUGE)     # ses charges
+# fantômes : une flamme (combustible), un plastron (la pièce)
+ghost(PX + 10, PY + 27, ["................", ".......#........", "......##........", "......###.......", ".....####.......",
+                         "....######......", "....###.##......", "...###...##.....", "...##.....#.....", "...##.....#.....",
+                         "....##...##.....", ".....#####......", "................"])
+ghost(PX + 47, PY + 79, ["................", "..###....###....", ".####....####...", ".############...", "..##########....",
+                         "...########.....", "...########.....", "...########.....", "...########.....", "...########.....",
+                         "....######......", "................"])
+# une goutte gravée sous la jauge, et une flèche de la jauge vers la pièce
+for (x, y) in [(13, 114), (12, 115), (13, 115), (14, 115), (12, 116), (13, 116), (14, 116), (13, 117)]:
+    px[PX + x, PY + y] = (52, 110, 220, 255)
+for i in range(18):
+    px[PX + 24 + i, PY + 86] = FANTOME + (255,)
+px[PX + 40, PY + 85] = px[PX + 40, PY + 87] = FANTOME + (255,)
+
+# remplissages : l'eau (10 x 62, en 0, 168), le combustible (36 x 4, en 12, 168), les charges (vapeur blanche, 44 x 4, en 12, 174)
+for y in range(62):
+    t = y / 61
+    water = tuple(int(c1 + (c2 - c1) * t) for c1, c2 in zip((90, 165, 245), (35, 80, 190)))
+    for x in range(10):
+        px[x, 168 + y] = (tuple(min(255, c + 25) for c in water) if x == 1 else water) + (255,)
+for x in range(36):
+    t = x / 35
+    ember = tuple(int(c1 + (c2 - c1) * t) for c1, c2 in zip((150, 40, 15), (255, 200, 90)))
+    for y in range(4):
+        px[12 + x, 168 + y] = (tuple(min(255, c + 25) for c in ember) if y == 0 else ember) + (255,)
+for x in range(44):
+    for y in range(4):
+        px[12 + x, 174 + y] = ((250, 250, 250) if y == 0 else (226, 226, 230)) + (255,)
 
 img.save(os.path.join(OUT, 'workbench.png'))
 print('ok')

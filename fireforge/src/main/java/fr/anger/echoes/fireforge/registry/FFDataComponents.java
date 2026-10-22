@@ -34,4 +34,10 @@ public final class FFDataComponents {
             COMPONENTS.registerComponentType("mechanism", builder -> builder
                     .persistent(Mechanism.CODEC)
                     .networkSynchronized(Mechanism.STREAM_CODEC));
+
+    /** Les charges de vapeur d'une pièce à mécanisme à vapeur (0 à 20), rechargées au bouilleur. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STEAM =
+            COMPONENTS.registerComponentType("steam", builder -> builder
+                    .persistent(ExtraCodecs.intRange(0, fr.anger.echoes.fireforge.workbench.Steam.CHARGES))
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
 }

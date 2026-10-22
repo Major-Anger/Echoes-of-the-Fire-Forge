@@ -3,6 +3,7 @@ package fr.anger.echoes.fireforge.registry;
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forge.FireForgeBlock;
 import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
+import fr.anger.echoes.fireforge.workbench.SteamBoilerBlock;
 import fr.anger.echoes.fireforge.workbench.WorkbenchBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -45,6 +46,15 @@ public final class FFBlocks {
                     .requiresCorrectToolForDrops()
                     .strength(5.0F, 1200.0F)
                     .sound(SoundType.ANVIL)));
+
+    /** Le bouilleur, module de l'établi : il recharge en vapeur les pièces à mécanisme. Le foyer éclaire quand il chauffe. */
+    public static final DeferredBlock<SteamBoilerBlock> STEAM_BOILER = BLOCKS.register("steam_boiler",
+            () -> new SteamBoilerBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .requiresCorrectToolForDrops()
+                    .strength(3.5F, 6.0F)
+                    .sound(SoundType.COPPER)
+                    .lightLevel(state -> state.getValue(SteamBoilerBlock.LIT) ? 10 : 0)));
 
     /** Module de gauche : la chaudière, fermée (elle marche aussi dans le Nether). Empilable sur 3 blocs. */
     public static final DeferredBlock<ForgeModuleBlock> BOILER = BLOCKS.register("boiler",

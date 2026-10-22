@@ -19,5 +19,5 @@ public final class FFMenus {
             MENUS.register("fire_forge", () -> IMenuTypeExtension.create(FireForgeMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<WorkbenchMenu>> WORKBENCH =
-            MENUS.register("workbench", () -> new MenuType<>(WorkbenchMenu::new, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+            MENUS.register("workbench", () -> IMenuTypeExtension.create(WorkbenchMenu::new));
 }

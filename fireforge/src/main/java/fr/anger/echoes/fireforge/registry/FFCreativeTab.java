@@ -22,6 +22,7 @@ public final class FFCreativeTab {
             .displayItems((params, output) -> {
                 output.accept(FFItems.FIRE_FORGE.get());
                 output.accept(FFItems.WORKBENCH.get());
+                output.accept(FFItems.STEAM_BOILER.get());
                 output.accept(FFItems.BOILER.get());
                 output.accept(FFItems.LAVA_TANK.get());
                 if (EchoesMods.isLoaded(EchoesMods.SILT)) output.accept(FFItems.SOUL_MODULE.get());

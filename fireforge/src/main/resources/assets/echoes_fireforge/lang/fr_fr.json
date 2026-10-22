@@ -278,5 +278,12 @@
   "item.echoes_fireforge.template_treuil": "Gabarit : Treuil",
   "mechanism.echoes_fireforge.trident_de_trempe": "Trident de trempe",
   "mechanism.echoes_fireforge.trident_de_trempe.desc": "Ne se lance plus. Clic droit : surchauffe ; dans l'eau, de la vapeur.",
-  "item.echoes_fireforge.template_trident_de_trempe": "Gabarit : Trident de trempe"
+  "item.echoes_fireforge.template_trident_de_trempe": "Gabarit : Trident de trempe",
+  "block.echoes_fireforge.steam_boiler": "Bouilleur",
+  "gui.echoes_fireforge.steam_boiler": "Bouilleur",
+  "gui.echoes_fireforge.steam_boiler.water": "Eau : %s / %s mB",
+  "gui.echoes_fireforge.steam_boiler.water.hint": "Clic avec un seau d'eau pour le verser",
+  "gui.echoes_fireforge.steam_boiler.fuel": "Combustible en réserve : %s charges",
+  "tooltip.echoes_fireforge.steam": "Vapeur : %s / %s",
+  "message.echoes_fireforge.steam_boiler.unlinked": "Le bouilleur se pose au bout d'un établi"
 }

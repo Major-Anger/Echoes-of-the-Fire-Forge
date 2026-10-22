@@ -13,6 +13,9 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import fr.anger.echoes.fireforge.workbench.SteamBoilerBlockEntity;
+import fr.anger.echoes.fireforge.workbench.SteamBoilerFluidAccess;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -26,6 +29,10 @@ public final class FFBlockEntities {
     @SuppressWarnings("DataFlowIssue")
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FireForgeBlockEntity>> FIRE_FORGE = BLOCK_ENTITIES.register("fire_forge",
             () -> BlockEntityType.Builder.of(FireForgeBlockEntity::new, FFBlocks.FIRE_FORGE.get()).build(null));
+
+    @SuppressWarnings("DataFlowIssue")
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SteamBoilerBlockEntity>> STEAM_BOILER = BLOCK_ENTITIES.register("steam_boiler",
+            () -> BlockEntityType.Builder.of(SteamBoilerBlockEntity::new, FFBlocks.STEAM_BOILER.get()).build(null));
 
     /** Les entonnoirs fonctionnent sur les deux moitiés de la forge ; les tuyaux remplissent ses modules. */
     @SubscribeEvent
@@ -41,5 +48,14 @@ public final class FFBlockEntities {
             FireForgeBlockEntity forge = ForgeModuleBlock.findForge(level, pos);
             return forge != null ? new ModuleFluidAccess(forge, Fluids.LAVA) : null;
         }, FFBlocks.LAVA_TANK.get());
+        // le bouilleur : le combustible par entonnoir, l'eau par tuyau
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, STEAM_BOILER.get(), (boiler, side) ->
+                new net.neoforged.neoforge.items.wrapper.RangedWrapper(boiler.inventory(), SteamBoilerBlockEntity.SLOT_FUEL, SteamBoilerBlockEntity.SLOT_FUEL + 1) {
+                    @Override
+                    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+                        return ItemStack.EMPTY; // on n'en reprend rien par en dessous
+                    }
+                });
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, STEAM_BOILER.get(), (boiler, side) -> new SteamBoilerFluidAccess(boiler));
     }
 }

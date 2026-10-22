@@ -1,4 +1,4 @@
-"""Génère les données de l'Établi d'Attiseur (étape 8a) : modèles, états, recettes, butin, textes (fr_fr / en_us).
+"""Génère les données de l'Établi d'Attiseur et de son bouilleur (étapes 8a, 8b) : modèles, états, recettes, butin, textes (fr_fr / en_us).
 
 Usage : python3 tools/data/make_workbench_data.py fireforge/src/main/resources <dossier des textures générées>
 Les textures viennent de tools/textures/make_workbench_textures.py et make_workbench_gui.py.
@@ -78,6 +78,13 @@ for key, fr, en in [
     ("ready", "Prêt : un tour de clé", "Ready: turn the wrench"),
 ]:
     t("gui.echoes_fireforge.workbench.status." + key, fr, en)
+t("block.echoes_fireforge.steam_boiler", "Bouilleur", "Steam Boiler")
+t("gui.echoes_fireforge.steam_boiler", "Bouilleur", "Boiler")
+t("gui.echoes_fireforge.steam_boiler.water", "Eau : %s / %s mB", "Water: %s / %s mB")
+t("gui.echoes_fireforge.steam_boiler.water.hint", "Clic avec un seau d'eau pour le verser", "Click with a water bucket to pour it")
+t("gui.echoes_fireforge.steam_boiler.fuel", "Combustible en réserve : %s charges", "Fuel in reserve: %s charges")
+t("tooltip.echoes_fireforge.steam", "Vapeur : %s / %s", "Steam: %s / %s")
+t("message.echoes_fireforge.steam_boiler.unlinked", "Le bouilleur se pose au bout d'un établi", "The boiler goes at one end of a workbench")
 for key, rare, fr, en, dfr, den in MECHANISMS:
     t("mechanism.echoes_fireforge." + key, fr, en)
     t("mechanism.echoes_fireforge." + key + ".desc", dfr, den)
@@ -91,6 +98,10 @@ for key, *_ in MECHANISMS:
     shutil.copy(os.path.join(TEX, "template_" + key + ".png"), os.path.join(A, "textures/item", "template_" + key + ".png"))
 shutil.copy(os.path.join(TEX, "workbench_plan.png"), os.path.join(A, "textures/item/workbench_plan.png"))
 shutil.copy(os.path.join(TEX, "workbench.png"), os.path.join(A, "textures/gui/workbench.png"))
+
+os.makedirs(os.path.join(A, "textures/block/steam_boiler"), exist_ok=True)
+for name in ["front", "front_off", "side", "top"]:
+    shutil.copy(os.path.join(TEX, "steam_boiler_" + name + ".png"), os.path.join(A, "textures/block/steam_boiler", name + ".png"))
 
 # ---------------------------------------------------------------------- modèles et états
 B = NS + ":block/workbench/"
@@ -134,6 +145,16 @@ for key, *_ in MECHANISMS:
 write(os.path.join(A, "models/item/workbench_plan.json"),
       {"parent": "minecraft:item/generated", "textures": {"layer0": NS + ":item/workbench_plan"}})
 
+SB = NS + ":block/steam_boiler/"
+for lit in (False, True):
+    write(os.path.join(A, "models/block/steam_boiler" + ("_lit" if lit else "") + ".json"), {
+        "parent": "minecraft:block/orientable",
+        "textures": {"front": SB + ("front" if lit else "front_off"), "side": SB + "side", "top": SB + "top", "particle": SB + "side"}})
+write(os.path.join(A, "blockstates/steam_boiler.json"), {"variants": {
+    f"facing={facing},lit={str(lit).lower()}": dict({"model": NS + ":block/steam_boiler" + ("_lit" if lit else "")}, **({"y": y} if y else {}))
+    for facing, y in ROT.items() for lit in (False, True)}})
+write(os.path.join(A, "models/item/steam_boiler.json"), {"parent": NS + ":block/steam_boiler"})
+
 # ---------------------------------------------------------------------- recettes
 write(os.path.join(D, "recipe/workbench.json"), {
     "type": "minecraft:crafting_shaped", "category": "misc",
@@ -149,6 +170,13 @@ for key, rare, *_ in MECHANISMS:
         "type": "minecraft:crafting_shapeless", "category": "misc", "group": "echoes_fireforge_template_copy",
         "ingredients": ingredients, "result": {"id": NS + ":template_" + key, "count": 2}})
 
+write(os.path.join(D, "recipe/steam_boiler.json"), {
+    "type": "minecraft:crafting_shaped", "category": "misc",
+    "pattern": ["CVC", "CBC", "IFI"],
+    "key": {"C": {"item": "minecraft:copper_ingot"}, "V": {"item": NS + ":machine_valve"}, "B": {"item": "minecraft:bucket"},
+            "I": {"item": "minecraft:iron_ingot"}, "F": {"item": "minecraft:furnace"}},
+    "result": {"id": NS + ":steam_boiler", "count": 1}})
+
 # ---------------------------------------------------------------------- butin
 write(os.path.join(D, "loot_table/blocks/workbench.json"), {
     "type": "minecraft:block", "pools": [{"rolls": 1, "conditions": [
@@ -156,6 +184,11 @@ write(os.path.join(D, "loot_table/blocks/workbench.json"), {
         {"condition": "minecraft:block_state_property", "block": NS + ":workbench", "properties": {"part": "left"}}],
         "entries": [{"type": "minecraft:item", "name": NS + ":workbench"}]}],
     "random_sequence": NS + ":blocks/workbench"})
+
+write(os.path.join(D, "loot_table/blocks/steam_boiler.json"), {
+    "type": "minecraft:block", "pools": [{"rolls": 1, "conditions": [{"condition": "minecraft:survives_explosion"}],
+                                          "entries": [{"type": "minecraft:item", "name": NS + ":steam_boiler"}]}],
+    "random_sequence": NS + ":blocks/steam_boiler"})
 
 # machine comprimée : la répartition des plans (Forge 35, Établi 25, Attiseur I à V 40) et 2 % de gabarit
 path = os.path.join(D, "loot_table/blocks/compressed_machine.json")
@@ -197,8 +230,9 @@ write(os.path.join(RES, "data/neoforge/loot_modifiers/global_loot_modifiers.json
 path = os.path.join(RES, "data/minecraft/tags/block/mineable/pickaxe.json")
 with open(path, encoding="utf-8") as f:
     tag = json.load(f)
-if NS + ":workbench" not in tag["values"]:
-    tag["values"].append(NS + ":workbench")
+for block in ("workbench", "steam_boiler"):
+    if NS + ":" + block not in tag["values"]:
+        tag["values"].append(NS + ":" + block)
 write(path, tag)
 write(os.path.join(D, "tags/item/mechanism_templates.json"), {"values": [NS + ":template_" + k for k, *_ in MECHANISMS]})
 

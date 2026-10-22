@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * L'Établi d'Attiseur : 2 blocs de long qui se posent d'un coup, comme la forge (et un lit). À gauche les tiroirs,
  * à droite le tableau à outils. On y greffe les mécanismes ; l'établi ne garde rien : ce qu'on y pose revient au
- * joueur quand il ferme l'interface, comme à une table de forgeron.
+ * joueur quand il ferme l'interface, comme à une table de forgeron. Le bouilleur se pose à l'un de ses deux bouts.
  */
 public class WorkbenchBlock extends HorizontalDirectionalBlock {
 
@@ -92,20 +92,42 @@ public class WorkbenchBlock extends HorizontalDirectionalBlock {
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    /** La moitié gauche (les tiroirs) : c'est elle que l'on mesure pour les modules (étape 8b). */
+    /** La moitié gauche (les tiroirs). */
     public static BlockPos mainPos(BlockPos pos, BlockState state) {
         return state.getValue(PART) == ForgePart.LEFT ? pos : ForgeGeometry.partner(pos, state.getValue(FACING), ForgePart.RIGHT);
     }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!level.isClientSide) player.openMenu(state.getMenuProvider(level, pos));
-        return InteractionResult.sidedSuccess(level.isClientSide);
+    /** La direction vers l'extérieur d'une moitié : c'est là, au bout de l'établi, que se pose le bouilleur. */
+    public static Direction outward(BlockState state) {
+        return ForgeGeometry.partnerDirection(state.getValue(FACING), state.getValue(PART)).getOpposite();
+    }
+
+    /** Le bouilleur branché à l'un des deux bouts de l'établi, ou null. */
+    @Nullable
+    public static SteamBoilerBlockEntity findBoiler(Level level, BlockPos main) {
+        BlockState state = level.getBlockState(main);
+        if (!(state.getBlock() instanceof WorkbenchBlock)) return null;
+        for (BlockPos half : new BlockPos[]{main, ForgeGeometry.partner(main, state.getValue(FACING), ForgePart.LEFT)}) {
+            BlockState halfState = level.getBlockState(half);
+            if (!(halfState.getBlock() instanceof WorkbenchBlock)) continue;
+            if (level.getBlockEntity(half.relative(outward(halfState))) instanceof SteamBoilerBlockEntity boiler) return boiler;
+        }
+        return null;
     }
 
     @Override
-    protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        BlockPos main = mainPos(pos, state);
-        return new SimpleMenuProvider((id, inventory, player) -> new WorkbenchMenu(id, inventory, ContainerLevelAccess.create(level, main)), TITLE);
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) open(serverPlayer, level, mainPos(pos, state));
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    /** Ouvre l'établi, avec le panneau du bouilleur s'il y en a un de branché. */
+    public static void open(ServerPlayer player, Level level, BlockPos main) {
+        SteamBoilerBlockEntity boiler = findBoiler(level, main);
+        player.openMenu(new SimpleMenuProvider((id, inventory, p) -> new WorkbenchMenu(id, inventory, ContainerLevelAccess.create(level, main), boiler), TITLE),
+                buf -> {
+                    buf.writeBoolean(boiler != null);
+                    if (boiler != null) buf.writeBlockPos(boiler.getBlockPos());
+                });
     }
 }

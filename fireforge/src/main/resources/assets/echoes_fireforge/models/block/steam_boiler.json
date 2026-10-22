@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "echoes_fireforge:block/steam_boiler/front_off",
+    "side": "echoes_fireforge:block/steam_boiler/side",
+    "top": "echoes_fireforge:block/steam_boiler/top",
+    "particle": "echoes_fireforge:block/steam_boiler/side"
+  }
+}

@@ -30,6 +30,9 @@ public final class FFItems {
     public static final DeferredItem<BlockItem> WORKBENCH =
             ITEMS.registerSimpleBlockItem(FFBlocks.WORKBENCH, new Item.Properties().fireResistant());
 
+    public static final DeferredItem<BlockItem> STEAM_BOILER =
+            ITEMS.registerSimpleBlockItem(FFBlocks.STEAM_BOILER, new Item.Properties().fireResistant());
+
     public static final DeferredItem<BlockItem> BOILER =
             ITEMS.registerSimpleBlockItem(FFBlocks.BOILER, new Item.Properties().fireResistant());
 

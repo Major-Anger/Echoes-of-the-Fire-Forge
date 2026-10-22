@@ -435,6 +435,13 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   `make_workbench_gui.py`. L'infobulle décrit déjà l'effet de chaque mécanisme (effets en 8c et 8d).
 - **8b, le bouilleur et la vapeur** : module de l'établi, panneau sur le côté, charges des pièces,
   barre de vapeur.
+  **Codée** : `workbench/Steam`, `SteamBoilerBlock`, `SteamBoilerBlockEntity`, `client/SteamBar` ; le
+  bouilleur se pose à l'un des deux bouts de l'établi (pas devant ni derrière) ; ballon de 4 seaux
+  (seau, fiole, tuyaux, ou un seau versé sur la jauge de l'interface) ; combustible : tout ce qui
+  brûle dans un fourneau (entonnoir accepté), compté en ticks de fourneau ; une charge = 50 mB d'eau
+  et 80 ticks de combustible, en une demi-seconde ; composant `echoes_fireforge:steam` (0 à 20) ; une
+  pièce greffée part à 0 charge ; infobulle « Vapeur : 13 / 20 » ; maj-clic range combustible et pièce
+  à vapeur dans le bouilleur ; barre : deux moitiés si deux pièces à vapeur sont portées.
 - **8c, les armures** : les 12 mécanismes, touches C, B, N ; sac et poches.
 - **8d, les armes** : Piston, Sillon, Frappe-sol, Treuil, Trident de trempe ; clic droit et bouclier.
 - **8e, la Lampe à vapeur et le guide** : lumière, faisceau par défaut, point d'accroche pour le

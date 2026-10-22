@@ -278,5 +278,12 @@
   "item.echoes_fireforge.template_treuil": "Winch Template",
   "mechanism.echoes_fireforge.trident_de_trempe": "Quenching Trident",
   "mechanism.echoes_fireforge.trident_de_trempe.desc": "Can no longer be thrown. Right-click: overheat; in water, steam.",
-  "item.echoes_fireforge.template_trident_de_trempe": "Quenching Trident Template"
+  "item.echoes_fireforge.template_trident_de_trempe": "Quenching Trident Template",
+  "block.echoes_fireforge.steam_boiler": "Steam Boiler",
+  "gui.echoes_fireforge.steam_boiler": "Boiler",
+  "gui.echoes_fireforge.steam_boiler.water": "Water: %s / %s mB",
+  "gui.echoes_fireforge.steam_boiler.water.hint": "Click with a water bucket to pour it",
+  "gui.echoes_fireforge.steam_boiler.fuel": "Fuel in reserve: %s charges",
+  "tooltip.echoes_fireforge.steam": "Steam: %s / %s",
+  "message.echoes_fireforge.steam_boiler.unlinked": "The boiler goes at one end of a workbench"
 }

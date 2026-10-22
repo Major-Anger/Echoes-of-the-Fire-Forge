@@ -181,6 +181,8 @@ stamp(bf, 3, 9, ["SSSSSSSSSS",
 bf[14] = list('KRddddddddddddRK')
 bf[15] = list('DDDDDDDDDDDDDDDD')
 save(img_from(rows_of(bf)), 'steam_boiler_front')
+# éteint : la grille sans braise
+save(img_from([r.replace('F', 'h').replace('f', 'h') for r in rows_of(bf)]), 'steam_boiler_front_off')
 
 bs = grid(16, 16)
 for y in range(16):
