@@ -339,7 +339,7 @@ Ajouts au **Core** (code, pas le guide) pour 6e :
 Créatures (les Cendreux : Attiseurs à mi-chemin de la maladie), structures, Échos,
 objets particuliers au cas par cas, liste des Spéciaux version âme, ce que devient l'eau.
 
-## 11. L'Établi d'Attiseur et les mécanismes (proposition, en attente de validation d'Anger)
+## 11. L'Établi d'Attiseur et les mécanismes (validé par Anger)
 Idée d'Anger. Les Attiseurs ne faisaient pas que forger : ils équipaient leurs armes et leurs
 armures de mécanismes pour vivre et travailler dans le Nether.
 
@@ -362,8 +362,9 @@ armures de mécanismes pour vivre et travailler dans le Nether.
   demande en plus une plaque gravée.
 
 ### La vapeur (armures seulement ; validé : pas pour tout)
-- Les mécanismes « à vapeur » (Planeur, Jet de vapeur, Pistons de genoux) ont une **barre de vapeur**
-  (au-dessus de la barre d'objets, seulement quand on en porte un). Les autres n'en utilisent pas.
+- Les mécanismes « à vapeur » (Planeur, Jet de vapeur, Pistons de genoux) ont une **barre de vapeur** :
+  un trait blanc continu dans le bord bas de la barre d'objets (validé : rien ne bouge dans le HUD),
+  seulement quand on en porte un. Les autres n'en utilisent pas.
 - **20 charges par pièce** (validé : « une vingtaine de fois ») : Jet et Pistons, 1 charge par usage ;
   Planeur, 1 charge par seconde de vol (20 s en tout).
 - **Recharge au bouilleur de l'établi** (idée d'Anger) : un module qui se pose contre l'établi, comme
@@ -426,6 +427,12 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
 - **8a, l'établi** : Plan de l'Établi (butin), bloc de 2, interface (pièce, gabarit, engrenage, la
   clé), composant `echoes_fireforge:mechanism`, infobulle, gabarits (butin des coffres, duplication),
   greffe gardée à la reforge. Aucun effet encore.
+  **Codée** : `mechanism/` (Mechanism, gabarits, Grafting) et `workbench/` (bloc, interface) ; la pièce
+  doit être reforgeable (tag `echoes_fireforge:reforgeable`) ; l'établi ne garde rien (tout revient au
+  joueur à la fermeture) ; gabarits : 2 % par machine comprimée (rare 1 pour 3 communs), coffres de
+  bastion et de forteresse par un modificateur de butin (`neoforge:add_table`) ; données générées par
+  `tools/data/make_workbench_data.py`, textures par `tools/textures/make_workbench_textures.py` et
+  `make_workbench_gui.py`. L'infobulle décrit déjà l'effet de chaque mécanisme (effets en 8c et 8d).
 - **8b, le bouilleur et la vapeur** : module de l'établi, panneau sur le côté, charges des pièces,
   barre de vapeur.
 - **8c, les armures** : les 12 mécanismes, touches C, B, N ; sac et poches.

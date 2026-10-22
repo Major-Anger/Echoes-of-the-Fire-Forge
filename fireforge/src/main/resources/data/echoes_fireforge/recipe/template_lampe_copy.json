@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "echoes_fireforge_template_copy",
+  "ingredients": [
+    {
+      "item": "echoes_fireforge:template_lampe"
+    },
+    {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    {
+      "item": "minecraft:copper_block"
+    }
+  ],
+  "result": {
+    "id": "echoes_fireforge:template_lampe",
+    "count": 2
+  }
+}

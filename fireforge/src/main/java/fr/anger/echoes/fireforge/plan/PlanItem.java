@@ -16,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -25,16 +26,18 @@ import java.util.List;
  */
 public class PlanItem extends Item {
 
-    private final boolean forgePlan;
+    /** Le plan d'un bloc (la Forge, l'Établi) ; null : un Plan d'Attiseur numéroté. */
+    @Nullable
+    private final ResourceLocation lore;
 
-    public PlanItem(boolean forgePlan, Properties properties) {
+    public PlanItem(@Nullable ResourceLocation lore, Properties properties) {
         super(properties);
-        this.forgePlan = forgePlan;
+        this.lore = lore;
     }
 
     /** L'entrée de lore que ce plan enregistre. */
     public ResourceLocation loreEntry(ItemStack stack) {
-        return forgePlan ? Plans.FORGE : Plans.attiseur(number(stack));
+        return lore != null ? lore : Plans.attiseur(number(stack));
     }
 
     private static int number(ItemStack stack) {
@@ -43,7 +46,7 @@ public class PlanItem extends Item {
 
     @Override
     public Component getName(ItemStack stack) {
-        if (forgePlan) return super.getName(stack);
+        if (lore != null) return super.getName(stack);
         return Component.translatable("item.echoes_fireforge.attiseur_plan.numbered", Plans.roman(number(stack)));
     }
 

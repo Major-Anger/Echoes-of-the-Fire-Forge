@@ -17,6 +17,7 @@ public final class FFClient {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(FFMenus.FIRE_FORGE.get(), FireForgeScreen::new);
+        event.register(FFMenus.WORKBENCH.get(), WorkbenchScreen::new);
     }
 
     @SubscribeEvent

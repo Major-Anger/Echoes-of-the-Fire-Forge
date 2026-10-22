@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GPG",
+    "CTC",
+    "I I"
+  ],
+  "key": {
+    "G": {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    "P": {
+      "item": "echoes_fireforge:workbench_plan"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "T": {
+      "item": "minecraft:crafting_table"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "echoes_fireforge:workbench",
+    "count": 1
+  }
+}

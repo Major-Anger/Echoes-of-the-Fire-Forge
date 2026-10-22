@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "echoes_fireforge_template_copy",
+  "ingredients": [
+    {
+      "item": "echoes_fireforge:template_pistons"
+    },
+    {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    {
+      "item": "minecraft:copper_block"
+    },
+    {
+      "item": "echoes_fireforge:engraved_plate"
+    }
+  ],
+  "result": {
+    "id": "echoes_fireforge:template_pistons",
+    "count": 2
+  }
+}

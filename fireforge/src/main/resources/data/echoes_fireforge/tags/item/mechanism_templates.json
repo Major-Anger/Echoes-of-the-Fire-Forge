@@ -1,0 +1,21 @@
+{
+  "values": [
+    "echoes_fireforge:template_longue_vue",
+    "echoes_fireforge:template_sonde",
+    "echoes_fireforge:template_lampe",
+    "echoes_fireforge:template_sac",
+    "echoes_fireforge:template_planeur",
+    "echoes_fireforge:template_jet",
+    "echoes_fireforge:template_poches",
+    "echoes_fireforge:template_pistons",
+    "echoes_fireforge:template_ancre",
+    "echoes_fireforge:template_patins",
+    "echoes_fireforge:template_ressorts",
+    "echoes_fireforge:template_crampons",
+    "echoes_fireforge:template_piston",
+    "echoes_fireforge:template_sillon",
+    "echoes_fireforge:template_frappe_sol",
+    "echoes_fireforge:template_treuil",
+    "echoes_fireforge:template_trident_de_trempe"
+  ]
+}

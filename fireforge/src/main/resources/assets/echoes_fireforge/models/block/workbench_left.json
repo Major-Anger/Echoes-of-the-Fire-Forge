@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "echoes_fireforge:block/workbench/side",
+    "north": "echoes_fireforge:block/workbench/side",
+    "south": "echoes_fireforge:block/workbench/front_left",
+    "east": "echoes_fireforge:block/workbench/side",
+    "west": "echoes_fireforge:block/workbench/side",
+    "up": "echoes_fireforge:block/workbench/top_left",
+    "down": "echoes_fireforge:block/workbench/side"
+  }
+}

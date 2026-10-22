@@ -97,12 +97,17 @@
         {
           "type": "minecraft:item",
           "name": "echoes_fireforge:forge_plan",
-          "weight": 40
+          "weight": 35
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:workbench_plan",
+          "weight": 25
         },
         {
           "type": "minecraft:item",
           "name": "echoes_fireforge:attiseur_plan",
-          "weight": 12,
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_components",
@@ -115,7 +120,7 @@
         {
           "type": "minecraft:item",
           "name": "echoes_fireforge:attiseur_plan",
-          "weight": 12,
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_components",
@@ -128,7 +133,7 @@
         {
           "type": "minecraft:item",
           "name": "echoes_fireforge:attiseur_plan",
-          "weight": 12,
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_components",
@@ -141,7 +146,7 @@
         {
           "type": "minecraft:item",
           "name": "echoes_fireforge:attiseur_plan",
-          "weight": 12,
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_components",
@@ -154,7 +159,7 @@
         {
           "type": "minecraft:item",
           "name": "echoes_fireforge:attiseur_plan",
-          "weight": 12,
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_components",
@@ -163,6 +168,120 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "predicates": {
+                "minecraft:enchantments": [
+                  {
+                    "enchantments": "minecraft:silk_touch",
+                    "levels": {
+                      "min": 1
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.02
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_longue_vue",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_sonde",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_lampe",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_sac",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_planeur",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_jet",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_poches",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_pistons",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_ancre",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_patins",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_ressorts",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_crampons",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_piston",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_sillon",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_frappe_sol",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_treuil",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_trident_de_trempe",
+          "weight": 3
         }
       ]
     }

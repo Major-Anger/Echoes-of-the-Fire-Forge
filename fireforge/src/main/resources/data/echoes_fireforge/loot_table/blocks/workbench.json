@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "echoes_fireforge:workbench",
+          "properties": {
+            "part": "left"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:workbench"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "echoes_fireforge:blocks/workbench"
+}

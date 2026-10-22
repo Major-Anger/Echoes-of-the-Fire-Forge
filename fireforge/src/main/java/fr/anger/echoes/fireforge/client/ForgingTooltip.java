@@ -3,6 +3,7 @@ package fr.anger.echoes.fireforge.client;
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.ForgingEvents;
+import fr.anger.echoes.fireforge.mechanism.Mechanism;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/** Sous le nom de l'objet : sa rareté, ses statistiques en pourcentage, et son Spécial. */
+/** Sous le nom de l'objet : sa rareté, ses statistiques en pourcentage, son Spécial, et son mécanisme. */
 @EventBusSubscriber(modid = EchoesFireForge.MOD_ID, value = Dist.CLIENT)
 public final class ForgingTooltip {
 
@@ -26,8 +27,20 @@ public final class ForgingTooltip {
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         ForgingData data = event.getItemStack().get(FFDataComponents.FORGING);
-        if (data == null) return;
+        Mechanism mechanism = event.getItemStack().get(FFDataComponents.MECHANISM);
+        if (data == null && mechanism == null) return;
         List<Component> lines = new ArrayList<>();
+        if (data != null) addForging(data, lines);
+        // le mécanisme greffé à l'établi
+        if (mechanism != null) {
+            lines.add(Component.translatable("tooltip.echoes_fireforge.mechanism", mechanism.displayName()).withStyle(ChatFormatting.GOLD));
+            lines.add(Component.literal("  ").append(mechanism.description()).withStyle(ChatFormatting.GRAY));
+        }
+        List<Component> tooltip = event.getToolTip();
+        tooltip.addAll(Math.min(1, tooltip.size()), lines);
+    }
+
+    private static void addForging(ForgingData data, List<Component> lines) {
         lines.add(Component.translatable("tooltip.echoes_fireforge.forged", data.rarity().displayName()).withStyle(ChatFormatting.GRAY));
         for (ForgingData.StatRoll roll : data.stats()) {
             boolean bonus = roll.percent() >= 0;
@@ -39,8 +52,6 @@ public final class ForgingTooltip {
             lines.add(Component.literal("  ").append(special.effect()).withStyle(ChatFormatting.DARK_GREEN));
             lines.add(Component.literal("  ").append(special.drawback()).withStyle(ChatFormatting.RED));
         });
-        List<Component> tooltip = event.getToolTip();
-        tooltip.addAll(Math.min(1, tooltip.size()), lines);
     }
 
     /** Les modificateurs de la forge s'affichent déjà en pourcentage : on retire leurs lignes vanilla en valeur absolue. */

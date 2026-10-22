@@ -2,6 +2,7 @@ package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forging.ForgingData;
+import fr.anger.echoes.fireforge.mechanism.Mechanism;
 import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -27,4 +28,10 @@ public final class FFDataComponents {
             COMPONENTS.registerComponentType("forging", builder -> builder
                     .persistent(ForgingData.CODEC)
                     .networkSynchronized(ForgingData.STREAM_CODEC));
+
+    /** Le mécanisme greffé à l'Établi d'Attiseur (un seul par pièce ; il reste quand on reforge). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Mechanism>> MECHANISM =
+            COMPONENTS.registerComponentType("mechanism", builder -> builder
+                    .persistent(Mechanism.CODEC)
+                    .networkSynchronized(Mechanism.STREAM_CODEC));
 }

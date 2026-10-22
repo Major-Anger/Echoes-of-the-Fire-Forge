@@ -1,11 +1,18 @@
 package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
+import fr.anger.echoes.fireforge.mechanism.Mechanism;
+import fr.anger.echoes.fireforge.mechanism.MechanismTemplateItem;
 import fr.anger.echoes.fireforge.plan.PlanItem;
+import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /** Tout ce qui vient des machines des Attiseurs a survécu à la chaleur : rien ne brûle dans la lave. */
 public final class FFItems {
@@ -19,6 +26,9 @@ public final class FFItems {
 
     public static final DeferredItem<BlockItem> FIRE_FORGE =
             ITEMS.registerSimpleBlockItem(FFBlocks.FIRE_FORGE, new Item.Properties().fireResistant());
+
+    public static final DeferredItem<BlockItem> WORKBENCH =
+            ITEMS.registerSimpleBlockItem(FFBlocks.WORKBENCH, new Item.Properties().fireResistant());
 
     public static final DeferredItem<BlockItem> BOILER =
             ITEMS.registerSimpleBlockItem(FFBlocks.BOILER, new Item.Properties().fireResistant());
@@ -36,7 +46,21 @@ public final class FFItems {
 
     // Les plans (de fines feuilles de laiton gravées)
     public static final DeferredItem<PlanItem> FORGE_PLAN = ITEMS.register("forge_plan",
-            () -> new PlanItem(true, new Item.Properties().fireResistant().stacksTo(16)));
+            () -> new PlanItem(Plans.FORGE, new Item.Properties().fireResistant().stacksTo(16)));
+    public static final DeferredItem<PlanItem> WORKBENCH_PLAN = ITEMS.register("workbench_plan",
+            () -> new PlanItem(Plans.WORKBENCH, new Item.Properties().fireResistant().stacksTo(16)));
     public static final DeferredItem<PlanItem> ATTISEUR_PLAN = ITEMS.register("attiseur_plan",
-            () -> new PlanItem(false, new Item.Properties().fireResistant().stacksTo(16).component(FFDataComponents.PLAN_NUMBER, 1)));
+            () -> new PlanItem(null, new Item.Properties().fireResistant().stacksTo(16).component(FFDataComponents.PLAN_NUMBER, 1)));
+
+    // Les gabarits de mécanisme (un par mécanisme ; les rares en acier bleui)
+    public static final Map<Mechanism, DeferredItem<MechanismTemplateItem>> TEMPLATES = templates();
+
+    private static Map<Mechanism, DeferredItem<MechanismTemplateItem>> templates() {
+        Map<Mechanism, DeferredItem<MechanismTemplateItem>> map = new EnumMap<>(Mechanism.class);
+        for (Mechanism mechanism : Mechanism.values()) {
+            map.put(mechanism, ITEMS.register("template_" + mechanism.key(), () -> new MechanismTemplateItem(mechanism,
+                    new Item.Properties().fireResistant().rarity(mechanism.rare() ? Rarity.RARE : Rarity.UNCOMMON))));
+        }
+        return map;
+    }
 }

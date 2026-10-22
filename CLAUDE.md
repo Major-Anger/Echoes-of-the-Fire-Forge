@@ -72,6 +72,10 @@
   7. Le guide : fait (chapitres « La Forge » et « Carnets des Attiseurs », caché, une page effacée
      par plan ; fichiers de l'épisode seulement, guide du Core intact ; textes générés par
      `tools/guide/make_guide.py`, à relancer après chaque retouche). Lore des plans provisoire.
+  8. L'Établi d'Attiseur et les mécanismes (idée d'Anger, plan section 11, validé), en cinq temps :
+     8a (établi, Plan de l'Établi, greffe, gabarits, butin, duplication) : faite. **Prochaine étape :
+     8b** (bouilleur, recharge, barre de vapeur), puis 8c (armures), 8d (armes), 8e (Lampe à vapeur,
+     shader d'Anger, guide). Shader d'Anger : un zip, à brancher en 8e (il vivra dans la Forge).
   Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
 
 ## Points en attente (côté Anger)

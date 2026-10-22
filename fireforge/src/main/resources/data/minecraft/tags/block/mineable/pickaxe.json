@@ -4,6 +4,7 @@
     "echoes_fireforge:fire_forge",
     "echoes_fireforge:boiler",
     "echoes_fireforge:lava_tank",
-    "echoes_fireforge:soul_module"
+    "echoes_fireforge:soul_module",
+    "echoes_fireforge:workbench"
   ]
 }

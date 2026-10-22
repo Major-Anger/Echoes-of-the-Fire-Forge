@@ -3,6 +3,7 @@ package fr.anger.echoes.fireforge.registry;
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forge.FireForgeBlock;
 import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
+import fr.anger.echoes.fireforge.workbench.WorkbenchBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -36,6 +37,14 @@ public final class FFBlocks {
                     .sound(SoundType.ANVIL)
                     .noOcclusion()
                     .lightLevel(state -> !state.getValue(FireForgeBlock.LIT) ? 0 : state.getValue(FireForgeBlock.SOUL) ? 10 : 13)));
+
+    /** L'Établi d'Attiseur (2 blocs) : on y greffe des mécanismes sur les armes et les armures. */
+    public static final DeferredBlock<WorkbenchBlock> WORKBENCH = BLOCKS.register("workbench",
+            () -> new WorkbenchBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .requiresCorrectToolForDrops()
+                    .strength(5.0F, 1200.0F)
+                    .sound(SoundType.ANVIL)));
 
     /** Module de gauche : la chaudière, fermée (elle marche aussi dans le Nether). Empilable sur 3 blocs. */
     public static final DeferredBlock<ForgeModuleBlock> BOILER = BLOCKS.register("boiler",

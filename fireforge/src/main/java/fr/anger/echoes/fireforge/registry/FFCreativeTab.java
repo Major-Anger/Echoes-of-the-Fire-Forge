@@ -21,6 +21,7 @@ public final class FFCreativeTab {
             .icon(() -> new ItemStack(FFItems.MACHINE_GEAR.get()))
             .displayItems((params, output) -> {
                 output.accept(FFItems.FIRE_FORGE.get());
+                output.accept(FFItems.WORKBENCH.get());
                 output.accept(FFItems.BOILER.get());
                 output.accept(FFItems.LAVA_TANK.get());
                 if (EchoesMods.isLoaded(EchoesMods.SILT)) output.accept(FFItems.SOUL_MODULE.get());
@@ -29,11 +30,13 @@ public final class FFCreativeTab {
                 output.accept(FFItems.MACHINE_VALVE.get());
                 output.accept(FFItems.ENGRAVED_PLATE.get());
                 output.accept(FFItems.FORGE_PLAN.get());
+                output.accept(FFItems.WORKBENCH_PLAN.get());
                 for (int n = 1; n <= Plans.COUNT; n++) {
                     ItemStack plan = new ItemStack(FFItems.ATTISEUR_PLAN.get());
                     plan.set(FFDataComponents.PLAN_NUMBER, n);
                     output.accept(plan);
                 }
+                FFItems.TEMPLATES.values().forEach(template -> output.accept(template.get()));
             })
             .build());
 }
