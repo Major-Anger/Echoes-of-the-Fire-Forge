@@ -1,0 +1,12 @@
+{
+  "title": "guide.echoes_fireforge.plans.1.title",
+  "icon": "echoes_fireforge:attiseur_plan",
+  "lore": "echoes_fireforge:plan/1",
+  "label": "I",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.plans.1.p1"
+    }
+  ]
+}

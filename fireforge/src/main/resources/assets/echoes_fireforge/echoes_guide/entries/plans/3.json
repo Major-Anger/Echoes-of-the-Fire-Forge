@@ -1,0 +1,12 @@
+{
+  "title": "guide.echoes_fireforge.plans.3.title",
+  "icon": "echoes_fireforge:attiseur_plan",
+  "lore": "echoes_fireforge:plan/3",
+  "label": "III",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.plans.3.p1"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "title": "guide.echoes_fireforge.forge.offerings.title",
+  "icon": "minecraft:ghast_tear",
+  "pages": [
+    {
+      "type": "spotlight",
+      "items": [
+        "minecraft:gold_nugget",
+        "minecraft:quartz",
+        "minecraft:magma_cream",
+        "minecraft:ghast_tear",
+        "minecraft:netherite_scrap"
+      ],
+      "text": "guide.echoes_fireforge.forge.offerings.p1"
+    }
+  ]
+}

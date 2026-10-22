@@ -1,0 +1,15 @@
+{
+  "title": "guide.echoes_fireforge.forge.cracks.title",
+  "icon": "minecraft:iron_chestplate",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.cracks.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.cracks.p2",
+      "title": "guide.echoes_fireforge.forge.cracks.p2.title"
+    }
+  ]
+}

@@ -69,7 +69,10 @@
        Fendeuse de racines, Corde chantante, dans `forging/SiltSpecialEffects` ; événements du Core
        `SoulChangeEvent` et `Noise`/`NoiseEvent`) : faite. L'étape 6 est finie.
        Ne pas inventer d'autres Spéciaux âme sans Anger.
-  7. Le guide : reporté par Anger. Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
+  7. Le guide : fait (chapitres « La Forge » et « Carnets des Attiseurs », caché, une page effacée
+     par plan ; fichiers de l'épisode seulement, guide du Core intact ; textes générés par
+     `tools/guide/make_guide.py`, à relancer après chaque retouche). Lore des plans provisoire.
+  Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.

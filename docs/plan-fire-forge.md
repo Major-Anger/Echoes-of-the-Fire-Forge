@@ -325,6 +325,15 @@ Ajouts au **Core** (code, pas le guide) pour 6e :
 - Chapitre caché « Carnets des Attiseurs » : les plans, en pages effacées.
 - Fichiers de l'épisode uniquement (`assets/echoes_fireforge/echoes_guide/`),
   sans toucher au guide du Core.
+- **Codé (étape 7)** : livre en place 2 (après le Silt), un texte d'accueil ;
+  - « La Forge » : machine comprimée (pièces, plans), la forge, reforger, la chaleur, les raretés,
+    l'offrande, la fêlure et le soufflet, les modules (chaudière, réservoir), les Spéciaux, et
+    « La Forge des âmes » (feu des âmes, options, liste âme), visible seulement avec le Silt ;
+  - « Carnets des Attiseurs » : chapitre caché tant qu'aucun plan n'est lu ; une entrée par plan
+    (Plan de la Forge, puis I à V), effacée tant que le plan n'est pas déchiffré ;
+  - textes de lore des plans **provisoires** (Anger les écrira) : clés `guide.echoes_fireforge.plans.*` ;
+  - les textes sont générés depuis un seul script (`tools/guide/make_guide.py`) qui écrit les entrées
+    et les deux langues ; espaces insécables en français devant « ; : % ! ? » et dans les guillemets.
 
 ## 10. Hors v1
 Créatures (les Cendreux : Attiseurs à mi-chemin de la maladie), structures, Échos,

@@ -1,0 +1,30 @@
+{
+  "title": "guide.echoes_fireforge.forge.compressed_machine.title",
+  "icon": "echoes_fireforge:compressed_machine",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:compressed_machine",
+      "text": "guide.echoes_fireforge.forge.compressed_machine.p1"
+    },
+    {
+      "type": "spotlight",
+      "items": [
+        "echoes_fireforge:machine_gear",
+        "echoes_fireforge:machine_valve",
+        "echoes_fireforge:engraved_plate"
+      ],
+      "text": "guide.echoes_fireforge.forge.compressed_machine.p2",
+      "title": "guide.echoes_fireforge.forge.compressed_machine.p2.title"
+    },
+    {
+      "type": "spotlight",
+      "items": [
+        "echoes_fireforge:forge_plan",
+        "echoes_fireforge:attiseur_plan"
+      ],
+      "text": "guide.echoes_fireforge.forge.compressed_machine.p3",
+      "title": "guide.echoes_fireforge.forge.compressed_machine.p3.title"
+    }
+  ]
+}

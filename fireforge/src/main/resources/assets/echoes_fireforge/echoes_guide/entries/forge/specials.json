@@ -1,0 +1,14 @@
+{
+  "title": "guide.echoes_fireforge.forge.specials.title",
+  "icon": "minecraft:netherite_sword",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.specials.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.specials.p2"
+    }
+  ]
+}

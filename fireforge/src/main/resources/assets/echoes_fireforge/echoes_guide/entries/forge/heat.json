@@ -1,0 +1,17 @@
+{
+  "title": "guide.echoes_fireforge.forge.heat.title",
+  "icon": "minecraft:blaze_rod",
+  "pages": [
+    {
+      "type": "spotlight",
+      "items": [
+        "minecraft:oak_planks",
+        "minecraft:coal",
+        "minecraft:coal_block",
+        "minecraft:blaze_rod",
+        "minecraft:lava_bucket"
+      ],
+      "text": "guide.echoes_fireforge.forge.heat.p1"
+    }
+  ]
+}

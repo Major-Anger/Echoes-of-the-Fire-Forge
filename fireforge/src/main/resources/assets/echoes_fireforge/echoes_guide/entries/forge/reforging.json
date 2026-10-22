@@ -1,0 +1,15 @@
+{
+  "title": "guide.echoes_fireforge.forge.reforging.title",
+  "icon": "minecraft:iron_sword",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.reforging.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.reforging.p2",
+      "title": "guide.echoes_fireforge.forge.reforging.p2.title"
+    }
+  ]
+}

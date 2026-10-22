@@ -1,0 +1,28 @@
+{
+  "title": "guide.echoes_fireforge.forge.soul_module.title",
+  "icon": "echoes_fireforge:soul_module",
+  "requires": [
+    "echoes_silt"
+  ],
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:soul_module",
+      "text": "guide.echoes_fireforge.forge.soul_module.p1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "echoes_fireforge:soul_module"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.soul_module.p3",
+      "title": "guide.echoes_fireforge.forge.soul_module.p3.title"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.soul_module.p4",
+      "title": "guide.echoes_fireforge.forge.soul_module.p4.title"
+    }
+  ]
+}

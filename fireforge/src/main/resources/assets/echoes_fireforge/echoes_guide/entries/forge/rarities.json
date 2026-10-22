@@ -1,0 +1,15 @@
+{
+  "title": "guide.echoes_fireforge.forge.rarities.title",
+  "icon": "minecraft:diamond_sword",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.rarities.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.rarities.p2",
+      "title": "guide.echoes_fireforge.forge.rarities.p2.title"
+    }
+  ]
+}

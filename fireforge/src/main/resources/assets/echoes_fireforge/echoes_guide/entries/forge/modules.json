@@ -1,0 +1,24 @@
+{
+  "title": "guide.echoes_fireforge.forge.modules.title",
+  "icon": "echoes_fireforge:boiler",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:boiler",
+      "text": "guide.echoes_fireforge.forge.modules.p1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "echoes_fireforge:boiler"
+    },
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:lava_tank",
+      "text": "guide.echoes_fireforge.forge.modules.p3"
+    },
+    {
+      "type": "crafting",
+      "recipe": "echoes_fireforge:lava_tank"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "title": "guide.echoes_fireforge.forge.fire_forge.title",
+  "icon": "echoes_fireforge:fire_forge",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:fire_forge",
+      "text": "guide.echoes_fireforge.forge.fire_forge.p1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "echoes_fireforge:fire_forge"
+    }
+  ]
+}

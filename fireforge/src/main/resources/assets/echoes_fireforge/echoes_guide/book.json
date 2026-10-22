@@ -1,0 +1,39 @@
+{
+  "order": 2,
+  "intro": "guide.echoes_fireforge.intro",
+  "categories": [
+    {
+      "id": "forge",
+      "icon": "echoes_fireforge:fire_forge",
+      "title": "guide.echoes_fireforge.cat.forge",
+      "description": "guide.echoes_fireforge.cat.forge.desc",
+      "entries": [
+        "forge/compressed_machine",
+        "forge/fire_forge",
+        "forge/reforging",
+        "forge/heat",
+        "forge/rarities",
+        "forge/offerings",
+        "forge/cracks",
+        "forge/modules",
+        "forge/specials",
+        "forge/soul_module"
+      ]
+    },
+    {
+      "id": "plans",
+      "icon": "echoes_fireforge:attiseur_plan",
+      "hidden": true,
+      "title": "guide.echoes_fireforge.cat.plans",
+      "description": "guide.echoes_fireforge.cat.plans.desc",
+      "entries": [
+        "plans/forge",
+        "plans/1",
+        "plans/2",
+        "plans/3",
+        "plans/4",
+        "plans/5"
+      ]
+    }
+  ]
+}

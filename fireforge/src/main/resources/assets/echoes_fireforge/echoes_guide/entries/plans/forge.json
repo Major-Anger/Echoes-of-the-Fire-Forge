@@ -1,0 +1,11 @@
+{
+  "title": "guide.echoes_fireforge.plans.forge.title",
+  "icon": "echoes_fireforge:forge_plan",
+  "lore": "echoes_fireforge:plan/forge",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.plans.forge.p1"
+    }
+  ]
+}
