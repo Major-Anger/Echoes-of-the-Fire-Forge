@@ -362,10 +362,16 @@ armures de mécanismes pour vivre et travailler dans le Nether.
   demande en plus une plaque gravée.
 
 ### La vapeur (armures seulement ; validé : pas pour tout)
-- Les mécanismes « à vapeur » ont une **barre de vapeur** (au-dessus de la barre d'objets, seulement
-  quand on en porte un). La pièce garde son eau : 1 seau par pièce, remplie d'un clic droit avec un
-  seau d'eau sur la pièce dans l'inventaire, ou à l'établi.
-- À vapeur : Planeur, Jet de vapeur, Pistons de genoux. Les autres n'en utilisent pas.
+- Les mécanismes « à vapeur » (Planeur, Jet de vapeur, Pistons de genoux) ont une **barre de vapeur**
+  (au-dessus de la barre d'objets, seulement quand on en porte un). Les autres n'en utilisent pas.
+- **20 charges par pièce** (validé : « une vingtaine de fois ») : Jet et Pistons, 1 charge par usage ;
+  Planeur, 1 charge par seconde de vol (20 s en tout).
+- **Recharge au bouilleur de l'établi** (idée d'Anger) : un module qui se pose contre l'établi, comme
+  ceux de la forge. Il ajoute un panneau sur le côté de l'interface (comme le panneau des âmes de la
+  forge) : une case combustible (charbon et autres, comme la forge), une jauge d'eau (seau, fiole,
+  entonnoir, tuyaux), et une case où l'on pose la pièce à recharger. Proposé : une recharge complète
+  (20 charges) coûte 1 charbon et 1 seau d'eau, en 10 secondes. Sans bouilleur, l'établi greffe
+  mais ne recharge pas.
 - **Armes** : pas de vapeur, un léger temps de recharge (validé).
 
 ### Les touches (configurables)
@@ -377,7 +383,7 @@ armures de mécanismes pour vivre et travailler dans le Nether.
 |---|---|---|---|---|
 | Casque | Longue-vue | touche C tenue | zoom ×4 | surveiller les coulées de loin |
 | | Sonde de prospection (rare) | touche C | les minerais à 8 blocs brillent 5 s ; recharge 20 s | ils cherchaient le métal dans la roche |
-| | Lampe à vapeur | touche C | une lumière suit le joueur (allumée / éteinte) | travailler au fond des galeries |
+| | Lampe à vapeur | touche C | une lumière suit le joueur (allumée / éteinte), avec un faisceau dans le regard (validé : rendu fait par Anger avec son shader) | travailler au fond des galeries |
 | Plastron | Sac dorsal | touche B | 9 cases en plus | porter les outils de forge |
 | | Planeur à vapeur (rare) | touche B tenue en l'air | chute ralentie et petites poussées ; vapeur : environ 8 s de vol par seau | traverser les lacs de lave |
 | | Jet de vapeur | touche B | une bouffée repousse les créatures à 4 blocs ; 200 mB, recharge 1 s | les soupapes de décharge |
@@ -395,21 +401,23 @@ Sac et poches : pas de shulker ni de sac à l'intérieur ; le contenu suit la pi
 |---|---|---|---|
 | Frappe-sol (zone) | épée, hache | onde de choc à 3 blocs : 60 % des dégâts et recul | 5 s |
 | Treuil (lancer) | épée, hache | l'arme part au bout d'une chaîne (10 blocs), frappe à 100 % et revient | 4 s |
-| Piston (perçant) | à confirmer | estocade en ligne sur 4 blocs, 100 % des dégâts | 3 s |
+| Piston (perçant) | épée (validé) | estocade en ligne sur 4 blocs, 100 % des dégâts | 3 s |
+| Sillon (perçant, version hache) | hache (validé) | une onde court au sol en ligne droite sur 6 blocs, 80 % des dégâts à tout ce qu'elle traverse, avec des éclats de roche | 4 s |
 | Trident de trempe | trident | ne se lance plus. Clic droit : **surchauffe** 8 s (+30 % de dégâts, met le feu), puis 6 s de refroidissement ; **dans l'eau ou sous la pluie**, la surchauffe fait de la vapeur : +50 % et pas de feu | 6 s |
 | — | masse | rien (validé) | — |
 
 Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
 
+- **Bouclier** (validé) : avec un bouclier en main gauche, le clic droit lève le bouclier ; le
+  mécanisme de l'arme se déclenche alors accroupi + clic droit.
+- **Trident de trempe** (validé) : greffe refusée sur un trident avec Loyauté ou Impulsion.
+- **Lampe à vapeur** (validé) : sans vapeur. La Forge s'occupe de la lumière et de l'état allumé /
+  éteint (synchronisé pour tous les joueurs) et donne au client de quoi dessiner le faisceau
+  (porteur, position, direction) ; un faisceau simple par défaut, que le shader d'Anger remplace.
+
 ### Questions encore ouvertes
-- Le Piston (perçant) : on le garde ? Sur quelles armes ?
-- Clic droit sur une arme : avec un bouclier en main gauche, le clic droit lève normalement le
-  bouclier. Proposé : bouclier en main gauche → le bouclier passe avant, le mécanisme se déclenche
-  accroupi + clic droit.
-- Trident de trempe : refuser la greffe sur un trident avec Loyauté ou Impulsion (ils ne serviraient
-  plus) ? Proposé : oui.
-- La Lampe à vapeur utilise-t-elle de la vapeur ? Proposé : non.
-- Textures et modèles de l'établi et des gabarits : planche d'aperçu avant intégration.
+- Où vivra le shader d'Anger (la Forge ou le Core) ? Il n'est encore dans aucun dépôt.
+- Textures et modèles de l'établi, du bouilleur et des gabarits : planche d'aperçu avant intégration.
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
