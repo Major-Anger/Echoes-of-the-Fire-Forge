@@ -36,6 +36,11 @@ public final class ForgingTooltip {
         if (mechanism != null) {
             lines.add(Component.translatable("tooltip.echoes_fireforge.mechanism", mechanism.displayName()).withStyle(ChatFormatting.GOLD));
             lines.add(Component.literal("  ").append(mechanism.description()).withStyle(ChatFormatting.GRAY));
+            if (mechanism == Mechanism.LAMPE) {
+                boolean on = event.getItemStack().getOrDefault(FFDataComponents.LAMP_ON, false);
+                lines.add(Component.literal("  ").append(Component.translatable(on ? "tooltip.echoes_fireforge.lamp.on" : "tooltip.echoes_fireforge.lamp.off"))
+                        .withStyle(on ? ChatFormatting.YELLOW : ChatFormatting.DARK_GRAY));
+            }
             if (mechanism.steam()) {
                 lines.add(Component.literal("  ").append(Component.translatable("tooltip.echoes_fireforge.steam",
                         Steam.charges(event.getItemStack()), Steam.CHARGES)).withStyle(ChatFormatting.WHITE));

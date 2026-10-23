@@ -463,6 +463,20 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   refroidissement) ; « mouillé » = dans l'eau, sous la pluie ou dans les bulles.
 - **8e, la Lampe à vapeur et le guide** : lumière, faisceau par défaut, point d'accroche pour le
   shader ; entrées du guide (chapitre « La Forge » et un plan de plus dans les Carnets).
+  **Codée** : `mechanism/SteamLamp` et `LampLightBlock`, `client/LampBeamRender`. Touche C : allumée ou
+  éteinte, gardé sur le casque (composant `echoes_fireforge:lamp_on`, l'infobulle le dit). La lumière
+  (niveau 14) se pose dans l'air juste devant ce que l'on regarde, jusqu'à 12 blocs, et suit le regard ;
+  elle se retire d'elle-même si plus aucune lampe ne l'éclaire (vérifié chaque seconde). Le faisceau :
+  un cône blanc chaud de 10 blocs qui pâlit au loin, visible par tous les autres joueurs et par soi en
+  vue de dos ; pas de cône pour soi en vue à la première personne (on le verrait par le bout, la lumière
+  sur les murs suffit). Guide : l'établi, les gabarits, le bouilleur, les mécanismes d'armure et d'arme,
+  et le Plan de l'Établi dans les Carnets (texte provisoire).
+  **Pour le pack de shaders d'Anger** (Iris) : la lumière est le bloc `echoes_fireforge:lamp_light`
+  (à ajouter dans `block.properties` pour sa couleur) ; le faisceau est rendu comme un faisceau de
+  balise (`RenderType.beaconBeam`, translucide, texture `echoes_fireforge:textures/entity/lamp_beam.png`),
+  il passe donc par `gbuffers_beaconbeam`. Aussi proposé à Anger : la forge allumée
+  (`echoes_fireforge:fire_forge:lit=true`, et `soul=true` en cyan) et le bouilleur allumé
+  (`echoes_fireforge:steam_boiler:lit=true`).
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu

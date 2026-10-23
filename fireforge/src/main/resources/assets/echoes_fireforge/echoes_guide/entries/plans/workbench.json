@@ -1,0 +1,11 @@
+{
+  "title": "guide.echoes_fireforge.plans.workbench.title",
+  "icon": "echoes_fireforge:workbench_plan",
+  "lore": "echoes_fireforge:plan/workbench",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.plans.workbench.p1"
+    }
+  ]
+}

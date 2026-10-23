@@ -35,6 +35,12 @@ public final class FFDataComponents {
                     .persistent(Mechanism.CODEC)
                     .networkSynchronized(Mechanism.STREAM_CODEC));
 
+    /** La Lampe à vapeur est allumée (gardé sur le casque : tous les joueurs voient le faisceau). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> LAMP_ON =
+            COMPONENTS.registerComponentType("lamp_on", builder -> builder
+                    .persistent(com.mojang.serialization.Codec.BOOL)
+                    .networkSynchronized(ByteBufCodecs.BOOL));
+
     /** Les charges de vapeur d'une pièce à mécanisme à vapeur (0 à 20), rechargées au bouilleur. */
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STEAM =
             COMPONENTS.registerComponentType("steam", builder -> builder

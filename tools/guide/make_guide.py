@@ -147,6 +147,40 @@ forge = [
              "Sword, axe: Watchers' Blade, Blade Echo; axe only: Rootcleaver. Bow: Singing String. Crossbow: Silent Bolt. Trident: River Harpoon. Mace: Knell.\n\nHelmet: Watcher's Gaze. Chestplate: Sealed Urn. Boots: Muffled Step.\n\nSome cost souls each time they act.",
              title_fr="Les Spéciaux des âmes", title_en="Soul Specials"),
     ], requires=["echoes_silt"]),
+    # étape 8 : l'Établi d'Attiseur et ses mécanismes
+    entry("forge/workbench", I + "workbench", "L'Établi d'Attiseur", "The Stoker's Workbench", [
+        spot(I + "workbench",
+             "Un établi de deux blocs, bâti d'après le Plan de l'Établi (consommé). Les Attiseurs y équipaient leurs armes et leurs armures de rouages et de vapeur.\n\nPose la pièce, un gabarit et un engrenage, puis donne un tour de clé : le gabarit et l'engrenage sont consommés.",
+             "A workbench two blocks long, built from the Workbench Plan (consumed). The Stokers fitted their weapons and armor with gears and steam there.\n\nPlace the piece, a template and a gear, then turn the wrench: the template and the gear are consumed."),
+        craft(I + "workbench"),
+        text("Un seul mécanisme par pièce : une nouvelle greffe remplace l'ancienne. La rareté, le Spécial et les enchantements restent, et le mécanisme reste quand on reforge.\n\nL'établi ne garde rien : ce qu'on y pose revient quand on ferme l'interface.",
+             "One mechanism per piece: a new fitting replaces the old one. Rarity, Special and enchantments stay, and the mechanism stays when you reforge.\n\nThe workbench keeps nothing: what you place there comes back when you close it.",
+             title_fr="La greffe", title_en="Fitting"),
+    ]),
+    entry("forge/templates", I + "template_longue_vue", "Les gabarits", "Templates", [
+        spot([I + "template_longue_vue", I + "template_sac", I + "template_patins", I + "template_sonde", I + "template_treuil"],
+             "Chaque mécanisme a son gabarit, une plaque gravée. On les trouve dans les coffres des bastions et des forteresses, et parfois dans les machines comprimées. Les rares sont en acier bleui par la trempe.\n\nÀ l'établi de fabrication, un gabarit, trois engrenages et un bloc de cuivre en donnent deux. Un rare demande aussi une plaque gravée.",
+             "Each mechanism has its template, an engraved plate. They are found in bastion and fortress chests, and sometimes in compressed machines. Rare ones are made of steel blued by quenching.\n\nAt a crafting table, a template, three gears and a copper block make two. A rare one also needs an engraved plate."),
+    ]),
+    entry("forge/steam_boiler", I + "steam_boiler", "Le bouilleur", "The Steam Boiler", [
+        spot(I + "steam_boiler",
+             "Posé au bout d'un établi, le bouilleur recharge en vapeur les pièces à mécanisme : vingt charges pour un charbon et un seau d'eau, en dix secondes.\n\nIl prend tout ce qui brûle dans un fourneau. L'eau arrive au seau, à la fiole, par tuyau, ou versée sur la jauge.",
+             "Placed at one end of a workbench, the boiler recharges mechanism pieces with steam: twenty charges for one coal and one bucket of water, in ten seconds.\n\nIt burns anything a furnace burns. Water comes by bucket, bottle, pipe, or poured onto the gauge."),
+        craft(I + "steam_boiler"),
+        text("Son panneau s'ouvre à droite de l'établi. La vapeur des pièces portées se lit dans le trait blanc, au bas de la barre d'objets.\n\nFermé, il marche aussi dans le Nether.",
+             "Its panel opens to the right of the workbench. The steam left in the pieces you wear shows as the white line at the bottom of the hotbar.\n\nSealed, it also works in the Nether.",
+             title_fr="La vapeur", title_en="Steam"),
+    ]),
+    entry("forge/armor_mechanisms", "minecraft:iron_helmet", "Les mécanismes d'armure", "Armor Mechanisms", [
+        text("Casque, touche C : la Longue-vue (zoom), la Sonde de prospection (les minerais proches brillent un instant), la Lampe à vapeur (une lumière qui suit le regard).\n\nPlastron, touche B : le Sac dorsal (neuf cases), le Planeur à vapeur (chute ralentie), le Jet de vapeur (repousse les créatures).",
+             "Helmet, key C: the Spyglass (zoom), the Prospecting Probe (nearby ores glow for a moment), the Steam Lamp (a light that follows your gaze).\n\nChestplate, key B: the Backpack (nine slots), the Steam Glider (slower fall), the Steam Burst (pushes creatures away)."),
+        text("Jambières, touche N : les Poches (six cases), les Pistons de genoux (un élan), l'Ancre (accroupi, aucun recul).\n\nBottes : les Patins (plus vite sur la pierre), les Ressorts (sauts plus hauts), les Crampons (on monte un bloc sans sauter).\n\nPlaneur, Jet et Pistons usent de la vapeur. Les touches se changent dans les Commandes.",
+             "Leggings, key N: the Pockets (six slots), the Knee Pistons (a dash), the Anchor (no knockback while sneaking).\n\nBoots: the Skates (faster on stone), the Springs (higher jumps), the Crampons (step up a block).\n\nGlider, Burst and Pistons use steam. Keys can be changed in Controls."),
+    ]),
+    entry("forge/weapon_mechanisms", "minecraft:iron_axe", "Les mécanismes d'arme", "Weapon Mechanisms", [
+        text("Au clic droit, accroupi si un bouclier est en main gauche :\n\n- le Piston (épée) : une estocade en ligne ;\n- le Sillon (hache) : une onde court au sol ;\n- le Frappe-sol : une onde de choc autour de soi ;\n- le Treuil : la chaîne frappe au loin ;\n- le Trident de trempe : il ne se lance plus, il surchauffe ; dans l'eau, la vapeur frappe plus fort.\n\nPas de vapeur pour les armes : une recharge, et un peu d'usure.",
+             "On right-click, sneaking if a shield is in your off hand:\n\n- the Piston (sword): a thrust in a line;\n- the Furrow (axe): a wave runs along the ground;\n- the Ground Slam: a shockwave all around;\n- the Winch: the chain strikes far away;\n- the Quenching Trident: no longer thrown, it overheats; in water, steam strikes harder.\n\nNo steam for weapons: a cooldown, and a little wear."),
+    ]),
 ]
 
 # ---------------------------------------------------------------------- Carnets des Attiseurs (textes provisoires : Anger les écrira)
@@ -155,6 +189,10 @@ plans = [
         text("Deux foyers sous une seule cheminée. Le trait est sûr, appuyé, gravé par quelqu'un qui en avait bâti cent.\n\nDans la marge, une ligne plus petite : « L'eau d'abord. Le feu ensuite. Jamais l'inverse. »",
              "Two hearths under a single chimney. The line is sure and firm, engraved by someone who had built a hundred.\n\nIn the margin, a smaller line: \"Water first. Fire second. Never the other way.\""),
     ], lore=I + "plan/forge"),
+    entry("plans/workbench", I + "workbench_plan", "Le Plan de l'Établi", "The Workbench Plan", [
+        text("Un établi, deux tiroirs, un tableau où pendent la clé et le marteau. Des pièces d'armure sont dessinées à côté, ouvertes comme des machines.\n\nDans la marge : « Ce qu'on porte doit travailler aussi. »",
+             "A workbench, two drawers, a board where the wrench and the hammer hang. Pieces of armor are drawn beside it, opened like machines.\n\nIn the margin: \"What we wear must work too.\""),
+    ], lore=I + "plan/workbench"),
     entry("plans/1", I + "attiseur_plan", "Les feux", "The Fires", [
         text("Cinq feux, du plus doux au plus fort. Le bois est noté d'un trait, la lave de cinq.\n\n« Le métal ne prend que ce que le feu lui donne. Qui veut plus doit chauffer plus. »",
              "Five fires, from the gentlest to the strongest. Wood is marked with one stroke, lava with five.\n\n\"Metal takes only what the fire gives it. Whoever wants more must burn hotter.\""),
@@ -180,8 +218,8 @@ plans = [
 book = {
     "order": 2,
     "intro": t(P + ".intro",
-               "Ces pages rassemblent ce qu'ajoute Echoes of the Fire Forge : la machine comprimée, la forge et ses modules, les raretés et les Spéciaux.\n\nLes Carnets des Attiseurs se révèlent à mesure que tu déchiffres leurs plans.",
-               "These pages gather what Echoes of the Fire Forge adds: the compressed machine, the forge and its modules, rarities and Specials.\n\nThe Stokers' Notebooks reveal themselves as you decipher their plans."),
+               "Ces pages rassemblent ce qu'ajoute Echoes of the Fire Forge : la machine comprimée, la forge et ses modules, les raretés et les Spéciaux, l'établi et ses mécanismes.\n\nLes Carnets des Attiseurs se révèlent à mesure que tu déchiffres leurs plans.",
+               "These pages gather what Echoes of the Fire Forge adds: the compressed machine, the forge and its modules, rarities and Specials, the workbench and its mechanisms.\n\nThe Stokers' Notebooks reveal themselves as you decipher their plans."),
     "categories": [
         {"id": "forge", "icon": I + "fire_forge",
          "title": t(P + ".cat.forge", "La Forge", "The Forge"),

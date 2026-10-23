@@ -1,0 +1,20 @@
+{
+  "title": "guide.echoes_fireforge.forge.workbench.title",
+  "icon": "echoes_fireforge:workbench",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:workbench",
+      "text": "guide.echoes_fireforge.forge.workbench.p1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "echoes_fireforge:workbench"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.workbench.p3",
+      "title": "guide.echoes_fireforge.forge.workbench.p3.title"
+    }
+  ]
+}

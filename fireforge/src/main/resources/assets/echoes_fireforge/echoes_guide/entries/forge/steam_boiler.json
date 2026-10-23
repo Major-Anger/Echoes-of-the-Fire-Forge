@@ -1,0 +1,20 @@
+{
+  "title": "guide.echoes_fireforge.forge.steam_boiler.title",
+  "icon": "echoes_fireforge:steam_boiler",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:steam_boiler",
+      "text": "guide.echoes_fireforge.forge.steam_boiler.p1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "echoes_fireforge:steam_boiler"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.steam_boiler.p3",
+      "title": "guide.echoes_fireforge.forge.steam_boiler.p3.title"
+    }
+  ]
+}

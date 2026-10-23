@@ -17,7 +17,12 @@
         "forge/cracks",
         "forge/modules",
         "forge/specials",
-        "forge/soul_module"
+        "forge/soul_module",
+        "forge/workbench",
+        "forge/templates",
+        "forge/steam_boiler",
+        "forge/armor_mechanisms",
+        "forge/weapon_mechanisms"
       ]
     },
     {
@@ -28,6 +33,7 @@
       "description": "guide.echoes_fireforge.cat.plans.desc",
       "entries": [
         "plans/forge",
+        "plans/workbench",
         "plans/1",
         "plans/2",
         "plans/3",

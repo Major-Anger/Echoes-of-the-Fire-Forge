@@ -1,0 +1,17 @@
+{
+  "title": "guide.echoes_fireforge.forge.templates.title",
+  "icon": "echoes_fireforge:template_longue_vue",
+  "pages": [
+    {
+      "type": "spotlight",
+      "items": [
+        "echoes_fireforge:template_longue_vue",
+        "echoes_fireforge:template_sac",
+        "echoes_fireforge:template_patins",
+        "echoes_fireforge:template_sonde",
+        "echoes_fireforge:template_treuil"
+      ],
+      "text": "guide.echoes_fireforge.forge.templates.p1"
+    }
+  ]
+}

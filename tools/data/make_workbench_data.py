@@ -85,6 +85,10 @@ t("gui.echoes_fireforge.steam_boiler.water.hint", "Clic avec un seau d'eau pour 
 t("gui.echoes_fireforge.steam_boiler.fuel", "Combustible en réserve : %s charges", "Fuel in reserve: %s charges")
 t("tooltip.echoes_fireforge.steam", "Vapeur : %s / %s", "Steam: %s / %s")
 t("message.echoes_fireforge.steam_boiler.unlinked", "Le bouilleur se pose au bout d'un établi", "The boiler goes at one end of a workbench")
+# étape 8e : la Lampe à vapeur
+t("block.echoes_fireforge.lamp_light", "Lumière de lampe", "Lamp Light")
+t("tooltip.echoes_fireforge.lamp.on", "Allumée", "Lit")
+t("tooltip.echoes_fireforge.lamp.off", "Éteinte", "Off")
 # étape 8c : les touches et les rangements
 t("key.categories.echoes_fireforge", "Echoes of the Fire Forge", "Echoes of the Fire Forge")
 t("key.echoes_fireforge.helmet", "Mécanisme du casque", "Helmet mechanism")
@@ -105,6 +109,8 @@ for name in ["front_left", "front_right", "top_left", "top_right", "side"]:
 for key, *_ in MECHANISMS:
     shutil.copy(os.path.join(TEX, "template_" + key + ".png"), os.path.join(A, "textures/item", "template_" + key + ".png"))
 shutil.copy(os.path.join(TEX, "workbench_plan.png"), os.path.join(A, "textures/item/workbench_plan.png"))
+os.makedirs(os.path.join(A, "textures/entity"), exist_ok=True)
+shutil.copy(os.path.join(TEX, "lamp_beam.png"), os.path.join(A, "textures/entity/lamp_beam.png"))
 shutil.copy(os.path.join(TEX, "workbench.png"), os.path.join(A, "textures/gui/workbench.png"))
 
 os.makedirs(os.path.join(A, "textures/block/steam_boiler"), exist_ok=True)
@@ -112,6 +118,7 @@ for name in ["front", "front_off", "side", "top"]:
     shutil.copy(os.path.join(TEX, "steam_boiler_" + name + ".png"), os.path.join(A, "textures/block/steam_boiler", name + ".png"))
 
 # ---------------------------------------------------------------------- modèles et états
+SB_PARTICLE = NS + ":block/steam_boiler/top"
 B = NS + ":block/workbench/"
 for part in ("left", "right"):
     write(os.path.join(A, "models/block/workbench_" + part + ".json"), {
@@ -153,6 +160,9 @@ for key, *_ in MECHANISMS:
 write(os.path.join(A, "models/item/workbench_plan.json"),
       {"parent": "minecraft:item/generated", "textures": {"layer0": NS + ":item/workbench_plan"}})
 
+# la lumière de la lampe : invisible (pas de modèle à dessiner, seulement des particules d'air)
+write(os.path.join(A, "blockstates/lamp_light.json"), {"variants": {"": {"model": NS + ":block/lamp_light"}}})
+write(os.path.join(A, "models/block/lamp_light.json"), {"textures": {"particle": SB_PARTICLE}})
 SB = NS + ":block/steam_boiler/"
 for lit in (False, True):
     write(os.path.join(A, "models/block/steam_boiler" + ("_lit" if lit else "") + ".json"), {

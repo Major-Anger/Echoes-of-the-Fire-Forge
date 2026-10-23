@@ -1,0 +1,10 @@
+{
+  "title": "guide.echoes_fireforge.forge.weapon_mechanisms.title",
+  "icon": "minecraft:iron_axe",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.weapon_mechanisms.p1"
+    }
+  ]
+}

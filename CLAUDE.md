@@ -75,10 +75,11 @@
   8. L'Établi d'Attiseur et les mécanismes (idée d'Anger, plan section 11, validé), en cinq temps :
      8a (établi, Plan de l'Établi, greffe, gabarits, butin, duplication) : faite ; 8b (bouilleur,
      recharge, barre de vapeur) : faite ; 8c (les 12 mécanismes d'armure, touches C, B, N) : faite ;
-     8d (mécanismes d'arme, clic droit, `mechanism/WeaponMechanisms`) : faite.
-     **Prochaine étape : 8e** (Lampe à vapeur, shader d'Anger, guide). Shader d'Anger : pack Iris (zip, licence « tous droits réservés » :
-     jamais dans le dépôt) ; contrat prévu en 8e : bloc de lumière `echoes_fireforge:lamp_light` (son
-     `block.properties`) et faisceau rendu comme un faisceau de balise (`gbuffers_beaconbeam`).
+     8d (mécanismes d'arme, clic droit, `mechanism/WeaponMechanisms`) : faite ; 8e (Lampe à vapeur,
+     `mechanism/SteamLamp`, faisceau `client/LampBeamRender`, guide) : faite. L'étape 8 est finie.
+     Shader d'Anger : pack Iris (zip, licence « tous droits réservés » : jamais dans le dépôt) ; le
+     contrat (plan, 8e) : bloc `echoes_fireforge:lamp_light` dans son `block.properties`, faisceau rendu
+     comme un faisceau de balise (`gbuffers_beaconbeam`). Anger ajoutera aussi la forge et le bouilleur.
   Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
 
 ## Points en attente (côté Anger)

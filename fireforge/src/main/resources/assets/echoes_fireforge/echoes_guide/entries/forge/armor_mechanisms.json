@@ -1,0 +1,14 @@
+{
+  "title": "guide.echoes_fireforge.forge.armor_mechanisms.title",
+  "icon": "minecraft:iron_helmet",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.armor_mechanisms.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.armor_mechanisms.p2"
+    }
+  ]
+}

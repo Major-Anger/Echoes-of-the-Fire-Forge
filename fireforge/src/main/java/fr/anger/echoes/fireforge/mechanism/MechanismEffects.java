@@ -47,7 +47,7 @@ import java.util.UUID;
 /**
  * Les mécanismes d'armure (étape 8c), côté serveur. Les touches arrivent par {@link fr.anger.echoes.fireforge.network.MechanismKeyPayload} :
  * C pour le casque, B pour le plastron, N pour les jambières ; les bottes sont passives. Les mécanismes à vapeur
- * (Planeur, Jet, Pistons) se paient en charges (étape 8b). La Longue-vue est un zoom, côté client ; la Lampe arrive en 8e.
+ * (Planeur, Jet, Pistons) se paient en charges (étape 8b). La Longue-vue est un zoom, côté client ; la Lampe, voir {@link SteamLamp}.
  */
 @EventBusSubscriber(modid = EchoesFireForge.MOD_ID)
 public final class MechanismEffects {
@@ -115,7 +115,8 @@ public final class MechanismEffects {
             case PLANEUR -> GLIDING.add(player.getUUID());
             case JET -> jet(player);
             case PISTONS -> dash(player);
-            default -> {} // Longue-vue : un zoom côté client ; Lampe à vapeur : étape 8e
+            case LAMPE -> SteamLamp.toggle(player);
+            default -> {} // Longue-vue : un zoom côté client
         }
     }
 

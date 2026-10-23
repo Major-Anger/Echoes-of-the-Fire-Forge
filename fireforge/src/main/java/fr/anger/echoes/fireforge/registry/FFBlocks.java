@@ -2,6 +2,8 @@ package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forge.FireForgeBlock;
+import fr.anger.echoes.fireforge.mechanism.LampLightBlock;
+import fr.anger.echoes.fireforge.mechanism.SteamLamp;
 import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
 import fr.anger.echoes.fireforge.workbench.SteamBoilerBlock;
 import fr.anger.echoes.fireforge.workbench.WorkbenchBlock;
@@ -55,6 +57,17 @@ public final class FFBlocks {
                     .strength(3.5F, 6.0F)
                     .sound(SoundType.COPPER)
                     .lightLevel(state -> state.getValue(SteamBoilerBlock.LIT) ? 10 : 0)));
+
+    /** La lumière de la Lampe à vapeur : invisible, sans forme, elle suit le regard de son porteur (pas d'objet). */
+    public static final DeferredBlock<LampLightBlock> LAMP_LIGHT = BLOCKS.register("lamp_light",
+            () -> new LampLightBlock(BlockBehaviour.Properties.of()
+                    .replaceable()
+                    .noCollission()
+                    .noLootTable()
+                    .noOcclusion()
+                    .instabreak()
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)
+                    .lightLevel(state -> SteamLamp.LIGHT)));
 
     /** Module de gauche : la chaudière, fermée (elle marche aussi dans le Nether). Empilable sur 3 blocs. */
     public static final DeferredBlock<ForgeModuleBlock> BOILER = BLOCKS.register("boiler",
