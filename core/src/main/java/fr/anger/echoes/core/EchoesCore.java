@@ -28,6 +28,7 @@ public final class EchoesCore {
         CoreItems.ITEMS.register(modBus);
         modBus.addListener(CoreNetwork::register);
         container.registerConfig(ModConfig.Type.COMMON, CoreConfig.SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, CoreClientConfig.SPEC);
     }
 
     public static ResourceLocation id(String path) {

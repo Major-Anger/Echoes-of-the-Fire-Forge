@@ -45,7 +45,10 @@
 - Fire Forge : `docs/plan-fire-forge.md` (validé). Le relire avant de coder quoi que ce soit.
 
 ## État d'avancement (à tenir à jour)
-- **Echoes Core** : fait (âmes et barre d'âmes, Échos, lore, livre guide, détection des épisodes).
+- **Echoes Core** (version 0.1.1) : fait (âmes et barre d'âmes, Échos, lore, livre guide, détection des
+  épisodes). Config client `echoes_core-client.toml` : `soulBar.scale` (0,75 à 2, 1 par défaut) ; la
+  bannière garde son bord droit à 116 px à gauche du milieu de l'écran et son bord bas à 8 px du bas
+  (sa place d'avant, à l'échelle 1,5), et reste toujours entière à l'écran.
 - **Fire Forge**, étapes du plan :
   1. Découverte (machine comprimée, pièces, plans, génération, butin) : faite.
   2. La forge (bloc de 2, interface custom avec marteau, jauges, entonnoirs, enclume visible) : faite.
@@ -93,6 +96,8 @@
 - Branchement du Silt sur les événements de la 6e (fait par Anger, voir le plan, « À faire côté
   Silt ») : `Souls.lose` pour les pertes passives, `Souls.spend` pour les armes, bruit par `Noise.make`
   et Gueule remplie depuis `NoiseEvent.Post`. En attendant, l'Urne close ne réduit aucune perte du Silt.
+- Core 0.1.1 : le Silt dépend encore de `core_version=0.1.0` (son `gradle.properties`) ; Anger (ou
+  Claude dans Cowork) doit le passer à 0.1.1 et relancer corepublish sur sa machine.
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 

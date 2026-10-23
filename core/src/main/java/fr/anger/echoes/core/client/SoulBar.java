@@ -18,7 +18,8 @@ public final class SoulBar {
 
     /**
      * Dessin ajouté par un épisode. Appelé après la barre et sa bannière, dans le même repère :
-     * (x, y) = coin haut gauche de la bannière (94 × 20), échelle déjà appliquée.
+     * (x, y) = coin haut gauche de la bannière (94 × 20), échelle déjà appliquée (réglable par le joueur :
+     * soulBar.scale dans echoes_core-client.toml, 0,75 à 2). Dessiner en coordonnées relatives à (x, y).
      */
     @FunctionalInterface
     public interface Decoration {
