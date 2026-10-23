@@ -443,6 +443,16 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   pièce greffée part à 0 charge ; infobulle « Vapeur : 13 / 20 » ; maj-clic range combustible et pièce
   à vapeur dans le bouilleur ; barre : deux moitiés si deux pièces à vapeur sont portées.
 - **8c, les armures** : les 12 mécanismes, touches C, B, N ; sac et poches.
+  **Codée** : `mechanism/MechanismEffects` (serveur), `PieceStorageMenu` (sac et poches, composant
+  `minecraft:container`), `client/MechanismKeys` (touches, zoom, vol du Planeur), `client/ProbeRender`,
+  réseau `network/` (touches vers le serveur, résultat de la Sonde vers le client). Chiffres : zoom ×4 ;
+  Sonde : minerais (`#c:ores`), débris antiques et machines comprimées à 8 blocs, lueur de laiton à
+  travers la roche 5 s, recharge 20 s (celle de l'objet) ; Jet : 4 blocs, recharge 1 s ; Pistons : élan
+  de 1,3 bloc/tick, recharge 1 s ; Planeur : chute limitée, petite poussée vers l'avant, une bouffée par
+  seconde (la charge), pas de dégâts de chute ; Patins : +20 % (tag `echoes_fireforge:skate_surfaces`) ;
+  Ressorts : saut +50 %, dégâts de chute ×0,5 ; Crampons : hauteur de pas 1 bloc, efficacité de
+  mouvement 1 (le sable des âmes ne ralentit plus) ; Ancre : accroupi, recul annulé. La Lampe à vapeur
+  (touche C) arrive en 8e. Sans vapeur : « Plus de vapeur : recharge au bouilleur ».
 - **8d, les armes** : Piston, Sillon, Frappe-sol, Treuil, Trident de trempe ; clic droit et bouclier.
 - **8e, la Lampe à vapeur et le guide** : lumière, faisceau par défaut, point d'accroche pour le
   shader ; entrées du guide (chapitre « La Forge » et un plan de plus dans les Carnets).

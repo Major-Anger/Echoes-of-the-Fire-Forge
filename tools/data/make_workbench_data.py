@@ -85,6 +85,14 @@ t("gui.echoes_fireforge.steam_boiler.water.hint", "Clic avec un seau d'eau pour 
 t("gui.echoes_fireforge.steam_boiler.fuel", "Combustible en réserve : %s charges", "Fuel in reserve: %s charges")
 t("tooltip.echoes_fireforge.steam", "Vapeur : %s / %s", "Steam: %s / %s")
 t("message.echoes_fireforge.steam_boiler.unlinked", "Le bouilleur se pose au bout d'un établi", "The boiler goes at one end of a workbench")
+# étape 8c : les touches et les rangements
+t("key.categories.echoes_fireforge", "Echoes of the Fire Forge", "Echoes of the Fire Forge")
+t("key.echoes_fireforge.helmet", "Mécanisme du casque", "Helmet mechanism")
+t("key.echoes_fireforge.chest", "Mécanisme du plastron", "Chestplate mechanism")
+t("key.echoes_fireforge.legs", "Mécanisme des jambières", "Leggings mechanism")
+t("container.echoes_fireforge.backpack", "Sac dorsal", "Backpack")
+t("container.echoes_fireforge.pockets", "Poches", "Pockets")
+t("message.echoes_fireforge.no_steam", "Plus de vapeur : recharge au bouilleur", "Out of steam: recharge at the boiler")
 for key, rare, fr, en, dfr, den in MECHANISMS:
     t("mechanism.echoes_fireforge." + key, fr, en)
     t("mechanism.echoes_fireforge." + key + ".desc", dfr, den)
@@ -235,6 +243,20 @@ for block in ("workbench", "steam_boiler"):
         tag["values"].append(NS + ":" + block)
 write(path, tag)
 write(os.path.join(D, "tags/item/mechanism_templates.json"), {"values": [NS + ":template_" + k for k, *_ in MECHANISMS]})
+
+# étape 8c : où roulent les Patins (pierre, basalte, pierre noire, briques, métal), et ce que cherche la Sonde
+write(os.path.join(D, "tags/block/skate_surfaces.json"), {"values": [
+    "#minecraft:base_stone_overworld", "#minecraft:base_stone_nether", "#minecraft:stone_bricks",
+    "minecraft:cobblestone", "minecraft:smooth_stone", "minecraft:polished_andesite", "minecraft:polished_diorite",
+    "minecraft:polished_granite", "minecraft:cobbled_deepslate", "minecraft:polished_deepslate", "minecraft:deepslate_bricks",
+    "minecraft:cracked_deepslate_bricks", "minecraft:deepslate_tiles", "minecraft:cracked_deepslate_tiles",
+    "minecraft:polished_basalt", "minecraft:smooth_basalt", "minecraft:polished_blackstone", "minecraft:polished_blackstone_bricks",
+    "minecraft:cracked_polished_blackstone_bricks", "minecraft:chiseled_polished_blackstone", "minecraft:gilded_blackstone",
+    "minecraft:nether_bricks", "minecraft:red_nether_bricks", "minecraft:cracked_nether_bricks", "minecraft:bricks",
+    "minecraft:iron_block", "minecraft:copper_block", "minecraft:cut_copper", "minecraft:waxed_copper_block", "minecraft:waxed_cut_copper",
+    "minecraft:obsidian"]})
+write(os.path.join(D, "tags/block/probe_targets.json"), {"values": [
+    "#c:ores", "minecraft:ancient_debris", NS + ":compressed_machine"]})
 
 # ---------------------------------------------------------------------- textes
 for lang, data in (("fr_fr", FR), ("en_us", EN)):

@@ -5,6 +5,7 @@ import fr.anger.echoes.core.compat.EchoesMods;
 import fr.anger.echoes.fireforge.compat.SiltCompat;
 import fr.anger.echoes.fireforge.forge.ForgeRules;
 import fr.anger.echoes.fireforge.module.ForgeModules;
+import fr.anger.echoes.fireforge.network.FFNetwork;
 import fr.anger.echoes.fireforge.module.ModuleSide;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
 import fr.anger.echoes.fireforge.registry.FFBlocks;
@@ -32,6 +33,7 @@ public final class EchoesFireForge {
         FFBlockEntities.BLOCK_ENTITIES.register(modBus);
         FFMenus.MENUS.register(modBus);
         FFCreativeTab.TABS.register(modBus);
+        modBus.addListener(FFNetwork::register);
         modBus.addListener(FMLCommonSetupEvent.class, event -> event.enqueueWork(EchoesFireForge::registerModules));
 
         // Contenu croisé : seulement si l'épisode est installé

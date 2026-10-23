@@ -285,5 +285,12 @@
   "gui.echoes_fireforge.steam_boiler.water.hint": "Clic avec un seau d'eau pour le verser",
   "gui.echoes_fireforge.steam_boiler.fuel": "Combustible en réserve : %s charges",
   "tooltip.echoes_fireforge.steam": "Vapeur : %s / %s",
-  "message.echoes_fireforge.steam_boiler.unlinked": "Le bouilleur se pose au bout d'un établi"
+  "message.echoes_fireforge.steam_boiler.unlinked": "Le bouilleur se pose au bout d'un établi",
+  "key.categories.echoes_fireforge": "Echoes of the Fire Forge",
+  "key.echoes_fireforge.helmet": "Mécanisme du casque",
+  "key.echoes_fireforge.chest": "Mécanisme du plastron",
+  "key.echoes_fireforge.legs": "Mécanisme des jambières",
+  "container.echoes_fireforge.backpack": "Sac dorsal",
+  "container.echoes_fireforge.pockets": "Poches",
+  "message.echoes_fireforge.no_steam": "Plus de vapeur : recharge au bouilleur"
 }

@@ -285,5 +285,12 @@
   "gui.echoes_fireforge.steam_boiler.water.hint": "Click with a water bucket to pour it",
   "gui.echoes_fireforge.steam_boiler.fuel": "Fuel in reserve: %s charges",
   "tooltip.echoes_fireforge.steam": "Steam: %s / %s",
-  "message.echoes_fireforge.steam_boiler.unlinked": "The boiler goes at one end of a workbench"
+  "message.echoes_fireforge.steam_boiler.unlinked": "The boiler goes at one end of a workbench",
+  "key.categories.echoes_fireforge": "Echoes of the Fire Forge",
+  "key.echoes_fireforge.helmet": "Helmet mechanism",
+  "key.echoes_fireforge.chest": "Chestplate mechanism",
+  "key.echoes_fireforge.legs": "Leggings mechanism",
+  "container.echoes_fireforge.backpack": "Backpack",
+  "container.echoes_fireforge.pockets": "Pockets",
+  "message.echoes_fireforge.no_steam": "Out of steam: recharge at the boiler"
 }
