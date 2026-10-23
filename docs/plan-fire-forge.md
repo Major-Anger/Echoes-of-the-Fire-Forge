@@ -472,7 +472,9 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   sur les murs suffit). Guide : l'établi, les gabarits, le bouilleur, les mécanismes d'armure et d'arme,
   et le Plan de l'Établi dans les Carnets (texte provisoire).
   **Pour le pack de shaders d'Anger** (Iris) : la lumière est le bloc `echoes_fireforge:lamp_light`
-  (à ajouter dans `block.properties` pour sa couleur) ; le faisceau est rendu comme un faisceau de
+  (à ajouter dans `block.properties` pour sa couleur). Il a un petit cube entièrement transparent, en
+  découpe (cutout) : invisible, mais il envoie des sommets ; sans eux, la passe d'ombre du pack (qui
+  repère les sources de lumière colorée dans la géométrie du terrain) ne le voyait pas ; le faisceau est rendu comme un faisceau de
   balise (`RenderType.beaconBeam`, translucide, texture `echoes_fireforge:textures/entity/lamp_beam.png`),
   il passe donc par `gbuffers_beaconbeam`. Aussi proposé à Anger : la forge allumée
   (`echoes_fireforge:fire_forge:lit=true`, et `soul=true` en cyan) et le bouilleur allumé

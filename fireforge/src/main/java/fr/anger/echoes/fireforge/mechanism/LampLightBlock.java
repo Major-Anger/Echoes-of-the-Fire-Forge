@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * La lumière de la Lampe à vapeur : un bloc invisible, sans forme, que la lampe pose là où regarde son porteur.
+ * La lumière de la Lampe à vapeur : un bloc invisible (modèle transparent), sans forme, que la lampe pose là où regarde son porteur.
  * Il se retire de lui-même dès qu'aucune lampe ne l'éclaire plus. Les packs de shaders peuvent le reconnaître
  * à son identifiant ({@code echoes_fireforge:lamp_light}) pour colorer sa lumière.
  */
@@ -35,9 +35,14 @@ public class LampLightBlock extends Block {
         return CODEC;
     }
 
+    /**
+     * Un modèle minuscule et entièrement transparent (en découpe) : rien ne se voit, mais le bloc envoie des sommets.
+     * Sans eux, les packs de shaders (Iris) ne le verraient jamais : ils repèrent les sources de lumière colorée
+     * dans la géométrie du terrain, pendant la passe d'ombre.
+     */
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.INVISIBLE;
+        return RenderShape.MODEL;
     }
 
     @Override

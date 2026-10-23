@@ -1,5 +1,79 @@
 {
+  "render_type": "minecraft:cutout",
+  "ambientocclusion": false,
   "textures": {
-    "particle": "echoes_fireforge:block/steam_boiler/top"
-  }
+    "particle": "echoes_fireforge:block/steam_boiler/top",
+    "clear": "echoes_fireforge:block/lamp_light"
+  },
+  "elements": [
+    {
+      "from": [
+        7.5,
+        7.5,
+        7.5
+      ],
+      "to": [
+        8.5,
+        8.5,
+        8.5
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "texture": "#clear",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "south": {
+          "texture": "#clear",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "east": {
+          "texture": "#clear",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "west": {
+          "texture": "#clear",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "up": {
+          "texture": "#clear",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "down": {
+          "texture": "#clear",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      }
+    }
+  ]
 }

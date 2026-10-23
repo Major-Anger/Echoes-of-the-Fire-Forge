@@ -257,6 +257,10 @@ for y in range(16):
         beam.putpixel((x, y), (255, 240, 205, a))
 save(beam, 'lamp_beam')
 
+# ====================================================================== la lumière de la lampe
+# Entièrement transparente : son modèle ne sert qu'à donner des sommets aux packs de shaders (Iris).
+save(Image.new('RGBA', (16, 16), (0, 0, 0, 0)), 'lamp_light')
+
 # ====================================================================== le Plan de l'Établi
 # La même feuille de laiton enroulée que les autres plans, gravée d'un établi.
 plan = ["................",

@@ -109,6 +109,7 @@ for name in ["front_left", "front_right", "top_left", "top_right", "side"]:
 for key, *_ in MECHANISMS:
     shutil.copy(os.path.join(TEX, "template_" + key + ".png"), os.path.join(A, "textures/item", "template_" + key + ".png"))
 shutil.copy(os.path.join(TEX, "workbench_plan.png"), os.path.join(A, "textures/item/workbench_plan.png"))
+shutil.copy(os.path.join(TEX, "lamp_light.png"), os.path.join(A, "textures/block/lamp_light.png"))
 os.makedirs(os.path.join(A, "textures/entity"), exist_ok=True)
 shutil.copy(os.path.join(TEX, "lamp_beam.png"), os.path.join(A, "textures/entity/lamp_beam.png"))
 shutil.copy(os.path.join(TEX, "workbench.png"), os.path.join(A, "textures/gui/workbench.png"))
@@ -160,9 +161,14 @@ for key, *_ in MECHANISMS:
 write(os.path.join(A, "models/item/workbench_plan.json"),
       {"parent": "minecraft:item/generated", "textures": {"layer0": NS + ":item/workbench_plan"}})
 
-# la lumière de la lampe : invisible (pas de modèle à dessiner, seulement des particules d'air)
+# la lumière de la lampe
 write(os.path.join(A, "blockstates/lamp_light.json"), {"variants": {"": {"model": NS + ":block/lamp_light"}}})
-write(os.path.join(A, "models/block/lamp_light.json"), {"textures": {"particle": SB_PARTICLE}})
+# un petit cube transparent, en découpe : invisible, mais Iris voit ses sommets dans la passe d'ombre
+write(os.path.join(A, "models/block/lamp_light.json"), {
+    "render_type": "minecraft:cutout", "ambientocclusion": False,
+    "textures": {"particle": SB_PARTICLE, "clear": NS + ":block/lamp_light"},
+    "elements": [{"from": [7.5, 7.5, 7.5], "to": [8.5, 8.5, 8.5], "shade": False,
+                  "faces": {d: {"texture": "#clear", "uv": [0, 0, 1, 1]} for d in ("north", "south", "east", "west", "up", "down")}}]})
 SB = NS + ":block/steam_boiler/"
 for lit in (False, True):
     write(os.path.join(A, "models/block/steam_boiler" + ("_lit" if lit else "") + ".json"), {
