@@ -454,6 +454,13 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   mouvement 1 (le sable des âmes ne ralentit plus) ; Ancre : accroupi, recul annulé. La Lampe à vapeur
   (touche C) arrive en 8e. Sans vapeur : « Plus de vapeur : recharge au bouilleur ».
 - **8d, les armes** : Piston, Sillon, Frappe-sol, Treuil, Trident de trempe ; clic droit et bouclier.
+  **Codée** : `mechanism/WeaponMechanisms` ; recharge = celle de l'objet (visible sur la barre), 1 point
+  d'usure par usage ; dégâts = l'attaque de l'arme × la part du mécanisme ; les coups de mécanisme ne
+  sont pas des coups d'épée (source « attaque de créature » du joueur) : ils ne relancent pas les
+  Spéciaux (Écho de lame, Soupape…) ; Treuil : un coup instantané sur la première créature visée à
+  10 blocs (pas à travers un mur), une chaîne en particules, sans entité qui vole ; Trident de trempe :
+  le clic droit ne le lance plus, il surchauffe (recharge de 14 s sur l'objet : 8 de surchauffe et 6 de
+  refroidissement) ; « mouillé » = dans l'eau, sous la pluie ou dans les bulles.
 - **8e, la Lampe à vapeur et le guide** : lumière, faisceau par défaut, point d'accroche pour le
   shader ; entrées du guide (chapitre « La Forge » et un plan de plus dans les Carnets).
 

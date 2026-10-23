@@ -74,8 +74,9 @@
      `tools/guide/make_guide.py`, à relancer après chaque retouche). Lore des plans provisoire.
   8. L'Établi d'Attiseur et les mécanismes (idée d'Anger, plan section 11, validé), en cinq temps :
      8a (établi, Plan de l'Établi, greffe, gabarits, butin, duplication) : faite ; 8b (bouilleur,
-     recharge, barre de vapeur) : faite ; 8c (les 12 mécanismes d'armure, touches C, B, N) : faite.
-     **Prochaine étape : 8d** (armes), puis 8e (Lampe à vapeur, shader d'Anger, guide). Shader d'Anger : pack Iris (zip, licence « tous droits réservés » :
+     recharge, barre de vapeur) : faite ; 8c (les 12 mécanismes d'armure, touches C, B, N) : faite ;
+     8d (mécanismes d'arme, clic droit, `mechanism/WeaponMechanisms`) : faite.
+     **Prochaine étape : 8e** (Lampe à vapeur, shader d'Anger, guide). Shader d'Anger : pack Iris (zip, licence « tous droits réservés » :
      jamais dans le dépôt) ; contrat prévu en 8e : bloc de lumière `echoes_fireforge:lamp_light` (son
      `block.properties`) et faisceau rendu comme un faisceau de balise (`gbuffers_beaconbeam`).
   Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
