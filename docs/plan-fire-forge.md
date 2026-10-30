@@ -572,6 +572,72 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
   (validé). Guide : pages « Les Cendreux » et « Le Lit de cendre ».
 - Données générées par `tools/data/make_cendreux_data.py`.
 
+## 13. Le set du Wither (idée d'Anger, proposition en attente de validation)
+
+Un set d'armure complet, très fort, qui transforme son porteur palier par palier, jusqu'à la mort.
+**Raison dans l'histoire** : c'est l'armure que portaient les Attiseurs quand la maladie les a pris ; elle garde
+la cendre, et celui qui la porte suit le même chemin qu'eux, jusqu'au wither squelette (les « noyés de cendre »
+de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines, ni l'armure elle-même.
+
+### Décisions d'Anger
+- **Le nom garde « Wither »** : c'est vraiment ce que devient le porteur.
+- **La progression est invisible** (aucune barre à l'écran), mais le joueur doit voir que la transformation
+  avance. Elle monte quand on porte le set ; moins on porte de pièces, plus elle redescend vite.
+- **4 paliers**, chacun avec un défaut et, en contrepartie, des bonus :
+  - palier 1 : les loups sauvages t'attaquent, comme un squelette ;
+  - palier 2 : à définir (voir les propositions) ;
+  - palier 3 : les villageois te voient comme un ennemi : ils te fuient de temps en temps, et leurs prix montent ;
+  - palier 4 : les golems de fer t'attaquent.
+- **La fin** : plusieurs dizaines de minutes après le palier 4, le joueur meurt. À sa mort apparaît son double,
+  « Cendre d'<pseudo> » : il ne garde que le set d'armure (tout le reste tombe au sol) ; il faut le tuer pour
+  récupérer le set. Il se comporte comme un wither squelette normal.
+
+### Propositions de Claude (à valider)
+- **Noms** : Casque, Plastron, Jambières et Bottes du Wither / Wither Helmet, Chestplate, Leggings, Boots.
+- **La progression** (cachée, gardée sur le joueur, de 0 à 100 %, paliers à 25, 50, 75 et 100 %) :
+  - avec les 4 pièces : +1 % toutes les 2 minutes de jeu (le palier 4 en un peu plus de 3 heures) ;
+  - 3 pièces : −1 % toutes les 4 minutes ; 2 pièces : toutes les 2 minutes ; 1 pièce : chaque minute ;
+    aucune : −2 % par minute ;
+  - redescendre sous un palier en retire le défaut et le bonus.
+- **Ce qui montre la transformation, sans barre** :
+  - le set lui-même change d'aspect à chaque palier (fêlures, puis braise, puis os noircis), et les autres
+    joueurs le voient ;
+  - de la cendre tombe du porteur, de plus en plus souvent ;
+  - au passage d'un palier : un son (une toux, un battement sourd) et une courte phrase dans la barre
+    d'action, sans rien expliquer (« Tes mains ne sentent plus la chaleur. ») ;
+  - les réactions des créatures (loups, villageois, golems) sont elles-mêmes le signe.
+- **Palier 2** (deux pistes) : les animaux d'élevage te fuient ; ou la nourriture nourrit moitié moins.
+- **Les bonus** (dans l'esprit du wither squelette) :
+  - palier 1 : le feu et la lave font moitié moins mal ;
+  - palier 2 : l'effet Wither ne te touche plus ;
+  - palier 3 : tes coups infligent Wither (3 s) ;
+  - palier 4 : les wither squelettes et les Cendreux te prennent pour l'un des leurs (neutres).
+  - Le set lui-même : un peu au-dessus de la netherite (protection et robustesse), sans le bonus de recul.
+- **La fin** :
+  - au palier 4, un compte à rebours de 30 minutes de jeu ; s'il arrive au bout, le joueur meurt
+    (« Anger s'est noyé dans la cendre ») ; le totem d'immortalité ne le sauve pas ;
+  - à la mort, le double apparaît à sa place : le modèle du joueur, avec son skin noirci comme un wither
+    squelette et des yeux de braise, portant le set (aucune arme : il frappe à mains nues, avec l'effet Wither) ;
+    il ne disparaît jamais ; tué, il rend le set entier (rareté, enchantements, mécanisme) ;
+  - tous les autres objets tombent au sol comme à une mort normale ; le set va toujours au double, même
+    avec keepInventory ;
+  - après la mort, la progression repart de 0.
+- **Comment on l'obtient** : à la table de forgeron, comme la netherite : une pièce en netherite, un
+  « Gabarit du Wither » et un crâne de wither squelette. Le gabarit se trouve rarement sur les Cendreux et dans
+  les coffres des forteresses ; on le duplique comme les autres gabarits (avec de la Cendre d'Attiseur).
+- **Avec la Forge** : le set se reforge et accepte les mécanismes de l'établi, comme les autres armures.
+- **Les étapes** : planche d'aperçu (les 4 pièces à chaque palier, le double) ; 13a (le set, la recette,
+  la progression cachée et ses signes) ; 13b (les paliers : défauts et bonus) ; 13c (la fin et le double).
+
+### Questions ouvertes pour Anger
+- Le palier 2 : laquelle des deux pistes, ou une autre ?
+- La fin : peut-on encore revenir en arrière une fois au palier 4 ? Proposé : oui, en ôtant des pièces, la
+  progression redescend sous 100 % et le compte à rebours s'arrête (il reprend du début au retour à 100 %).
+  Ou bien, une fois au palier 4, plus de retour ?
+- Les vitesses proposées (3 heures pour le palier 4, 30 minutes avant la mort) te vont ?
+- La recette (table de forgeron, gabarit, crâne de wither squelette) et le butin du gabarit ?
+- Les bonus proposés ?
+
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
 avant toute intégration (règles 4 et 5).

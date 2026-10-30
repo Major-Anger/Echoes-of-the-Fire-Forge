@@ -90,6 +90,10 @@
      12c (Cendreux, `cendreux/`, aussi rarement dans les forteresses ; leur butin : le Lit de cendre, état `ash`
      de la forge, rareté minimum selon l'offrande ; succès « Les noyés de cendre » ; `tools/data/make_cendreux_data.py`,
      `tools/textures/make_cendreux_textures.py`) : faite. 12b (structures) attend Anger.
+  10. Le set du Wither (idée d'Anger, plan section 13) : proposition écrite, en attente de validation.
+      Décidé par Anger : nom avec « Wither », progression invisible (mais des signes), 4 paliers (1 : loups ;
+      3 : villageois ; 4 : golems ; bonus à chaque palier), mort plusieurs dizaines de minutes après le palier 4,
+      double « Cendre d'<pseudo> » qui garde le set (comme un wither squelette).
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
