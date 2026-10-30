@@ -26,7 +26,8 @@
 
 ## Questions encore ouvertes (ne pas trancher sans Anger)
 - D'où viennent les machines « qui jouaient faux » des hommes gris dans le Silt.
-- Ce que devient l'eau évaporée, en jeu.
+- Ce que devient l'eau évaporée, en jeu. Piste d'Anger (pas tranchée) : les monuments aquatiques et
+  constructions sous l'eau étaient autrefois à la surface ; l'eau du Nether serait remontée dans l'Overworld ?
 - Le branchement sur le Sift de Mojang : prévu, mais il dépendra de leur mécanique
   d'ouverture. Garder la destination du Chant et du Contre-chant facile à changer.
 
@@ -83,7 +84,9 @@
      Shader d'Anger : pack Iris (zip, licence « tous droits réservés » : jamais dans le dépôt) ; le
      contrat (plan, 8e) : bloc `echoes_fireforge:lamp_light` dans son `block.properties`, faisceau rendu
      comme un faisceau de balise (`gbuffers_beaconbeam`). Anger ajoutera aussi la forge et le bouilleur.
-  Le reste du hors-v1 (Cendreux, structures, Échos…) : à voir avec Anger.
+  9. Après la v1 (plan, section 12) : ordre validé 12a (succès et Échos), puis 12c (Cendreux, et leur
+     butin : le Lit de cendre, rareté minimum selon l'offrande) ; 12b (structures) attend. En cours de
+     validation.
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.

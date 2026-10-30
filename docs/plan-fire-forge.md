@@ -511,12 +511,31 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
 - Butin proposé : de la cendre d'Attiseur (une offrande « bonne » de plus ?), parfois une pièce de machine.
 - Modèle et texture originaux, présentés sur une planche avant intégration.
 
+### Décisions d'Anger
+- **Ordre validé : 12a, puis 12c.** Les structures (12b) attendent.
+- Cendreux : l'apaisement, « on verra ».
+- **Butin des Cendreux : de quoi améliorer la forge**, une amélioration qui fixe une **rareté minimum selon
+  l'offrande** (idée d'Anger : avec un fragment de netherite, plus de Brut ni en dessous).
+  Proposition :
+  - la **cendre d'Attiseur** tombe des Cendreux ; avec elle on fabrique un **Lit de cendre** (avec des
+    pièces de machine), que l'on pose dans la forge d'un clic droit : une amélioration permanente,
+    gardée quand on casse la forge ;
+  - raison : les Attiseurs garnissaient leurs foyers de cendre pour tenir une chaleur égale ;
+  - avec le Lit de cendre : petite offrande (pépite d'or, quartz) → pas de Fêlé au tirage ; bonne offrande
+    (crème de magma, larme de ghast) → pas de Fêlé au tirage ; grosse offrande (fragment de netherite) →
+    ni Fêlé ni Brut (Trempé au minimum) ; les chances retirées passent aux raretés au-dessus, comme
+    « Garantir » du module des âmes ;
+  - une fêlure ratée au soufflet donne toujours Fêlé (le réflexe reste) ;
+  - « Garantir » (20 âmes) reste utile avec une petite ou une bonne offrande (il retire aussi Brut).
+- Eau évaporée : pas encore décidé. Piste d'Anger (« lore caché ») : les monuments aquatiques et les
+  constructions sous l'eau étaient autrefois à la surface ; l'eau du Nether serait-elle remontée dans
+  l'Overworld ? À ne pas trancher : au mieux, des indices qui laissent hésiter.
+
 ### Questions ouvertes pour Anger
-- L'ordre (proposé : 12a, puis 12b, puis 12c) et ce qu'on garde.
-- Les Cendreux : neutres puis hostiles, ou hostiles d'emblée ? Peut-on les « apaiser » (par exemple avec
-  de l'eau) sans trancher sur la maladie ?
-- La cendre d'Attiseur : offrande, ingrédient, ou rien ?
-- Ce que devient l'eau évaporée (question encore ouverte) : on n'y touche pas tant qu'Anger n'a pas décidé.
+- 12a : le tableau des succès et des Échos tel quel ?
+- 12c : où apparaissent les Cendreux sans les structures (proposé : rarement, en terres désolées et
+  deltas de basalte, près de la lave) ; hostiles d'emblée, ou neutres tant qu'on ne touche pas aux machines ?
+- Le Lit de cendre : les minimums proposés ci-dessus ?
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
