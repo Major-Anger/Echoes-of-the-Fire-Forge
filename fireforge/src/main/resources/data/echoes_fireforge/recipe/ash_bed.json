@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CGC",
+    "GPG",
+    "CGC"
+  ],
+  "key": {
+    "C": {
+      "item": "echoes_fireforge:stoker_ash"
+    },
+    "G": {
+      "item": "echoes_fireforge:machine_gear"
+    },
+    "P": {
+      "item": "echoes_fireforge:engraved_plate"
+    }
+  },
+  "result": {
+    "id": "echoes_fireforge:ash_bed",
+    "count": 1
+  }
+}

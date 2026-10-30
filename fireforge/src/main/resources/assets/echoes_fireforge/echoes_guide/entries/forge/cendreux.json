@@ -1,0 +1,16 @@
+{
+  "title": "guide.echoes_fireforge.forge.cendreux.title",
+  "icon": "echoes_fireforge:stoker_ash",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:stoker_ash",
+      "text": "guide.echoes_fireforge.forge.cendreux.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.cendreux.p2",
+      "title": "guide.echoes_fireforge.forge.cendreux.p2.title"
+    }
+  ]
+}

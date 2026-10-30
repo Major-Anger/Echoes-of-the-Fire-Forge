@@ -4,6 +4,7 @@ import fr.anger.echoes.core.echo.Echoes;
 import fr.anger.echoes.core.lore.Lore;
 import fr.anger.echoes.core.lore.LoreReadEvent;
 import fr.anger.echoes.fireforge.EchoesFireForge;
+import fr.anger.echoes.fireforge.compat.SiltTablets;
 import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ public final class ForgeEchoes {
     private ForgeEchoes() {}
 
     // ---- les succès accordés par le code
-    public static final String FIRST_REFORGE = "first_reforge", WORKBENCH = "workbench";
+    public static final String FIRST_REFORGE = "first_reforge", WORKBENCH = "workbench", DROWNED_IN_ASH = "drowned_in_ash";
     // ---- ceux qui laissent un Écho
     public static final String HAND = "hand", BREATH = "breath", NOTEBOOKS = "notebooks", STEAM = "steam";
     private static final List<String> WITH_ECHO = List.of(HAND, BREATH, NOTEBOOKS, STEAM);
@@ -45,6 +47,9 @@ public final class ForgeEchoes {
 
     private static final String SAVES_KEY = EchoesFireForge.MOD_ID + ".bellows_saves";
     private static final String CHARGES_KEY = EchoesFireForge.MOD_ID + ".steam_charges";
+    private static final String SEEN_CENDREUX_KEY = EchoesFireForge.MOD_ID + ".seen_cendreux";
+    /** Les noyés de cendre : avec le Silt, il faut aussi avoir lu la Tablette XIII des Veilleurs. */
+    public static final int ASH_TABLET = 13;
 
     public static ResourceLocation id(String name) {
         return EchoesFireForge.id("echoes/" + name);
@@ -92,6 +97,29 @@ public final class ForgeEchoes {
         if (charges >= STEAM_CHARGES) grant(player, STEAM);
     }
 
+    /** Le joueur a vu un Cendreux (étape 12c). */
+    public static void cendreuxSeen(ServerPlayer player) {
+        if (has(player, DROWNED_IN_ASH)) return;
+        player.getPersistentData().putBoolean(SEEN_CENDREUX_KEY, true);
+        tryDrownedInAsh(player);
+    }
+
+    /** Les noyés de cendre : avoir vu un Cendreux ; avec le Silt, avoir aussi lu la Tablette XIII. */
+    private static void tryDrownedInAsh(ServerPlayer player) {
+        if (!player.getPersistentData().getBoolean(SEEN_CENDREUX_KEY)) return;
+        if (SiltTablets.installed() && !SiltTablets.hasRead(player, ASH_TABLET)) return;
+        grant(player, DROWNED_IN_ASH);
+    }
+
+    /** La tablette peut être lue après avoir vu le Cendreux : on regarde de temps en temps. */
+    @SubscribeEvent
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
+        if (event.getEntity() instanceof ServerPlayer player && player.tickCount % 100 == 0
+                && player.getPersistentData().getBoolean(SEEN_CENDREUX_KEY) && !has(player, DROWNED_IN_ASH)) {
+            tryDrownedInAsh(player);
+        }
+    }
+
     /** Carnets complets : tous les plans lus (la Forge, l'Établi, et les Plans d'Attiseur I à V). */
     @SubscribeEvent
     public static void onLoreRead(LoreReadEvent event) {
@@ -102,12 +130,13 @@ public final class ForgeEchoes {
         grant(player, NOTEBOOKS);
     }
 
-    /** Les compteurs survivent à la mort. */
+    /** Les compteurs (et « a vu un Cendreux ») survivent à la mort. */
     @SubscribeEvent
     public static void onClone(PlayerEvent.Clone event) {
         for (String key : new String[]{SAVES_KEY, CHARGES_KEY}) {
             int value = event.getOriginal().getPersistentData().getInt(key);
             if (value > 0) event.getEntity().getPersistentData().putInt(key, value);
         }
+        if (event.getOriginal().getPersistentData().getBoolean(SEEN_CENDREUX_KEY)) event.getEntity().getPersistentData().putBoolean(SEEN_CENDREUX_KEY, true);
     }
 }

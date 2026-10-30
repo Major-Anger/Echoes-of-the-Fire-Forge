@@ -1,0 +1,6 @@
+{
+  "parent": "echoes_fireforge:block/fire_forge_left_ash",
+  "textures": {
+    "front_left": "echoes_fireforge:block/forge/forge_front_left_ash_soul"
+  }
+}

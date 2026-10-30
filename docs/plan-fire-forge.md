@@ -547,6 +547,33 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
 - **Lit de cendre** : les minimums proposés sont validés. **L'amélioration doit se voir sur la forge**
   (un lit de cendre visible dans le foyer, à présenter sur une planche avant de coder).
 
+### 12c, telle que validée sur les planches et faite
+- **Le Cendreux** (version 2 de la planche, bras raccourcis à 12 px) : un Attiseur presque wither squelette,
+  2,3 blocs, voûté, membres d'os de 2 px, os calcinés noirs, la cage ouverte où couve la braise, la moitié du
+  visage déjà en crâne ; restent les lunettes relevées, le tablier roussi, les bretelles, le cuir, un lambeau de
+  peau. Couche de braises lumineuse (yeux, poitrine, une veine du bras). Modèle : `client/CendreuxModel`, boîtes
+  et texture générées par `tools/textures/make_cendreux_textures.py` (CENDREUX_PARTS).
+- **Comportement** (`cendreux/CendreuxEntity`) : 26 PV, ne brûle pas, le wither ne le touche pas. Neutre ;
+  casser ou utiliser une machine des Attiseurs (tag `echoes_fireforge:attiseur_machines` : forge, établi,
+  bouilleur, machine comprimée, modules) à 16 blocs ou moins le met en colère 30 s ; frappé, il riposte. Il lance
+  des braises (boules de feu de blaze), tousse de la cendre, perd de la cendre en marchant, et rallume les feux de
+  camp éteints quand il est calme. Créatif et spectateur ne le fâchent pas.
+- **Apparition** : poids 2 en terres désolées et deltas de basalte, seulement à 6 blocs ou moins de la lave ;
+  poids 1 dans les forteresses du Nether (sans condition de lave). Œuf d'apparition.
+- **Butin** : 1 à 2 Cendres d'Attiseur (+ pillage), 8 % d'engrenage (tué par un joueur).
+- **Lit de cendre** : 4 Cendres d'Attiseur aux coins, 4 Engrenages, 1 Plaque gravée. Clic droit sur la forge
+  (n'importe quelle moitié) : état `ash` du bloc (foyer de cendre pâle et plateau de laiton qui dépasse, aussi au
+  feu des âmes). Cassée, la forge garde son Lit (composant `echoes_fireforge:ash_bed` sur l'objet). Tirage :
+  `RarityOdds.ashBed` (petite ou bonne offrande : pas de Fêlé ; fragment de netherite : Trempé au minimum ;
+  sans offrande, rien), avant « Garantir » ; affiché dans les chances de l'interface.
+- **Les noyés de cendre** : voir un Cendreux (à 16 blocs, sans obstacle) ; avec le Silt, avoir aussi lu la
+  Tablette XIII. La Forge lit les tablettes du Silt par l'identifiant de sa donnée de joueur
+  (`smalladditions:lore_tablets`, ou `echoes_silt:lore_tablets` après le renommage), sans son code
+  (`compat/SiltTablets`).
+- Sons : les fichiers du wither squelette et du blaze (jeu de base), nos sous-titres. Nom anglais proposé :
+  « Ashen » (à valider par Anger). Guide : pages « Les Cendreux » et « Le Lit de cendre ».
+- Données générées par `tools/data/make_cendreux_data.py`.
+
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
 avant toute intégration (règles 4 et 5).

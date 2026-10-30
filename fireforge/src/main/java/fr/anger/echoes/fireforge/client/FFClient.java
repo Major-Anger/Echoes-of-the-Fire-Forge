@@ -2,6 +2,7 @@ package fr.anger.echoes.fireforge.client;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
+import fr.anger.echoes.fireforge.registry.FFEntities;
 import fr.anger.echoes.fireforge.registry.FFMenus;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,5 +25,11 @@ public final class FFClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(FFBlockEntities.FIRE_FORGE.get(), FireForgeRenderer::new);
+        event.registerEntityRenderer(FFEntities.CENDREUX.get(), CendreuxRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(CendreuxModel.LAYER, CendreuxModel::createLayer);
     }
 }

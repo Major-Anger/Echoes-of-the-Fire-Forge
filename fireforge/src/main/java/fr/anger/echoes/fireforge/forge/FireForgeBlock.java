@@ -2,15 +2,22 @@ package fr.anger.echoes.fireforge.forge;
 
 import com.mojang.serialization.MapCodec;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
+import fr.anger.echoes.fireforge.registry.FFDataComponents;
+import fr.anger.echoes.fireforge.registry.FFItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -51,10 +58,12 @@ public class FireForgeBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     /** Le feu des âmes est choisi : le foyer passe au bleu (étape 5b). */
     public static final BooleanProperty SOUL = BooleanProperty.create("soul");
+    /** Garnie d'un Lit de cendre (étape 12c) : le foyer et le plateau de cendre se voient. */
+    public static final BooleanProperty ASH = BooleanProperty.create("ash");
 
     public FireForgeBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(PART, ForgePart.LEFT).setValue(LIT, false).setValue(SOUL, false));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.SOUTH).setValue(PART, ForgePart.LEFT).setValue(LIT, false).setValue(SOUL, false).setValue(ASH, false));
     }
 
     @Override
@@ -64,7 +73,7 @@ public class FireForgeBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PART, LIT, SOUL);
+        builder.add(FACING, PART, LIT, SOUL, ASH);
     }
 
     @Override
@@ -81,7 +90,9 @@ public class FireForgeBlock extends BaseEntityBlock {
         BlockPos other = ForgeGeometry.partner(context.getClickedPos(), facing, ForgePart.LEFT);
         Level level = context.getLevel();
         if (!level.getBlockState(other).canBeReplaced(context) || !level.getWorldBorder().isWithinBounds(other)) return null;
-        return defaultBlockState().setValue(FACING, facing).setValue(PART, ForgePart.LEFT);
+        // une forge déjà garnie (cassée puis reposée) garde son Lit de cendre
+        boolean ash = context.getItemInHand().has(FFDataComponents.ASH_BED.get());
+        return defaultBlockState().setValue(FACING, facing).setValue(PART, ForgePart.LEFT).setValue(ASH, ash);
     }
 
     @Override
@@ -97,7 +108,8 @@ public class FireForgeBlock extends BaseEntityBlock {
         if (direction == ForgeGeometry.partnerDirection(state.getValue(FACING), state.getValue(PART))) {
             boolean partnerOk = neighbor.is(this) && neighbor.getValue(PART) != state.getValue(PART)
                     && neighbor.getValue(FACING) == state.getValue(FACING);
-            return partnerOk ? state.setValue(LIT, neighbor.getValue(LIT)).setValue(SOUL, neighbor.getValue(SOUL)) : Blocks.AIR.defaultBlockState();
+            return partnerOk ? state.setValue(LIT, neighbor.getValue(LIT)).setValue(SOUL, neighbor.getValue(SOUL)).setValue(ASH, neighbor.getValue(ASH))
+                    : Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, direction, neighbor, level, pos, neighborPos);
     }
@@ -129,6 +141,32 @@ public class FireForgeBlock extends BaseEntityBlock {
     }
 
     // ------------------------------------------------------------------ interaction
+
+    /** Clic droit avec un Lit de cendre : il garnit le foyer, pour toujours (étape 12c). */
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+                                              InteractionHand hand, BlockHitResult hit) {
+        if (!stack.is(FFItems.ASH_BED.get())) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        if (state.getValue(ASH)) {
+            if (!level.isClientSide) player.displayClientMessage(Component.translatable("message.echoes_fireforge.ash_bed.already"), true);
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        }
+        if (!level.isClientSide) {
+            BlockPos main = mainPos(pos, state);
+            BlockState mainState = level.getBlockState(main);
+            if (mainState.is(this)) level.setBlock(main, mainState.setValue(ASH, true), Block.UPDATE_ALL); // l'autre moitié suit
+            stack.consume(1, player);
+            level.playSound(null, main, SoundEvents.SAND_PLACE, SoundSource.BLOCKS, 1.0F, 0.7F);
+            level.playSound(null, main, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.5F, 0.6F);
+            if (level instanceof ServerLevel server) {
+                Vec3 hearth = ForgeGeometry.point(main, state.getValue(FACING), 16, 2, 17);
+                server.sendParticles(ParticleTypes.WHITE_ASH, hearth.x, hearth.y, hearth.z, 30, 0.4, 0.15, 0.2, 0.02);
+                server.sendParticles(ParticleTypes.SMOKE, hearth.x, hearth.y, hearth.z, 6, 0.3, 0.1, 0.1, 0.01);
+            }
+            player.displayClientMessage(Component.translatable("message.echoes_fireforge.ash_bed.installed").withStyle(ChatFormatting.GOLD), true);
+        }
+        return ItemInteractionResult.sidedSuccess(level.isClientSide);
+    }
 
     /** Clic droit : sur le soufflet, on l'actionne ; ailleurs, on ouvre la forge. */
     @Override

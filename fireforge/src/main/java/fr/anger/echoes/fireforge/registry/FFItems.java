@@ -1,6 +1,7 @@
 package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
+import fr.anger.echoes.fireforge.forge.AshBedItem;
 import fr.anger.echoes.fireforge.mechanism.Mechanism;
 import fr.anger.echoes.fireforge.mechanism.MechanismTemplateItem;
 import fr.anger.echoes.fireforge.plan.PlanItem;
@@ -8,6 +9,7 @@ import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -54,6 +56,13 @@ public final class FFItems {
             () -> new PlanItem(Plans.WORKBENCH, new Item.Properties().fireResistant().stacksTo(16)));
     public static final DeferredItem<PlanItem> ATTISEUR_PLAN = ITEMS.register("attiseur_plan",
             () -> new PlanItem(null, new Item.Properties().fireResistant().stacksTo(16).component(FFDataComponents.PLAN_NUMBER, 1)));
+
+    // Les Cendreux (étape 12c) : leur cendre, et le Lit de cendre qu'on en tire pour la forge
+    public static final DeferredItem<Item> STOKER_ASH = ITEMS.registerSimpleItem("stoker_ash", new Item.Properties().fireResistant());
+    public static final DeferredItem<AshBedItem> ASH_BED = ITEMS.register("ash_bed",
+            () -> new AshBedItem(new Item.Properties().fireResistant().stacksTo(16).rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<DeferredSpawnEggItem> CENDREUX_SPAWN_EGG = ITEMS.register("cendreux_spawn_egg",
+            () -> new DeferredSpawnEggItem(FFEntities.CENDREUX, 0x2A2523, 0xE8762A, new Item.Properties()));
 
     // Les gabarits de mécanisme (un par mécanisme ; les rares en acier bleui)
     public static final Map<Mechanism, DeferredItem<MechanismTemplateItem>> TEMPLATES = templates();

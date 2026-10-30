@@ -18,7 +18,24 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "echoes_fireforge:fire_forge"
+          "name": "echoes_fireforge:fire_forge",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "echoes_fireforge:ash_bed": {}
+              },
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "echoes_fireforge:fire_forge",
+                  "properties": {
+                    "ash": "true"
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     }

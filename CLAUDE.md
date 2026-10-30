@@ -86,8 +86,9 @@
      comme un faisceau de balise (`gbuffers_beaconbeam`). Anger ajoutera aussi la forge et le bouilleur.
   9. Après la v1 (plan, section 12) : ordre validé 12a, puis 12c ; 12b (structures) attend.
      12a (succès et Échos, `progress/ForgeEchoes`, `tools/data/make_echoes_data.py`) : faite.
-     12c (Cendreux, aussi rarement dans les forteresses ; leur butin : le Lit de cendre, rareté minimum
-     selon l'offrande, visible sur la forge) : validée, aperçu du modèle et des textures à faire d'abord.
+     12c (Cendreux, `cendreux/`, aussi rarement dans les forteresses ; leur butin : le Lit de cendre, état `ash`
+     de la forge, rareté minimum selon l'offrande ; succès « Les noyés de cendre » ; `tools/data/make_cendreux_data.py`,
+     `tools/textures/make_cendreux_textures.py`) : faite. 12b (structures) attend Anger.
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
@@ -102,6 +103,10 @@
   et Gueule remplie depuis `NoiseEvent.Post`. En attendant, l'Urne close ne réduit aucune perte du Silt.
 - Core 0.1.1 : le Silt dépend encore de `core_version=0.1.0` (son `gradle.properties`) ; Anger (ou
   Claude dans Cowork) doit le passer à 0.1.1 et relancer corepublish sur sa machine.
+- Le Silt s'appelle encore `smalladditions` dans son code (mod_id), alors que `EchoesMods.SILT` vaut
+  `echoes_silt` : tant que le Silt n'est pas renommé, `EchoesMods.isLoaded(SILT)` est faux. La Forge lit ses
+  tablettes par l'identifiant de sa donnée (`compat/SiltTablets`, cherche les deux noms).
+- Nom anglais du Cendreux : « Ashen » (proposé, pas encore validé).
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 

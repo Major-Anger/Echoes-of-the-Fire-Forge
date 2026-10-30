@@ -1,0 +1,62 @@
+{
+  "entity.cendreux.cough": {
+    "sounds": [
+      {
+        "name": "minecraft:mob/wither_skeleton/idle1",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/wither_skeleton/idle2",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/wither_skeleton/idle3",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.echoes_fireforge.cendreux.cough"
+  },
+  "entity.cendreux.hurt": {
+    "sounds": [
+      {
+        "name": "minecraft:mob/wither_skeleton/hurt1",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/wither_skeleton/hurt2",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/wither_skeleton/hurt3",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/wither_skeleton/hurt4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.echoes_fireforge.cendreux.hurt"
+  },
+  "entity.cendreux.death": {
+    "sounds": [
+      {
+        "name": "minecraft:mob/wither_skeleton/death1",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:mob/wither_skeleton/death2",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.echoes_fireforge.cendreux.death"
+  },
+  "entity.cendreux.ember": {
+    "sounds": [
+      {
+        "name": "minecraft:mob/ghast/fireball4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.echoes_fireforge.cendreux.ember"
+  }
+}

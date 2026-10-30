@@ -27,6 +27,11 @@ public final class ForgingTooltip {
 
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
+        // une forge garnie d'un Lit de cendre (cassée puis ramassée : elle le garde)
+        if (event.getItemStack().has(FFDataComponents.ASH_BED.get())) {
+            event.getToolTip().add(Math.min(1, event.getToolTip().size()),
+                    Component.translatable("tooltip.echoes_fireforge.forge_ash_bed").withStyle(ChatFormatting.GOLD));
+        }
         ForgingData data = event.getItemStack().get(FFDataComponents.FORGING);
         Mechanism mechanism = event.getItemStack().get(FFDataComponents.MECHANISM);
         if (data == null && mechanism == null) return;

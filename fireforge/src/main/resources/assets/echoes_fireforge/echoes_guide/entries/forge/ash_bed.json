@@ -1,0 +1,15 @@
+{
+  "title": "guide.echoes_fireforge.forge.ash_bed.title",
+  "icon": "echoes_fireforge:ash_bed",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:ash_bed",
+      "text": "guide.echoes_fireforge.forge.ash_bed.p1"
+    },
+    {
+      "type": "crafting",
+      "recipe": "echoes_fireforge:ash_bed"
+    }
+  ]
+}

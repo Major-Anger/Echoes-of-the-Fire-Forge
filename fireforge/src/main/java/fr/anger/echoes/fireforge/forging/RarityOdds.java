@@ -83,4 +83,33 @@ public final class RarityOdds {
         for (int i = Rarity.TREMPE.ordinal(); i < out.length; i++) out[i] = out[i] * 100.0 / above;
         return out;
     }
+
+    /**
+     * Le Lit de cendre (étape 12c), avec une offrande : petite ou bonne, plus de Fêlé ; grosse (fragment de netherite),
+     * ni Fêlé ni Brut. Sans offrande, rien ne change. La fêlure manquée au soufflet donne toujours Fêlé (hors tirage).
+     */
+    public static double[] ashBed(double[] odds, int offeringTier) {
+        if (offeringTier <= 0) return odds;
+        return floor(odds, offeringTier >= 3 ? Rarity.TREMPE : Rarity.BRUT);
+    }
+
+    /**
+     * Rareté minimum : les chances des raretés en dessous passent à celles qui restent possibles, en proportion. Si la
+     * chaleur plafonne sous le minimum, on sort la meilleure rareté que la chaleur permet.
+     */
+    public static double[] floor(double[] odds, Rarity minimum) {
+        double[] out = odds.clone();
+        double kept = 0;
+        for (int i = minimum.ordinal(); i < out.length; i++) kept += out[i];
+        if (kept <= 0) {
+            int best = 0;
+            for (int i = 0; i < out.length; i++) if (out[i] > 0) best = i;
+            java.util.Arrays.fill(out, 0);
+            out[best] = 100;
+            return out;
+        }
+        for (int i = 0; i < minimum.ordinal(); i++) out[i] = 0;
+        for (int i = minimum.ordinal(); i < out.length; i++) out[i] = out[i] * 100.0 / kept;
+        return out;
+    }
 }

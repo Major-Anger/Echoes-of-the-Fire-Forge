@@ -181,6 +181,21 @@ forge = [
         text("Au clic droit, accroupi si un bouclier est en main gauche :\n\n- le Piston (épée) : une estocade en ligne ;\n- le Sillon (hache) : une onde court au sol ;\n- le Frappe-sol : une onde de choc autour de soi ;\n- le Treuil : la chaîne frappe au loin ;\n- le Trident de trempe : il ne se lance plus, il surchauffe ; dans l'eau, la vapeur frappe plus fort.\n\nPas de vapeur pour les armes : une recharge, et un peu d'usure.",
              "On right-click, sneaking if a shield is in your off hand:\n\n- the Piston (sword): a thrust in a line;\n- the Furrow (axe): a wave runs along the ground;\n- the Ground Slam: a shockwave all around;\n- the Winch: the chain strikes far away;\n- the Quenching Trident: no longer thrown, it overheats; in water, steam strikes harder.\n\nNo steam for weapons: a cooldown, and a little wear."),
     ]),
+    # étape 12c : les Cendreux, et le Lit de cendre qu'on tire de leur cendre
+    entry("forge/cendreux", I + "stoker_ash", "Les Cendreux", "The Ashen", [
+        spot(I + "stoker_ash",
+             "Ni tout à fait vivants, ni encore des wither squelettes : des Attiseurs à mi-chemin, la peau en cendre et la braise dans la poitrine. Ils toussent de la cendre.\n\nOn en croise rarement, près de la lave et dans les forteresses du Nether. Ils rallument encore les feux éteints.",
+             "Not quite alive, not yet wither skeletons: Stokers caught halfway, their skin turned to ash and an ember in their chest. They cough ash.\n\nThey are rarely met, near lava and in Nether fortresses. They still rekindle dead fires."),
+        text("Ils laissent en paix qui laisse leurs machines en paix. Casser ou utiliser près d'eux une forge, un établi ou une machine comprimée, et ils lancent des braises.\n\nIls laissent tomber de la Cendre d'Attiseur, et parfois un engrenage.",
+             "They leave alone whoever leaves their machines alone. Break or use a forge, a workbench or a compressed machine near them, and they throw embers.\n\nThey drop Stoker's Ash, and sometimes a gear.",
+             title_fr="Leurs machines", title_en="Their machines"),
+    ]),
+    entry("forge/ash_bed", I + "ash_bed", "Le Lit de cendre", "The Ash Bed", [
+        spot(I + "ash_bed",
+             "Les Attiseurs garnissaient leurs foyers de cendre pour tenir une chaleur égale. Posé dans la forge d'un clic droit, le Lit de cendre y reste pour toujours, même quand on la casse.\n\nAvec une petite ou une bonne offrande : plus de Fêlé au tirage. Avec un fragment de netherite : Trempé au minimum. Une fêlure manquée au soufflet donne toujours Fêlé.",
+             "The Stokers lined their hearths with ash to hold an even heat. Placed in the forge with a right-click, the Ash Bed stays there for good, even when the forge is broken.\n\nWith a small or good offering: no more Cracked roll. With netherite scrap: Tempered at least. A crack missed at the bellows still gives Cracked."),
+        craft(I + "ash_bed"),
+    ]),
 ]
 
 # ---------------------------------------------------------------------- Carnets des Attiseurs (textes provisoires : Anger les écrira)
@@ -218,8 +233,8 @@ plans = [
 book = {
     "order": 2,
     "intro": t(P + ".intro",
-               "Ces pages rassemblent ce qu'ajoute Echoes of the Fire Forge : la machine comprimée, la forge et ses modules, les raretés et les Spéciaux, l'établi et ses mécanismes.\n\nLes Carnets des Attiseurs se révèlent à mesure que tu déchiffres leurs plans.",
-               "These pages gather what Echoes of the Fire Forge adds: the compressed machine, the forge and its modules, rarities and Specials, the workbench and its mechanisms.\n\nThe Stokers' Notebooks reveal themselves as you decipher their plans."),
+               "Ces pages rassemblent ce qu'ajoute Echoes of the Fire Forge : la machine comprimée, la forge et ses modules, les raretés et les Spéciaux, l'établi et ses mécanismes, les Cendreux.\n\nLes Carnets des Attiseurs se révèlent à mesure que tu déchiffres leurs plans.",
+               "These pages gather what Echoes of the Fire Forge adds: the compressed machine, the forge and its modules, rarities and Specials, the workbench and its mechanisms, the Ashen.\n\nThe Stokers' Notebooks reveal themselves as you decipher their plans."),
     "categories": [
         {"id": "forge", "icon": I + "fire_forge",
          "title": t(P + ".cat.forge", "La Forge", "The Forge"),

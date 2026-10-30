@@ -38,6 +38,9 @@ public final class FFCreativeTab {
                     output.accept(plan);
                 }
                 FFItems.TEMPLATES.values().forEach(template -> output.accept(template.get()));
+                output.accept(FFItems.STOKER_ASH.get());
+                output.accept(FFItems.ASH_BED.get());
+                output.accept(FFItems.CENDREUX_SPAWN_EGG.get());
             })
             .build());
 }

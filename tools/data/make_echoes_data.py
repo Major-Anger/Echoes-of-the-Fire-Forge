@@ -61,6 +61,10 @@ ECHOES = [
      "Recharge 200 charges at the boiler. Echo: the pieces you recharge hold 22 charges.",
      "La vapeur t'obéit : les pièces que tu recharges tiennent 22 charges.",
      "Steam obeys you: the pieces you recharge hold 22 charges."),
+    ("drowned_in_ash", "root", NS + ":stoker_ash", False,
+     "Les noyés de cendre", "Drowned in ash",
+     "Croiser un Cendreux (avec le Silt : avoir aussi lu la Tablette XIII des Veilleurs).",
+     "Cross paths with an Ashen (with the Silt: having also read the Watchers' Tablet XIII).", None, None),
 ]
 
 

@@ -12,8 +12,10 @@ import fr.anger.echoes.fireforge.registry.FFBlockEntities;
 import fr.anger.echoes.fireforge.registry.FFBlocks;
 import fr.anger.echoes.fireforge.registry.FFCreativeTab;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
+import fr.anger.echoes.fireforge.registry.FFEntities;
 import fr.anger.echoes.fireforge.registry.FFItems;
 import fr.anger.echoes.fireforge.registry.FFMenus;
+import fr.anger.echoes.fireforge.registry.FFSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -33,6 +35,8 @@ public final class EchoesFireForge {
         FFItems.ITEMS.register(modBus);
         FFBlockEntities.BLOCK_ENTITIES.register(modBus);
         FFMenus.MENUS.register(modBus);
+        FFEntities.ENTITIES.register(modBus);
+        FFSounds.SOUNDS.register(modBus);
         FFCreativeTab.TABS.register(modBus);
         modBus.addListener(FFNetwork::register);
         ForgeEchoes.register(); // les Échos de la Forge (plan, section 12a)

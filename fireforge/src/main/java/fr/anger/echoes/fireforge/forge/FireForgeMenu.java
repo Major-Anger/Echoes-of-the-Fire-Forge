@@ -109,6 +109,8 @@ public class FireForgeMenu extends AbstractContainerMenu {
     public boolean soulFire() { return flag(FLAG_SOUL_FIRE); }
     public boolean guarantee() { return flag(FLAG_GUARANTEE); }
     public boolean reroll() { return flag(FLAG_REROLL) && !soulFire(); }
+    /** La forge est garnie d'un Lit de cendre. */
+    public boolean ashBed() { return flag(FLAG_ASH_BED); }
     /** Le rang du bonus verrouillé parmi les bonus de l'objet, ou -1. */
     public int lockIndex() { return data.get(8) - 1; }
 

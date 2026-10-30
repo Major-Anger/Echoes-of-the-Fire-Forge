@@ -7,7 +7,9 @@ import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.Unit;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -52,4 +54,10 @@ public final class FFDataComponents {
             COMPONENTS.registerComponentType("steam", builder -> builder
                     .persistent(ExtraCodecs.intRange(0, fr.anger.echoes.fireforge.workbench.Steam.TEMPERED_CHARGES))
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
+
+    /** Une forge (l'objet) garnie d'un Lit de cendre : il reste quand on la casse (étape 12c). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> ASH_BED =
+            COMPONENTS.registerComponentType("ash_bed", builder -> builder
+                    .persistent(Unit.CODEC)
+                    .networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
 }

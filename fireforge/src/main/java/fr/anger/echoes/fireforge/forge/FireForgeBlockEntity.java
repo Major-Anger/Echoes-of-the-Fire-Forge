@@ -62,7 +62,7 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     /** Données envoyées à l'interface : eau, capacité, chaleur, progression, état, lave, capacité de lave. */
     public static final int DATA_COUNT = 9;
     /** Données 7 : les choix du module des âmes, en bits. Données 8 : le bonus verrouillé (+1, 0 = aucun). */
-    public static final int FLAG_SOUL_MODULE = 1, FLAG_SOUL_FIRE = 2, FLAG_GUARANTEE = 4, FLAG_REROLL = 8;
+    public static final int FLAG_SOUL_MODULE = 1, FLAG_SOUL_FIRE = 2, FLAG_GUARANTEE = 4, FLAG_REROLL = 8, FLAG_ASH_BED = 16;
     public static final int SLOT_ITEM = 0, SLOT_OFFERING = 1, SLOT_FUEL = 2, SLOT_WATER = 3, SLOT_EMPTIES = 4, SLOTS = 5;
 
     /** Ce que l'interface affiche (et pourquoi la forge ne peut pas démarrer). */
@@ -158,7 +158,7 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
                 case 5 -> lava;
                 case 6 -> lavaCapacity;
                 case 7 -> (soulModule ? FLAG_SOUL_MODULE : 0) | (soulFire ? FLAG_SOUL_FIRE : 0)
-                        | (guarantee ? FLAG_GUARANTEE : 0) | (reroll ? FLAG_REROLL : 0);
+                        | (guarantee ? FLAG_GUARANTEE : 0) | (reroll ? FLAG_REROLL : 0) | (hasAshBed() ? FLAG_ASH_BED : 0);
                 case 8 -> lockIndex + 1;
                 default -> 0;
             };
@@ -427,6 +427,12 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         return cost;
     }
 
+    /** La forge est garnie d'un Lit de cendre (étape 12c) : c'est un état du bloc, qui se voit et reste à la casse. */
+    public boolean hasAshBed() {
+        BlockState state = getBlockState();
+        return state.hasProperty(FireForgeBlock.ASH) && state.getValue(FireForgeBlock.ASH);
+    }
+
     /** Le foyer passe au bleu quand le feu des âmes est choisi. */
     private void updateSoulLook() {
         if (level == null) return;
@@ -608,6 +614,7 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
                 data = Forging.rollFor(forged, Rarity.FELE, level.getRandom()); // un craquement manqué : Fêlé, quoi qu'il arrive
             } else {
                 double[] odds = RarityOdds.compute(workPlans, workOffering, workHeat);
+                if (hasAshBed()) odds = RarityOdds.ashBed(odds, workOffering);
                 if (workGuarantee) odds = RarityOdds.guarantee(odds);
                 data = Forging.rollFor(forged, Forging.pick(odds, level.getRandom()), workSoulFire, level.getRandom());
             }
