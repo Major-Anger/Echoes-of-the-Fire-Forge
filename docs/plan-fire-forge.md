@@ -480,6 +480,44 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   (`echoes_fireforge:fire_forge:lit=true`, et `soul=true` en cyan) et le bouilleur allumé
   (`echoes_fireforge:steam_boiler:lit=true`).
 
+## 12. Après la v1 : proposition (en attente de validation d'Anger)
+
+### 12a. Les Échos et les succès de la Forge (Core, déjà prêt)
+Un arbre de succès « Echoes of the Fire Forge ». Certains laissent un **Écho** : un petit bonus permanent
+lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le Silt).
+| Succès | Comment | Écho proposé |
+|---|---|---|
+| Le feu reprend | reforger un premier objet | — |
+| Main d'Attiseur | sortir un Spécial | compte comme un plan lu de plus (les chances montent un peu) |
+| Le souffle juste | rattraper 10 fêlures au soufflet | fenêtre de réaction +0,25 s |
+| Carnets complets | lire tous les plans | +2 % de chance d'enchantement rare à l'offrande |
+| Vapeur domptée | recharger 200 charges au bouilleur | 22 charges par pièce au lieu de 20 |
+| L'établi | greffer un premier mécanisme | — |
+| Les noyés de cendre | voir un Cendreux (12c) ; avec le Silt, avoir lu la tablette XIII | — (le lien d'histoire, sans trancher la cause) |
+
+### 12b. Les structures : les forges mortes des Attiseurs
+- **Forge en ruine** (petite, assez commune, terres désolées et deltas de basalte) : une forge effondrée
+  en briques du Nether et basalte, des machines comprimées dans les murs, un coffre (plans, gabarits,
+  pièces de machine).
+- **Chaufferie** (grande, rare, à demi enfouie) : une salle des chaudières, des conduites de vapeur
+  fossiles, le Plan de l'Établi plus souvent, un établi en ruine (décor), des Cendreux (12c).
+- Construites en blocs vanilla et blocs de la Forge (règle 4 : aucune structure de Mojang copiée).
+
+### 12c. Les Cendreux : des Attiseurs à mi-chemin de la maladie
+- Ni tout à fait vivants, ni encore des wither squelettes : la peau en cendre, des braises dans la poitrine.
+- Ils hantent les chaufferies et entretiennent encore les feux éteints (ils rallument les foyers morts).
+- Neutres tant qu'on ne touche pas aux machines autour d'eux ; ensuite ils lancent des braises.
+- Ils toussent de la cendre. On ne dit jamais d'où vient la maladie (fumée des machines ou autre chose).
+- Butin proposé : de la cendre d'Attiseur (une offrande « bonne » de plus ?), parfois une pièce de machine.
+- Modèle et texture originaux, présentés sur une planche avant intégration.
+
+### Questions ouvertes pour Anger
+- L'ordre (proposé : 12a, puis 12b, puis 12c) et ce qu'on garde.
+- Les Cendreux : neutres puis hostiles, ou hostiles d'emblée ? Peut-on les « apaiser » (par exemple avec
+  de l'eau) sans trancher sur la maladie ?
+- La cendre d'Attiseur : offrande, ingrédient, ou rien ?
+- Ce que devient l'eau évaporée (question encore ouverte) : on n'y touche pas tant qu'Anger n'a pas décidé.
+
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
 avant toute intégration (règles 4 et 5).
