@@ -567,11 +567,9 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
   `RarityOdds.ashBed` (petite ou bonne offrande : pas de Fêlé ; fragment de netherite : Trempé au minimum ;
   sans offrande, rien), avant « Garantir » ; affiché dans les chances de l'interface.
 - **Les noyés de cendre** : voir un Cendreux (à 16 blocs, sans obstacle) ; avec le Silt, avoir aussi lu la
-  Tablette XIII. La Forge lit les tablettes du Silt par l'identifiant de sa donnée de joueur
-  (`smalladditions:lore_tablets`, ou `echoes_silt:lore_tablets` après le renommage), sans son code
-  (`compat/SiltTablets`).
-- Sons : les fichiers du wither squelette et du blaze (jeu de base), nos sous-titres. Nom anglais proposé :
-  « Ashen » (à valider par Anger). Guide : pages « Les Cendreux » et « Le Lit de cendre ».
+  Tablette XIII, que le Silt range dans le lore du Core (`echoes_silt:tablet/13`) : dans un ordre ou dans l'autre.
+- Sons : les fichiers du wither squelette et du blaze (jeu de base), nos sous-titres. Nom anglais : « Ashen »
+  (validé). Guide : pages « Les Cendreux » et « Le Lit de cendre ».
 - Données générées par `tools/data/make_cendreux_data.py`.
 
 ## Textures et modèles

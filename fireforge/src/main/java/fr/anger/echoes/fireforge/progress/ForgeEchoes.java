@@ -1,10 +1,10 @@
 package fr.anger.echoes.fireforge.progress;
 
+import fr.anger.echoes.core.compat.EchoesMods;
 import fr.anger.echoes.core.echo.Echoes;
 import fr.anger.echoes.core.lore.Lore;
 import fr.anger.echoes.core.lore.LoreReadEvent;
 import fr.anger.echoes.fireforge.EchoesFireForge;
-import fr.anger.echoes.fireforge.compat.SiltTablets;
 import fr.anger.echoes.fireforge.plan.Plans;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.List;
 
@@ -48,8 +47,8 @@ public final class ForgeEchoes {
     private static final String SAVES_KEY = EchoesFireForge.MOD_ID + ".bellows_saves";
     private static final String CHARGES_KEY = EchoesFireForge.MOD_ID + ".steam_charges";
     private static final String SEEN_CENDREUX_KEY = EchoesFireForge.MOD_ID + ".seen_cendreux";
-    /** Les noyés de cendre : avec le Silt, il faut aussi avoir lu la Tablette XIII des Veilleurs. */
-    public static final int ASH_TABLET = 13;
+    /** Les noyés de cendre : avec le Silt, il faut aussi avoir lu la Tablette XIII des Veilleurs (rangée dans le lore du Core). */
+    public static final ResourceLocation ASH_TABLET = ResourceLocation.fromNamespaceAndPath(EchoesMods.SILT, "tablet/13");
 
     public static ResourceLocation id(String name) {
         return EchoesFireForge.id("echoes/" + name);
@@ -107,24 +106,20 @@ public final class ForgeEchoes {
     /** Les noyés de cendre : avoir vu un Cendreux ; avec le Silt, avoir aussi lu la Tablette XIII. */
     private static void tryDrownedInAsh(ServerPlayer player) {
         if (!player.getPersistentData().getBoolean(SEEN_CENDREUX_KEY)) return;
-        if (SiltTablets.installed() && !SiltTablets.hasRead(player, ASH_TABLET)) return;
+        if (EchoesMods.isLoaded(EchoesMods.SILT) && !Lore.hasRead(player, ASH_TABLET)) return;
         grant(player, DROWNED_IN_ASH);
     }
 
-    /** La tablette peut être lue après avoir vu le Cendreux : on regarde de temps en temps. */
-    @SubscribeEvent
-    public static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (event.getEntity() instanceof ServerPlayer player && player.tickCount % 100 == 0
-                && player.getPersistentData().getBoolean(SEEN_CENDREUX_KEY) && !has(player, DROWNED_IN_ASH)) {
-            tryDrownedInAsh(player);
-        }
-    }
-
-    /** Carnets complets : tous les plans lus (la Forge, l'Établi, et les Plans d'Attiseur I à V). */
+    /** Carnets complets : tous les plans lus (la Forge, l'Établi, et les Plans d'Attiseur I à V). Et la Tablette XIII du Silt. */
     @SubscribeEvent
     public static void onLoreRead(LoreReadEvent event) {
-        if (!event.getEntry().getNamespace().equals(EchoesFireForge.MOD_ID)) return;
         ServerPlayer player = event.getPlayer();
+        // la Tablette XIII lue après avoir vu un Cendreux
+        if (event.getEntry().equals(ASH_TABLET)) {
+            tryDrownedInAsh(player);
+            return;
+        }
+        if (!event.getEntry().getNamespace().equals(EchoesFireForge.MOD_ID)) return;
         if (!Lore.hasRead(player, Plans.FORGE) || !Lore.hasRead(player, Plans.WORKBENCH)) return;
         for (int n = 1; n <= Plans.COUNT; n++) if (!Lore.hasRead(player, Plans.attiseur(n))) return;
         grant(player, NOTEBOOKS);

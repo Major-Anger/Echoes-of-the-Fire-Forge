@@ -39,7 +39,8 @@
 - Le contenu croisé vit dans l'épisode le plus récent (la Forge connaît le Silt, pas l'inverse).
 - Le Core sera sorti dans son propre dépôt avant la sortie publique.
 - Ne jamais modifier le dépôt Echoes of the Silt sans demande explicite (lecture seule).
-- NeoForge 1.21.1, textes du jeu en français et en anglais. Attiseur = « Stoker », Veilleur = « Watcher » en anglais (validés).
+- NeoForge 1.21.1, textes du jeu en français et en anglais. Attiseur = « Stoker », Veilleur = « Watcher »,
+  Cendreux = « Ashen » en anglais (validés).
 - Anger est le seul auteur de la série.
 
 ## Plan de conception
@@ -103,10 +104,10 @@
   et Gueule remplie depuis `NoiseEvent.Post`. En attendant, l'Urne close ne réduit aucune perte du Silt.
 - Core 0.1.1 : le Silt dépend encore de `core_version=0.1.0` (son `gradle.properties`) ; Anger (ou
   Claude dans Cowork) doit le passer à 0.1.1 et relancer corepublish sur sa machine.
-- Le Silt s'appelle encore `smalladditions` dans son code (mod_id), alors que `EchoesMods.SILT` vaut
-  `echoes_silt` : tant que le Silt n'est pas renommé, `EchoesMods.isLoaded(SILT)` est faux. La Forge lit ses
-  tablettes par l'identifiant de sa donnée (`compat/SiltTablets`, cherche les deux noms).
-- Nom anglais du Cendreux : « Ashen » (proposé, pas encore validé).
+- Le Silt (`origin/main`, mod_id `echoes_silt`) range ses tablettes dans le lore du Core
+  (`echoes_silt:tablet/1` à `/15`). Attention : le clone local `/home/user/echoes-of-the-silt` est resté sur
+  un ancien historique (`876ca42`, encore `smalladditions`) ; lire le Silt avec `git show origin/main:...`
+  après `git fetch` (lecture seule, sans toucher au clone).
 - Règle temporaire : ne pas toucher au guide du Core pour l'instant (sinon Anger devrait
   modifier son Silt tout de suite).
 
