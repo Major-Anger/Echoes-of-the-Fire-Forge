@@ -634,7 +634,10 @@ de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines,
 - **Palier 2** : les animaux d'élevage te fuient.
 - **Pas de retour une fois au palier 4** : le compte à rebours de 30 minutes part et ne s'arrête plus, même
   en ôtant le set.
-- Prochaine étape : la planche d'aperçu (les 4 pièces à chaque palier, le double), puis 13a, 13b, 13c.
+- Planche d'aperçu faite : **les textures du set sont validées** (« la texture est cool »), générées par
+  `tools/textures/make_wither_set_textures.py` (5 états, couche de braises lumineuse dès le palier 2, icônes,
+  gabarit). Reste à trancher : la taille du double (joueur, ou 2,4 blocs comme un wither squelette).
+- Prochaine étape : 13a, puis 13b, 13c.
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
