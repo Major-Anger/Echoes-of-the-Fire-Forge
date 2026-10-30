@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "echoes_fireforge:wither_template"
+  },
+  "base": {
+    "item": "minecraft:netherite_chestplate"
+  },
+  "addition": {
+    "item": "minecraft:wither_skeleton_skull"
+  },
+  "result": {
+    "id": "echoes_fireforge:wither_chestplate",
+    "count": 1
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.05
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:wither_template"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "echoes_fireforge:chests/wither_template"
+}

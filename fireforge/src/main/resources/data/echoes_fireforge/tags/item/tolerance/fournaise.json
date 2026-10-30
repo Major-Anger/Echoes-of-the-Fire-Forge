@@ -5,6 +5,10 @@
     "minecraft:netherite_helmet",
     "minecraft:netherite_chestplate",
     "minecraft:netherite_leggings",
-    "minecraft:netherite_boots"
+    "minecraft:netherite_boots",
+    "echoes_fireforge:wither_helmet",
+    "echoes_fireforge:wither_chestplate",
+    "echoes_fireforge:wither_leggings",
+    "echoes_fireforge:wither_boots"
   ]
 }

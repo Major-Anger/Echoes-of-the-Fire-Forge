@@ -6,14 +6,21 @@ import fr.anger.echoes.fireforge.mechanism.Mechanism;
 import fr.anger.echoes.fireforge.mechanism.MechanismTemplateItem;
 import fr.anger.echoes.fireforge.plan.PlanItem;
 import fr.anger.echoes.fireforge.plan.Plans;
+import fr.anger.echoes.fireforge.witherset.WitherArmorItem;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SmithingTemplateItem;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 /** Tout ce qui vient des machines des Attiseurs a survécu à la chaleur : rien ne brûle dans la lave. */
@@ -63,6 +70,26 @@ public final class FFItems {
             () -> new AshBedItem(new Item.Properties().fireResistant().stacksTo(16).rarity(Rarity.UNCOMMON)));
     public static final DeferredItem<DeferredSpawnEggItem> CENDREUX_SPAWN_EGG = ITEMS.register("cendreux_spawn_egg",
             () -> new DeferredSpawnEggItem(FFEntities.CENDREUX, 0x2A2523, 0xE8762A, new Item.Properties()));
+
+    // Le set du Wither (plan, section 13) : forgé à la table de forgeron sur la netherite
+    public static final DeferredItem<WitherArmorItem> WITHER_HELMET = witherPiece("wither_helmet", ArmorItem.Type.HELMET);
+    public static final DeferredItem<WitherArmorItem> WITHER_CHESTPLATE = witherPiece("wither_chestplate", ArmorItem.Type.CHESTPLATE);
+    public static final DeferredItem<WitherArmorItem> WITHER_LEGGINGS = witherPiece("wither_leggings", ArmorItem.Type.LEGGINGS);
+    public static final DeferredItem<WitherArmorItem> WITHER_BOOTS = witherPiece("wither_boots", ArmorItem.Type.BOOTS);
+    public static final DeferredItem<SmithingTemplateItem> WITHER_TEMPLATE = ITEMS.register("wither_template", () -> new SmithingTemplateItem(
+            Component.translatable("item.echoes_fireforge.wither_template.applies_to").withStyle(ChatFormatting.BLUE),
+            Component.translatable("item.echoes_fireforge.wither_template.ingredients").withStyle(ChatFormatting.BLUE),
+            Component.translatable("item.echoes_fireforge.wither_template.upgrade").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.echoes_fireforge.wither_template.base_slot"),
+            Component.translatable("item.echoes_fireforge.wither_template.additions_slot"),
+            List.of(ResourceLocation.withDefaultNamespace("item/empty_armor_slot_helmet"), ResourceLocation.withDefaultNamespace("item/empty_armor_slot_chestplate"),
+                    ResourceLocation.withDefaultNamespace("item/empty_armor_slot_leggings"), ResourceLocation.withDefaultNamespace("item/empty_armor_slot_boots")),
+            List.of(ResourceLocation.withDefaultNamespace("item/empty_slot_ingot"))));
+
+    private static DeferredItem<WitherArmorItem> witherPiece(String name, ArmorItem.Type type) {
+        return ITEMS.register(name, () -> new WitherArmorItem(FFArmorMaterials.WITHER, type,
+                new Item.Properties().fireResistant().rarity(Rarity.EPIC).durability(type.getDurability(40))));
+    }
 
     // Les gabarits de mécanisme (un par mécanisme ; les rares en acier bleui)
     public static final Map<Mechanism, DeferredItem<MechanismTemplateItem>> TEMPLATES = templates();

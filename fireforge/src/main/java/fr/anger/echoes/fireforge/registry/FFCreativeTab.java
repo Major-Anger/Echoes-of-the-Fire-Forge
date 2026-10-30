@@ -41,6 +41,11 @@ public final class FFCreativeTab {
                 output.accept(FFItems.STOKER_ASH.get());
                 output.accept(FFItems.ASH_BED.get());
                 output.accept(FFItems.CENDREUX_SPAWN_EGG.get());
+                output.accept(FFItems.WITHER_TEMPLATE.get());
+                output.accept(FFItems.WITHER_HELMET.get());
+                output.accept(FFItems.WITHER_CHESTPLATE.get());
+                output.accept(FFItems.WITHER_LEGGINGS.get());
+                output.accept(FFItems.WITHER_BOOTS.get());
             })
             .build());
 }

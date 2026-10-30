@@ -91,8 +91,10 @@
      de la forge, rareté minimum selon l'offrande ; succès « Les noyés de cendre » ; `tools/data/make_cendreux_data.py`,
      `tools/textures/make_cendreux_textures.py`) : faite. 12b (structures) attend Anger.
   10. Le set du Wither (idée d'Anger, plan section 13) : **validé** (palier 2 : les animaux fuient ; pas de
-      retour une fois au palier 4). À faire : planche d'aperçu (les pièces à chaque palier, le double), puis
-      13a (set, recette, progression cachée et ses signes), 13b (paliers), 13c (fin et double).
+      retour une fois au palier 4 ; textures validées ; double de 2,4 blocs). 13a (set, recette, progression
+      cachée et ses signes, `witherset/`, `tools/data/make_wither_set_data.py`,
+      `tools/textures/make_wither_set_textures.py`, commande d'essai `/witherset`) : faite.
+      À faire : 13b (défauts et bonus des paliers), 13c (fin et double).
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.

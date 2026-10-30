@@ -8,6 +8,8 @@ import fr.anger.echoes.fireforge.module.ForgeModules;
 import fr.anger.echoes.fireforge.network.FFNetwork;
 import fr.anger.echoes.fireforge.progress.ForgeEchoes;
 import fr.anger.echoes.fireforge.module.ModuleSide;
+import fr.anger.echoes.fireforge.registry.FFArmorMaterials;
+import fr.anger.echoes.fireforge.registry.FFAttachments;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
 import fr.anger.echoes.fireforge.registry.FFBlocks;
 import fr.anger.echoes.fireforge.registry.FFCreativeTab;
@@ -37,6 +39,8 @@ public final class EchoesFireForge {
         FFMenus.MENUS.register(modBus);
         FFEntities.ENTITIES.register(modBus);
         FFSounds.SOUNDS.register(modBus);
+        FFArmorMaterials.MATERIALS.register(modBus);
+        FFAttachments.ATTACHMENTS.register(modBus);
         FFCreativeTab.TABS.register(modBus);
         modBus.addListener(FFNetwork::register);
         ForgeEchoes.register(); // les Échos de la Forge (plan, section 12a)

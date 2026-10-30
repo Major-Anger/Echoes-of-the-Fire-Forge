@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
-    "echoes_fireforge:mechanism_templates"
+    "echoes_fireforge:mechanism_templates",
+    "echoes_fireforge:wither_template"
   ]
 }

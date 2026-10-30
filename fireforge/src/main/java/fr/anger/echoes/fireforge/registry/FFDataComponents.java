@@ -60,4 +60,10 @@ public final class FFDataComponents {
             COMPONENTS.registerComponentType("ash_bed", builder -> builder
                     .persistent(Unit.CODEC)
                     .networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));
+
+    /** Le palier du dernier porteur d'une pièce du set du Wither (0 à 4) : son aspect le suit. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> WITHER_STAGE =
+            COMPONENTS.registerComponentType("wither_stage", builder -> builder
+                    .persistent(ExtraCodecs.intRange(0, 4))
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
 }

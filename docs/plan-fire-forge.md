@@ -637,7 +637,22 @@ de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines,
 - Planche d'aperçu faite : **les textures du set sont validées** (« la texture est cool »), générées par
   `tools/textures/make_wither_set_textures.py` (5 états, couche de braises lumineuse dès le palier 2, icônes,
   gabarit). Reste à trancher : la taille du double (joueur, ou 2,4 blocs comme un wither squelette).
-- Prochaine étape : 13a, puis 13b, 13c.
+- **Le double : 2,4 blocs**, la taille d'un wither squelette (Anger).
+- **13a faite** :
+  - le set (`witherset/WitherArmorItem`, matériau `FFArmorMaterials.WITHER` : 3/8/7/3, robustesse 3,5, pas de
+    bonus de recul, durabilité ×40, réparé à la Cendre d'Attiseur, ne brûle pas, ne craque jamais à la forge,
+    se reforge, accepte les mécanismes) ;
+  - recette : table de forgeron (gabarit + pièce en netherite + crâne de wither squelette ; enchantements,
+    rareté et mécanisme gardés) ; gabarit : 5 % des coffres des forteresses, ~3 % des Cendreux tués par un joueur,
+    dupliqué avec 7 Cendres d'Attiseur et de la pierre noire ;
+  - progression cachée (`witherset/WitherSetEvents`, donnée de joueur `echoes_fireforge:wither_progress`, gardée à
+    la mort) ; gelée en créatif ; figée à 100 % (palier 4) ;
+  - signes : chaque pièce portée prend l'aspect du palier (composant `echoes_fireforge:wither_stage`, textures
+    `wither_layer_<1|2>_<palier>`), couche de braises lumineuse dès le palier 2 (`client/WitherGlowLayer`, sur
+    les joueurs), cendre qui tombe (`client/WitherSetClient`), toux et phrase au passage d'un palier ;
+  - commande d'essai (opérateurs) : `/witherset get|set <joueur> [pour cent]` ;
+  - guide : page « Le set du Wither » (elle ne dit pas tout) ; données : `tools/data/make_wither_set_data.py`.
+- Prochaine étape : 13b (défauts et bonus des paliers), puis 13c (la fin et le double).
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ATA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "echoes_fireforge:stoker_ash"
+    },
+    "T": {
+      "item": "echoes_fireforge:wither_template"
+    },
+    "B": {
+      "item": "minecraft:blackstone"
+    }
+  },
+  "result": {
+    "id": "echoes_fireforge:wither_template",
+    "count": 2
+  }
+}

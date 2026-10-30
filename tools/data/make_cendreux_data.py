@@ -110,6 +110,11 @@ write(os.path.join(D, "loot_table/entities/cendreux.json"), {
                                     {"condition": "minecraft:random_chance_with_enchanted_bonus", "enchantment": "minecraft:looting",
                                      "unenchanted_chance": 0.08, "enchanted_chance": {"type": "minecraft:linear", "base": 0.1, "per_level_above_first": 0.02}}],
          "entries": [{"type": "minecraft:item", "name": NS + ":machine_gear"}]},
+        # le Gabarit du Wither (plan, section 13) : rarement
+        {"rolls": 1, "conditions": [{"condition": "minecraft:killed_by_player"},
+                                    {"condition": "minecraft:random_chance_with_enchanted_bonus", "enchantment": "minecraft:looting",
+                                     "unenchanted_chance": 0.025, "enchanted_chance": {"type": "minecraft:linear", "base": 0.035, "per_level_above_first": 0.01}}],
+         "entries": [{"type": "minecraft:item", "name": NS + ":wither_template"}]},
     ],
     "random_sequence": NS + ":entities/cendreux",
 })

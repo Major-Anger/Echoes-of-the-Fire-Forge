@@ -1,0 +1,22 @@
+{
+  "title": "guide.echoes_fireforge.forge.wither_set.title",
+  "icon": "echoes_fireforge:wither_chestplate",
+  "pages": [
+    {
+      "type": "spotlight",
+      "items": [
+        "echoes_fireforge:wither_helmet",
+        "echoes_fireforge:wither_chestplate",
+        "echoes_fireforge:wither_leggings",
+        "echoes_fireforge:wither_boots",
+        "echoes_fireforge:wither_template"
+      ],
+      "text": "guide.echoes_fireforge.forge.wither_set.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.wither_set.p2",
+      "title": "guide.echoes_fireforge.forge.wither_set.p2.title"
+    }
+  ]
+}
