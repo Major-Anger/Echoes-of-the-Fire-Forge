@@ -572,7 +572,7 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
   (validé). Guide : pages « Les Cendreux » et « Le Lit de cendre ».
 - Données générées par `tools/data/make_cendreux_data.py`.
 
-## 13. Le set du Wither (idée d'Anger, proposition en attente de validation)
+## 13. Le set du Wither (idée d'Anger, validé)
 
 Un set d'armure complet, très fort, qui transforme son porteur palier par palier, jusqu'à la mort.
 **Raison dans l'histoire** : c'est l'armure que portaient les Attiseurs quand la maladie les a pris ; elle garde
@@ -629,14 +629,12 @@ de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines,
 - **Les étapes** : planche d'aperçu (les 4 pièces à chaque palier, le double) ; 13a (le set, la recette,
   la progression cachée et ses signes) ; 13b (les paliers : défauts et bonus) ; 13c (la fin et le double).
 
-### Questions ouvertes pour Anger
-- Le palier 2 : laquelle des deux pistes, ou une autre ?
-- La fin : peut-on encore revenir en arrière une fois au palier 4 ? Proposé : oui, en ôtant des pièces, la
-  progression redescend sous 100 % et le compte à rebours s'arrête (il reprend du début au retour à 100 %).
-  Ou bien, une fois au palier 4, plus de retour ?
-- Les vitesses proposées (3 heures pour le palier 4, 30 minutes avant la mort) te vont ?
-- La recette (table de forgeron, gabarit, crâne de wither squelette) et le butin du gabarit ?
-- Les bonus proposés ?
+### Validé par Anger
+- **Tout le reste des propositions est validé** (noms, vitesses, signes, bonus, fin, recette, Forge).
+- **Palier 2** : les animaux d'élevage te fuient.
+- **Pas de retour une fois au palier 4** : le compte à rebours de 30 minutes part et ne s'arrête plus, même
+  en ôtant le set.
+- Prochaine étape : la planche d'aperçu (les 4 pièces à chaque palier, le double), puis 13a, 13b, 13c.
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
