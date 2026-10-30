@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "echoes_fireforge:attiseur_plan"
+    },
+    "title": {
+      "translate": "advancement.echoes_fireforge.notebooks.title"
+    },
+    "description": {
+      "translate": "advancement.echoes_fireforge.notebooks.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "echoes_fireforge:echoes/root",
+  "rewards": {
+    "experience": 60
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "echoes_fireforge:compressed_machine"
+    },
+    "title": {
+      "translate": "advancement.echoes_fireforge.root.title"
+    },
+    "description": {
+      "translate": "advancement.echoes_fireforge.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "echoes_fireforge:textures/block/compressed_machine_side.png"
+  },
+  "criteria": {
+    "machine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "echoes_fireforge:compressed_machine",
+              "echoes_fireforge:machine_gear",
+              "echoes_fireforge:machine_valve",
+              "echoes_fireforge:engraved_plate"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

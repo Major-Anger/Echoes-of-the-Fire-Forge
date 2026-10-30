@@ -3,6 +3,7 @@ package fr.anger.echoes.fireforge.plan;
 import fr.anger.echoes.core.client.ClientLore;
 import fr.anger.echoes.core.lore.Lore;
 import fr.anger.echoes.fireforge.EchoesFireForge;
+import fr.anger.echoes.fireforge.progress.ForgeEchoes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
@@ -33,6 +34,8 @@ public final class Plans {
         for (ResourceLocation entry : Lore.read(player)) {
             if (entry.getNamespace().equals(EchoesFireForge.MOD_ID) && entry.getPath().startsWith("plan/")) count++;
         }
+        // l'Écho « Main d'Attiseur » compte comme un plan de plus
+        if (Lore.hasRead(player, ForgeEchoes.HAND_MARK)) count += ForgeEchoes.HAND_PLANS;
         return count;
     }
 
@@ -40,6 +43,7 @@ public final class Plans {
     public static int clientReadCount() {
         int count = (ClientLore.hasRead(FORGE) ? 1 : 0) + (ClientLore.hasRead(WORKBENCH) ? 1 : 0);
         for (int n = 1; n <= COUNT; n++) if (ClientLore.hasRead(attiseur(n))) count++;
+        if (ClientLore.hasRead(ForgeEchoes.HAND_MARK)) count += ForgeEchoes.HAND_PLANS;
         return count;
     }
 

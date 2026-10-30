@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "echoes_fireforge:machine_valve"
+    },
+    "title": {
+      "translate": "advancement.echoes_fireforge.breath.title"
+    },
+    "description": {
+      "translate": "advancement.echoes_fireforge.breath.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "echoes_fireforge:echoes/first_reforge",
+  "rewards": {
+    "experience": 60
+  }
+}

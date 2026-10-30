@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_sword"
+    },
+    "title": {
+      "translate": "advancement.echoes_fireforge.hand.title"
+    },
+    "description": {
+      "translate": "advancement.echoes_fireforge.hand.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "echoes_fireforge:echoes/first_reforge",
+  "rewards": {
+    "experience": 60
+  }
+}

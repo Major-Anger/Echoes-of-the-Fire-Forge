@@ -123,7 +123,13 @@ public final class Forging {
      * @return l'enchantement ajouté, ou vide
      */
     public static Optional<Holder<Enchantment>> maybeEnchant(ItemStack stack, int offeringTier, RandomSource random, RegistryAccess registries) {
-        if (random.nextDouble() * 100.0 >= RarityOdds.enchantChance(offeringTier)) return Optional.empty();
+        return maybeEnchant(stack, offeringTier, 0, random, registries);
+    }
+
+    /** @param bonus des points de chance en plus, avec une offrande (l'Écho « Carnets complets ») */
+    public static Optional<Holder<Enchantment>> maybeEnchant(ItemStack stack, int offeringTier, double bonus, RandomSource random, RegistryAccess registries) {
+        double chance = RarityOdds.enchantChance(offeringTier) + (offeringTier > 0 ? bonus : 0);
+        if (random.nextDouble() * 100.0 >= chance) return Optional.empty();
         List<Holder<Enchantment>> candidates = new ArrayList<>();
         registries.registryOrThrow(Registries.ENCHANTMENT).holders().forEach(holder -> {
             Enchantment enchantment = holder.value();

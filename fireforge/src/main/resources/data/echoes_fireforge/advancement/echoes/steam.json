@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "echoes_fireforge:steam_boiler"
+    },
+    "title": {
+      "translate": "advancement.echoes_fireforge.steam.title"
+    },
+    "description": {
+      "translate": "advancement.echoes_fireforge.steam.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "echoes_fireforge:echoes/workbench",
+  "rewards": {
+    "experience": 60
+  }
+}

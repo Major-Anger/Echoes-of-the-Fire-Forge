@@ -7,10 +7,12 @@ import fr.anger.echoes.fireforge.registry.FFBlocks;
 import fr.anger.echoes.fireforge.registry.FFItems;
 import fr.anger.echoes.fireforge.registry.FFMenus;
 import fr.anger.echoes.fireforge.forge.ForgeRules;
+import fr.anger.echoes.fireforge.progress.ForgeEchoes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -82,6 +84,7 @@ public class WorkbenchMenu extends AbstractContainerMenu {
         this.boiler = boiler;
         this.hasBoiler = hasBoiler;
         this.boilerData = boiler != null && access != ContainerLevelAccess.NULL ? boiler.data() : new SimpleContainerData(SteamBoilerBlockEntity.DATA_COUNT);
+        if (boiler != null && access != ContainerLevelAccess.NULL) boiler.setUser(playerInventory.player.getUUID());
         addSlot(new Slot(inputs, SLOT_PIECE, PIECE_X, ROW_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -169,6 +172,7 @@ public class WorkbenchMenu extends AbstractContainerMenu {
         inputs.setItem(SLOT_PIECE, ItemStack.EMPTY);
         inputs.removeItem(SLOT_TEMPLATE, 1);
         inputs.removeItem(SLOT_GEAR, 1);
+        if (player instanceof ServerPlayer serverPlayer) ForgeEchoes.grant(serverPlayer, ForgeEchoes.WORKBENCH);
         access.execute((level, pos) -> {
             level.playSound(null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 0.8F);
             level.playSound(null, pos, SoundEvents.CHAIN_PLACE, SoundSource.BLOCKS, 0.8F, 1.3F);
@@ -204,7 +208,7 @@ public class WorkbenchMenu extends AbstractContainerMenu {
             if (!moveItemStackTo(stack, playerStart, playerEnd, true)) return ItemStack.EMPTY;
         } else if (hasBoiler && SteamBoilerBlockEntity.isFuel(stack)) {
             if (!moveItemStackTo(stack, SLOT_FUEL, SLOT_FUEL + 1, false)) return ItemStack.EMPTY;
-        } else if (hasBoiler && Steam.usesSteam(stack) && Steam.charges(stack) < Steam.CHARGES
+        } else if (hasBoiler && Steam.usesSteam(stack) && Steam.charges(stack) < Steam.capacity(stack)
                 && moveItemStackTo(stack, SLOT_BOILER_PIECE, SLOT_BOILER_PIECE + 1, false)) {
             // une pièce à vapeur pas pleine va d'abord se recharger
         } else if (stack.getItem() instanceof MechanismTemplateItem) {

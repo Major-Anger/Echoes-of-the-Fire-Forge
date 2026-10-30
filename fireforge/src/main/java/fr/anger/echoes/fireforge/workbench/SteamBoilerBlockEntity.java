@@ -1,9 +1,12 @@
 package fr.anger.echoes.fireforge.workbench;
 
+import fr.anger.echoes.fireforge.progress.ForgeEchoes;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
+import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -11,6 +14,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 /**
  * Le bouilleur de l'établi : un foyer et un ballon d'eau. Une pièce à vapeur posée dans sa case se recharge,
@@ -41,6 +47,9 @@ public class SteamBoilerBlockEntity extends BlockEntity {
     /** Ce qui reste du combustible déjà brûlé, en ticks de fourneau. */
     private int fuel;
     private int progress;
+    /** Le dernier joueur à avoir ouvert l'établi : c'est lui qui pose les pièces (succès « Vapeur domptée »). */
+    @Nullable
+    private UUID user;
 
     /** Pour l'interface : eau, combustible en réserve, progression, travaille-t-il (0/1). */
     private final ContainerData data = new ContainerData() {
@@ -79,6 +88,10 @@ public class SteamBoilerBlockEntity extends BlockEntity {
         return water;
     }
 
+    public void setUser(UUID user) {
+        this.user = user;
+    }
+
     public static boolean isFuel(ItemStack stack) {
         return stack.getBurnTime(RecipeType.SMELTING) > 0;
     }
@@ -95,7 +108,7 @@ public class SteamBoilerBlockEntity extends BlockEntity {
 
     private boolean needsCharge() {
         ItemStack piece = inventory.getStackInSlot(SLOT_PIECE);
-        return Steam.usesSteam(piece) && Steam.charges(piece) < Steam.CHARGES;
+        return Steam.usesSteam(piece) && Steam.charges(piece) < Steam.capacity(piece);
     }
 
     /** Il a de quoi faire une charge de plus. */
@@ -110,7 +123,11 @@ public class SteamBoilerBlockEntity extends BlockEntity {
             if (++boiler.progress >= Steam.TICKS_PER_CHARGE) {
                 boiler.progress = 0;
                 ItemStack piece = boiler.inventory.getStackInSlot(SLOT_PIECE).copy();
+                ServerPlayer user = boiler.user != null && level.getServer() != null ? level.getServer().getPlayerList().getPlayer(boiler.user) : null;
+                // l'Écho « Vapeur domptée » : la pièce tiendra 22 charges
+                if (user != null && ForgeEchoes.has(user, ForgeEchoes.STEAM)) piece.set(FFDataComponents.STEAM_CAPACITY, Steam.TEMPERED_CHARGES);
                 Steam.setCharges(piece, Steam.charges(piece) + 1);
+                if (user != null) ForgeEchoes.steamCharged(user);
                 boiler.inventory.setStackInSlot(SLOT_PIECE, piece);
                 boiler.water -= Steam.WATER_PER_CHARGE;
                 boiler.fuel -= Steam.FUEL_PER_CHARGE;
@@ -141,6 +158,7 @@ public class SteamBoilerBlockEntity extends BlockEntity {
         tag.putInt("water", water);
         tag.putInt("fuel", fuel);
         tag.putInt("progress", progress);
+        if (user != null) tag.putUUID("user", user);
     }
 
     @Override
@@ -150,5 +168,6 @@ public class SteamBoilerBlockEntity extends BlockEntity {
         water = tag.getInt("water");
         fuel = tag.getInt("fuel");
         progress = tag.getInt("progress");
+        user = tag.hasUUID("user") ? tag.getUUID("user") : null;
     }
 }

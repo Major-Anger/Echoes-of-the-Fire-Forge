@@ -480,7 +480,7 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   (`echoes_fireforge:fire_forge:lit=true`, et `soul=true` en cyan) et le bouilleur allumé
   (`echoes_fireforge:steam_boiler:lit=true`).
 
-## 12. Après la v1 : proposition (en attente de validation d'Anger)
+## 12. Après la v1 (12a et 12c validés ; 12b attend)
 
 ### 12a. Les Échos et les succès de la Forge (Core, déjà prêt)
 Un arbre de succès « Echoes of the Fire Forge ». Certains laissent un **Écho** : un petit bonus permanent
@@ -531,11 +531,21 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
   constructions sous l'eau étaient autrefois à la surface ; l'eau du Nether serait-elle remontée dans
   l'Overworld ? À ne pas trancher : au mieux, des indices qui laissent hésiter.
 
-### Questions ouvertes pour Anger
-- 12a : le tableau des succès et des Échos tel quel ?
-- 12c : où apparaissent les Cendreux sans les structures (proposé : rarement, en terres désolées et
-  deltas de basalte, près de la lave) ; hostiles d'emblée, ou neutres tant qu'on ne touche pas aux machines ?
-- Le Lit de cendre : les minimums proposés ci-dessus ?
+### Décisions d'Anger (suite)
+- **12a validée telle quelle** (le tableau ci-dessus). Faite : `progress/ForgeEchoes`, succès dans
+  `data/echoes_fireforge/advancement/echoes/` et textes, générés par `tools/data/make_echoes_data.py`.
+  - Le souffle juste : le compteur des fêlures rattrapées est gardé par joueur (et à la mort).
+  - Vapeur domptée : on compte les charges rechargées au bouilleur pour le dernier joueur qui a ouvert
+    l'établi ; avec l'Écho, la pièce rechargée garde ses 22 charges (composant `echoes_fireforge:steam_capacity`),
+    même rechargée plus tard par un autre.
+  - Main d'Attiseur et Carnets complets se voient dans les chances de l'interface : à l'éveil, une marque de
+    lore (espace `echoes_fireforge_echo`, qui ne révèle pas les Carnets) le dit au client.
+  - Les noyés de cendre : avec la 12c.
+- **12c** : apparition validée (rarement, terres désolées et deltas de basalte près de la lave) **et aussi,
+  rarement, dans les forteresses du Nether**. Hostilité : neutres tant qu'on ne touche pas aux machines.
+  Apaisement : « on verra ».
+- **Lit de cendre** : les minimums proposés sont validés. **L'amélioration doit se voir sur la forge**
+  (un lit de cendre visible dans le foyer, à présenter sur une planche avant de coder).
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu

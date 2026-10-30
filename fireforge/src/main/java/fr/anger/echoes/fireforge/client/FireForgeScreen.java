@@ -189,7 +189,9 @@ public class FireForgeScreen extends AbstractContainerScreen<FireForgeMenu> {
             g.drawString(font, Component.translatable("gui.echoes_fireforge.cracks", cracks), px + 6, py + CRACKS_LINE_Y, WARN, false);
         }
         if (offering > 0) {
-            String enchant = formatOdds(RarityOdds.enchantChance(offering));
+            // l'Écho « Carnets complets » : quelques points de plus avec une offrande
+            double bonus = offering > 0 && fr.anger.echoes.core.client.ClientLore.hasRead(fr.anger.echoes.fireforge.progress.ForgeEchoes.NOTEBOOKS_MARK) ? fr.anger.echoes.fireforge.progress.ForgeEchoes.NOTEBOOKS_ENCHANT : 0;
+            String enchant = formatOdds(RarityOdds.enchantChance(offering) + bonus);
             g.drawString(font, Component.translatable("gui.echoes_fireforge.enchant_odds", enchant), px + 6, py + PANEL_H - 13, 0xC58CE0, false);
         }
     }

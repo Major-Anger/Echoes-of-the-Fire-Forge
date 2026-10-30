@@ -13,6 +13,8 @@ public final class Steam {
     private Steam() {}
 
     public static final int CHARGES = 20;
+    /** Une pièce rechargée par un forgeron qui a l'Écho « Vapeur domptée » tient 22 charges (plan, 12a). */
+    public static final int TEMPERED_CHARGES = 22;
     /** Par charge : 1/20 de seau d'eau et 1/20 de charbon (un charbon brûle 1600 ticks dans un fourneau). */
     public static final int WATER_PER_CHARGE = 50, FUEL_PER_CHARGE = 80, TICKS_PER_CHARGE = 10;
     /** La réserve d'eau du bouilleur : 4 seaux. */
@@ -28,8 +30,13 @@ public final class Steam {
         return usesSteam(stack) ? stack.getOrDefault(FFDataComponents.STEAM, 0) : 0;
     }
 
+    /** Combien de charges cette pièce peut tenir (20, ou 22 avec l'Écho « Vapeur domptée »). */
+    public static int capacity(ItemStack stack) {
+        return stack.getOrDefault(FFDataComponents.STEAM_CAPACITY, CHARGES);
+    }
+
     public static void setCharges(ItemStack stack, int charges) {
-        stack.set(FFDataComponents.STEAM, Math.max(0, Math.min(CHARGES, charges)));
+        stack.set(FFDataComponents.STEAM, Math.max(0, Math.min(capacity(stack), charges)));
     }
 
     /** Dépense une charge (étape 8c). @return true si la pièce en avait une */

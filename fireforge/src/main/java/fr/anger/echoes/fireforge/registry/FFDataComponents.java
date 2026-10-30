@@ -41,9 +41,15 @@ public final class FFDataComponents {
                     .persistent(com.mojang.serialization.Codec.BOOL)
                     .networkSynchronized(ByteBufCodecs.BOOL));
 
+    /** Combien de charges la pièce peut tenir (absent : 20 ; 22 si rechargée avec l'Écho « Vapeur domptée »). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STEAM_CAPACITY =
+            COMPONENTS.registerComponentType("steam_capacity", builder -> builder
+                    .persistent(ExtraCodecs.intRange(fr.anger.echoes.fireforge.workbench.Steam.CHARGES, fr.anger.echoes.fireforge.workbench.Steam.TEMPERED_CHARGES))
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
     /** Les charges de vapeur d'une pièce à mécanisme à vapeur (0 à 20), rechargées au bouilleur. */
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STEAM =
             COMPONENTS.registerComponentType("steam", builder -> builder
-                    .persistent(ExtraCodecs.intRange(0, fr.anger.echoes.fireforge.workbench.Steam.CHARGES))
+                    .persistent(ExtraCodecs.intRange(0, fr.anger.echoes.fireforge.workbench.Steam.TEMPERED_CHARGES))
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
 }

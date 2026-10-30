@@ -81,8 +81,9 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
         if (Steam.usesSteam(piece)) {
             // les charges, plus la charge en cours qui se remplit
             int charges = Steam.charges(piece);
-            int filled = charges * CHARGE_BAR_W / Steam.CHARGES
-                    + (charges < Steam.CHARGES ? menu.boilerProgress() * CHARGE_BAR_W / Steam.CHARGES / Steam.TICKS_PER_CHARGE : 0);
+            int capacity = Steam.capacity(piece);
+            int filled = Math.min(CHARGE_BAR_W, charges * CHARGE_BAR_W / capacity
+                    + (charges < capacity ? menu.boilerProgress() * CHARGE_BAR_W / capacity / Steam.TICKS_PER_CHARGE : 0));
             if (filled > 0) g.blit(TEXTURE, px + CHARGE_BAR_X, py + CHARGE_BAR_Y, 12, 174, filled, 4, 256, 256);
         }
     }
@@ -115,7 +116,7 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
                 g.renderTooltip(font, Component.translatable("gui.echoes_fireforge.steam_boiler.fuel", menu.boilerFuel() / Steam.FUEL_PER_CHARGE), mouseX, mouseY);
             } else if (inside(mouseX, mouseY, px + CHARGE_BAR_X - 1, py + CHARGE_BAR_Y - 1, CHARGE_BAR_W + 2, 6)) {
                 ItemStack piece = menu.getSlot(WorkbenchMenu.SLOT_BOILER_PIECE).getItem();
-                g.renderTooltip(font, Component.translatable("tooltip.echoes_fireforge.steam", Steam.charges(piece), Steam.CHARGES), mouseX, mouseY);
+                g.renderTooltip(font, Component.translatable("tooltip.echoes_fireforge.steam", Steam.charges(piece), Steam.capacity(piece)), mouseX, mouseY);
             }
         }
     }

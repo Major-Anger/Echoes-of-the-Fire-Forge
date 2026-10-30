@@ -43,7 +43,7 @@ public final class ForgingTooltip {
             }
             if (mechanism.steam()) {
                 lines.add(Component.literal("  ").append(Component.translatable("tooltip.echoes_fireforge.steam",
-                        Steam.charges(event.getItemStack()), Steam.CHARGES)).withStyle(ChatFormatting.WHITE));
+                        Steam.charges(event.getItemStack()), Steam.capacity(event.getItemStack()))).withStyle(ChatFormatting.WHITE));
             }
         }
         List<Component> tooltip = event.getToolTip();

@@ -1,5 +1,6 @@
 package fr.anger.echoes.fireforge.forge;
 
+import fr.anger.echoes.core.lore.Lore;
 import fr.anger.echoes.fireforge.forging.Forging;
 import fr.anger.echoes.fireforge.forging.ForgingData;
 import fr.anger.echoes.fireforge.forging.Rarity;
@@ -12,6 +13,7 @@ import fr.anger.echoes.fireforge.module.ForgeModules;
 import fr.anger.echoes.fireforge.module.ModuleLayout;
 import fr.anger.echoes.fireforge.module.ModuleSide;
 import fr.anger.echoes.fireforge.plan.Plans;
+import fr.anger.echoes.fireforge.progress.ForgeEchoes;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
 import fr.anger.echoes.fireforge.registry.FFDataComponents;
 import net.minecraft.core.BlockPos;
@@ -125,6 +127,9 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     private Heat workHeat = Heat.NONE;
     private int workOffering;
     private int workPlans;
+    /** Les Échos du forgeron, pris au coup de marteau : la fenêtre du soufflet, et le bonus d'enchantement. */
+    private int workWindow = ForgeRules.CRACK_WINDOW;
+    private double workEnchantBonus;
     @Nullable
     private UUID smith;
     // la fêlure : moments des craquements (en ticks de reforge), le prochain, la fenêtre ouverte, et le résultat
@@ -276,7 +281,7 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void crack() {
-        windowEnd = progress + ForgeRules.CRACK_WINDOW;
+        windowEnd = progress + workWindow;
         level.playSound(null, worldPosition, SoundEvents.BASALT_BREAK, SoundSource.BLOCKS, 1.2F, 0.6F);
         level.playSound(null, worldPosition, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.35F, 1.7F);
         if (level instanceof ServerLevel server) {
@@ -323,6 +328,7 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
             windowEnd = -1;
             avoidedTicks = ForgeRules.CRACK_WINDOW;
             player.displayClientMessage(Component.translatable("message.echoes_fireforge.avoided").withStyle(ChatFormatting.GREEN), true);
+            if (player instanceof ServerPlayer serverPlayer) ForgeEchoes.bellowsSaved(serverPlayer);
             sync();
         } else {
             water -= ForgeRules.BELLOWS_WATER;
@@ -550,6 +556,8 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         workGuarantee = soulModule && !soulFire && guarantee && !workReroll;
         workPlans = Plans.readCount(player);
         smith = player.getUUID();
+        workWindow = ForgeRules.CRACK_WINDOW + (ForgeEchoes.has(player, ForgeEchoes.BREATH) ? ForgeEchoes.BREATH_WINDOW : 0);
+        workEnchantBonus = Lore.hasRead(player, ForgeEchoes.NOTEBOOKS_MARK) ? ForgeEchoes.NOTEBOOKS_ENCHANT : 0;
         if (workReroll) {
             // relancer : la rareté est gardée, ni combustible ni offrande
             workOffering = 0;
@@ -605,7 +613,7 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
             }
             if (workLock != null) data = Forging.keep(data, workLock);
             forged.set(FFDataComponents.FORGING, data);
-            enchant = Forging.maybeEnchant(forged, workOffering, level.getRandom(), level.registryAccess());
+            enchant = Forging.maybeEnchant(forged, workOffering, workEnchantBonus, level.getRandom(), level.registryAccess());
             inventory.setStackInSlot(SLOT_ITEM, forged); // reforger remplace la rareté précédente
             rarity = data.rarity();
         }
@@ -622,7 +630,10 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         workLock = null;
         clearOptions(); // les options se décochent après chaque reforge ; le choix du feu reste
         setLit(false);
-        if (level != null && rarity != null) announce(rarity, enchant);
+        if (level != null && rarity != null) {
+            announce(rarity, enchant);
+            if (smith != null && level.getPlayerByUUID(smith) instanceof ServerPlayer forger) ForgeEchoes.reforged(forger, rarity == Rarity.SPECIAL);
+        }
         smith = null;
         setChanged();
         sync();
@@ -682,6 +693,8 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         tag.putInt("heat", workHeat.level());
         tag.putInt("offering", workOffering);
         tag.putInt("plans", workPlans);
+        tag.putInt("window", workWindow);
+        tag.putDouble("enchantBonus", workEnchantBonus);
         if (smith != null) tag.putUUID("smith", smith);
         tag.putIntArray("cracks", crackTicks);
         tag.putInt("next_crack", nextCrack);
@@ -719,6 +732,8 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
         workHeat = Heat.byLevel(tag.getInt("heat"));
         workOffering = tag.getInt("offering");
         workPlans = tag.getInt("plans");
+        workWindow = tag.contains("window") ? tag.getInt("window") : ForgeRules.CRACK_WINDOW;
+        workEnchantBonus = tag.getDouble("enchantBonus");
         smith = tag.hasUUID("smith") ? tag.getUUID("smith") : null;
         crackTicks = tag.getIntArray("cracks");
         nextCrack = tag.getInt("next_crack");

@@ -54,7 +54,7 @@ public final class SteamBar {
         g.pose().translate(0, 0, 200); // devant le cadre de la case choisie
         for (int i = 0; i < pieces.size(); i++) {
             int x = left + i * (each + gap);
-            int filled = Steam.charges(pieces.get(i)) * each / Steam.CHARGES;
+            int filled = Math.min(each, Steam.charges(pieces.get(i)) * each / Steam.capacity(pieces.get(i)));
             g.fill(x, y, x + each, y + 1, EMPTY);
             if (filled > 0) g.fill(x, y, x + filled, y + 1, FULL);
         }

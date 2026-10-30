@@ -84,9 +84,10 @@
      Shader d'Anger : pack Iris (zip, licence « tous droits réservés » : jamais dans le dépôt) ; le
      contrat (plan, 8e) : bloc `echoes_fireforge:lamp_light` dans son `block.properties`, faisceau rendu
      comme un faisceau de balise (`gbuffers_beaconbeam`). Anger ajoutera aussi la forge et le bouilleur.
-  9. Après la v1 (plan, section 12) : ordre validé 12a (succès et Échos), puis 12c (Cendreux, et leur
-     butin : le Lit de cendre, rareté minimum selon l'offrande) ; 12b (structures) attend. En cours de
-     validation.
+  9. Après la v1 (plan, section 12) : ordre validé 12a, puis 12c ; 12b (structures) attend.
+     12a (succès et Échos, `progress/ForgeEchoes`, `tools/data/make_echoes_data.py`) : faite.
+     12c (Cendreux, aussi rarement dans les forteresses ; leur butin : le Lit de cendre, rareté minimum
+     selon l'offrande, visible sur la forge) : validée, aperçu du modèle et des textures à faire d'abord.
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
