@@ -80,6 +80,10 @@ for piece, _ in PIECES:
         tag["values"].append(NS + ":wither_" + piece)
 write(path, tag)
 
+# palier 2 (étape 13b) : les animaux d'élevage qui fuient le porteur
+write(os.path.join(D, "tags/entity_type/flees_wither.json"), {"values": [
+    "minecraft:cow", "minecraft:mooshroom", "minecraft:sheep", "minecraft:pig", "minecraft:chicken", "minecraft:rabbit"]})
+
 # ---------------------------------------------------------------------- butin : rarement dans les coffres des forteresses
 write(os.path.join(D, "loot_table/chests/wither_template.json"), {
     "type": "minecraft:chest",

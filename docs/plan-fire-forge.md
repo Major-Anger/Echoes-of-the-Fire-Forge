@@ -652,7 +652,16 @@ de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines,
     les joueurs), cendre qui tombe (`client/WitherSetClient`), toux et phrase au passage d'un palier ;
   - commande d'essai (opérateurs) : `/witherset get|set <joueur> [pour cent]` ;
   - guide : page « Le set du Wither » (elle ne dit pas tout) ; données : `tools/data/make_wither_set_data.py`.
-- Prochaine étape : 13b (défauts et bonus des paliers), puis 13c (la fin et le double).
+- **13b faite** (`witherset/WitherStages`) : défauts et bonus cumulés, retirés en redescendant :
+  - palier 1 : les loups sauvages attaquent le porteur (pas les loups apprivoisés) ; feu et lave : moitié des dégâts ;
+  - palier 2 : les animaux d'élevage le fuient (tag `echoes_fireforge:flees_wither` : vache, champimeuh, mouton,
+    cochon, poule, lapin) ; l'effet Wither ne le touche plus (celui qu'il avait s'éteint) ;
+  - palier 3 : les villageois qui le voient prennent peur (à 10 blocs, une chance sur trois toutes les 5 s :
+    ils paniquent et fuient comme devant un zombie) ; à l'échange, leurs prix montent de moitié (remis à zéro
+    ensuite ; pas le marchand ambulant) ; ses coups au corps à corps infligent Wither 3 s ;
+  - palier 4 : les golems de fer du village l'attaquent (ceux bâtis par un joueur, jamais) ; les wither squelettes
+    et les Cendreux ne l'attaquent plus, sauf s'il les frappe (ni la colère des machines).
+- Prochaine étape : 13c (la fin et le double).
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu

@@ -94,7 +94,7 @@
       retour une fois au palier 4 ; textures validées ; double de 2,4 blocs). 13a (set, recette, progression
       cachée et ses signes, `witherset/`, `tools/data/make_wither_set_data.py`,
       `tools/textures/make_wither_set_textures.py`, commande d'essai `/witherset`) : faite.
-      À faire : 13b (défauts et bonus des paliers), 13c (fin et double).
+      13b (défauts et bonus des paliers, `witherset/WitherStages`) : faite. À faire : 13c (fin et double).
 
 ## Points en attente (côté Anger)
 - Les textes de lore des plans sont provisoires : Anger les écrira.
