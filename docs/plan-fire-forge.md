@@ -531,6 +531,18 @@ feux de camp éteints, machines comprimées.
 Questions pour Anger : lesquelles garder ? la salle scellée ? une vraie pièce du set au dernier foyer, ou
 seulement du décor ? les fréquences ? préfères-tu bâtir certaines structures toi-même en jeu ?
 
+**Décisions d'Anger (12b)** :
+- les deltas de basalte laissent peu de place en surface : les ruines vont sur du sol plat ; la chaufferie,
+  creusée dans la roche (proposé), tiendrait partout ;
+- **les forteresses du Nether sont des ouvrages des Attiseurs** (les wither squelettes y sont restés) ; des
+  traces d'Attiseurs autour d'elles ; technique laissée à Claude : **des annexes posées près des forteresses**,
+  à hauteur des ponts (pas de salles glissées dans la forteresse : fragile, et perdu avec les mods qui refont
+  les forteresses) ;
+- **lieux validés** : terres désolées, rives de la mer de lave, forêts carmin (forges reprises par la forêt),
+  vallée des âmes (« pourquoi pas ») ;
+- en attente : la chaufferie creusée dans la roche, les cheminées du plafond (idée : de grandes conduites qui
+  pendent du plafond de bedrock et s'y enfoncent), la salle scellée, la vraie pièce du set, les fréquences.
+
 ### 12c. Les Cendreux : des Attiseurs à mi-chemin de la maladie
 - Ni tout à fait vivants, ni encore des wither squelettes : la peau en cendre, des braises dans la poitrine.
 - Ils hantent les chaufferies et entretiennent encore les feux éteints (ils rallument les foyers morts).

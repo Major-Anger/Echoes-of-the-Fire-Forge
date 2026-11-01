@@ -21,6 +21,8 @@
 - Une maladie a changé les Attiseurs en wither squelettes et les a chassés du Nether
   (les « noyés de cendre » de la tablette XIII du Silt). On ne dit jamais si elle vient
   de la pollution des machines ou d'autre chose.
+- Les forteresses du Nether sont des ouvrages des Attiseurs ; les wither squelettes (les Attiseurs changés
+  par la maladie) y sont restés (décision d'Anger, 12b).
 - Les débris antiques sont des fossiles de machines, inutilisables. On ne les modifie
   pas ; le mod ajoute ses propres blocs de « machine comprimée ».
 
@@ -89,7 +91,7 @@
      12a (succès et Échos, `progress/ForgeEchoes`, `tools/data/make_echoes_data.py`) : faite.
      12c (Cendreux, `cendreux/`, aussi rarement dans les forteresses ; leur butin : le Lit de cendre, état `ash`
      de la forge, rareté minimum selon l'offrande ; succès « Les noyés de cendre » ; `tools/data/make_cendreux_data.py`,
-     `tools/textures/make_cendreux_textures.py`) : faite. 12b (structures) attend Anger.
+     `tools/textures/make_cendreux_textures.py`) : faite. 12b (structures) : en discussion (plan, 12b).
   10. Le set du Wither (idée d'Anger, plan section 13) : **validé** (palier 2 : les animaux fuient ; pas de
       retour une fois au palier 4 ; textures validées ; double de 2,4 blocs). 13a (set, recette, progression
       cachée et ses signes, `witherset/`, `tools/data/make_wither_set_data.py`,
