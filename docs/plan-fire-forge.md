@@ -495,13 +495,41 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
 | L'établi | greffer un premier mécanisme | — |
 | Les noyés de cendre | voir un Cendreux (12c) ; avec le Silt, avoir lu la tablette XIII | — (le lien d'histoire, sans trancher la cause) |
 
-### 12b. Les structures : les forges mortes des Attiseurs
-- **Forge en ruine** (petite, assez commune, terres désolées et deltas de basalte) : une forge effondrée
-  en briques du Nether et basalte, des machines comprimées dans les murs, un coffre (plans, gabarits,
-  pièces de machine).
-- **Chaufferie** (grande, rare, à demi enfouie) : une salle des chaudières, des conduites de vapeur
-  fossiles, le Plan de l'Établi plus souvent, un établi en ruine (décor), des Cendreux (12c).
-- Construites en blocs vanilla et blocs de la Forge (règle 4 : aucune structure de Mojang copiée).
+### 12b. Les structures : les forges mortes des Attiseurs (proposition détaillée, en attente d'Anger)
+Trois lieux où les Attiseurs ont vécu, du plus commun au plus rare. Bâtis en blocs vanilla et blocs de la Forge,
+sans rien reprendre des structures de Mojang (règle 4). Palette : pierre noire (polie, en briques, fissurée),
+basalte (poli, lisse), barreaux et chaînes de fer (grilles, conduites), cuivre ciré (le laiton), blocs de magma,
+feux de camp éteints, machines comprimées.
+
+- **La forge en ruine** (petite, assez commune ; terres désolées, deltas de basalte) :
+  - une forge du quotidien, abandonnée quand les Attiseurs ont quitté le Nether : un âtre effondré, une cheminée
+    tombée, une enclume ébréchée, un feu de camp éteint ; deux ou trois machines comprimées prises dans les murs ;
+  - un coffre : pièces de machine, Cendre d'Attiseur, charbon, parfois un Plan d'Attiseur ou un gabarit ;
+  - chaque ruine est différente (blocs tombés au hasard).
+- **La chaufferie** (grande, rare, à demi enfouie dans le basalte) :
+  - là où tournaient les machines à vapeur qui ont chauffé le Nether : une salle de grandes chaudières, des
+    conduites fossiles qui montent jusqu'au plafond et s'y perdent (la vapeur est passée par là ; on ne dit pas
+    où elle est allée) ; un établi en ruine (décor) ;
+  - des Cendreux y vivent (apparition propre à la chaufferie), et rallument ses feux de camp : de loin, des
+    colonnes de fumée trahissent une chaufferie habitée ;
+  - deux ou trois coffres : le Plan de l'Établi plus souvent qu'ailleurs, des gabarits de mécanismes, parfois le
+    Gabarit du Wither, des pièces de machine ;
+  - en option, **la salle scellée** : une porte de machines comprimées qui ne s'ouvre qu'en rendant vie à la vieille
+    chaudière (remplir son chaudron d'eau et allumer son foyer : de la redstone vanilla, rien de nouveau) ;
+    derrière, le meilleur coffre.
+- **Le dernier foyer** (petite, très rare ; terres désolées) :
+  - un grand âtre entouré de feux de camp, où se sont retrouvés les derniers Attiseurs, déjà malades (sans dire
+    pourquoi) ; quelques Cendreux le gardent encore ;
+  - un porte-armure vêtu d'une pièce du set du Wither (un indice du set, à prendre) ; un coffre modeste.
+- **Technique** : des gabarits de structure (.nbt) générés par un script (comme les textures), un brin d'usure
+  au hasard à chaque génération, des coffres liés à nos tables de butin, des Cendreux par l'apparition propre
+  aux structures (comme pour les forteresses).
+- **Fréquences proposées** : forge en ruine, environ une par carré de 28 chunks ; chaufferie, une par carré
+  de 64 chunks (plus rare que les bastions) ; dernier foyer, une par carré de 80 chunks.
+- **Aperçu avant de coder** : je les bâtis dans le monde de test et j'envoie les captures (dehors, dedans).
+
+Questions pour Anger : lesquelles garder ? la salle scellée ? une vraie pièce du set au dernier foyer, ou
+seulement du décor ? les fréquences ? préfères-tu bâtir certaines structures toi-même en jeu ?
 
 ### 12c. Les Cendreux : des Attiseurs à mi-chemin de la maladie
 - Ni tout à fait vivants, ni encore des wither squelettes : la peau en cendre, des braises dans la poitrine.
