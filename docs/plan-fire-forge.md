@@ -661,6 +661,16 @@ de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines,
     ensuite ; pas le marchand ambulant) ; ses coups au corps à corps infligent Wither 3 s ;
   - palier 4 : les golems de fer du village l'attaquent (ceux bâtis par un joueur, jamais) ; les wither squelettes
     et les Cendreux ne l'attaquent plus, sauf s'il les frappe (ni la colère des machines).
+- **13c, décisions d'Anger** (avant de coder) :
+  - mourir d'autre chose pendant le compte à rebours achève aussi la transformation : le double apparaît et
+    prend le set ;
+  - message de mort neutre : « La cendre a emporté Anger » / « The ash took Anger » ;
+  - pendant les 30 minutes : de plus en plus de cendre autour du joueur (pas de phrases) ;
+  - nom du double : « Cendre d'Anger », « Cendre de Bob » (élision) / « Ash of Anger » ;
+  - le double : 20 PV comme un wither squelette, mais avec le set ; ses coups de poing infligent Wither 10 s ;
+    ne brûle pas, ne disparaît jamais (même en paisible) ; le skin du joueur noirci, yeux de braise, 2,4 blocs ;
+    nom toujours affiché ;
+  - en attente : si le joueur n'a plus le set sur lui au moment de mourir (point 2).
 - Prochaine étape : 13c (la fin et le double).
 
 ## Textures et modèles
