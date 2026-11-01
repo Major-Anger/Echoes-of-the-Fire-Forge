@@ -670,8 +670,23 @@ de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines,
   - le double : 20 PV comme un wither squelette, mais avec le set ; ses coups de poing infligent Wither 10 s ;
     ne brûle pas, ne disparaît jamais (même en paisible) ; le skin du joueur noirci, yeux de braise, 2,4 blocs ;
     nom toujours affiché ;
-  - en attente : si le joueur n'a plus le set sur lui au moment de mourir (point 2).
-- Prochaine étape : 13c (la fin et le double).
+  - **au palier 4, le set ne s'enlève plus** (choix B d'Anger) : il prend le « Lien de cendre », une malédiction
+    (enchantement `echoes_fireforge:ash_bond`, tag `minecraft:curse`) ; le double a donc toujours le set complet.
+- **13c faite** :
+  - compte à rebours de 30 minutes de jeu au palier 4 (`WitherProgress.doom`), gelé en créatif ; la cendre
+    autour du porteur s'épaissit (composant `echoes_fireforge:wither_doom` sur les pièces, lu par le client) ;
+  - la fin : dégât `echoes_fireforge:ash` (« La cendre a emporté … ») qui passe outre l'armure, les effets et
+    l'invulnérabilité (le totem ne sauve pas) ;
+  - à la mort au palier 4, quelle qu'en soit la cause (`WitherSetEvents.onDeath`, en dernier) : le double
+    (`witherset/AshDoubleEntity`, `echoes_fireforge:ash_double`) se lève avec les pièces portées, qui quittent le
+    joueur même avec keepInventory ; la progression repart de zéro ;
+  - le double : modèle du joueur ×1,2 (`client/AshDoubleRenderer`), skin du joueur (liste des joueurs ou chargé
+    comme une tête) noirci, yeux de braise, set et braise ; 20 PV, 6 de dégâts, Wither 10 s ; chasse les joueurs,
+    les golems et les piglins ; mort-vivant ; ne brûle pas ; ne disparaît jamais ; tué, rend le set sans le Lien de
+    cendre et sans usure ; au palier 4, il prend le porteur pour l'un des siens ;
+  - commande d'essai : `/witherset doom <joueur> <minutes>` ; guide : une phrase de plus (« Ce qui reste d'eux garde
+    l'armure, et ne la rend qu'à qui le bat. »).
+- Le set du Wither est fini.
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu

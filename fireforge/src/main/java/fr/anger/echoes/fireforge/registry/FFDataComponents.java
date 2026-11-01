@@ -66,4 +66,10 @@ public final class FFDataComponents {
             COMPONENTS.registerComponentType("wither_stage", builder -> builder
                     .persistent(ExtraCodecs.intRange(0, 4))
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
+
+    /** Les minutes écoulées depuis le palier 4 (0 à 30), sur les pièces portées : la cendre autour du porteur s'épaissit. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> WITHER_DOOM =
+            COMPONENTS.registerComponentType("wither_doom", builder -> builder
+                    .persistent(ExtraCodecs.intRange(0, 30))
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
 }

@@ -22,7 +22,10 @@ public final class WitherSetClient {
 
     private WitherSetClient() {}
 
-    /** De la cendre se détache du porteur, d'autant plus souvent que le palier est haut (on le lit sur ses pièces). */
+    /**
+     * De la cendre se détache du porteur, d'autant plus souvent que le palier est haut (on le lit sur ses pièces). Au
+     * palier 4, pendant les 30 dernières minutes, elle s'épaissit en nuage autour de lui (étape 13c).
+     */
     @SubscribeEvent
     public static void onTick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
@@ -30,9 +33,17 @@ public final class WitherSetClient {
         RandomSource random = mc.level.getRandom();
         for (AbstractClientPlayer player : mc.level.players()) {
             int stage = WitherSet.visibleStage(player);
-            if (stage <= 0 || player.isInvisible() || random.nextFloat() >= stage * 0.07F) continue;
-            mc.level.addParticle(stage >= 3 && random.nextInt(3) == 0 ? ParticleTypes.ASH : ParticleTypes.WHITE_ASH,
-                    player.getRandomX(0.5), player.getRandomY(), player.getRandomZ(0.5), 0, -0.02, 0);
+            if (stage <= 0 || player.isInvisible()) continue;
+            int doom = WitherSet.visibleDoom(player);
+            // jusqu'à 7 ou 8 grains de cendre par tick dans la dernière minute, en nuage d'un mètre et demi autour de lui
+            float rate = stage * 0.07F + (doom >= 0 ? doom * 0.25F : 0);
+            double spread = 0.5 + (doom >= 0 ? doom / (double) WitherSet.DOOM_MINUTES * 1.0 : 0);
+            int count = (int) rate + (random.nextFloat() < rate - (int) rate ? 1 : 0);
+            for (int i = 0; i < count; i++) {
+                mc.level.addParticle(stage >= 3 && random.nextInt(3) == 0 ? ParticleTypes.ASH : ParticleTypes.WHITE_ASH,
+                        player.getX() + (random.nextDouble() * 2 - 1) * spread, player.getY() + random.nextDouble() * (player.getBbHeight() + 0.4),
+                        player.getZ() + (random.nextDouble() * 2 - 1) * spread, (random.nextDouble() - 0.5) * 0.02, -0.02, (random.nextDouble() - 0.5) * 0.02);
+            }
         }
     }
 

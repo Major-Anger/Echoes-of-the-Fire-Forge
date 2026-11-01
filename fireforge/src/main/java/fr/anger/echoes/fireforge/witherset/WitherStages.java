@@ -167,11 +167,11 @@ public final class WitherStages {
         }
     }
 
-    /** 4 : les wither squelettes et les Cendreux le prennent pour l'un des leurs, sauf s'il les frappe. */
+    /** 4 : les wither squelettes, les Cendreux (et les doubles) le prennent pour l'un des leurs, sauf s'il les frappe. */
     @SubscribeEvent
     public static void onTarget(LivingChangeTargetEvent event) {
         LivingEntity mob = event.getEntity(), target = event.getNewAboutToBeSetTarget();
-        if ((mob instanceof WitherSkeleton || mob instanceof CendreuxEntity) && target != null && stage(target) >= KIN
+        if ((mob instanceof WitherSkeleton || mob instanceof CendreuxEntity || mob instanceof AshDoubleEntity) && target != null && stage(target) >= KIN
                 && mob.getLastHurtByMob() != target) {
             event.setCanceled(true);
         }

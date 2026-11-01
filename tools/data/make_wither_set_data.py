@@ -46,6 +46,7 @@ for layer in (1, 2):
 for piece, _ in PIECES:
     copy("wither_" + piece, os.path.join(A, "textures/item/wither_" + piece + ".png"))
 copy("wither_template", os.path.join(A, "textures/item/wither_template.png"))
+copy("ash_double_eyes", os.path.join(A, "textures/entity/ash_double_eyes.png"))
 
 # ---------------------------------------------------------------------- modèles d'objets
 for name in [f"wither_{p}" for p, _ in PIECES] + ["wither_template"]:
@@ -83,6 +84,30 @@ write(path, tag)
 # palier 2 (étape 13b) : les animaux d'élevage qui fuient le porteur
 write(os.path.join(D, "tags/entity_type/flees_wither.json"), {"values": [
     "minecraft:cow", "minecraft:mooshroom", "minecraft:sheep", "minecraft:pig", "minecraft:chicken", "minecraft:rabbit"]})
+
+# ---------------------------------------------------------------------- 13c : la fin
+# le set, pour le Lien de cendre
+write(os.path.join(D, "tags/item/wither_set.json"), {"values": [NS + ":wither_" + p for p, _ in PIECES]})
+# au palier 4, le set colle à la peau : une malédiction (rouge, gardée par la meule), qu'on ne trouve nulle part
+write(os.path.join(D, "enchantment/ash_bond.json"), {
+    "anvil_cost": 8,
+    "description": {"translate": "enchantment.echoes_fireforge.ash_bond"},
+    "effects": {"minecraft:prevent_armor_change": {}},
+    "max_cost": {"base": 50, "per_level_above_first": 0},
+    "max_level": 1,
+    "min_cost": {"base": 25, "per_level_above_first": 0},
+    "slots": ["armor"],
+    "supported_items": "#" + NS + ":wither_set",
+    "weight": 1,
+})
+write(os.path.join(RES, "data", "minecraft", "tags", "enchantment", "curse.json"), {"replace": False, "values": [NS + ":ash_bond"]})
+# la mort par la cendre : rien ne l'arrête (ni l'armure, ni les effets, ni un totem)
+write(os.path.join(D, "damage_type/ash.json"), {"exhaustion": 0.0, "message_id": NS + ".ash", "scaling": "never"})
+for tag in ("bypasses_armor", "bypasses_effects", "bypasses_enchantments", "bypasses_invulnerability", "bypasses_resistance",
+            "bypasses_shield", "bypasses_wolf_armor", "no_impact", "no_knockback", "no_anger"):
+    write(os.path.join(RES, "data", "minecraft", "tags", "damage_type", tag + ".json"), {"replace": False, "values": [NS + ":ash"]})
+# le double est un mort-vivant (Châtiment, soins inversés, Wither sans effet)
+write(os.path.join(RES, "data", "minecraft", "tags", "entity_type", "undead.json"), {"replace": False, "values": [NS + ":ash_double"]})
 
 # ---------------------------------------------------------------------- butin : rarement dans les coffres des forteresses
 write(os.path.join(D, "loot_table/chests/wither_template.json"), {
@@ -126,7 +151,15 @@ t("message.echoes_fireforge.wither_stage.1", "Tes mains ne sentent plus la chale
 t("message.echoes_fireforge.wither_stage.2", "Une toux sèche, pleine de cendre.", "A dry cough, full of ash.")
 t("message.echoes_fireforge.wither_stage.3", "Ta peau se fend comme le métal.", "Your skin cracks like the metal.")
 t("message.echoes_fireforge.wither_stage.4", "Le feu ne te quitte plus.", "The fire no longer leaves you.")
-t("commands.echoes_fireforge.witherset.get", "%s : set du Wither à %s %% (palier %s)", "%s: Wither set at %s%% (stage %s)")
+t("commands.echoes_fireforge.witherset.get", "%s : set du Wither à %s %% (palier %s), %s min après le palier 4", "%s: Wither set at %s%% (stage %s), %s min past stage 4")
+t("commands.echoes_fireforge.witherset.doom", "%s : palier 4, %s min écoulées sur 30", "%s: stage 4, %s of 30 min elapsed")
+# 13c : la fin
+t("enchantment.echoes_fireforge.ash_bond", "Lien de cendre", "Ash Bond")
+t("death.attack.echoes_fireforge.ash", "La cendre a emporté %1$s", "The ash took %1$s")
+t("death.attack.echoes_fireforge.ash.player", "La cendre a emporté %1$s", "The ash took %1$s")
+t("entity.echoes_fireforge.ash_double", "Double de cendre", "Ash Double")
+t("entity.echoes_fireforge.ash_double.of", "Cendre de %s", "Ash of %s")
+t("entity.echoes_fireforge.ash_double.of_elided", "Cendre d'%s", "Ash of %s")
 t("commands.echoes_fireforge.witherset.set", "%s : set du Wither mis à %s %% (palier %s)", "%s: Wither set put at %s%% (stage %s)")
 
 for lang, data in (("fr_fr", FR), ("en_us", EN)):

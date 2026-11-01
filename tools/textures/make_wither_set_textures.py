@@ -7,7 +7,8 @@ rondes au heaume (comme celles du Cendreux). Elle change avec le porteur, en cin
   0 neuve ; 1 des fêlures, la cendre dedans ; 2 la braise dans les fêlures ; 3 le laiton terni, l'acier qui s'écaille
   sur de l'os ; 4 presque tout os noirci, la braise entre les côtes, les lunettes fendues.
 Sorties : wither_layer_1_<n>.png et wither_layer_2_<n>.png (64 x 32, modèles d'armure ; à partir du palier 2, leur
-couche de braises lumineuse _glow), les icônes des quatre pièces et du Gabarit du Wither (16 x 16).
+couche de braises lumineuse _glow), les icônes des quatre pièces et du Gabarit du Wither (16 x 16), les yeux de braise
+du double (ash_double_eyes.png, 64 x 64).
 """
 import os
 import random
@@ -368,4 +369,9 @@ icon([
     "................",
     "................",
 ], "wither_template")
+# le double (étape 13c) : deux braises à la place des yeux, aux places habituelles des yeux d'un skin (64 x 64)
+eyes = Image.new("RGBA", (64, 64), CLEAR)
+for x, y in ((10, 12), (13, 12)):
+    eyes.putpixel((x, y), EMB_L + (255,))
+eyes.save(os.path.join(OUT, "ash_double_eyes.png"))
 print("ok")

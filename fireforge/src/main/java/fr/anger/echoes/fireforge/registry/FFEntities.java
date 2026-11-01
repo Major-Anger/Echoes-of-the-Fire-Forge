@@ -2,6 +2,7 @@ package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.cendreux.CendreuxEntity;
+import fr.anger.echoes.fireforge.witherset.AshDoubleEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -27,9 +28,16 @@ public final class FFEntities {
                     .sized(0.7F, 2.3F).eyeHeight(2.0F).fireImmune().clientTrackingRange(8)
                     .build(EchoesFireForge.id("cendreux").toString()));
 
+    /** Le double, « Cendre d'<pseudo> » (plan, 13c) : la taille d'un wither squelette, ne brûle pas. */
+    public static final DeferredHolder<EntityType<?>, EntityType<AshDoubleEntity>> ASH_DOUBLE = ENTITIES.register("ash_double",
+            () -> EntityType.Builder.of(AshDoubleEntity::new, MobCategory.MONSTER)
+                    .sized(0.72F, 2.4F).eyeHeight(2.1F).fireImmune().clientTrackingRange(8)
+                    .build(EchoesFireForge.id("ash_double").toString()));
+
     @SubscribeEvent
     public static void attributes(EntityAttributeCreationEvent event) {
         event.put(CENDREUX.get(), CendreuxEntity.createAttributes().build());
+        event.put(ASH_DOUBLE.get(), AshDoubleEntity.createAttributes().build());
     }
 
     @SubscribeEvent

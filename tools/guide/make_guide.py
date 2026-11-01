@@ -201,8 +201,8 @@ forge = [
         spot([I + "wither_helmet", I + "wither_chestplate", I + "wither_leggings", I + "wither_boots", I + "wither_template"],
              "La plus solide des armures des Attiseurs. Elle se forge sur la netherite, à la table de forgeron, avec le Gabarit du Wither et un crâne de wither squelette.\n\nLe gabarit se trouve rarement sur les Cendreux et dans les forteresses du Nether. La Cendre d'Attiseur le reproduit, et répare l'armure.",
              "The sturdiest of the Stokers' armors. It is forged over netherite, at a smithing table, with the Wither Template and a wither skeleton skull.\n\nThe template is rarely found on the Ashen and in Nether fortresses. Stoker's Ash copies it, and mends the armor."),
-        text("Ceux qui l'ont portée longtemps n'en sont pas revenus. On dit que l'armure change avec celui qui la porte, et lui avec elle.\n\nL'ôter, pièce par pièce, laisse le temps de se reprendre. Jusqu'à un certain point.",
-             "Those who wore it for long did not come back from it. It is said the armor changes with its wearer, and the wearer with it.\n\nTaking it off, piece by piece, leaves time to recover. Up to a point.",
+        text("Ceux qui l'ont portée longtemps n'en sont pas revenus. On dit que l'armure change avec celui qui la porte, et lui avec elle.\n\nL'ôter, pièce par pièce, laisse le temps de se reprendre. Jusqu'à un certain point.\n\nCe qui reste d'eux garde l'armure, et ne la rend qu'à qui le bat.",
+             "Those who wore it for long did not come back from it. It is said the armor changes with its wearer, and the wearer with it.\n\nTaking it off, piece by piece, leaves time to recover. Up to a point.\n\nWhat remains of them keeps the armor, and gives it only to whoever defeats it.",
              title_fr="Ceux qui l'ont portée", title_en="Those who wore it"),
     ]),
 ]

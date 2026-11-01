@@ -1,6 +1,7 @@
 package fr.anger.echoes.fireforge.cendreux;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
+import fr.anger.echoes.fireforge.witherset.AshDoubleEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,10 +16,10 @@ public final class CendreuxEvents {
 
     private CendreuxEvents() {}
 
-    /** Comme les wither squelettes, le wither ne le touche pas. */
+    /** Comme les wither squelettes, le wither ne touche ni le Cendreux, ni le double du set du Wither. */
     @SubscribeEvent
     public static void onEffect(MobEffectEvent.Applicable event) {
-        if (event.getEntity() instanceof CendreuxEntity && event.getEffectInstance().is(MobEffects.WITHER)) {
+        if ((event.getEntity() instanceof CendreuxEntity || event.getEntity() instanceof AshDoubleEntity) && event.getEffectInstance().is(MobEffects.WITHER)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }

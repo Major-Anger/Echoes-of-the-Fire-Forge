@@ -26,6 +26,7 @@ public final class FFClient {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(FFBlockEntities.FIRE_FORGE.get(), FireForgeRenderer::new);
         event.registerEntityRenderer(FFEntities.CENDREUX.get(), CendreuxRenderer::new);
+        event.registerEntityRenderer(FFEntities.ASH_DOUBLE.get(), AshDoubleRenderer::new);
     }
 
     @SubscribeEvent
