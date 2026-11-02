@@ -106,6 +106,10 @@
       sortie ? à demander à Anger).
 
 ## Points en attente (côté Anger)
+- Musiques du Core (décision d'Anger) : des morceaux de style vanilla, pour la diversité, sans rôle dans le lore
+  (seules les musiques de dimension, de structure et les disques comptent pour le lore). Ajoutés aux listes du jeu
+  sans rien retirer : Overworld (liste générale et biomes, sauf Deep Dark et sous l'eau), créatif et menu ; pas de
+  disques. Outil prêt : `tools/music/make_music_data.py` ; en attente des fichiers `.ogg` d'Anger.
 - Les textes de lore des plans sont provisoires : Anger les écrira.
 - Dépôt du Silt : sources présentes depuis le commit `77e1de5` (vérifié en lecture seule) :
   `echoes_silt:soul_crystal` et `echoes_silt:resonant_crystal` existent (recette du module des
