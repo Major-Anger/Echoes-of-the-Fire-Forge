@@ -1,0 +1,26 @@
+{
+  "structures": [
+    {
+      "structure": "echoes_fireforge:forge_ruin_shore",
+      "weight": 6
+    },
+    {
+      "structure": "echoes_fireforge:forge_ruin",
+      "weight": 2
+    },
+    {
+      "structure": "echoes_fireforge:forge_ruin_crimson",
+      "weight": 2
+    },
+    {
+      "structure": "echoes_fireforge:forge_ruin_soul",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 28,
+    "separation": 8,
+    "salt": 61450301
+  }
+}

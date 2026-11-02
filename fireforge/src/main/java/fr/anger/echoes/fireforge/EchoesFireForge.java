@@ -18,6 +18,7 @@ import fr.anger.echoes.fireforge.registry.FFEntities;
 import fr.anger.echoes.fireforge.registry.FFItems;
 import fr.anger.echoes.fireforge.registry.FFMenus;
 import fr.anger.echoes.fireforge.registry.FFSounds;
+import fr.anger.echoes.fireforge.registry.FFStructures;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -42,6 +43,8 @@ public final class EchoesFireForge {
         FFArmorMaterials.MATERIALS.register(modBus);
         FFAttachments.ATTACHMENTS.register(modBus);
         FFCreativeTab.TABS.register(modBus);
+        FFStructures.TYPES.register(modBus);
+        FFStructures.PIECES.register(modBus);
         modBus.addListener(FFNetwork::register);
         ForgeEchoes.register(); // les Échos de la Forge (plan, section 12a)
         modBus.addListener(FMLCommonSetupEvent.class, event -> event.enqueueWork(EchoesFireForge::registerModules));

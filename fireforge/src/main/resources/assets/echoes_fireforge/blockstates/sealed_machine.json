@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lock=false": {
+      "model": "echoes_fireforge:block/compressed_machine"
+    },
+    "lock=true": {
+      "model": "echoes_fireforge:block/compressed_machine"
+    }
+  }
+}

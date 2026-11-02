@@ -5,6 +5,7 @@ import fr.anger.echoes.fireforge.forge.FireForgeBlock;
 import fr.anger.echoes.fireforge.mechanism.LampLightBlock;
 import fr.anger.echoes.fireforge.mechanism.SteamLamp;
 import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
+import fr.anger.echoes.fireforge.structure.SealedDoorBlock;
 import fr.anger.echoes.fireforge.workbench.SteamBoilerBlock;
 import fr.anger.echoes.fireforge.workbench.WorkbenchBlock;
 import net.minecraft.world.level.block.Block;
@@ -29,6 +30,19 @@ public final class FFBlocks {
                     .mapColor(MapColor.COLOR_BLACK)
                     .requiresCorrectToolForDrops()
                     .strength(30.0F, 1200.0F)
+                    .sound(SoundType.ANCIENT_DEBRIS)));
+
+    /**
+     * La porte scellée des chaufferies (plan, 12b) : des machines comprimées (même aspect) qui ne s'ouvrent qu'à la
+     * vapeur. Pas d'objet ; brisée, elle ne donne rien.
+     */
+    public static final DeferredBlock<SealedDoorBlock> SEALED_MACHINE = BLOCKS.register("sealed_machine",
+            () -> new SealedDoorBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .requiresCorrectToolForDrops()
+                    .strength(30.0F, 1200.0F)
+                    .noLootTable()
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
                     .sound(SoundType.ANCIENT_DEBRIS)));
 
     /** La Forge des Attiseurs (2 blocs). Le foyer éclaire quand elle travaille. */

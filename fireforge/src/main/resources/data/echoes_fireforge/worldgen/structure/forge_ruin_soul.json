@@ -1,0 +1,10 @@
+{
+  "type": "echoes_fireforge:floor_ruin",
+  "biomes": "#echoes_fireforge:has_structure/forge_ruin_soul",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "template": "echoes_fireforge:forge_ruin_soul",
+  "foundation": {
+    "Name": "minecraft:soul_soil"
+  }
+}

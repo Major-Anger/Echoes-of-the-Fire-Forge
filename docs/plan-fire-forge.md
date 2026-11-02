@@ -480,7 +480,7 @@ Raison du trident : le métal chauffé qu'on plonge dans l'eau, c'est la trempe.
   (`echoes_fireforge:fire_forge:lit=true`, et `soul=true` en cyan) et le bouilleur allumé
   (`echoes_fireforge:steam_boiler:lit=true`).
 
-## 12. Après la v1 (12a et 12c validés ; 12b attend)
+## 12. Après la v1 (12a, 12b et 12c faits)
 
 ### 12a. Les Échos et les succès de la Forge (Core, déjà prêt)
 Un arbre de succès « Echoes of the Fire Forge ». Certains laissent un **Écho** : un petit bonus permanent
@@ -495,7 +495,7 @@ lié aux systèmes de la Forge (jamais aux dégâts ni à la vie, comme dans le 
 | L'établi | greffer un premier mécanisme | — |
 | Les noyés de cendre | voir un Cendreux (12c) ; avec le Silt, avoir lu la tablette XIII | — (le lien d'histoire, sans trancher la cause) |
 
-### 12b. Les structures : les forges mortes des Attiseurs (proposition détaillée, en attente d'Anger)
+### 12b. Les structures : les forges mortes des Attiseurs (validée et faite)
 Trois lieux où les Attiseurs ont vécu, du plus commun au plus rare. Bâtis en blocs vanilla et blocs de la Forge,
 sans rien reprendre des structures de Mojang (règle 4). Palette : pierre noire (polie, en briques, fissurée),
 basalte (poli, lisse), barreaux et chaînes de fer (grilles, conduites), cuivre ciré (le laiton), blocs de magma,
@@ -540,8 +540,37 @@ seulement du décor ? les fréquences ? préfères-tu bâtir certaines structure
   les forteresses) ;
 - **lieux validés** : terres désolées, rives de la mer de lave, forêts carmin (forges reprises par la forêt),
   vallée des âmes (« pourquoi pas ») ;
-- en attente : la chaufferie creusée dans la roche, les cheminées du plafond (idée : de grandes conduites qui
-  pendent du plafond de bedrock et s'y enfoncent), la salle scellée, la vraie pièce du set, les fréquences.
+- aperçu en jeu (planche « 12b ») puis **tout validé** : la chaufferie creusée dans la roche, les cheminées du
+  plafond, la salle scellée, une vraie pièce du set au dernier foyer, les fréquences ; pas de colonnes de fumée vues
+  de loin (les puits sont trop longs pour la fumée des feux de camp : abandonnées).
+
+**12b, telle que faite** (`structure/`, `registry/FFStructures`, gabarits par `tools/structures/make_structures.py`,
+données par `tools/data/make_structures_data.py`) :
+- **Forge en ruine** (type `floor_ruin`) : sur un sol plat (coins à 2 blocs près), les petits creux comblés, un brin
+  d'usure à chaque génération (briques tombées ou fendues). Quatre variantes dans un même ensemble : terres désolées,
+  forêt carmin, vallée des âmes, et la rive (sur la mer de lave, l'âtre tourné vers elle ; passe en premier quand la
+  lave est là). Environ une par carré de 28 tronçons.
+- **Dernier foyer** (`floor_ruin`, terres désolées) : deux Cendreux gardiens posés à la génération, des Cendreux qui
+  y apparaissent, le porte-armure et son vrai Casque du Wither (palier 4). Une par carré de 80 tronçons.
+- **Chaufferie** (`boiler_hall`) : on part d'un sol de grotte (hors des forêts du Nether, tag `overgrown` : les
+  champignons géants pousseraient devant), on va vers une paroi ; l'entrée s'y pose, un couloir s'enfonce, la salle
+  doit tenir dans la roche derrière (85 %, sans lave). Deux puits montent jusqu'au premier vide (sinon ils ne sont
+  pas creusés). Deux gardiens, des Cendreux qui y apparaissent. Une par carré de 64 tronçons.
+- **La salle scellée** : sa porte est faite de « Portes scellées » (`sealed_machine`), un bloc technique qui a
+  l'aspect de la machine comprimée, sans objet, et qui ne donne rien quand on le brise. La redstone vanilla ne sait
+  pas ouvrir une porte de 3 sur 3 : une serrure (un bloc de la porte) regarde chaque seconde autour d'elle ; un
+  chaudron plein d'eau et un fourneau allumé, et l'eau part en vapeur, le manomètre (ampoule de cuivre) s'allume, la
+  porte s'ouvre.
+- **Forge d'une forteresse** (`fortress_annex`) : là où Minecraft place une forteresse (on rejoue son tirage entre
+  forteresse et bastion), une fois sur trois ; on reprend les pièces de la forteresse et on pose l'annexe à côté d'un
+  pont, à la hauteur du tablier, son bout de pont rompu tourné vers lui (2 à 4 blocs de vide), ses piliers jusqu'au
+  sol. Rien n'est glissé dans la forteresse.
+- **Cheminées du plafond** (`ceiling_chimney`) : sous un vrai plafond (y 80 à 120), avec un grand vide dessous ; les
+  conduites montent jusqu'à la roche. Une par carré de 32 tronçons.
+- Les Cendreux vivent dans le tag de structures `cendreux_homes` (forteresse, chaufferie, dernier foyer) : là, la
+  lave n'est plus demandée. Briser une Porte scellée près d'eux les met en colère (tag `attiseur_machines`).
+- Butin : `chests/forge_ruin`, `fortress_annex`, `boiler_hall` (le Plan de l'Établi plus souvent), `boiler_hall_sealed`
+  (le meilleur), `last_hearth` (modeste), et `any_mechanism_template` (un gabarit au hasard).
 
 ### 12c. Les Cendreux : des Attiseurs à mi-chemin de la maladie
 - Ni tout à fait vivants, ni encore des wither squelettes : la peau en cendre, des braises dans la poitrine.

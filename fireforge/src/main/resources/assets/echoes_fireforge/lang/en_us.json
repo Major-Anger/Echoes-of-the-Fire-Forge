@@ -379,5 +379,6 @@
   "guide.echoes_fireforge.cat.forge": "The Forge",
   "guide.echoes_fireforge.cat.forge.desc": "The Stokers turned the Nether into a forge-world. Their machines still sleep under the rock, and their forge can live again.",
   "guide.echoes_fireforge.cat.plans": "Stokers' Notebooks",
-  "guide.echoes_fireforge.cat.plans.desc": "The Stokers' plans, engraved on brass and found in compressed machines.\n\nThe erased pages are waiting to be found."
+  "guide.echoes_fireforge.cat.plans.desc": "The Stokers' plans, engraved on brass and found in compressed machines.\n\nThe erased pages are waiting to be found.",
+  "block.echoes_fireforge.sealed_machine": "Sealed Door"
 }

@@ -137,7 +137,8 @@ write(os.path.join(D, "recipe/ash_bed.json"), {
 # ---------------------------------------------------------------------- tags : les machines qu'un Cendreux défend
 write(os.path.join(D, "tags/block/attiseur_machines.json"), {"values": [
     NS + ":fire_forge", NS + ":workbench", NS + ":steam_boiler", NS + ":compressed_machine",
-    NS + ":boiler", NS + ":lava_tank", NS + ":soul_module"]})
+    NS + ":boiler", NS + ":lava_tank", NS + ":soul_module",
+    NS + ":sealed_machine"]})  # la porte scellée des chaufferies (12b)
 
 # ---------------------------------------------------------------------- apparitions (rares)
 write(os.path.join(D, "neoforge/biome_modifier/cendreux.json"), {

@@ -1,0 +1,8 @@
+{
+  "type": "echoes_fireforge:floor_ruin",
+  "biomes": "#echoes_fireforge:has_structure/forge_ruin_shore",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "template": "echoes_fireforge:forge_ruin",
+  "shore": true
+}

@@ -1,0 +1,18 @@
+{
+  "type": "echoes_fireforge:boiler_hall",
+  "biomes": "#echoes_fireforge:has_structure/boiler_hall",
+  "step": "underground_structures",
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+        {
+          "type": "echoes_fireforge:cendreux",
+          "weight": 1,
+          "minCount": 1,
+          "maxCount": 2
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "echoes_fireforge:ceiling_chimney",
+  "biomes": "#echoes_fireforge:has_structure/ceiling_chimney",
+  "step": "underground_structures",
+  "spawn_overrides": {}
+}

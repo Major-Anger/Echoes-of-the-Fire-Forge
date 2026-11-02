@@ -367,8 +367,10 @@ def boiler_hall():
             for y in range(0, 7):
                 wall = x == W + 6 or z in (5, 13) or y in (0, 6)
                 b.set(x, y, z, brick(rnd, 0.15) if wall else AIR)
-    # sa porte : des machines comprimées dans un cadre de basalte, sous un linteau de laiton et son manomètre
-    b.fill(W, 1, 8, W, 3, 10, MACHINE)
+    # sa porte : des machines scellées (l'aspect des machines comprimées) dans un cadre de basalte, sous un linteau
+    # de laiton et son manomètre ; elle ne s'ouvre qu'à la vapeur (structure/SealedDoorBlock)
+    b.fill(W, 1, 8, W, 3, 10, S(NS + ":sealed_machine", lock=False))
+    b.set(W, 1, 9, S(NS + ":sealed_machine", lock=True))           # la serrure : elle surveille la vieille chaudière
     for z in (7, 11):
         b.fill(W, 1, z, W, 3, z, PIPE)
     b.fill(W, 4, 6, W, 4, 12, BRASS)

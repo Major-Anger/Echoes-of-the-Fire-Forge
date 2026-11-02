@@ -6,6 +6,7 @@ import fr.anger.echoes.fireforge.forge.FireForgeBlockEntity;
 import fr.anger.echoes.fireforge.forge.ForgeHopperAccess;
 import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
 import fr.anger.echoes.fireforge.module.ModuleFluidAccess;
+import fr.anger.echoes.fireforge.structure.SealedDoorBlockEntity;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -33,6 +34,11 @@ public final class FFBlockEntities {
     @SuppressWarnings("DataFlowIssue")
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SteamBoilerBlockEntity>> STEAM_BOILER = BLOCK_ENTITIES.register("steam_boiler",
             () -> BlockEntityType.Builder.of(SteamBoilerBlockEntity::new, FFBlocks.STEAM_BOILER.get()).build(null));
+
+    /** La serrure de la porte scellée des chaufferies (plan, 12b). */
+    @SuppressWarnings("DataFlowIssue")
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SealedDoorBlockEntity>> SEALED_DOOR = BLOCK_ENTITIES.register("sealed_door",
+            () -> BlockEntityType.Builder.of(SealedDoorBlockEntity::new, FFBlocks.SEALED_MACHINE.get()).build(null));
 
     /** Les entonnoirs fonctionnent sur les deux moitiés de la forge ; les tuyaux remplissent ses modules. */
     @SubscribeEvent

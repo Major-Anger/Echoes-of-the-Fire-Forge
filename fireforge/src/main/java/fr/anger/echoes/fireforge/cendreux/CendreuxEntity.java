@@ -1,5 +1,6 @@
 package fr.anger.echoes.fireforge.cendreux;
 
+import fr.anger.echoes.fireforge.registry.FFStructures;
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.progress.ForgeEchoes;
 import fr.anger.echoes.fireforge.registry.FFSounds;
@@ -34,7 +35,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -210,17 +210,20 @@ public class CendreuxEntity extends Monster implements RangedAttackMob {
 
     /**
      * Rarement, en terres désolées et deltas de basalte, près de la lave (biome_modifier/cendreux.json) ; rarement dans
-     * les forteresses du Nether (structure_modifier/cendreux_fortress.json), où la lave n'est pas demandée.
+     * les forteresses du Nether (structure_modifier/cendreux_fortress.json) ; dans les chaufferies et les derniers foyers
+     * (plan, 12b : leurs « spawn_overrides »). Dans ces lieux (le tag de structures cendreux_homes), la lave n'est pas
+     * demandée.
      */
     public static boolean checkCendreuxSpawnRules(EntityType<CendreuxEntity> type, ServerLevelAccessor level, MobSpawnType reason,
                                                   BlockPos pos, RandomSource random) {
         if (!Monster.checkAnyLightMonsterSpawnRules(type, level, reason, pos, random)) return false;
         if (reason != MobSpawnType.NATURAL && reason != MobSpawnType.CHUNK_GENERATION) return true;
-        return inFortress(level, pos) || lavaNear(level, pos);
+        return atHome(level, pos) || lavaNear(level, pos);
     }
 
-    public static boolean inFortress(ServerLevelAccessor level, BlockPos pos) {
-        return level.getLevel().structureManager().getStructureWithPieceAt(pos, holder -> holder.is(BuiltinStructures.FORTRESS)).isValid();
+    /** Dans une forteresse, une chaufferie ou un dernier foyer (le tag de structures echoes_fireforge:cendreux_homes). */
+    public static boolean atHome(ServerLevelAccessor level, BlockPos pos) {
+        return level.getLevel().structureManager().getStructureWithPieceAt(pos, FFStructures.CENDREUX_HOMES).isValid();
     }
 
     /** De la lave à 6 blocs ou moins. */

@@ -1,0 +1,7 @@
+{
+  "type": "echoes_fireforge:fortress_annex",
+  "biomes": "#echoes_fireforge:has_structure/fortress_annex",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "chance": 0.3333333333333333
+}

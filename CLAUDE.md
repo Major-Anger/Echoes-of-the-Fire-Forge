@@ -87,11 +87,15 @@
      Shader d'Anger : pack Iris (zip, licence « tous droits réservés » : jamais dans le dépôt) ; le
      contrat (plan, 8e) : bloc `echoes_fireforge:lamp_light` dans son `block.properties`, faisceau rendu
      comme un faisceau de balise (`gbuffers_beaconbeam`). Anger ajoutera aussi la forge et le bouilleur.
-  9. Après la v1 (plan, section 12) : ordre validé 12a, puis 12c ; 12b (structures) attend.
+  9. Après la v1 (plan, section 12) : ordre validé 12a, puis 12c, puis 12b.
      12a (succès et Échos, `progress/ForgeEchoes`, `tools/data/make_echoes_data.py`) : faite.
      12c (Cendreux, `cendreux/`, aussi rarement dans les forteresses ; leur butin : le Lit de cendre, état `ash`
      de la forge, rareté minimum selon l'offrande ; succès « Les noyés de cendre » ; `tools/data/make_cendreux_data.py`,
-     `tools/textures/make_cendreux_textures.py`) : faite. 12b (structures) : en discussion (plan, 12b).
+     `tools/textures/make_cendreux_textures.py`) : faite. 12b (structures : forge en ruine et ses lieux, dernier
+     foyer, chaufferie et sa salle scellée, forge des forteresses, cheminées du plafond ; `structure/`,
+     `registry/FFStructures`, `tools/structures/make_structures.py`, `tools/data/make_structures_data.py`) : faite.
+     La porte scellée est un bloc technique (`sealed_machine`, sans objet) : la redstone vanilla ne sait pas ouvrir
+     une porte de 3 sur 3.
   10. Le set du Wither (idée d'Anger, plan section 13) : **validé** (palier 2 : les animaux fuient ; pas de
       retour une fois au palier 4 ; textures validées ; double de 2,4 blocs). 13a (set, recette, progression
       cachée et ses signes, `witherset/`, `tools/data/make_wither_set_data.py`,

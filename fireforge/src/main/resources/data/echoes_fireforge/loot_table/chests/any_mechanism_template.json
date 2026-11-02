@@ -1,0 +1,96 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_longue_vue",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_lampe",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_sac",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_jet",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_poches",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_ancre",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_patins",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_crampons",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_piston",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_sillon",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_frappe_sol",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_treuil",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_trident_de_trempe",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_sonde",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_planeur",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_pistons",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:template_ressorts",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "random_sequence": "echoes_fireforge:chests/any_mechanism_template"
+}
