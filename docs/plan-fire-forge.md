@@ -765,8 +765,10 @@ Le grand boss de la Forge.
 - **Son marteau** (dessin d'Anger) : un marteau-pilon. Une grosse tête de métal avec une large plaque de frappe d'un
   côté, un rouage sur le flanc qui tourne, un gros boulon sur le dessus qui fixe le manche à la tête, un embout à
   l'arrière d'où la vapeur sort en bouffées ; un long manche et un contrepoids au bout.
-- **Où** : dans une **grande forge** (nouvelle structure, à préciser avec Anger : salle creusée ou à l'air libre,
-  unique ou rare).
+- **Où** : une **arène**, la grande forge du maître : une structure qui creuse elle-même sa place dans la roche
+  (environ 60 x 60 x 30), pas de biome à nous (il faudrait TerraBlender, décision d'Anger : option B). **Plusieurs
+  arènes, mais très rares.** Une **porte se ferme** pendant le combat. Le boss **peut revenir** (on peut le
+  refaire).
 - **Le combat** :
   - phase 1 : coup au sol et onde de choc (on l'évite en sautant) ; le rouage s'emballe avant une frappe plus forte,
     ce qui laisse le temps de s'écarter ;
