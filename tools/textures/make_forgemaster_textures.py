@@ -35,13 +35,18 @@ SPEC = [
     ("leg_r", None, (-4, 26, 0), (-2, -26, -2), (4, 26, 4), "bone", (0, 0, 0), 0),
     ("leg_l", None, (4, 26, 0), (-2, -26, -2), (4, 26, 4), "bone", (0, 0, 0), 0, True),
     # le marteau-pilon (dessin d'Anger), dans la main droite, la tête au sol
-    ("hammer", "arm_r", (0, -27, 0), (-1.5, -8, -1.5), (3, 30, 3), "grip", (6, 0, 4), 0),
+    ("hammer", "arm_r", (0, -23, 0), (-1.5, -8, -1.5), (3, 30, 3), "grip", (6, 0, 4), 0),
     ("counterweight", "hammer", (0, 0, 0), (-2.5, 22, -2.5), (5, 5, 5), "iron", (0, 0, 0), 0),
-    ("hammer_head", "hammer", (0, 0, 0), (-9, -19, -6), (18, 12, 12), "iron", (0, 0, 0), 0),
+    ("counterweight_cap", "hammer", (0, 0, 0), (-1.5, 27, -1.5), (3, 2, 3), "bolt", (0, 0, 0), 0),
+    # la tête, retouchée d'après le marteau d'Anger : le manche la traverse, un boulon de chaque côté
+    ("hammer_head", "hammer", (0, 0, 0), (-9, -19, -6), (16, 12, 12), "iron", (0, 0, 0), 0),
     ("strike_plate", "hammer", (0, 0, 0), (-11, -20, -7), (2, 14, 14), "plate", (0, 0, 0), 0),
-    ("nozzle", "hammer", (0, 0, 0), (9, -15.5, -2.5), (5, 5, 5), "copper", (0, 0, 0), 0),
-    ("gear", "hammer", (0, 0, 0), (-5, -18, 6), (10, 10, 1), "gear", (0, 0, 0), 0),
+    ("mass", "hammer", (0, 0, 0), (7, -16, -4.5), (5, 6, 9), "iron", (0, 0, 0), 0),
+    ("nozzle", "hammer", (0, 0, 0), (12, -15.5, -2.5), (5, 5, 5), "copper", (0, 0, 0), 0),
+    ("gear", "hammer", (0, 0, 0), (-4, -16, 6), (6, 6, 1), "gear", (0, 0, 0), 0),
     ("bolt", "hammer", (0, 0, 0), (-3, -7, -3), (6, 3, 6), "bolt", (0, 0, 0), 0),
+    ("bolt_low", "hammer", (0, 0, 0), (-3, -22, -3), (6, 3, 6), "bolt", (0, 0, 0), 0),
+    ("bolt_cap", "hammer", (0, 0, 0), (-1.5, -24, -1.5), (3, 2, 3), "bolt", (0, 0, 0), 0),
 ]
 
 
@@ -179,15 +184,15 @@ def paint(mat, face, rect):
                 if face not in ("top", "bottom") and (j // 2) % 2 == 0 and j < 16:
                     c = jitter(LEATHER, 6)                            # le cuir de la poignée
             elif mat == "gear":
-                cx, cy = w / 2 - 0.5, h / 2 - 0.5
+                cx, cy, r = w / 2 - 0.5, h / 2 - 0.5, w / 2
                 dist = ((i - cx) ** 2 + (j - cy) ** 2) ** 0.5
                 if face in ("front", "back"):
-                    tooth = (i + j) % 2 == 0 and dist > 3.0
-                    if dist > 4.2 or (dist > 3.4 and not tooth):
+                    tooth = (i + j) % 2 == 0
+                    if dist > r - 0.1 or (dist > r - 1.0 and not tooth):
                         c = (0, 0, 0, 0)
                     else:
                         c = jitter(BRASS, 10)
-                        if dist < 1.2:
+                        if dist < r * 0.3:
                             c = BRASS_DARK + (255,)
                 else:
                     c = jitter(BRASS_DARK, 6)
