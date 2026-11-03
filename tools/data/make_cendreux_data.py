@@ -155,9 +155,13 @@ SOUNDS = {
     "entity.cendreux.death": ["mob/wither_skeleton/death1", "mob/wither_skeleton/death2"],
     "entity.cendreux.ember": ["mob/ghast/fireball4"],
 }
-write(os.path.join(A, "sounds.json"), {
+# sounds.json est partagé (le maître de forge y ajoute les siens) : on ne remplace que nos clés
+sounds_path = os.path.join(A, "sounds.json")
+sounds = read(sounds_path) if os.path.exists(sounds_path) else {}
+sounds.update({
     key: {"sounds": [{"name": "minecraft:" + s, "pitch": 0.8} for s in files], "subtitle": "subtitles." + NS + "." + key.replace("entity.", "")}
     for key, files in SOUNDS.items()})
+write(sounds_path, sounds)
 
 # ---------------------------------------------------------------------- textes
 FR, EN = {}, {}

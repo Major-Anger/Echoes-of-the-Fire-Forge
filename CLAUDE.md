@@ -109,7 +109,9 @@
       phases, sa barre de boss, `forgemaster/`) : faite. 14b (l'arène `structure/ForgeArenaStructure`, la forge du maître
       `forgemaster/MasterForgeBlockEntity` qui mène le combat et le fait revenir, la porte, les foyers et les Cendreux de
       la phase 2, l'ambiance `client/ForgeArenaAmbience`) : faite. 14c (le marteau-pilon du joueur, le carnet, le succès) :
-      à faire. Sons du marteau qui frappe le sol : Anger les envoie (à mettre dans l'onde de choc, à la place de l'enclume).
+      à faire. Sons du maître (d'Anger : marteau, vapeur, pas, mort ; ses fichiers restent hors du dépôt) : convertis par
+      `tools/sounds/make_forgemaster_sounds.py`, déclarés par `tools/data/make_forgemaster_data.py` ; sa voix reste celle du
+      wither squelette, plus grave.
 
 ## Points en attente (côté Anger)
 - Musiques du Core (décision d'Anger, faites) : des morceaux de style vanilla, pour la diversité, sans rôle dans le lore

@@ -12,8 +12,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -28,8 +30,10 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import fr.anger.echoes.fireforge.cendreux.CendreuxEntity;
+import fr.anger.echoes.fireforge.registry.FFSounds;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -183,7 +187,7 @@ public class ForgeMasterEntity extends Monster {
             setAction(Action.STEAM);
             steamCooldown = STEAM_COOLDOWN;
             waveHit.clear();
-            playSound(SoundEvents.LAVA_EXTINGUISH, 2.0F, 0.6F);
+            playSound(FFSounds.FORGE_MASTER_STEAM.get(), 2.0F, 1.0F);
         }
     }
 
@@ -191,6 +195,7 @@ public class ForgeMasterEntity extends Monster {
         switch (action) {
             case SLAM_WINDUP -> {
                 if (actionTicks == 1) playSound(SoundEvents.PISTON_EXTEND, 1.5F, 0.5F);
+                if (actionTicks == SLAM_WINDUP_TICKS - 4) playSound(FFSounds.FORGE_MASTER_SWING.get(), 1.8F, 0.9F);
                 if (actionTicks >= SLAM_WINDUP_TICKS) {
                     setAction(Action.SLAM);
                     startWave();
@@ -202,6 +207,8 @@ public class ForgeMasterEntity extends Monster {
             case CHARGE -> {
                 // le rouage s'emballe : un bruit qui monte, le temps de s'écarter
                 if (actionTicks % 5 == 1) playSound(SoundEvents.GRINDSTONE_USE, 1.5F, 0.6F + actionTicks / (float) CHARGE_TICKS);
+                if (actionTicks == 1) playSound(FFSounds.FORGE_MASTER_STEAM.get(), 1.2F, 1.2F);          // la vapeur fuit
+                if (actionTicks == CHARGE_TICKS - 4) playSound(FFSounds.FORGE_MASTER_SWING.get(), 2.0F, 0.8F);
                 if (actionTicks >= CHARGE_TICKS) {
                     setAction(Action.BIG_STRIKE);
                     bigStrike();
@@ -222,8 +229,7 @@ public class ForgeMasterEntity extends Monster {
     private void startWave() {
         waveRadius = 0.5;
         waveHit.clear();
-        playSound(SoundEvents.ANVIL_LAND, 2.0F, 0.5F);
-        playSound(SoundEvents.GENERIC_EXPLODE.value(), 0.8F, 1.4F);
+        playSound(FFSounds.FORGE_MASTER_GROUND_HIT.get(), 2.5F, 1.0F);
     }
 
     private void tickWave() {
@@ -254,8 +260,7 @@ public class ForgeMasterEntity extends Monster {
 
     /** Le coup annoncé : devant lui, il traverse les boucliers. */
     private void bigStrike() {
-        playSound(SoundEvents.ANVIL_PLACE, 2.0F, 0.6F);
-        playSound(SoundEvents.GENERIC_EXPLODE.value(), 1.0F, 0.9F);
+        playSound(FFSounds.FORGE_MASTER_GROUND_HIT.get(), 2.5F, 0.85F);
         Vec3 look = Vec3.directionFromRotation(0, getYRot());
         for (LivingEntity victim : level().getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(BIG_STRIKE_REACH, 2, BIG_STRIKE_REACH))) {
             if (victim == this || victim instanceof CendreuxEntity) continue;
@@ -263,6 +268,7 @@ public class ForgeMasterEntity extends Monster {
             if (to.length() > BIG_STRIKE_REACH || (to.length() > 1 && to.normalize().dot(look) < 0.5)) continue;
             if (victim instanceof Player player && player.isBlocking()) player.disableShield();
             if (victim.hurt(damageSources().mobAttack(this), BIG_STRIKE_DAMAGE)) {
+                victim.playSound(FFSounds.FORGE_MASTER_HIT.get(), 1.5F, 0.9F);
                 Vec3 push = to.length() > 0.01 ? to.normalize().scale(1.1) : look.scale(1.1);
                 victim.push(push.x, 0.4, push.z);
                 victim.hurtMarked = true;
@@ -298,8 +304,8 @@ public class ForgeMasterEntity extends Monster {
 
     private void enterPhaseTwo() {
         entityData.set(PHASE_TWO, true);
-        playSound(SoundEvents.LAVA_EXTINGUISH, 2.5F, 0.5F);
-        playSound(SoundEvents.WITHER_SKELETON_AMBIENT, 2.0F, 0.5F);
+        playSound(FFSounds.FORGE_MASTER_STEAM.get(), 2.5F, 0.8F);
+        playSound(FFSounds.FORGE_MASTER_AMBIENT.get(), 2.0F, 0.8F);
         if (level() instanceof ServerLevel server) {
             server.sendParticles(ParticleTypes.CLOUD, getX(), getY() + 2, getZ(), 40, 0.8, 1.2, 0.8, 0.05);
             server.sendParticles(ParticleTypes.LAVA, getX(), getY() + 2.5, getZ(), 12, 0.5, 0.5, 0.5, 0);
@@ -393,17 +399,32 @@ public class ForgeMasterEntity extends Monster {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.WITHER_SKELETON_AMBIENT;
+        return FFSounds.FORGE_MASTER_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.WITHER_SKELETON_HURT;
+        return FFSounds.FORGE_MASTER_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.WITHER_SKELETON_DEATH;
+        return FFSounds.FORGE_MASTER_DEATH.get();
+    }
+
+    /** Ses pas : ceux d'Anger, lourds, à la place de ceux du bloc. */
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        playSound(FFSounds.FORGE_MASTER_STEP.get(), 1.0F, 1.0F);
+    }
+
+    /** Le coup simple : le marteau fend l'air, puis frappe. */
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        playSound(FFSounds.FORGE_MASTER_SWING.get(), 1.5F, 1.0F);
+        boolean hit = super.doHurtTarget(target);
+        if (hit) target.playSound(FFSounds.FORGE_MASTER_HIT.get(), 1.5F, 1.0F);
+        return hit;
     }
 
     @Override

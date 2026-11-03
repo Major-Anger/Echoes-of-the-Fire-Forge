@@ -384,5 +384,13 @@
   "entity.echoes_fireforge.forge_master": "Le Maître de forge",
   "item.echoes_fireforge.forge_master_spawn_egg": "Œuf d'apparition du Maître de forge",
   "block.echoes_fireforge.master_forge": "Forge du maître",
-  "message.echoes_fireforge.master_forge.ash": "Il faut %s Cendres d'Attiseur pour rallumer la forge"
+  "message.echoes_fireforge.master_forge.ash": "Il faut %s Cendres d'Attiseur pour rallumer la forge",
+  "subtitles.echoes_fireforge.forge_master.ground_hit": "Le marteau du maître frappe le sol",
+  "subtitles.echoes_fireforge.forge_master.hit": "Le marteau du maître frappe",
+  "subtitles.echoes_fireforge.forge_master.swing": "Le marteau du maître fend l'air",
+  "subtitles.echoes_fireforge.forge_master.steam": "La vapeur siffle",
+  "subtitles.echoes_fireforge.forge_master.step": "Pas lourds",
+  "subtitles.echoes_fireforge.forge_master.death": "Le maître de forge s'effondre",
+  "subtitles.echoes_fireforge.forge_master.ambient": "Le maître de forge râle",
+  "subtitles.echoes_fireforge.forge_master.hurt": "Le maître de forge est blessé"
 }

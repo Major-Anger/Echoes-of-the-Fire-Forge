@@ -4,6 +4,7 @@ import fr.anger.echoes.fireforge.cendreux.CendreuxEntity;
 import fr.anger.echoes.fireforge.registry.FFBlockEntities;
 import fr.anger.echoes.fireforge.registry.FFBlocks;
 import fr.anger.echoes.fireforge.registry.FFEntities;
+import fr.anger.echoes.fireforge.registry.FFSounds;
 import fr.anger.echoes.fireforge.structure.SealedDoorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -212,7 +213,7 @@ public class MasterForgeBlockEntity extends BlockEntity {
         }
         BlockPos mid = at((GATE_X0 + GATE_X1) / 2, 3, GATE_Z);
         level.playSound(null, mid, closed ? SoundEvents.PISTON_EXTEND : SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 2.0F, 0.5F);
-        level.playSound(null, mid, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1.5F, 0.7F);
+        level.playSound(null, mid, FFSounds.FORGE_MASTER_STEAM.get(), SoundSource.BLOCKS, 2.0F, 0.9F);
     }
 
     private void setFoyers(ServerLevel level, boolean on) {

@@ -384,5 +384,13 @@
   "entity.echoes_fireforge.forge_master": "The Forge Master",
   "item.echoes_fireforge.forge_master_spawn_egg": "Forge Master Spawn Egg",
   "block.echoes_fireforge.master_forge": "Master's Forge",
-  "message.echoes_fireforge.master_forge.ash": "It takes %s Stoker Ash to relight the forge"
+  "message.echoes_fireforge.master_forge.ash": "It takes %s Stoker Ash to relight the forge",
+  "subtitles.echoes_fireforge.forge_master.ground_hit": "Forge Master's hammer hits the ground",
+  "subtitles.echoes_fireforge.forge_master.hit": "Forge Master's hammer strikes",
+  "subtitles.echoes_fireforge.forge_master.swing": "Forge Master's hammer swings",
+  "subtitles.echoes_fireforge.forge_master.steam": "Steam hisses",
+  "subtitles.echoes_fireforge.forge_master.step": "Heavy footsteps",
+  "subtitles.echoes_fireforge.forge_master.death": "Forge Master collapses",
+  "subtitles.echoes_fireforge.forge_master.ambient": "Forge Master rattles",
+  "subtitles.echoes_fireforge.forge_master.hurt": "Forge Master hurts"
 }
