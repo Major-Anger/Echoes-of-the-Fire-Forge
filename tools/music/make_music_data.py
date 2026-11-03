@@ -10,6 +10,8 @@ le générique.
 Usage : python3 tools/music/make_music_data.py core/src/main/resources <dossier des .ogg> [nom=poids ...]
   ex. : python3 tools/music/make_music_data.py core/src/main/resources ~/musiques aube=2
 Chaque fichier <nom>.ogg devient echoes_core:music/<nom> (poids 1 par défaut).
+Volume : les morceaux d'Anger sont mixés plus fort que ceux du jeu (environ -13 LUFS contre -20) ; on les baisse dans
+le jeu (VOLUME) plutôt que de toucher aux fichiers.
 """
 import json
 import os
@@ -19,6 +21,7 @@ import sys
 RES, SRC = sys.argv[1], sys.argv[2]
 WEIGHTS = dict((a.split("=")[0], int(a.split("=")[1])) for a in sys.argv[3:])
 NS = "echoes_core"
+VOLUME = 0.4
 
 EVENTS = ["music.game", "music.creative", "music.menu"] + ["music.overworld." + b for b in (
     "badlands", "bamboo_jungle", "cherry_grove", "desert", "dripstone_caves", "flower_forest", "forest",
@@ -35,7 +38,7 @@ for name in tracks:
         sys.exit(f"nom invalide : {name} (minuscules, chiffres et _ seulement)")
     shutil.copyfile(os.path.join(SRC, name + ".ogg"), os.path.join(dest, name + ".ogg"))
 
-sounds = [{"name": f"{NS}:music/{n}", "stream": True, "weight": WEIGHTS.get(n, 1)} for n in tracks]
+sounds = [{"name": f"{NS}:music/{n}", "stream": True, "volume": VOLUME, "weight": WEIGHTS.get(n, 1)} for n in tracks]
 data = {event: {"replace": False, "sounds": sounds} for event in EVENTS}
 path = os.path.join(RES, "assets", "minecraft", "sounds.json")
 os.makedirs(os.path.dirname(path), exist_ok=True)
