@@ -42,6 +42,7 @@ public class MasterForgeBlockEntity extends BlockEntity {
 
     /** Ce bloc, dans le gabarit de l'arène. */
     private static final int AT_X = 29, AT_Y = 1, AT_Z = 26, SIZE = 60, HEIGHT = 30;
+    private static final String CALLED = "echoes_fireforge.called_by_forge";
     private static final int[][] FOYERS = {{10, 2, 10}, {49, 2, 10}, {10, 2, 49}, {49, 2, 49}};
     private static final double DAIS_X = 30.0, DAIS_Y = 2, DAIS_Z = 29.5;
     private static final int GATE_X0 = 28, GATE_X1 = 31, GATE_Y0 = 1, GATE_Y1 = 6, GATE_Z = 59;
@@ -156,8 +157,17 @@ public class MasterForgeBlockEntity extends BlockEntity {
         awake = false;
         empty = 0;
         setGate(level, false);
+        recallCendreux(level);
         setFoyers(level, false);
         setChanged();
+    }
+
+    /** Les Cendreux que la forge a appelés rentrent dans les foyers (sinon ils les rallumeraient). */
+    private void recallCendreux(ServerLevel level) {
+        for (CendreuxEntity c : level.getEntitiesOfClass(CendreuxEntity.class, arena().inflate(16), c -> c.getPersistentData().getBoolean(CALLED))) {
+            level.sendParticles(ParticleTypes.LARGE_SMOKE, c.getX(), c.getY() + 1, c.getZ(), 12, 0.4, 0.8, 0.4, 0.02);
+            c.discard();
+        }
     }
 
     /** Sa mort : la forge refroidit. */
@@ -228,6 +238,7 @@ public class MasterForgeBlockEntity extends BlockEntity {
             CendreuxEntity c = FFEntities.CENDREUX.get().create(level);
             if (c == null) continue;
             c.moveTo(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 2.5, level.random.nextFloat() * 360, 0);
+            c.getPersistentData().putBoolean(CALLED, true);
             EventHooks.finalizeMobSpawn(c, level, level.getCurrentDifficultyAt(p), MobSpawnType.MOB_SUMMONED, null);
             level.addFreshEntity(c);
             level.sendParticles(ParticleTypes.LARGE_SMOKE, p.getX() + 0.5, p.getY() + 1, p.getZ() + 0.5, 10, 0.4, 0.6, 0.4, 0.02);
