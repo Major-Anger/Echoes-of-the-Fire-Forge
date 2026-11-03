@@ -777,6 +777,10 @@ Le grand boss de la Forge.
   - ni le feu ni la lave ne l'atteignent.
 - **Ce qu'il laisse** : son marteau, arme jouable (marteau-pilon reforgeable à la Forge, un coup spécial à la
   vapeur) ; un plan unique, le carnet du maître de forge (texte d'Anger) ; un succès.
+- **Aperçus validés par Anger** : version 2 du boss (la cage thoracique s'arrête à la poitrine, la colonne dessous,
+  un bassin plus large), **la ceinture de forge** à la taille (boucle de laiton, une bourse) ; le marteau-pilon du
+  joueur fait la taille du joueur (environ 2 blocs). Anger retouche les textures des deux dans Blockbench
+  (`tools/textures/make_forgemaster_textures.py`, `tools/textures/make_steam_hammer_item.py` : les premières versions).
 - **Barre de boss** propre au mod, avec son nom : dans le style de la Forge (aperçu d'abord).
 - **Méthode** : le modèle se fait en fichier Blockbench (`.bbmodel`) qu'Anger peut retoucher, puis traduit en code ;
   textures originales (règle 4) ; planche d'aperçu à l'échelle (joueur, wither squelette) avant de coder.
