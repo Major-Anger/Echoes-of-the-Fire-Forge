@@ -69,15 +69,15 @@ public class ForgeMasterModel extends HierarchicalModel<ForgeMasterEntity> {
             }
             case CHARGE -> {                            // le rouage s'emballe, il arme le coup
                 float f = ease(t / 8);
-                armRight.xRot -= 1.4F * f;
-                armRight.zRot += 0.5F * f;
+                armRight.xRot -= 1.1F * f;
+                armRight.zRot -= 0.55F * f;                  // vers l'extérieur : le marteau s'écarte de la tête
                 armRight.xRot += Mth.sin(ageInTicks * 2.5F) * 0.04F * f;
             }
             case BIG_STRIKE -> {
                 float hit = ease(t / 3), back = ease((t - 5) / 7);
-                armRight.xRot += (-1.4F + 2.8F * hit) * (1 - back);
+                armRight.xRot += (-1.1F + 2.5F * hit) * (1 - back);
                 body.xRot += 0.25F * hit * (1 - back);
-                armRight.zRot += 0.5F * (1 - hit);
+                armRight.zRot -= 0.55F * (1 - hit);
                 body.yRot -= 0.35F * hit * (1 - back);
             }
             case STEAM -> armRight.zRot += 0.25F * Mth.sin(t * 0.3F);
