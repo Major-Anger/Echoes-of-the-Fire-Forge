@@ -104,6 +104,10 @@
       compte à rebours de 30 min, mort par la cendre, double `witherset/AshDoubleEntity`) : faite. Le set est fini,
       testé en jeu par Anger : tout fonctionne. La commande d'essai `/witherset` est encore là (à retirer avant la
       sortie ? à demander à Anger).
+  11. Le maître de forge (le boss, plan section 14, validé ; fichiers Blockbench d'Anger dans `art/forgemaster/`, qui
+      font foi : relancer `tools/models/make_forgemaster_model.py` après chaque retouche) : 14a (le boss, son combat en deux
+      phases, sa barre de boss, `forgemaster/`) : faite. 14b (l'arène, la porte, la forge du maître qui le fait revenir,
+      les foyers et les Cendreux de la phase 2) et 14c (le marteau-pilon du joueur, le carnet, le succès) : à faire.
 
 ## Points en attente (côté Anger)
 - Musiques du Core (décision d'Anger, faites) : des morceaux de style vanilla, pour la diversité, sans rôle dans le lore

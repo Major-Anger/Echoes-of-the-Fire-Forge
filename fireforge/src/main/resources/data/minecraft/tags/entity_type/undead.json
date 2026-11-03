@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "echoes_fireforge:ash_double"
+    "echoes_fireforge:ash_double",
+    "echoes_fireforge:forge_master"
   ]
 }

@@ -70,6 +70,8 @@ public final class FFItems {
             () -> new AshBedItem(new Item.Properties().fireResistant().stacksTo(16).rarity(Rarity.UNCOMMON)));
     public static final DeferredItem<DeferredSpawnEggItem> CENDREUX_SPAWN_EGG = ITEMS.register("cendreux_spawn_egg",
             () -> new DeferredSpawnEggItem(FFEntities.CENDREUX, 0x2A2523, 0xE8762A, new Item.Properties()));
+    public static final DeferredItem<DeferredSpawnEggItem> FORGE_MASTER_SPAWN_EGG = ITEMS.register("forge_master_spawn_egg",
+            () -> new DeferredSpawnEggItem(FFEntities.FORGE_MASTER, 0x1E1B1A, 0x96703C, new Item.Properties()));
 
     // Le set du Wither (plan, section 13) : forgé à la table de forgeron sur la netherite
     public static final DeferredItem<WitherArmorItem> WITHER_HELMET = witherPiece("wither_helmet", ArmorItem.Type.HELMET);

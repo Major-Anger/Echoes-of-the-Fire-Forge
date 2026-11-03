@@ -787,7 +787,7 @@ Le grand boss de la Forge.
 - **Gardée de côté** : la Grande Machine (la machine à vapeur qui a réchauffé le Nether, encore en marche), pour plus
   tard.
 
-### 14, plan du code (proposition, en attente d'Anger)
+### 14, plan du code (validé par Anger ; 14a faite)
 Aperçus validés : le boss (v2, ceinture), son marteau (repris de celui d'Anger), le marteau du joueur (fichier
 d'Anger `art/forgemaster/marteau_pilon.bbmodel`), la barre de boss, l'arène. En trois temps, une planche à chaque fois.
 
@@ -822,7 +822,13 @@ d'Anger `art/forgemaster/marteau_pilon.bbmodel`), la barre de boss, l'arène. En
   **Coup à la vapeur** (clic droit) : une onde de choc autour de soi, comme le boss, en dépensant 6 charges de
   vapeur (le système du bouilleur, étape 8b), 8 s d'attente.
 - **Le carnet du maître de forge** (un plan à lire, texte d'Anger, provisoire en attendant), à la première victoire.
-- **Un succès**, « Le maître de forge » ; pas d'Écho proposé (à décider : un Écho lié à la forge ?).
+- **Un succès**, « Le maître de forge » ; pas d'Écho (Anger n'en a pas voulu pour l'instant).
+
+**14a, telle que faite** : `forgemaster/ForgeMasterEntity` (le combat), `client/ForgeMasterModel` (les animations ;
+la géométrie `client/ForgeMasterGeometry` est générée depuis le fichier d'Anger par `tools/models/make_forgemaster_model.py`),
+`client/ForgeMasterRenderer`, `client/ForgeMasterBossBar` (textures `tools/textures/make_forgemaster_bar.py`), données
+`tools/data/make_forgemaster_data.py`, un œuf d'apparition (créatif) pour les essais. Les phases 2 « foyers et
+Cendreux » viennent avec l'arène (14b).
 
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu

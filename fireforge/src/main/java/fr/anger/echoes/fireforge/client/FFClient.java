@@ -27,10 +27,12 @@ public final class FFClient {
         event.registerBlockEntityRenderer(FFBlockEntities.FIRE_FORGE.get(), FireForgeRenderer::new);
         event.registerEntityRenderer(FFEntities.CENDREUX.get(), CendreuxRenderer::new);
         event.registerEntityRenderer(FFEntities.ASH_DOUBLE.get(), AshDoubleRenderer::new);
+        event.registerEntityRenderer(FFEntities.FORGE_MASTER.get(), ForgeMasterRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(CendreuxModel.LAYER, CendreuxModel::createLayer);
+        event.registerLayerDefinition(ForgeMasterModel.LAYER, ForgeMasterModel::createLayer);
     }
 }

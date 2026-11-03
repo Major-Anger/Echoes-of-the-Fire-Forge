@@ -2,6 +2,7 @@ package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.cendreux.CendreuxEntity;
+import fr.anger.echoes.fireforge.forgemaster.ForgeMasterEntity;
 import fr.anger.echoes.fireforge.witherset.AshDoubleEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -34,10 +35,17 @@ public final class FFEntities {
                     .sized(0.72F, 2.4F).eyeHeight(2.1F).fireImmune().clientTrackingRange(8)
                     .build(EchoesFireForge.id("ash_double").toString()));
 
+    /** Le maître de forge (plan, section 14) : 4 blocs, ne brûle pas. */
+    public static final DeferredHolder<EntityType<?>, EntityType<ForgeMasterEntity>> FORGE_MASTER = ENTITIES.register("forge_master",
+            () -> EntityType.Builder.of(ForgeMasterEntity::new, MobCategory.MONSTER)
+                    .sized(1.4F, 4.0F).eyeHeight(3.5F).fireImmune().clientTrackingRange(10)
+                    .build(EchoesFireForge.id("forge_master").toString()));
+
     @SubscribeEvent
     public static void attributes(EntityAttributeCreationEvent event) {
         event.put(CENDREUX.get(), CendreuxEntity.createAttributes().build());
         event.put(ASH_DOUBLE.get(), AshDoubleEntity.createAttributes().build());
+        event.put(FORGE_MASTER.get(), ForgeMasterEntity.createAttributes().build());
     }
 
     @SubscribeEvent
