@@ -757,6 +757,30 @@ de la Tablette XIII). On ne dit jamais d'où vient la maladie : ni les machines,
     l'armure, et ne la rend qu'à qui le bat. »).
 - Le set du Wither est fini.
 
+## 14. Le maître de forge (idée d'Anger, validé ; aperçus à venir)
+Le grand boss de la Forge.
+- **Qui** : le maître d'une grande forge, un Attiseur changé par la maladie comme les autres (on ne dit jamais
+  d'où elle vient), resté bien plus grand et plus fort, qui tient encore son outil. Un très grand wither squelette,
+  environ **4 blocs**.
+- **Son marteau** (dessin d'Anger) : un marteau-pilon. Une grosse tête de métal avec une large plaque de frappe d'un
+  côté, un rouage sur le flanc qui tourne, un gros boulon sur le dessus qui fixe le manche à la tête, un embout à
+  l'arrière d'où la vapeur sort en bouffées ; un long manche et un contrepoids au bout.
+- **Où** : dans une **grande forge** (nouvelle structure, à préciser avec Anger : salle creusée ou à l'air libre,
+  unique ou rare).
+- **Le combat** :
+  - phase 1 : coup au sol et onde de choc (on l'évite en sautant) ; le rouage s'emballe avant une frappe plus forte,
+    ce qui laisse le temps de s'écarter ;
+  - phase 2 (à mi-vie) : il frappe plus vite, le marteau crache des jets de vapeur brûlante par l'arrière, il
+    rallume les foyers de la forge et des Cendreux viennent l'aider ;
+  - ni le feu ni la lave ne l'atteignent.
+- **Ce qu'il laisse** : son marteau, arme jouable (marteau-pilon reforgeable à la Forge, un coup spécial à la
+  vapeur) ; un plan unique, le carnet du maître de forge (texte d'Anger) ; un succès.
+- **Barre de boss** propre au mod, avec son nom : dans le style de la Forge (aperçu d'abord).
+- **Méthode** : le modèle se fait en fichier Blockbench (`.bbmodel`) qu'Anger peut retoucher, puis traduit en code ;
+  textures originales (règle 4) ; planche d'aperçu à l'échelle (joueur, wither squelette) avant de coder.
+- **Gardée de côté** : la Grande Machine (la machine à vapeur qui a réchauffé le Nether, encore en marche), pour plus
+  tard.
+
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
 avant toute intégration (règles 4 et 5).
