@@ -17,10 +17,15 @@ rnd = random.Random(14)
 # ------------------------------------------------------------------ le modèle (4 blocs de haut)
 # (nom, parent, pivot, décalage, taille, matière, rotation, gonflement, miroir)
 SPEC = [
-    ("body", None, (0, 28, 0), (-8, 0, -3.5), (16, 22, 7), "ribs", (0, 0, 0), 0),
-    ("core", "body", (0, 0, 0), (-4, 6, -2.5), (8, 10, 4), "core", (0, 0, 0), 0),
-    ("pelvis", "body", (0, 0, 0), (-5, -3, -2), (10, 3, 4), "bone", (0, 0, 0), 0),
-    ("apron", "body", (0, 0, 0), (-6, -16, 2), (12, 17, 1), "apron", (0, 0, 0), 0),
+    ("body", None, (0, 28, 0), (-1.5, 0, -1.5), (3, 8, 3), "bone", (0, 0, 0), 0),      # la colonne
+    ("chest", "body", (0, 0, 0), (-8, 8, -3.5), (16, 14, 7), "ribs", (0, 0, 0), 0),     # la cage thoracique
+    ("core", "body", (0, 0, 0), (-4, 10, -2.5), (8, 8, 4), "core", (0, 0, 0), 0),
+    ("pelvis", "body", (0, 0, 0), (-6, -3, -3), (12, 5, 6), "bone", (0, 0, 0), 0),
+    # au choix (planche) : rien, une ceinture de forge, un tablier court
+    ("belt", "body", (0, 0, 0), (-6.5, 0, -3.5), (13, 2, 7), "leather", (0, 0, 0), 0),
+    ("buckle", "body", (0, 0, 0), (-1.5, -0.5, 3.5), (3, 3, 1), "bolt", (0, 0, 0), 0),
+    ("pouch", "body", (0, 0, 0), (3, -4, 3.5), (3, 4, 2), "leather", (0, 0, 0), 0),
+    ("apron", "body", (0, 0, 0), (-5, -11, 3), (10, 12, 1), "apron", (0, 0, 0), 0),
     ("head", "body", (0, 22, 0), (-6, 0, -6), (12, 12, 12), "skull", (0, 0, 0), 0),
     ("goggles", "head", (0, 0, 0), (-6, 7, -6), (12, 3, 12), "goggles", (0, 0, 0), 0.45),
     ("pauldron_r", "body", (0, 0, 0), (-13, 18, -4.5), (7, 6, 9), "brass", (0, 0, 0), 0),
@@ -55,13 +60,24 @@ for name, _, _, _, size, *_ in sorted(SPEC, key=lambda s: -footprint(s[4])[1]):
     x, row = x + fw, max(row, fh)
 assert y + row <= TEX, "la texture déborde"
 
-PARTS = []
+OPTIONAL = {"belt", "buckle", "pouch", "apron"}
+VARIANTS = {"rien": set(), "ceinture": {"belt", "buckle", "pouch"}, "tablier court": {"apron"}}
+
+ALL_PARTS = []
 for s in SPEC:
     name, parent, pivot, off, size, mat, r, inf = s[:8]
     part = (name, parent, pivot, off, size, uvs[name], r, inf)
     if len(s) > 8:
         part += (s[8],)
-    PARTS.append(part)
+    ALL_PARTS.append(part)
+
+
+def parts(variant="ceinture"):
+    keep = VARIANTS[variant]
+    return [p for p in ALL_PARTS if p[0] not in OPTIONAL or p[0] in keep]
+
+
+PARTS = parts()
 
 # ------------------------------------------------------------------ la texture
 tex = Image.new("RGBA", (TEX, TEX), (0, 0, 0, 0))
@@ -122,6 +138,10 @@ def paint(mat, face, rect):
             elif mat == "core":
                 c = (255, 130 + rnd.randint(-30, 40), 30, 255)
                 gx[X, Y] = c
+            elif mat == "leather":
+                c = jitter(LEATHER, 6)
+                if edge:
+                    c = LEATHER_DARK + (255,)
             elif mat == "apron":
                 c = jitter(LEATHER, 6)
                 if rnd.random() < 0.12:
