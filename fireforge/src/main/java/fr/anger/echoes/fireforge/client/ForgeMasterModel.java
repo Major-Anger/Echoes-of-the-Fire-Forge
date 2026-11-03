@@ -10,7 +10,8 @@ import net.minecraft.util.Mth;
 
 /**
  * Le maître de forge : la géométrie vient du fichier Blockbench d'Anger (ForgeMasterGeometry, généré) ; ici, les
- * animations. Le marteau lève et s'abat, le rouage tourne, s'emballe avant la grosse frappe.
+ * animations, réglées sur la pose d'Anger (le marteau levé devant lui) : il le lève plus haut, l'abat jusqu'au sol ;
+ * le rouage tourne, s'emballe avant la grosse frappe.
  */
 public class ForgeMasterModel extends HierarchicalModel<ForgeMasterEntity> {
 
@@ -63,8 +64,8 @@ public class ForgeMasterModel extends HierarchicalModel<ForgeMasterEntity> {
             }
             case SLAM -> {                              // et l'abat
                 float down = ease(t / 3), back = ease((t - 6) / 8);
-                armRight.xRot += -2.7F * (1 - down) + 0.55F * down * (1 - back);
-                body.xRot += 0.2F * down * (1 - back);
+                armRight.xRot += -2.7F * (1 - down) + 1.5F * down * (1 - back);   // la tête du marteau jusqu'au sol, devant lui
+                body.xRot += 0.35F * down * (1 - back);
             }
             case CHARGE -> {                            // le rouage s'emballe, il arme le coup
                 float f = ease(t / 8);
@@ -74,7 +75,8 @@ public class ForgeMasterModel extends HierarchicalModel<ForgeMasterEntity> {
             }
             case BIG_STRIKE -> {
                 float hit = ease(t / 3), back = ease((t - 5) / 7);
-                armRight.xRot += (-1.4F + 2.1F * hit) * (1 - back);
+                armRight.xRot += (-1.4F + 2.8F * hit) * (1 - back);
+                body.xRot += 0.25F * hit * (1 - back);
                 armRight.zRot += 0.5F * (1 - hit);
                 body.yRot -= 0.35F * hit * (1 - back);
             }
@@ -84,7 +86,7 @@ public class ForgeMasterModel extends HierarchicalModel<ForgeMasterEntity> {
         // le coup au corps à corps
         if (attackTime > 0) {
             float swing = Mth.sin(attackTime * Mth.PI);
-            armRight.xRot -= 1.9F * swing;
+            armRight.xRot += 1.3F * swing;                                          // il abat le marteau devant lui
             body.yRot -= 0.25F * swing;
         }
         float spin = entity.action() == ForgeMasterEntity.Action.CHARGE ? 0.9F : entity.isPhaseTwo() ? 0.35F : 0.12F;

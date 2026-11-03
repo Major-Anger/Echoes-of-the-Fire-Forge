@@ -47,7 +47,7 @@ final class ForgeMasterGeometry {
         PartDefinition arm_r = body.addOrReplaceChild("arm_r", CubeListBuilder.create().texOffs(12, 0).addBox(-1.5F, 0F, -1.5F, 3F, 28F, 3F),
                 PartPose.offsetAndRotation(-11F, -20F, 0F, -6F * DEG, 0, 4F * DEG));
         PartDefinition hammer = arm_r.addOrReplaceChild("hammer", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -22F, -1.5F, 3F, 30F, 3F),
-                PartPose.offsetAndRotation(0F, 23F, 0F, 6F * DEG, 0, -4F * DEG));
+                PartPose.offsetAndRotation(-1.3F, 13F, -13F, -93.609F * DEG, -46.4375F * DEG, -91.1217F * DEG));
         PartDefinition counterweight = hammer.addOrReplaceChild("counterweight", CubeListBuilder.create().texOffs(36, 93).addBox(-2.5F, -27F, -2.5F, 5F, 5F, 5F),
                 PartPose.offsetAndRotation(0F, 0F, 0F, 0, 0, 0));
         PartDefinition counterweight_cap = hammer.addOrReplaceChild("counterweight_cap", CubeListBuilder.create().texOffs(72, 104).addBox(-1.5F, -29F, -1.5F, 3F, 2F, 3F),
