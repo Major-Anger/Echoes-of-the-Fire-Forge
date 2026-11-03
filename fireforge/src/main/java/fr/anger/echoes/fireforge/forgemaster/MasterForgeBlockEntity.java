@@ -162,7 +162,7 @@ public class MasterForgeBlockEntity extends BlockEntity {
         setChanged();
     }
 
-    /** Les Cendreux que la forge a appelés rentrent dans les foyers (sinon ils les rallumeraient). */
+    /** Les Cendreux que la forge a appelés rentrent dans les foyers quand il se rendort ou meurt (sinon ils les rallumeraient). */
     private void recallCendreux(ServerLevel level) {
         for (CendreuxEntity c : level.getEntitiesOfClass(CendreuxEntity.class, arena().inflate(16), c -> c.getPersistentData().getBoolean(CALLED))) {
             level.sendParticles(ParticleTypes.LARGE_SMOKE, c.getX(), c.getY() + 1, c.getZ(), 12, 0.4, 0.8, 0.4, 0.02);
@@ -180,6 +180,7 @@ public class MasterForgeBlockEntity extends BlockEntity {
         awake = false;
         master = null;
         setGate(level, false);
+        recallCendreux(level);
         setFoyers(level, false);
         setHearth(level, false);
         level.playSound(null, worldPosition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 2.0F, 0.5F);

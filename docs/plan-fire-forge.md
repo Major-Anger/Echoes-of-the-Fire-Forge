@@ -826,6 +826,15 @@ la mène : il réveille le boss quand un joueur entre, ferme et rouvre la porte,
 les Cendreux, rend la forge froide à sa mort (l'âtre de braise devient basalte) et la rallume avec 8 Cendres d'Attiseur
 (clic droit sur l'âtre).
 
+**14b, telle que faite** : `structure/ForgeArenaStructure` (la recherche, comme la chaufferie : un sol de grotte, une
+paroi au nord, un couloir de 0 à 8 blocs, la salle enfouie à 85 % sans lave ; ensemble `forge_arena`, 128/32),
+`forgemaster/MasterForgeBlock` et `MasterForgeBlockEntity` (la forge du maître : il dort entre son âtre et son enclume ;
+réveil, porte de 24 blocs `sealed_machine`, sommeil au bout de 30 s sans joueur, foyers et Cendreux en phase 2, forge
+froide à sa mort), `forgemaster/ForgeArenaEvents` (le rallumage à 8 Cendres d'Attiseur), `client/ForgeArenaAmbience`
+(brouillard roux, cendres blanches à moins de 40 blocs du maître) ; gabarit `tools/structures/make_structures.py`
+(`forge_arena`), données `tools/data/make_structures_data.py` (dont le coffre `chests/forge_arena`). Les Cendreux appelés
+par la forge rentrent dans les foyers quand il se rendort ou meurt (sinon ils rallumeraient les foyers, étape 12c).
+
 **14c, ce qu'il laisse**
 - **Le marteau-pilon** (le modèle d'Anger) : à la première victoire à coup sûr, ensuite une fois sur trois.
   Arme lourde : 10 de dégâts, lente (0,8 coup par seconde), reforgeable à la Forge (avec les Spéciaux de la masse).
