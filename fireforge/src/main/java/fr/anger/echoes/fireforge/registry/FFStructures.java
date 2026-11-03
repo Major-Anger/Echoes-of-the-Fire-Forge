@@ -4,6 +4,7 @@ import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.structure.BoilerHallStructure;
 import fr.anger.echoes.fireforge.structure.CeilingChimneyStructure;
 import fr.anger.echoes.fireforge.structure.FloorRuinStructure;
+import fr.anger.echoes.fireforge.structure.ForgeArenaStructure;
 import fr.anger.echoes.fireforge.structure.ForgeTemplatePiece;
 import fr.anger.echoes.fireforge.structure.FortressAnnexStructure;
 import fr.anger.echoes.fireforge.structure.HallCorridorPiece;
@@ -38,6 +39,10 @@ public final class FFStructures {
     public static final DeferredHolder<StructureType<?>, StructureType<CeilingChimneyStructure>> CEILING_CHIMNEY =
             TYPES.register("ceiling_chimney", () -> () -> CeilingChimneyStructure.CODEC);
 
+    /** L'arène du maître de forge (plan, 14b). */
+    public static final DeferredHolder<StructureType<?>, StructureType<ForgeArenaStructure>> FORGE_ARENA =
+            TYPES.register("forge_arena", () -> () -> ForgeArenaStructure.CODEC);
+
     public static final DeferredHolder<StructurePieceType, StructurePieceType> TEMPLATE_PIECE =
             PIECES.register("template", () -> (StructurePieceType.StructureTemplateType) ForgeTemplatePiece::new);
     public static final DeferredHolder<StructurePieceType, StructurePieceType> CORRIDOR_PIECE =
@@ -54,6 +59,7 @@ public final class FFStructures {
     public static final ResourceKey<Structure> BOILER_HALL_KEY = key("boiler_hall");
     public static final ResourceKey<Structure> LAST_HEARTH = key("last_hearth");
     public static final ResourceKey<Structure> CEILING_CHIMNEY_KEY = key("ceiling_chimney");
+    public static final ResourceKey<Structure> FORGE_ARENA_KEY = key("forge_arena");
 
     /** Là où vivent les Cendreux, en plus des abords de la lave : forteresses, chaufferies, derniers foyers. */
     public static final TagKey<Structure> CENDREUX_HOMES = TagKey.create(Registries.STRUCTURE, EchoesFireForge.id("cendreux_homes"));

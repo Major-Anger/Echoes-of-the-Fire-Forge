@@ -1,0 +1,6 @@
+{
+  "type": "echoes_fireforge:forge_arena",
+  "biomes": "#echoes_fireforge:has_structure/forge_arena",
+  "step": "underground_structures",
+  "spawn_overrides": {}
+}

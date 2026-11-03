@@ -6,6 +6,7 @@ import fr.anger.echoes.fireforge.mechanism.LampLightBlock;
 import fr.anger.echoes.fireforge.mechanism.SteamLamp;
 import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
 import fr.anger.echoes.fireforge.structure.SealedDoorBlock;
+import fr.anger.echoes.fireforge.forgemaster.MasterForgeBlock;
 import fr.anger.echoes.fireforge.workbench.SteamBoilerBlock;
 import fr.anger.echoes.fireforge.workbench.WorkbenchBlock;
 import net.minecraft.world.level.block.Block;
@@ -41,6 +42,15 @@ public final class FFBlocks {
                     .mapColor(MapColor.COLOR_BLACK)
                     .requiresCorrectToolForDrops()
                     .strength(30.0F, 1200.0F)
+                    .noLootTable()
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
+                    .sound(SoundType.ANCIENT_DEBRIS)));
+
+    /** La forge du maître (plan, 14b) : cachée sous l'âtre de son arène, elle la mène. Pas d'objet, incassable. */
+    public static final DeferredBlock<MasterForgeBlock> MASTER_FORGE = BLOCKS.register("master_forge",
+            () -> new MasterForgeBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .strength(-1.0F, 3600000.0F)
                     .noLootTable()
                     .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
                     .sound(SoundType.ANCIENT_DEBRIS)));

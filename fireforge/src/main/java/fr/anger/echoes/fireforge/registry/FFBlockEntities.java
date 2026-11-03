@@ -7,6 +7,7 @@ import fr.anger.echoes.fireforge.forge.ForgeHopperAccess;
 import fr.anger.echoes.fireforge.module.ForgeModuleBlock;
 import fr.anger.echoes.fireforge.module.ModuleFluidAccess;
 import fr.anger.echoes.fireforge.structure.SealedDoorBlockEntity;
+import fr.anger.echoes.fireforge.forgemaster.MasterForgeBlockEntity;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -39,6 +40,11 @@ public final class FFBlockEntities {
     @SuppressWarnings("DataFlowIssue")
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SealedDoorBlockEntity>> SEALED_DOOR = BLOCK_ENTITIES.register("sealed_door",
             () -> BlockEntityType.Builder.of(SealedDoorBlockEntity::new, FFBlocks.SEALED_MACHINE.get()).build(null));
+
+    /** La forge du maître, qui mène son arène (plan, 14b). */
+    @SuppressWarnings("DataFlowIssue")
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MasterForgeBlockEntity>> MASTER_FORGE = BLOCK_ENTITIES.register("master_forge",
+            () -> BlockEntityType.Builder.of(MasterForgeBlockEntity::new, FFBlocks.MASTER_FORGE.get()).build(null));
 
     /** Les entonnoirs fonctionnent sur les deux moitiés de la forge ; les tuyaux remplissent ses modules. */
     @SubscribeEvent

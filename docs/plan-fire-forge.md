@@ -816,6 +816,16 @@ d'Anger `art/forgemaster/marteau_pilon.bbmodel`), la barre de boss, l'arène. En
 - **Il revient** : après sa mort, la forge est froide ; on la **rallume avec 8 Cendres d'Attiseur** (clic droit),
   et il se réveille. Une ambiance à l'arène (brouillard, cendres qui flottent) ; sa musique plus tard.
 
+**14b, aperçu validé par Anger** : la salle de 60 x 60 x 30 (murs à piliers et bandes de laiton, sol à motifs, gradins
+à trois marches, rigoles de lave sous des grilles au pied des gradins et autour de l'estrade, l'estrade et son âtre,
+sa grande cheminée, son enclume, quatre foyers aux coins sous des hottes, chaînes et lanternes, une entrée au sud) ;
+la porte est une herse de machines (le bloc technique de la porte scellée) qui descend dans un jet de vapeur ; un
+coffre près de l'enclume. Anger fournit ses sons du marteau qui frappe le sol (convertis en .ogg mono).
+Mise en œuvre : l'arène ne tourne pas (son entrée toujours au sud) ; un bloc caché sous l'âtre, la « forge du maître »,
+la mène : il réveille le boss quand un joueur entre, ferme et rouvre la porte, rallume les foyers en phase 2, fait sortir
+les Cendreux, rend la forge froide à sa mort (l'âtre de braise devient basalte) et la rallume avec 8 Cendres d'Attiseur
+(clic droit sur l'âtre).
+
 **14c, ce qu'il laisse**
 - **Le marteau-pilon** (le modèle d'Anger) : à la première victoire à coup sûr, ensuite une fois sur trois.
   Arme lourde : 10 de dégâts, lente (0,8 coup par seconde), reforgeable à la Forge (avec les Spéciaux de la masse).

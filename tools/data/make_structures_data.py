@@ -50,6 +50,7 @@ BIOMES = {
     "boiler_hall": ["#minecraft:is_nether"],       # creusée dans la roche : partout
     "fortress_annex": ["#minecraft:is_nether"],    # partout où il y a une forteresse
     "ceiling_chimney": ["#minecraft:is_nether"],
+    "forge_arena": ["#minecraft:is_nether"],       # l'arène du maître de forge (14b) : creusée dans la roche
 }
 for name, biomes in BIOMES.items():
     write(os.path.join(D, "tags/worldgen/biome/has_structure", name + ".json"), {"values": biomes})
@@ -76,6 +77,7 @@ structure("last_hearth", "floor_ruin", spawns=[dict(CENDREUX, maxCount=1)], temp
 structure("boiler_hall", "boiler_hall", step="underground_structures", spawns=[CENDREUX])
 structure("fortress_annex", "fortress_annex", chance=1.0 / 3.0)
 structure("ceiling_chimney", "ceiling_chimney", step="underground_structures")
+structure("forge_arena", "forge_arena", step="underground_structures")
 
 # ---------------------------------------------------------------------- où et à quelle fréquence (validé par Anger)
 SALT = 61450300
@@ -97,10 +99,12 @@ structure_set("boiler_hall", [("boiler_hall", 1)], 64, 16, SALT + 3)
 structure_set("fortress_annex", [("fortress_annex", 1)], 1, 0, SALT + 4)
 # les cheminées du plafond : une par carré de 32 tronçons
 structure_set("ceiling_chimney", [("ceiling_chimney", 1)], 32, 8, SALT + 5)
+# l'arène du maître de forge : très rare, une par carré de 128 tronçons
+structure_set("forge_arena", [("forge_arena", 1)], 128, 32, SALT + 6)
 
 # les Cendreux vivent dans les forteresses, les chaufferies, les derniers foyers
 write(os.path.join(D, "tags/worldgen/structure/cendreux_homes.json"), {"values": [
-    "minecraft:fortress", NS + ":boiler_hall", NS + ":last_hearth"]})
+    "minecraft:fortress", NS + ":boiler_hall", NS + ":last_hearth", NS + ":forge_arena"]})
 
 # ---------------------------------------------------------------------- le butin des coffres
 
@@ -180,6 +184,18 @@ chest("last_hearth",
                     item("minecraft:gold_nugget", 4, 1, 4), item("machine_gear", 3)]),
       pool(1, [empty(80), *plans(4)]))
 
+# l'arène : le coffre près de l'enclume (le butin du maître lui-même vient en 14c)
+chest("forge_arena",
+      pool((4, 6), [item("machine_gear", 8, 2, 4), item("machine_valve", 8, 2, 4), item("engraved_plate", 6, 1, 3),
+                    item("stoker_ash", 8, 4, 8), item("minecraft:gold_ingot", 6, 2, 6), item("minecraft:iron_ingot", 6, 3, 8),
+                    item("minecraft:diamond", 3, 1, 3), item("minecraft:netherite_scrap", 2)]),
+      pool(1, [empty(40), item("workbench_plan", 30), *plans(6)]),
+      pool(2, [empty(30), templates(70)]),
+      pool(1, [empty(80), item("wither_template", 20)]))
+
+# ---------------------------------------------------------------------- la forge du maître (bloc technique, 14b)
+write(os.path.join(A, "blockstates/master_forge.json"), {"variants": {"": {"model": NS + ":block/compressed_machine"}}})
+
 # ---------------------------------------------------------------------- la porte scellée
 write(os.path.join(A, "blockstates/sealed_machine.json"), {"variants": {
     "lock=false": {"model": NS + ":block/compressed_machine"}, "lock=true": {"model": NS + ":block/compressed_machine"}}})
@@ -195,6 +211,8 @@ def t(key, fr, en):
 
 
 t("block.echoes_fireforge.sealed_machine", "Porte scellée", "Sealed Door")
+t("block.echoes_fireforge.master_forge", "Forge du maître", "Master's Forge")
+t("message.echoes_fireforge.master_forge.ash", "Il faut %s Cendres d'Attiseur pour rallumer la forge", "It takes %s Stoker Ash to relight the forge")
 
 for lang, data in (("fr_fr", FR), ("en_us", EN)):
     path = os.path.join(A, "lang", lang + ".json")

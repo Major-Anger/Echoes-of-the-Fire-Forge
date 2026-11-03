@@ -59,6 +59,9 @@ public class ForgeMasterEntity extends Monster {
     private int actionStart;
     private double waveRadius = -1;
     private final Set<UUID> waveHit = new HashSet<>();
+    /** Sa forge (l'arène), s'il en a une. */
+    @org.jetbrains.annotations.Nullable
+    private net.minecraft.core.BlockPos arena;
 
     public ForgeMasterEntity(EntityType<? extends ForgeMasterEntity> type, Level level) {
         super(type, level);
@@ -306,12 +309,54 @@ public class ForgeMasterEntity extends Monster {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!level().isClientSide) bossEvent.setProgress(getHealth() / getMaxHealth());
+        if (!level().isClientSide) {
+            bossEvent.setProgress(getHealth() / getMaxHealth());
+            bossEvent.setVisible(!isNoAi());                 // endormi sur son estrade : pas de barre
+        }
         if (level().isClientSide && (action() == Action.CHARGE || isPhaseTwo() && tickCount % 4 == 0)) {
             // la vapeur s'échappe de la bouche du marteau, à sa droite
             Vec3 right = Vec3.directionFromRotation(0, yBodyRot + 90);
             level().addParticle(ParticleTypes.CLOUD, getX() - right.x * 0.9, getY() + 0.7, getZ() - right.z * 0.9, 0, 0.04, 0);
         }
+    }
+
+    // ------------------------------------------------------------------ son arène (14b)
+
+    public void setArena(net.minecraft.core.BlockPos forge) {
+        this.arena = forge;
+    }
+
+    /** Il retourne sur son estrade, guéri, et se rendort (plus personne dans l'arène). */
+    void restAt(Vec3 dais) {
+        setHealth(getMaxHealth());
+        entityData.set(PHASE_TWO, false);
+        setAction(Action.NONE);
+        waveRadius = -1;
+        setTarget(null);
+        getNavigation().stop();
+        moveTo(dais.x, dais.y, dais.z, 0, 0);
+        setYHeadRot(0);
+        setYBodyRot(0);
+        setNoAi(true);
+    }
+
+    @org.jetbrains.annotations.Nullable
+    private MasterForgeBlockEntity forge() {
+        return arena != null && level().getBlockEntity(arena) instanceof MasterForgeBlockEntity forge ? forge : null;
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        // on le frappe pendant qu'il dort : il se réveille
+        if (!level().isClientSide && isNoAi() && forge() != null && level() instanceof ServerLevel server) forge().wake(server, this);
+        return super.hurt(source, amount);
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        super.die(source);
+        MasterForgeBlockEntity forge = forge();
+        if (forge != null && level() instanceof ServerLevel server) forge.onMasterDeath(server);
     }
 
     // ------------------------------------------------------------------ la barre de boss
@@ -375,12 +420,14 @@ public class ForgeMasterEntity extends Monster {
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("phase_two", isPhaseTwo());
+        if (arena != null) tag.putLong("arena", arena.asLong());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         entityData.set(PHASE_TWO, tag.getBoolean("phase_two"));
+        arena = tag.contains("arena") ? net.minecraft.core.BlockPos.of(tag.getLong("arena")) : null;
         if (hasCustomName()) bossEvent.setName(getDisplayName());
     }
 }

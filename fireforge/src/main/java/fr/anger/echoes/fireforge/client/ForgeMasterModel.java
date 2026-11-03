@@ -55,6 +55,10 @@ public class ForgeMasterModel extends HierarchicalModel<ForgeMasterEntity> {
         legLeft.xRot -= walk;
         armLeft.xRot -= walk * 0.6F;
 
+        if (entity.isNoAi()) {                          // endormi sur son estrade : la tête basse
+            head.xRot += 0.75F;
+            body.xRot += 0.12F;
+        }
         float t = entity.actionAge(ageInTicks);
         switch (entity.action()) {
             case SLAM_WINDUP -> {                       // il lève le marteau au-dessus de sa tête

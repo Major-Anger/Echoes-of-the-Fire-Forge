@@ -577,6 +577,8 @@ def forge_arena():
         b.fill(x, 1, N - 1, x, 6, N - 1, PIPE)
     b.fill(c - 3, 7, N - 1, c + 2, 7, N - 1, BRASS)
     b.chest(c + 3, 3, c + 1, "west", "forge_arena")
+    # sous l'âtre, la forge du maître (forgemaster/MasterForgeBlockEntity) : elle le fait apparaître, endormi
+    b.set(c - 1, 1, c - 4, S(NS + ":master_forge"), Compound({"id": String(NS + ":master_forge"), "fresh": Byte(1)}))
     return b
 
 

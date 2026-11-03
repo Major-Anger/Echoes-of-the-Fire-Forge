@@ -382,5 +382,7 @@
   "guide.echoes_fireforge.cat.plans.desc": "The Stokers' plans, engraved on brass and found in compressed machines.\n\nThe erased pages are waiting to be found.",
   "block.echoes_fireforge.sealed_machine": "Sealed Door",
   "entity.echoes_fireforge.forge_master": "The Forge Master",
-  "item.echoes_fireforge.forge_master_spawn_egg": "Forge Master Spawn Egg"
+  "item.echoes_fireforge.forge_master_spawn_egg": "Forge Master Spawn Egg",
+  "block.echoes_fireforge.master_forge": "Master's Forge",
+  "message.echoes_fireforge.master_forge.ash": "It takes %s Stoker Ash to relight the forge"
 }

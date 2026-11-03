@@ -382,5 +382,7 @@
   "guide.echoes_fireforge.cat.plans.desc": "Les plans des Attiseurs, gravés sur laiton et retrouvés dans les machines comprimées.\n\nLes pages effacées attendent d'être découvertes.",
   "block.echoes_fireforge.sealed_machine": "Porte scellée",
   "entity.echoes_fireforge.forge_master": "Le Maître de forge",
-  "item.echoes_fireforge.forge_master_spawn_egg": "Œuf d'apparition du Maître de forge"
+  "item.echoes_fireforge.forge_master_spawn_egg": "Œuf d'apparition du Maître de forge",
+  "block.echoes_fireforge.master_forge": "Forge du maître",
+  "message.echoes_fireforge.master_forge.ash": "Il faut %s Cendres d'Attiseur pour rallumer la forge"
 }

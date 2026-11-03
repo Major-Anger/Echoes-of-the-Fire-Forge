@@ -2,6 +2,7 @@
   "values": [
     "minecraft:fortress",
     "echoes_fireforge:boiler_hall",
-    "echoes_fireforge:last_hearth"
+    "echoes_fireforge:last_hearth",
+    "echoes_fireforge:forge_arena"
   ]
 }
