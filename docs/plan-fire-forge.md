@@ -787,6 +787,43 @@ Le grand boss de la Forge.
 - **Gardée de côté** : la Grande Machine (la machine à vapeur qui a réchauffé le Nether, encore en marche), pour plus
   tard.
 
+### 14, plan du code (proposition, en attente d'Anger)
+Aperçus validés : le boss (v2, ceinture), son marteau (repris de celui d'Anger), le marteau du joueur (fichier
+d'Anger `art/forgemaster/marteau_pilon.bbmodel`), la barre de boss, l'arène. En trois temps, une planche à chaque fois.
+
+**14a, le maître de forge et son combat**
+- Entité de 4 blocs (0,9 x 4), **400 points de vie** (le Wither : 300), armure 10, ne recule pas, insensible au feu
+  et à la lave, persistante ; modèle tiré du fichier Blockbench (texture d'Anger), couche qui luit.
+- Phase 1 :
+  - **frappe** au corps à corps : 14 de dégâts (selon la difficulté, comme les mobs du jeu) ;
+  - **onde de choc** toutes les 6 s environ : il abat le marteau, l'onde court au sol sur 6 blocs (10 de dégâts,
+    projette) ; qui est en l'air au passage de l'onde n'est pas touché ;
+  - **grosse frappe annoncée** : le rouage s'emballe (bruit qui monte, 1,5 s), puis un coup devant lui (22 de
+    dégâts, désactive un bouclier 5 s) ; on a le temps de s'écarter.
+- Phase 2 (sous la moitié de sa vie) : il frappe 40 % plus vite ; **jets de vapeur** par l'arrière du marteau
+  (6 de dégâts, repoussent, 2 s) ; il **rallume les quatre foyers** de l'arène : chaque foyer allumé fait sortir
+  un Cendreux toutes les 20 s (4 au plus) ; on peut **éteindre un foyer à la pelle** pour l'arrêter.
+- **Barre de boss** à nous (tube de laiton, métal en fusion, rouage qui tourne plus vite en phase 2, fêlures et
+  vapeur), à la place de celle du jeu ; son nom : « Le Maître de forge » / « The Forge Master ».
+- Sons : du jeu (enclume, piston, vapeur, wither squelette) en attendant mieux.
+
+**14b, l'arène**
+- Structure **très rare** (une par carré de 128 tronçons environ), creusée dans la roche comme la chaufferie :
+  environ 60 x 60 x 30, la forge du maître au centre, quatre foyers aux coins, des gradins, une seule entrée.
+- La **forge du maître** (bloc technique au centre) : il y dort ; quand un joueur entre, il se réveille et la
+  **porte se ferme** (une porte de machines comme la porte scellée). Elle se rouvre à sa mort, ou si plus aucun
+  joueur n'est dans l'arène (il se rendort et retrouve sa vie au bout de 30 s).
+- **Il revient** : après sa mort, la forge est froide ; on la **rallume avec 8 Cendres d'Attiseur** (clic droit),
+  et il se réveille. Une ambiance à l'arène (brouillard, cendres qui flottent) ; sa musique plus tard.
+
+**14c, ce qu'il laisse**
+- **Le marteau-pilon** (le modèle d'Anger) : à la première victoire à coup sûr, ensuite une fois sur trois.
+  Arme lourde : 10 de dégâts, lente (0,8 coup par seconde), reforgeable à la Forge (avec les Spéciaux de la masse).
+  **Coup à la vapeur** (clic droit) : une onde de choc autour de soi, comme le boss, en dépensant 6 charges de
+  vapeur (le système du bouilleur, étape 8b), 8 s d'attente.
+- **Le carnet du maître de forge** (un plan à lire, texte d'Anger, provisoire en attendant), à la première victoire.
+- **Un succès**, « Le maître de forge » ; pas d'Écho proposé (à décider : un Écho lié à la forge ?).
+
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
 avant toute intégration (règles 4 et 5).
