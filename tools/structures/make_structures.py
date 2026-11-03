@@ -470,6 +470,116 @@ def ceiling_chimneys():
     return b
 
 
+# ---------------------------------------------------------------------- l'arène du maître de forge (plan, 14b ; aperçu)
+def forge_arena():
+    """La grande forge du maître : une salle de 60 x 60, 30 de haut. Au centre, son estrade, son âtre et son enclume ;
+    aux quatre coins, des foyers éteints (il les rallume en phase 2) ; autour, des gradins ; une seule entrée, au sud."""
+    rnd = random.Random(61)
+    N, TOP = 60, 29
+    GRATE = S("iron_trapdoor", facing="north", half="bottom", open=False, powered=False, waterlogged=False)                # une grille de fer à plat, sur la lave
+    b = Build(N, TOP + 1, N)
+    c = N // 2
+    # la coque : sol, murs à piliers et bandes de laiton, plafond à poutres
+    for x in range(N):
+        for z in range(N):
+            ring = max(abs(x - c + 0.5), abs(z - c + 0.5))
+            b.set(x, 0, z, S("smooth_basalt") if int(ring) % 6 == 0 else brick(rnd, 0.15))
+            b.set(x, TOP, z, S("polished_basalt", axis="x") if z % 10 == 5 else S("smooth_basalt"))
+            if x in (0, N - 1) or z in (0, N - 1):
+                for y in range(1, TOP):
+                    pillar = (x in (0, N - 1) and z % 6 == 0) or (z in (0, N - 1) and x % 6 == 0)
+                    band = y in (9, 18)
+                    b.set(x, y, z, PIPE if pillar else BRASS if band else brick(rnd, 0.12))
+    b.carve(1, 1, 1, N - 2, TOP - 1, N - 2)
+    # les gradins : trois marches de pierre noire le long des murs (sauf aux coins et devant l'entrée)
+    for step in range(3):
+        d = 1 + step * 2                                     # la marche la plus haute contre le mur
+        h = 3 - step
+        for i in range(8, N - 8):
+            for side in ("n", "s", "w", "e"):
+                if side == "s" and abs(i - c + 0.5) < 5:
+                    continue                                 # l'entrée
+                for dd in (d, d + 1):
+                    x, z = {"n": (i, dd), "s": (i, N - 1 - dd), "w": (dd, i), "e": (N - 1 - dd, i)}[side]
+                    for y in range(1, h + 1):
+                        b.set(x, y, z, S("polished_blackstone_bricks") if y < h else S("polished_blackstone"))
+    # au pied des gradins, une rigole de lave sous des grilles (la lumière de la forge)
+    for i in range(8, N - 8):
+        for side in ("n", "s", "w", "e"):
+            if side == "s" and abs(i - c + 0.5) < 5:
+                continue
+            x, z = {"n": (i, 7), "s": (i, N - 8), "w": (7, i), "e": (N - 8, i)}[side]
+            b.set(x, 0, z, S("lava", level=0))
+            b.set(x, 1, z, GRATE)
+    # les quatre foyers éteints, aux coins : un âtre sous une hotte de laiton, sa conduite jusqu'au plafond
+    for fx, fz in ((10, 10), (N - 11, 10), (10, N - 11), (N - 11, N - 11)):
+        for x in range(fx - 2, fx + 3):
+            for z in range(fz - 2, fz + 3):
+                edge = abs(x - fx) == 2 or abs(z - fz) == 2
+                b.set(x, 1, z, S("polished_blackstone_bricks") if edge else S("smooth_basalt"))
+        b.set(fx, 2, fz, campfire("south"))
+        for x in range(fx - 1, fx + 2):
+            for z in range(fz - 1, fz + 2):
+                b.set(x, 6, z, BRASS)
+        b.fill(fx, 7, fz, fx, TOP, fz, PIPE)
+        for y in (12, 20):
+            b.set(fx, y, fz, BRASS)
+        for x, z in ((fx - 1, fz - 1), (fx + 1, fz - 1), (fx - 1, fz + 1), (fx + 1, fz + 1)):
+            b.fill(x, 2, z, x, 5, z, S("chain", axis="y", waterlogged=False))
+    # au centre : l'estrade du maître, cerclée d'une rigole de lave sous des grilles
+    for x in range(c - 9, c + 9):
+        for z in range(c - 9, c + 9):
+            r = ((x - c + 0.5) ** 2 + (z - c + 0.5) ** 2) ** 0.5
+            if 7.0 <= r < 8.0:
+                b.set(x, 0, z, S("lava", level=0))
+                b.set(x, 1, z, GRATE)
+            elif r < 7.0:
+                b.set(x, 1, z, S("polished_blackstone_bricks") if r >= 6 else S("smooth_basalt"))
+    for x, z, facing in ((c - 1, c + 7, "north"), (c, c + 7, "north"), (c - 1, c - 8, "south"), (c, c - 8, "south"),
+                         (c + 7, c - 1, "west"), (c + 7, c, "west"), (c - 8, c - 1, "east"), (c - 8, c, "east")):
+        b.set(x, 1, z, S("polished_blackstone_brick_stairs", facing=facing, half="bottom", shape="straight", waterlogged=False))
+    # son âtre : un grand foyer de braise sous une hotte, et la grande cheminée qui monte au plafond
+    for x in range(c - 3, c + 3):
+        for z in range(c - 5, c - 2):
+            b.set(x, 2, z, S("polished_blackstone_bricks"))
+    b.fill(c - 2, 2, c - 4, c + 1, 2, c - 4, S("magma_block"))
+    b.fill(c - 2, 3, c - 4, c + 1, 3, c - 4, S("iron_bars"))
+    for x in range(c - 3, c + 3):
+        for z in range(c - 5, c - 2):
+            b.set(x, 7, z, BRASS)
+    for x in (c - 3, c + 2):
+        for z in (c - 5, c - 3):
+            b.fill(x, 3, z, x, 6, z, PIPE)
+    for x in range(c - 1, c + 1):
+        for z in range(c - 5, c - 3):
+            b.fill(x, 8, z, x, TOP, z, PIPE)
+    for y in (12, 18, 24):
+        for x in range(c - 1, c + 1):
+            for z in range(c - 5, c - 3):
+                b.set(x, y, z, BRASS)
+    # sa grande enclume, devant l'âtre
+    b.fill(c - 2, 2, c + 1, c + 1, 2, c + 2, S("polished_blackstone"))
+    b.fill(c - 1, 3, c + 1, c, 3, c + 2, PIPE)
+    b.fill(c - 3, 4, c + 1, c + 2, 4, c + 2, S("smooth_basalt"))
+    b.set(c - 1, 5, c + 1, S("damaged_anvil", facing="east"))
+    # aux murs : de grandes conduites, des machines comprimées, des chaînes qui pendent
+    for i in range(6, N - 6, 12):
+        for wall in ("n", "w", "e"):
+            x, z = {"n": (i, 1), "w": (1, i), "e": (N - 2, i)}[wall]
+            b.fill(x, 4, z, x, TOP - 1, z, PIPE)
+            b.set(x, 3, z, MACHINE)
+    for x, z in ((c - 12, c - 12), (c + 12, c - 12), (c - 12, c + 12), (c + 12, c + 12), (c, c + 14), (c - 14, c), (c + 14, c)):
+        b.fill(x, TOP - 8, z, x, TOP - 1, z, S("chain", axis="y", waterlogged=False))
+        b.set(x, TOP - 9, z, S("lantern", hanging=True, waterlogged=False))
+    # l'entrée, au sud : une porte de 5 de large, 5 de haut, sous un linteau de laiton (la porte se ferme en 14b)
+    b.fill(c - 3, 1, N - 1, c + 2, 6, N - 1, AIR)
+    for x in (c - 3, c + 2):
+        b.fill(x, 1, N - 1, x, 6, N - 1, PIPE)
+    b.fill(c - 3, 7, N - 1, c + 2, 7, N - 1, BRASS)
+    b.chest(c + 3, 3, c + 1, "west", "forge_arena")
+    return b
+
+
 forge_ruin("base").save("forge_ruin")
 forge_ruin("crimson").save("forge_ruin_crimson")
 forge_ruin("soul").save("forge_ruin_soul")
@@ -478,3 +588,4 @@ boiler_hall().save("boiler_hall")
 boiler_hall_gate().save("boiler_hall_gate")
 last_hearth().save("last_hearth")
 ceiling_chimneys().save("ceiling_chimneys")
+forge_arena().save("forge_arena")
