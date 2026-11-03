@@ -10,6 +10,8 @@ le générique.
 Usage : python3 tools/music/make_music_data.py core/src/main/resources <dossier des .ogg> [nom=poids ...]
   ex. : python3 tools/music/make_music_data.py core/src/main/resources ~/musiques aube=2
 Chaque fichier <nom>.ogg devient echoes_core:music/<nom> (poids 1 par défaut).
+Chaque morceau a aussi son propre son, echoes_core:music.<nom> (assets/echoes_core/sounds.json), pour l'écouter avec
+/playsound (ex. : /playsound echoes_core:music.cold_stone_descent music @s).
 Volume : les morceaux d'Anger sont mixés plus fort que ceux du jeu (environ -13 LUFS contre -20) ; on les baisse dans
 le jeu (VOLUME) plutôt que de toucher aux fichiers.
 """
@@ -44,5 +46,11 @@ path = os.path.join(RES, "assets", "minecraft", "sounds.json")
 os.makedirs(os.path.dirname(path), exist_ok=True)
 with open(path, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
+    f.write("\n")
+# un son par morceau, pour /playsound (et un jour, peut-être, autre chose)
+own = {f"music.{n}": {"sounds": [{"name": f"{NS}:music/{n}", "stream": True, "volume": VOLUME}]} for n in tracks}
+path = os.path.join(RES, "assets", NS, "sounds.json")
+with open(path, "w", encoding="utf-8") as f:
+    json.dump(own, f, ensure_ascii=False, indent=2)
     f.write("\n")
 print(len(tracks), "morceaux dans", len(EVENTS), "listes")

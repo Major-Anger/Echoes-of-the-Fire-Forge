@@ -1,0 +1,38 @@
+{
+  "music.below_the_forgotten_threshold": {
+    "sounds": [
+      {
+        "name": "echoes_core:music/below_the_forgotten_threshold",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "music.cold_stone_descent": {
+    "sounds": [
+      {
+        "name": "echoes_core:music/cold_stone_descent",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "music.lanterns_in_the_deep": {
+    "sounds": [
+      {
+        "name": "echoes_core:music/lanterns_in_the_deep",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "music.weight_of_the_deep": {
+    "sounds": [
+      {
+        "name": "echoes_core:music/weight_of_the_deep",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  }
+}
