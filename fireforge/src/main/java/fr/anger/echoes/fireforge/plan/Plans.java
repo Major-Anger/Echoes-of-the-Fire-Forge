@@ -24,6 +24,9 @@ public final class Plans {
     /** Le Plan de l'Établi : il sert à fabriquer l'Établi d'Attiseur. */
     public static final ResourceLocation WORKBENCH = EchoesFireForge.id("plan/workbench");
 
+    /** Le carnet du maître de forge (plan, 14c) : à sa première défaite, on le trouve sur lui. */
+    public static final ResourceLocation FORGE_MASTER = EchoesFireForge.id("plan/forge_master");
+
     public static ResourceLocation attiseur(int number) {
         return EchoesFireForge.id("plan/" + number);
     }
@@ -41,7 +44,7 @@ public final class Plans {
 
     /** Nombre de plans lus, côté client (pour afficher les chances dans la forge). */
     public static int clientReadCount() {
-        int count = (ClientLore.hasRead(FORGE) ? 1 : 0) + (ClientLore.hasRead(WORKBENCH) ? 1 : 0);
+        int count = (ClientLore.hasRead(FORGE) ? 1 : 0) + (ClientLore.hasRead(WORKBENCH) ? 1 : 0) + (ClientLore.hasRead(FORGE_MASTER) ? 1 : 0);
         for (int n = 1; n <= COUNT; n++) if (ClientLore.hasRead(attiseur(n))) count++;
         if (ClientLore.hasRead(ForgeEchoes.HAND_MARK)) count += ForgeEchoes.HAND_PLANS;
         return count;

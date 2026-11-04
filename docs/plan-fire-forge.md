@@ -843,6 +843,17 @@ par la forge rentrent dans les foyers quand il se rendort ou meurt (sinon ils ra
 - **Le carnet du maître de forge** (un plan à lire, texte d'Anger, provisoire en attendant), à la première victoire.
 - **Un succès**, « Le maître de forge » ; pas d'Écho (Anger n'en a pas voulu pour l'instant).
 
+**14c, telle que faite** : `forgemaster/SteamHammerItem` (le « Marteau-pilon du maître », pour ne pas le confondre avec le
+Spécial Marteau-pilon : 10 de dégâts, 0,8 coup par seconde, 1000 utilisations, réparé à la Cendre d'Attiseur, ne brûle pas ;
+reconnu comme une masse par le tag `c:tools/mace`, donc reforgeable avec les Spéciaux de la masse ; enchantements de
+masse sans tranchant : Châtiment, Fléau des arthropodes, Aura de feu, Solidité, Raccommodage) ; sa vapeur (20 charges,
+rechargées au bouilleur) se voit sur la barre de vapeur quand il est en main ; aucun mécanisme de l'établi ne s'y greffe.
+Coup à la vapeur : 6 charges, 8 s, une onde au sol jusqu'à 5 blocs, 80 % des dégâts de l'arme, qui saute l'évite.
+Ce qu'il laisse : chaque joueur de l'arène (et celui qui l'a tué) qui le bat pour la première fois a son marteau (chargé)
+et le **Carnet du maître de forge** (`plan/forge_master`, compte comme un plan lu ; page « Le carnet du maître » dans les
+Carnets des Attiseurs, texte provisoire), et le succès « Le maître de forge » (défi, sous « Les noyés de cendre ») ;
+ensuite, le marteau une fois sur trois. Texture du carnet : `tools/textures/make_forgemaster_notebook.py` (à valider).
+
 **14a, telle que faite** : `forgemaster/ForgeMasterEntity` (le combat), `client/ForgeMasterModel` (les animations ;
 la géométrie `client/ForgeMasterGeometry` est générée depuis le fichier d'Anger par `tools/models/make_forgemaster_model.py`),
 `client/ForgeMasterRenderer`, `client/ForgeMasterBossBar` (textures `tools/textures/make_forgemaster_bar.py`), données

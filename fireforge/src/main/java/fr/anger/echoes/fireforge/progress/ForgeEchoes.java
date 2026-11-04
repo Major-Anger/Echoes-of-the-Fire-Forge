@@ -30,6 +30,8 @@ public final class ForgeEchoes {
 
     // ---- les succès accordés par le code
     public static final String FIRST_REFORGE = "first_reforge", WORKBENCH = "workbench", DROWNED_IN_ASH = "drowned_in_ash";
+    /** Le maître de forge (plan, 14c) : l'avoir vaincu ; pas d'Écho. */
+    public static final String FORGE_MASTER = "forge_master";
     // ---- ceux qui laissent un Écho
     public static final String HAND = "hand", BREATH = "breath", NOTEBOOKS = "notebooks", STEAM = "steam";
     private static final List<String> WITH_ECHO = List.of(HAND, BREATH, NOTEBOOKS, STEAM);

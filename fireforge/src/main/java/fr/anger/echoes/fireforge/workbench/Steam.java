@@ -20,8 +20,9 @@ public final class Steam {
     /** La réserve d'eau du bouilleur : 4 seaux. */
     public static final int TANK = 4000;
 
-    /** La pièce porte un mécanisme à vapeur. */
+    /** La pièce porte un mécanisme à vapeur (ou c'est le marteau-pilon du maître, étape 14c). */
     public static boolean usesSteam(ItemStack stack) {
+        if (stack.getItem() instanceof fr.anger.echoes.fireforge.forgemaster.SteamHammerItem) return true;
         Mechanism mechanism = stack.get(FFDataComponents.MECHANISM);
         return mechanism != null && mechanism.steam();
     }

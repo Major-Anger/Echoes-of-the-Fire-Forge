@@ -237,6 +237,11 @@ plans = [
         text("Le trait tremble, le plan s'arrête là.\n\n« Les anciens toussent de la cendre. Certains accusent la fumée des machines ; d'autres disent que c'était là avant nous. »",
              "The line trembles; the plan stops there.\n\n\"The elders cough ash. Some blame the smoke of the machines; others say it was here before us.\""),
     ], lore=I + "plan/5", label="V"),
+    # plan, 14c : sur le maître de forge, à sa première défaite (texte provisoire : Anger l'écrira)
+    entry("plans/forge_master", I + "forge_master_notebook", "Le carnet du maître", "The Master's Notebook", [
+        text("Des commandes, page après page : des engrenages, des soupapes, des marteaux. Les noms des apprentis sont rayés, un par un.\n\nLes dernières lignes sont d'une autre main, plus lourde : « Ils sont tous partis. Moi, je reste. Tant que la forge brûle, quelqu'un doit la tenir. »",
+             "Orders, page after page: gears, valves, hammers. The apprentices' names are crossed out, one by one.\n\nThe last lines are in another hand, heavier: \"They have all gone. I stay. As long as the forge burns, someone must keep it.\""),
+    ], lore=I + "plan/forge_master"),
 ]
 
 book = {

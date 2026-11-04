@@ -108,8 +108,8 @@
       font foi : relancer `tools/models/make_forgemaster_model.py` après chaque retouche) : 14a (le boss, son combat en deux
       phases, sa barre de boss, `forgemaster/`) : faite. 14b (l'arène `structure/ForgeArenaStructure`, la forge du maître
       `forgemaster/MasterForgeBlockEntity` qui mène le combat et le fait revenir, la porte, les foyers et les Cendreux de
-      la phase 2, l'ambiance `client/ForgeArenaAmbience`) : faite. 14c (le marteau-pilon du joueur, le carnet, le succès) :
-      à faire. Sons du maître (d'Anger : marteau, vapeur, pas, mort ; ses fichiers restent hors du dépôt) : convertis par
+      la phase 2, l'ambiance `client/ForgeArenaAmbience`) : faite. 14c (le Marteau-pilon du maître `forgemaster/SteamHammerItem`,
+      le carnet `plan/forge_master`, le succès « Le maître de forge », sans Écho) : faite ; texture du carnet à valider. Sons du maître (d'Anger : marteau, vapeur, pas, mort ; ses fichiers restent hors du dépôt) : convertis par
       `tools/sounds/make_forgemaster_sounds.py`, déclarés par `tools/data/make_forgemaster_data.py` ; sa voix reste celle du
       wither squelette, plus grave.
 

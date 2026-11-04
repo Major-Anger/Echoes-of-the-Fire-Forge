@@ -65,7 +65,12 @@ ECHOES = [
      "Les noyés de cendre", "Drowned in ash",
      "Croiser un Cendreux (avec le Silt : avoir aussi lu la Tablette XIII des Veilleurs).",
      "Cross paths with an Ashen (with the Silt: having also read the Watchers' Tablet XIII).", None, None),
+    # plan, 14c : pas d'Écho (Anger n'en a pas voulu pour l'instant)
+    ("forge_master", "drowned_in_ash", NS + ":steam_hammer", False,
+     "Le maître de forge", "The Forge Master",
+     "Vaincre le maître de forge dans sa grande forge.", "Defeat the Forge Master in his great forge.", None, None),
 ]
+FRAMES = {"forge_master": "challenge"}
 
 
 def display(name, icon, frame, toast=True, background=None):
@@ -94,7 +99,7 @@ t("advancement.%s.root.description" % NS, "Les machines des Attiseurs dorment da
 
 for name, parent, icon, echo, title_fr, title_en, desc_fr, desc_en, echo_fr, echo_en in ECHOES:
     data = {
-        "display": display(name, icon, "goal" if echo else "task"),
+        "display": display(name, icon, FRAMES.get(name, "goal" if echo else "task")),
         # accordé par le code (ForgeEchoes)
         "criteria": {"granted": {"trigger": "minecraft:impossible"}},
         "parent": "%s:echoes/%s" % (NS, parent),

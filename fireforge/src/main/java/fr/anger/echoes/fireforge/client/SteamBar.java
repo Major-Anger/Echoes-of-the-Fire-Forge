@@ -33,13 +33,14 @@ public final class SteamBar {
         event.registerAbove(VanillaGuiLayers.HOTBAR, EchoesFireForge.id("steam_bar"), SteamBar::render);
     }
 
-    /** Les pièces à vapeur portées, du haut vers le bas. */
+    /** Les pièces à vapeur portées, du haut vers le bas (et le marteau-pilon du maître, en main). */
     public static List<ItemStack> steamPieces(Player player) {
         List<ItemStack> pieces = new ArrayList<>();
         for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
             ItemStack stack = player.getItemBySlot(slot);
             if (Steam.usesSteam(stack)) pieces.add(stack);
         }
+        if (player.getMainHandItem().getItem() instanceof fr.anger.echoes.fireforge.forgemaster.SteamHammerItem) pieces.add(player.getMainHandItem());
         return pieces;
     }
 

@@ -2,6 +2,7 @@ package fr.anger.echoes.fireforge.registry;
 
 import fr.anger.echoes.fireforge.EchoesFireForge;
 import fr.anger.echoes.fireforge.forge.AshBedItem;
+import fr.anger.echoes.fireforge.forgemaster.SteamHammerItem;
 import fr.anger.echoes.fireforge.mechanism.Mechanism;
 import fr.anger.echoes.fireforge.mechanism.MechanismTemplateItem;
 import fr.anger.echoes.fireforge.plan.PlanItem;
@@ -72,6 +73,13 @@ public final class FFItems {
             () -> new DeferredSpawnEggItem(FFEntities.CENDREUX, 0x2A2523, 0xE8762A, new Item.Properties()));
     public static final DeferredItem<DeferredSpawnEggItem> FORGE_MASTER_SPAWN_EGG = ITEMS.register("forge_master_spawn_egg",
             () -> new DeferredSpawnEggItem(FFEntities.FORGE_MASTER, 0x1E1B1A, 0x96703C, new Item.Properties()));
+
+    // Ce que laisse le maître de forge (plan, 14c) : son marteau-pilon, son carnet
+    public static final DeferredItem<SteamHammerItem> STEAM_HAMMER = ITEMS.register("steam_hammer",
+            () -> new SteamHammerItem(new Item.Properties().fireResistant().rarity(Rarity.EPIC).durability(SteamHammerItem.DURABILITY)
+                    .attributes(SteamHammerItem.attributes())));
+    public static final DeferredItem<PlanItem> FORGE_MASTER_NOTEBOOK = ITEMS.register("forge_master_notebook",
+            () -> new PlanItem(Plans.FORGE_MASTER, new Item.Properties().fireResistant().stacksTo(16).rarity(Rarity.RARE)));
 
     // Le set du Wither (plan, section 13) : forgé à la table de forgeron sur la netherite
     public static final DeferredItem<WitherArmorItem> WITHER_HELMET = witherPiece("wither_helmet", ArmorItem.Type.HELMET);

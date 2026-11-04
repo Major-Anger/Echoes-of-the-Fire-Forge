@@ -1,0 +1,11 @@
+{
+  "title": "guide.echoes_fireforge.plans.forge_master.title",
+  "icon": "echoes_fireforge:forge_master_notebook",
+  "lore": "echoes_fireforge:plan/forge_master",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.plans.forge_master.p1"
+    }
+  ]
+}

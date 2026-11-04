@@ -360,9 +360,44 @@ public class ForgeMasterEntity extends Monster {
 
     @Override
     public void die(DamageSource source) {
+        boolean dying = !isRemoved() && !dead;
         super.die(source);
         MasterForgeBlockEntity forge = forge();
-        if (forge != null && level() instanceof ServerLevel server) forge.onMasterDeath(server);
+        if (level() instanceof ServerLevel server) {
+            if (dying) leaveSpoils(server, source);
+            if (forge != null) forge.onMasterDeath(server);
+        }
+    }
+
+    /** Le marteau à 1 chance sur 3 ; à la première victoire d'un joueur, pour lui, le marteau et le carnet à coup sûr. */
+    public static final float HAMMER_CHANCE = 1 / 3F;
+
+    /**
+     * Ce qu'il laisse (plan, 14c). Les vainqueurs : ceux qui sont dans l'arène (ou à moins de 32 blocs, hors de
+     * l'arène), et celui qui l'a tué. Chacun qui le bat pour la première fois a son marteau et son carnet, et le succès.
+     */
+    private void leaveSpoils(ServerLevel server, DamageSource source) {
+        MasterForgeBlockEntity forge = forge();
+        net.minecraft.world.phys.AABB zone = forge != null ? forge.arena() : getBoundingBox().inflate(32);
+        Set<ServerPlayer> victors = new java.util.LinkedHashSet<>(server.getEntitiesOfClass(ServerPlayer.class, zone,
+                p -> p.isAlive() && !p.isSpectator()));
+        if (source.getEntity() instanceof ServerPlayer killer) victors.add(killer);
+        boolean first = false;
+        for (ServerPlayer player : victors) {
+            if (fr.anger.echoes.fireforge.progress.ForgeEchoes.has(player, fr.anger.echoes.fireforge.progress.ForgeEchoes.FORGE_MASTER)) continue;
+            first = true;
+            spawnAtLocation(hammer());
+            spawnAtLocation(new net.minecraft.world.item.ItemStack(fr.anger.echoes.fireforge.registry.FFItems.FORGE_MASTER_NOTEBOOK.get()));
+            fr.anger.echoes.fireforge.progress.ForgeEchoes.grant(player, fr.anger.echoes.fireforge.progress.ForgeEchoes.FORGE_MASTER);
+        }
+        if (!first && !victors.isEmpty() && random.nextFloat() < HAMMER_CHANCE) spawnAtLocation(hammer());
+    }
+
+    /** Son marteau, encore chargé de vapeur. */
+    private static net.minecraft.world.item.ItemStack hammer() {
+        net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(fr.anger.echoes.fireforge.registry.FFItems.STEAM_HAMMER.get());
+        fr.anger.echoes.fireforge.workbench.Steam.setCharges(stack, fr.anger.echoes.fireforge.workbench.Steam.capacity(stack));
+        return stack;
     }
 
     // ------------------------------------------------------------------ la barre de boss

@@ -69,6 +69,17 @@ for key, files in VOICE.items():
                                             "subtitle": "subtitles." + NS + ".forge_master." + key}
 write(sounds_path, sounds)
 
+# ce qu'il laisse (14c) : le carnet (modèle plat), le marteau reconnu comme une masse (Forge, Spéciaux, enchantements)
+write(os.path.join(A, "models/item/forge_master_notebook.json"),
+      {"parent": "minecraft:item/generated", "textures": {"layer0": NS + ":item/forge_master_notebook"}})
+for tag in ("c/tags/item/tools/mace.json", "minecraft/tags/item/enchantable/weapon.json", "minecraft/tags/item/enchantable/fire_aspect.json",
+            "minecraft/tags/item/enchantable/durability.json", "minecraft/tags/item/enchantable/vanishing.json"):
+    path = os.path.join(RES, "data", tag)
+    data = read(path) if os.path.exists(path) else {"replace": False, "values": []}
+    if NS + ":steam_hammer" not in data["values"]:
+        data["values"].append(NS + ":steam_hammer")
+    write(path, data)
+
 FR, EN = {}, {}
 
 
@@ -87,6 +98,11 @@ t("subtitles.echoes_fireforge.forge_master.step", "Pas lourds", "Heavy footsteps
 t("subtitles.echoes_fireforge.forge_master.death", "Le maître de forge s'effondre", "Forge Master collapses")
 t("subtitles.echoes_fireforge.forge_master.ambient", "Le maître de forge râle", "Forge Master rattles")
 t("subtitles.echoes_fireforge.forge_master.hurt", "Le maître de forge est blessé", "Forge Master hurts")
+t("item.echoes_fireforge.steam_hammer", "Marteau-pilon du maître", "Forge Master's Steam Hammer")
+t("item.echoes_fireforge.forge_master_notebook", "Carnet du maître de forge", "Forge Master's Notebook")
+t("tooltip.echoes_fireforge.forge_master_notebook", "Des feuilles de laiton tenues par des anneaux de fer.", "Brass leaves held by iron rings.")
+t("tooltip.echoes_fireforge.steam_hammer", "Clic droit : coup à la vapeur (6 charges)", "Right-click: steam strike (6 charges)")
+t("message.echoes_fireforge.steam_hammer.empty", "Plus assez de vapeur : recharge-le au bouilleur.", "Not enough steam: recharge it at the boiler.")
 for lang, data in (("fr_fr", FR), ("en_us", EN)):
     path = os.path.join(A, "lang", lang + ".json")
     current = read(path)

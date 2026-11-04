@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "echoes_fireforge:steam_hammer"
+    },
+    "title": {
+      "translate": "advancement.echoes_fireforge.forge_master.title"
+    },
+    "description": {
+      "translate": "advancement.echoes_fireforge.forge_master.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "echoes_fireforge:echoes/drowned_in_ash"
+}

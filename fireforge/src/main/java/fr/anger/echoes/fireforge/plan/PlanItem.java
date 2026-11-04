@@ -66,7 +66,9 @@ public class PlanItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.echoes_fireforge.plan").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        // le carnet du maître n'est pas une feuille : des feuilles tenues par des anneaux (étape 14c)
+        String look = Plans.FORGE_MASTER.equals(lore) ? "tooltip.echoes_fireforge.forge_master_notebook" : "tooltip.echoes_fireforge.plan";
+        tooltip.add(Component.translatable(look).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         // ClientLore ne dépend d'aucune classe client : sans danger côté serveur (il y restera simplement vide)
         boolean read = ClientLore.hasRead(loreEntry(stack));
         tooltip.add(Component.translatable(read ? "tooltip.echoes_fireforge.plan.read" : "tooltip.echoes_fireforge.plan.unread")
