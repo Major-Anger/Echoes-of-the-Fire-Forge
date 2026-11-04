@@ -852,7 +852,7 @@
     "gui": {
       "rotation": [
         20,
-        -135,
+        45,
         35
       ],
       "translation": [
