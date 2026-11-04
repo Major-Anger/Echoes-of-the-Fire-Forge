@@ -852,7 +852,7 @@ Coup à la vapeur : 6 charges, 8 s, une onde au sol jusqu'à 5 blocs, 80 % des d
 Ce qu'il laisse : chaque joueur de l'arène (et celui qui l'a tué) qui le bat pour la première fois a son marteau (chargé)
 et le **Carnet du maître de forge** (`plan/forge_master`, compte comme un plan lu ; page « Le carnet du maître » dans les
 Carnets des Attiseurs, texte provisoire), et le succès « Le maître de forge » (défi, sous « Les noyés de cendre ») ;
-ensuite, le marteau une fois sur trois. Texture du carnet : `tools/textures/make_forgemaster_notebook.py` (à valider).
+ensuite, le marteau une fois sur trois. Texture du carnet : `tools/textures/make_forgemaster_notebook.py` (validée). Le marteau est tourné de 180° dans les mains (demande d'Anger, dans son fichier Blockbench).
 
 **14a, telle que faite** : `forgemaster/ForgeMasterEntity` (le combat), `client/ForgeMasterModel` (les animations ;
 la géométrie `client/ForgeMasterGeometry` est générée depuis le fichier d'Anger par `tools/models/make_forgemaster_model.py`),
