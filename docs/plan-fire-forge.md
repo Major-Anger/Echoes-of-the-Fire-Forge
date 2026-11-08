@@ -926,6 +926,17 @@ décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit
   apparaissent et y sont chez eux (`cendreux_homes`) ; l'ambiance de la caverne (`machine/MachineAmbienceEvents`,
   `client/MachineAmbience` : brouillard plus clair et plus chaud, cendres, un ronronnement). Données :
   `tools/data/make_machine_data.py`.
+- **15c, telle que validée (aperçu « apercu-15c ») et faite** : `machine/GrandMachineState` (le choix, gardé dans le
+  monde du Nether, et ses suites), `machine/RegulatorValveBlock` (deux vannes identiques, plaque − ou + ; un clic prévient,
+  un second dans les 10 s tourne la roue ; ensuite le régulateur ne bouge plus), `machine/MachineChoice` (les suites ;
+  baisser : pistons en bas, bouches muettes, le cœur s'assombrit, la mer de lave de la caverne se fige en basalte jusqu'aux
+  parois, les fondations se vident et leur trappe s'ouvre, les Cendreux de la machine attaquent à vue ; pousser : horloge
+  une fois et demie plus vite, le cœur s'avive, les Cendreux de la machine laissent faire même provoqués), la bouche du
+  cœur `machine/HeartMouthBlock` (une Braise du cœur par jour du jeu et par joueur, au temps du monde), la Braise du cœur
+  (chaleur Fournaise, 8 reforges, elle s'use à la Forge sans prendre de lave à la réserve), l'ambiance selon le choix
+  (gris et silencieux, ou rouge et plus fort). Les fondations dans le gabarit (une salle entre les pieds, sa trappe dans le
+  premier plancher, un escalier, deux coffres `chests/grand_machine_foundations`). Textures
+  `tools/textures/make_machine_textures.py`, données `tools/data/make_machine_data.py`.
 - **Découpage** : 15a la structure et sa génération, l'entrée et les étages ; 15b les portes, les pistons et la vapeur,
   les Cendreux ; 15c le cœur et le choix, ses suites ; 15d le plan, le succès, le manomètre, le guide.
 

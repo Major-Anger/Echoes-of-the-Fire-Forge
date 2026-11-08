@@ -69,6 +69,10 @@ public class MachinePistonBlockEntity extends BlockEntity {
     }
 
     private void tick(ServerLevel level) {
+        if (MachineClock.stopped(level)) {                              // la pression baissée : il redescend, et s'arrête
+            if (head != BOTTOM) move(level, Math.max(BOTTOM, head - 1));
+            return;
+        }
         int u = moment(level);
         int target = Math.max(BOTTOM, heightAt(u));
         if (target != head) move(level, target);

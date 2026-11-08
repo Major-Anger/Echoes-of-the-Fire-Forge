@@ -210,6 +210,15 @@ chest("grand_machine",
       pool(1, [empty(50), *plans(5)]),
       pool(1, [empty(40), templates(60)]))
 
+# ses fondations, une fois vidées (la pression baissée, 15c) : le meilleur butin de la machine
+chest("grand_machine_foundations",
+      pool((5, 8), [item("machine_gear", 8, 3, 6), item("machine_valve", 8, 3, 6), item("engraved_plate", 6, 2, 4),
+                    item("stoker_ash", 6, 4, 10), item("minecraft:gold_ingot", 6, 3, 8), item("minecraft:diamond", 4, 1, 3),
+                    item("minecraft:netherite_scrap", 4, 1, 2), item("minecraft:ancient_debris", 2)]),
+      pool(1, [empty(30), *plans(7)]),
+      pool(2, [empty(30), templates(70)]),
+      pool(1, [empty(70), item("wither_template", 30)]))
+
 # ---------------------------------------------------------------------- la forge du maître (bloc technique, 14b)
 write(os.path.join(A, "blockstates/master_forge.json"), {"variants": {"": {"model": NS + ":block/compressed_machine"}}})
 

@@ -33,6 +33,14 @@ public class GrandMachineStructure extends Structure {
     public static final int PIER_LENGTH = 28, PIER_Y = 25, PIER_Z = 17;
     public static final int TUNNEL_MAX = 64;
 
+    // le cœur et son régulateur (15c), par rapport au coin de la coque (y : la hauteur du monde)
+    public static final BlockPos LOWER_VALVE = new BlockPos(14, 91, 29), RAISE_VALVE = new BlockPos(25, 91, 29);
+    public static final BlockPos HEART_MOUTH = new BlockPos(19, 92, 23);
+    public static final double HEART_X = 19.5, HEART_Y = 98.5, HEART_Z = 19.5, HEART_CORE = 3.4;
+    /** Les fondations, sous le premier plancher : la salle (pleine de lave tant qu'on n'a pas baissé) et sa trappe. */
+    public static final int FOUND_MIN = 9, FOUND_MAX = 30, FOUND_BOTTOM = 23, FOUND_TOP = 35;
+    public static final int HATCH_X = 10, HATCH_Z = 14, HATCH_Y = 36;
+
     public GrandMachineStructure(StructureSettings settings) {
         super(settings);
     }

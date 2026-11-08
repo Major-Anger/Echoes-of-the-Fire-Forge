@@ -116,7 +116,8 @@
   12. La Grande Machine (plan section 15, validé : A + B, une seule par monde, le succès avec un Écho) : 15a (gabarit
       `grand_machine` et `grand_machine_pier`, `structure/GrandMachineStructure`, caverne `structure/MachineCavernPiece`,
       anneaux concentriques à un seul point) : faite. 15b (pistons et bouches de vapeur `machine/`, horloge `MachineClock`,
-      Cendreux, ambiance `client/MachineAmbience`, `tools/data/make_machine_data.py`) : faite. 15c (le cœur et le choix),
+      Cendreux, ambiance `client/MachineAmbience`, `tools/data/make_machine_data.py`) : faite. 15c (le régulateur et le choix
+      `machine/MachineChoice`, `GrandMachineState`, vannes, bouche du cœur, Braise du cœur, fondations) : faite.
       15d (plan, succès et Écho, manomètre, guide) : à faire.
 
 ## Points en attente (côté Anger)

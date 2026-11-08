@@ -81,6 +81,10 @@ public final class FFItems {
     public static final DeferredItem<PlanItem> FORGE_MASTER_NOTEBOOK = ITEMS.register("forge_master_notebook",
             () -> new PlanItem(Plans.FORGE_MASTER, new Item.Properties().fireResistant().stacksTo(16).rarity(Rarity.RARE)));
 
+    // La Grande Machine (plan, 15c) : la Braise du cœur, que le cœur donne quand on a poussé la pression
+    public static final DeferredItem<Item> HEART_EMBER = ITEMS.registerSimpleItem("heart_ember",
+            new Item.Properties().fireResistant().rarity(Rarity.RARE).durability(fr.anger.echoes.fireforge.machine.MachineChoice.EMBER_REFORGES));
+
     // Le set du Wither (plan, section 13) : forgé à la table de forgeron sur la netherite
     public static final DeferredItem<WitherArmorItem> WITHER_HELMET = witherPiece("wither_helmet", ArmorItem.Type.HELMET);
     public static final DeferredItem<WitherArmorItem> WITHER_CHESTPLATE = witherPiece("wither_chestplate", ArmorItem.Type.CHESTPLATE);

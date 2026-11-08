@@ -74,6 +74,26 @@ public final class FFBlocks {
                     .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
                     .sound(SoundType.ANCIENT_DEBRIS)));
 
+    /** Les deux vannes du régulateur de la Grande Machine (plan, 15c). Pas d'objet, incassables. */
+    public static final DeferredBlock<fr.anger.echoes.fireforge.machine.RegulatorValveBlock> REGULATOR_VALVE = BLOCKS.register("regulator_valve",
+            () -> new fr.anger.echoes.fireforge.machine.RegulatorValveBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .strength(-1.0F, 3600000.0F)
+                    .noLootTable()
+                    .noOcclusion()
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
+                    .sound(SoundType.COPPER)));
+
+    /** La bouche du cœur de la Grande Machine (plan, 15c) : la Braise du cœur, une par jour. Pas d'objet, incassable. */
+    public static final DeferredBlock<fr.anger.echoes.fireforge.machine.HeartMouthBlock> HEART_MOUTH = BLOCKS.register("heart_mouth",
+            () -> new fr.anger.echoes.fireforge.machine.HeartMouthBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .strength(-1.0F, 3600000.0F)
+                    .noLootTable()
+                    .lightLevel(state -> 9)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
+                    .sound(SoundType.COPPER)));
+
     /** La Forge des Attiseurs (2 blocs). Le foyer éclaire quand elle travaille. */
     public static final DeferredBlock<FireForgeBlock> FIRE_FORGE = BLOCKS.register("fire_forge",
             () -> new FireForgeBlock(BlockBehaviour.Properties.of()

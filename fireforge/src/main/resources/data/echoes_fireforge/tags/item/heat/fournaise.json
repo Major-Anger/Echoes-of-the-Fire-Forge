@@ -1,5 +1,6 @@
 {
   "values": [
-    "minecraft:lava_bucket"
+    "minecraft:lava_bucket",
+    "echoes_fireforge:heart_ember"
   ]
 }

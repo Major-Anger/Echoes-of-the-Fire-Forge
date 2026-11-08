@@ -573,13 +573,19 @@ public class FireForgeBlockEntity extends BlockEntity implements MenuProvider {
             inventory.extractItem(SLOT_OFFERING, 1, false);
             ItemStack fuel = inventory.getStackInSlot(SLOT_FUEL);
             workHeat = nextHeat();
-            if (consumesFuelSlot()) {
+            // la Braise du cœur (Grande Machine, 15c) : la chaleur de la lave, mais elle dure 8 reforges ; elle s'use
+            boolean ember = fuel.is(fr.anger.echoes.fireforge.registry.FFItems.HEART_EMBER.get());
+            if (ember) {
+                ItemStack worn = fuel.copy();
+                worn.setDamageValue(worn.getDamageValue() + 1);
+                inventory.setStackInSlot(SLOT_FUEL, worn.getDamageValue() >= worn.getMaxDamage() ? ItemStack.EMPTY : worn);
+            } else if (consumesFuelSlot()) {
                 ItemStack empty = ForgeRules.emptyContainer(fuel);
                 if (fuel.is(Items.LAVA_BUCKET)) lava += ForgeRules.BUCKET; // la réserve n'avait pas la place : il brûle ici
                 inventory.extractItem(SLOT_FUEL, 1, false);
                 if (!empty.isEmpty()) inventory.insertItem(SLOT_EMPTIES, empty, false);
             }
-            if (workHeat == Heat.FOURNAISE) lava = Math.min(lavaCapacity, Math.max(0, lava - ForgeRules.LAVA_PER_REFORGE));
+            if (workHeat == Heat.FOURNAISE && !ember) lava = Math.min(lavaCapacity, Math.max(0, lava - ForgeRules.LAVA_PER_REFORGE));
         }
         // la flamme froide ne fend jamais
         int cracks = workSoulFire || workReroll ? 0 : Tolerance.cracks(item, workHeat);

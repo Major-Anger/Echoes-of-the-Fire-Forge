@@ -27,6 +27,8 @@ public class SteamVentBlockEntity extends BlockEntity {
     public static final float DAMAGE = 2.0F;
 
     private int phase;
+    /** Où elle en était au tick d'avant (pour ses sons), et depuis combien de ticks elle souffle. */
+    private int lastStage = -1, blowTicks;
 
     public SteamVentBlockEntity(BlockPos pos, BlockState state) {
         super(FFBlockEntities.STEAM_VENT.get(), pos, state);
@@ -38,6 +40,7 @@ public class SteamVentBlockEntity extends BlockEntity {
     }
 
     public boolean blowing(ServerLevel level) {
+        if (MachineClock.stopped(level)) return false;
         int u = moment(level);
         return u >= WARN && u < WARN + JET;
     }
@@ -47,18 +50,26 @@ public class SteamVentBlockEntity extends BlockEntity {
     }
 
     private void tick(ServerLevel level) {
+        if (MachineClock.stopped(level)) return;                         // la pression baissée : plus rien ne souffle
         int u = moment(level);
+        int stage = u < WARN ? 1 : u < WARN + JET ? 2 : 0;               // siffle, souffle, calme
+        boolean changed = stage != lastStage;
+        lastStage = stage;
         BlockPos pos = getBlockPos();
         double cx = pos.getX() + 0.5, cz = pos.getZ() + 0.5, top = pos.getY() + 1.0;
-        if (u < WARN) {
-            if (u == 0) level.playSound(null, pos, FFSounds.FORGE_MASTER_STEAM.get(), SoundSource.BLOCKS, 0.35F, 1.7F);
-            if (u % 4 == 0) level.sendParticles(ParticleTypes.CLOUD, cx, top + 0.1, cz, 2, 0.15, 0.05, 0.15, 0.01);
+        if (stage == 1) {
+            if (changed) level.playSound(null, pos, FFSounds.FORGE_MASTER_STEAM.get(), SoundSource.BLOCKS, 0.35F, 1.7F);
+            if (level.getGameTime() % 4 == 0) level.sendParticles(ParticleTypes.CLOUD, cx, top + 0.1, cz, 2, 0.15, 0.05, 0.15, 0.01);
             return;
         }
-        if (u >= WARN + JET) return;
-        if (u == WARN) level.playSound(null, pos, FFSounds.FORGE_MASTER_STEAM.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-        if (u % 2 == 0) level.sendParticles(ParticleTypes.CLOUD, cx, top + HEIGHT / 2.0, cz, 10, 0.12, HEIGHT / 4.0, 0.12, 0.03);
-        if ((u - WARN) % HIT_EVERY != 0) return;
+        if (stage == 0) {
+            blowTicks = 0;
+            return;
+        }
+        if (changed) level.playSound(null, pos, FFSounds.FORGE_MASTER_STEAM.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (level.getGameTime() % 2 == 0) level.sendParticles(ParticleTypes.CLOUD, cx, top + HEIGHT / 2.0, cz, 10, 0.12, HEIGHT / 4.0, 0.12, 0.03);
+        // les coups se comptent en ticks du monde : la machine poussée ne brûle pas plus fort, elle souffle plus souvent
+        if (blowTicks++ % HIT_EVERY != 0) return;
         AABB jet = new AABB(pos.getX() - 0.1, top, pos.getZ() - 0.1, pos.getX() + 1.1, top + HEIGHT, pos.getZ() + 1.1);
         for (LivingEntity victim : level.getEntitiesOfClass(LivingEntity.class, jet, e -> e.isAlive() && !e.isSpectator())) {
             if (victim instanceof CendreuxEntity) continue;               // ceux qui gardent la machine la connaissent

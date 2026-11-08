@@ -1,0 +1,7 @@
+{
+  "parent": "echoes_fireforge:block/regulator_valve",
+  "textures": {
+    "side": "echoes_fireforge:block/valve_raise_side",
+    "wheel": "echoes_fireforge:block/valve_wheel"
+  }
+}

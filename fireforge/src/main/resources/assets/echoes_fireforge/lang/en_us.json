@@ -412,5 +412,17 @@
   "block.echoes_fireforge.steam_vent": "Steam Vent",
   "block.echoes_fireforge.machine_piston": "Giant Piston",
   "death.attack.echoes_fireforge.steam": "%1$s was scalded by steam",
-  "death.attack.echoes_fireforge.piston": "%1$s was crushed by a giant piston"
+  "death.attack.echoes_fireforge.piston": "%1$s was crushed by a giant piston",
+  "block.echoes_fireforge.regulator_valve": "Regulator Valve",
+  "block.echoes_fireforge.heart_mouth": "Heart's Mouth",
+  "item.echoes_fireforge.heart_ember": "Heart Ember",
+  "message.echoes_fireforge.valve.confirm": "This choice is for everyone, and forever. Turn the valve again to confirm.",
+  "message.echoes_fireforge.valve.locked": "The regulator no longer moves.",
+  "message.echoes_fireforge.machine.lowered": "The Great Machine slows down, then falls silent.",
+  "message.echoes_fireforge.machine.raised": "The Great Machine roars.",
+  "message.echoes_fireforge.machine.drained": "Under the machine, the lava recedes.",
+  "message.echoes_fireforge.heart.nothing": "Nothing comes out of the heart's mouth.",
+  "message.echoes_fireforge.heart.cold": "The heart is cold.",
+  "message.echoes_fireforge.heart.tomorrow": "The heart has nothing more to give today.",
+  "message.echoes_fireforge.heart.ember": "The heart gives you an ember."
 }

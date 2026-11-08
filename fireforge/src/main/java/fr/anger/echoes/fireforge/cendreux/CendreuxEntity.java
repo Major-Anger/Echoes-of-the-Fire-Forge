@@ -95,12 +95,19 @@ public class CendreuxEntity extends Monster implements RangedAttackMob {
         goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
         targetSelector.addGoal(2, new ProvokedTargetGoal(this));
+        // la Grande Machine, la pression baissée (15c) : ceux qui la gardent attaquent à vue
+        targetSelector.addGoal(3, new net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal<>(this, Player.class, 10, true, false,
+                p -> mood == fr.anger.echoes.fireforge.machine.MachineChoice.Mood.HOSTILE));
     }
 
     // ------------------------------------------------------------------ la colère
 
+    /** Dans la Grande Machine, une fois le choix fait (15c) : hostiles à tous, ou ils laissent faire. */
+    private fr.anger.echoes.fireforge.machine.MachineChoice.Mood mood = fr.anger.echoes.fireforge.machine.MachineChoice.Mood.USUAL;
+
     /** Ce joueur a touché aux machines : le Cendreux s'en prend à lui pendant 30 s. */
     public void provoke(Player player) {
+        if (mood == fr.anger.echoes.fireforge.machine.MachineChoice.Mood.PEACEFUL) return;   // la machine poussée : ils laissent faire
         provokedBy = player.getUUID();
         angerTicks = ANGER_TICKS;
     }
@@ -124,6 +131,13 @@ public class CendreuxEntity extends Monster implements RangedAttackMob {
         super.customServerAiStep();
         // la colère retombe : ProvokedTargetGoal lâche sa cible (s'il a été frappé, HurtByTargetGoal garde la sienne)
         if (angerTicks > 0 && --angerTicks == 0) provokedBy = null;
+        // la Grande Machine (15c) : ce qu'on en a fait change ceux qui la gardent
+        if (tickCount % 20 == 0 && level() instanceof ServerLevel server) mood = fr.anger.echoes.fireforge.machine.MachineChoice.cendreuxMood(server, blockPosition());
+        if (mood == fr.anger.echoes.fireforge.machine.MachineChoice.Mood.PEACEFUL) {
+            provokedBy = null;
+            angerTicks = 0;
+            if (getTarget() != null) setTarget(null);
+        }
         setAggressive(getTarget() != null);
         if (tickCount % 40 == 0) {
             // « Les noyés de cendre » : les joueurs qui le voient

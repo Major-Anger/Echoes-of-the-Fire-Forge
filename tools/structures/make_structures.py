@@ -702,6 +702,38 @@ def grand_machine():
                 b.set(a, Y(y), i, S("polished_basalt", axis="z"))
                 b.set(N - 1 - a, Y(y), i, S("polished_basalt", axis="z"))
 
+    # les fondations (15c), sous le premier plancher : une salle entre les pieds, noyée de lave (elle se vide quand on
+    # baisse la pression : machine/MachineChoice). De vieilles chaudières, des machines, deux coffres ; un escalier
+    # descend de la trappe (machines scellées, dans le premier plancher), qui s'ouvre une fois la salle vidée.
+    F0, F1, FB, FT = 8, 31, 22, 35
+    for x in range(F0, F1 + 1):
+        for z in range(F0, F1 + 1):
+            wall = x in (F0, F1) or z in (F0, F1)
+            for y in range(FB, FT + 1):
+                if y == FB:
+                    b.set(x, Y(y), z, S("smooth_basalt"))
+                elif wall:
+                    b.set(x, Y(y), z, brick(rnd, 0.2))
+                elif not (18 <= x <= 21 and 18 <= z <= 21):        # le pied du milieu traverse la salle
+                    b.set(x, Y(y), z, S("lava", level=0))
+    for bx, bz in ((13, 25), (25, 25), (25, 12)):                    # de vieilles chaudières de cuivre
+        for x in range(bx - 1, bx + 2):
+            for z in range(bz - 1, bz + 2):
+                for y in range(23, 29):
+                    b.set(x, Y(y), z, BRASS if y in (23, 28) else COPPER)
+        b.fill(bx, Y(29), bz, bx, Y(35), bz, PIPE)
+    for x, z in ((10, 28), (29, 18), (29, 29), (16, 10)):
+        b.fill(x, Y(23), z, x, Y(24), z, MACHINE)
+    b.chest(12, Y(23), 21, "east", "grand_machine_foundations")
+    b.chest(27, Y(23), 16, "west", "grand_machine_foundations")
+    for x, z in ((15, 25), (25, 18), (15, 12)):
+        b.set(x, Y(35), z, S("chain", axis="y", waterlogged=False))
+        b.set(x, Y(34), z, S("lantern", hanging=True, waterlogged=False))
+    # l'escalier, sous la trappe : il descend vers l'est
+    for k in range(0, 13):
+        for z in range(14, 17):
+            b.set(10 + k, Y(35 - k), z, S("polished_blackstone_brick_stairs", facing="west", half="bottom", shape="straight", waterlogged=False))
+
     # la coque : murs à piliers, bandes de laiton, fenêtres à barreaux à chaque étage
     for y in range(36, 107):
         for x in range(N):
@@ -728,6 +760,8 @@ def grand_machine():
                     b.set(x, Y(fy), z, S("smooth_basalt"))
                 else:
                     b.set(x, Y(fy), z, S("smooth_basalt") if line else brick(rnd, 0.08))
+    # la trappe des fondations, dans le premier plancher
+    b.fill(10, Y(36), 14, 12, Y(36), 16, S(NS + ":sealed_machine", lock=False))
     for along in range(N):
         for x, z in ((along, 0), (along, N - 1), (0, along), (N - 1, along)):
             b.set(x, Y(107), z, S("polished_blackstone_brick_wall", east="none", north="none", south="none", west="none", up=True, waterlogged=False)
@@ -863,10 +897,11 @@ def grand_machine():
             b.set(px_, Y(100), z, S("polished_basalt", axis="z"))
             z += dz
         b.set(px_, Y(100), pz, BRASS)
-    for vx in (14, 25):
-        b.fill(vx, Y(91), 29, vx, Y(92), 29, S("polished_blackstone"))
-        b.set(vx, Y(93), 29, S("waxed_exposed_copper_bulb", lit=False, powered=False))
+    # le régulateur (15c) : deux vannes identiques, à leur plaque près (− baisser, + pousser) ; la bouche du cœur, sous la boule
+    b.set(14, Y(91), 29, S(NS + ":regulator_valve", kind="lower", turned=False))
+    b.set(25, Y(91), 29, S(NS + ":regulator_valve", kind="raise", turned=False))
     b.fill(15, Y(91), 29, 24, Y(91), 29, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+    b.set(19, Y(92), 23, S(NS + ":heart_mouth"))
 
     # les conduites : de l'étage du cœur, à travers le toit, jusqu'au bedrock, qu'elles percent ; elles ressortent dessus
     for px_, pz in pipes:

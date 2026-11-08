@@ -22,13 +22,16 @@ import net.neoforged.neoforge.client.event.ViewportEvent;
 public final class MachineAmbience {
 
     private static boolean inside;
+    /** Ce qu'on a fait de la machine : 0 rien, 1 la pression baissée (silence, brouillard moins chaud), 2 poussée. */
+    private static byte choice;
     private static float strength, previous;
     private static int hum;
 
     private MachineAmbience() {}
 
-    public static void set(boolean in) {
+    public static void set(boolean in, byte madeChoice) {
         inside = in;
+        choice = madeChoice;
     }
 
     @SubscribeEvent
@@ -38,6 +41,7 @@ public final class MachineAmbience {
         previous = strength;
         if (player == null || mc.level == null) {
             inside = false;
+            choice = 0;
             strength = previous = 0;
             return;
         }
@@ -48,10 +52,11 @@ public final class MachineAmbience {
             mc.level.addParticle(ParticleTypes.WHITE_ASH, player.getX() + (mc.level.random.nextDouble() - 0.5) * 24,
                     player.getY() + mc.level.random.nextDouble() * 10 - 2, player.getZ() + (mc.level.random.nextDouble() - 0.5) * 24, 0, -0.01, 0);
         }
-        if (inside && ++hum >= 100) {
+        // le ronronnement : éteint quand la pression est baissée, plus fort et plus serré quand elle est poussée
+        if (inside && choice != 1 && ++hum >= (choice == 2 ? 60 : 100)) {
             hum = 0;
             mc.level.playLocalSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BEACON_AMBIENT, SoundSource.AMBIENT,
-                    0.45F * strength, 0.5F, false);
+                    (choice == 2 ? 0.75F : 0.45F) * strength, choice == 2 ? 0.6F : 0.5F, false);
         }
     }
 
@@ -61,11 +66,15 @@ public final class MachineAmbience {
 
     @SubscribeEvent
     public static void onFogColor(ViewportEvent.ComputeFogColor event) {
-        float s = strength(event.getPartialTick()) * 0.5F;
+        float s = strength(event.getPartialTick()) * (choice == 2 ? 0.7F : 0.5F);
         if (s <= 0) return;
-        event.setRed(Mth.lerp(s, event.getRed(), 0.30F));
-        event.setGreen(Mth.lerp(s, event.getGreen(), 0.13F));
-        event.setBlue(Mth.lerp(s, event.getBlue(), 0.06F));
+        // poussée : plus rouge ; baissée : la chaleur retombe, un gris de cendre
+        float r = choice == 2 ? 0.42F : choice == 1 ? 0.20F : 0.30F;
+        float g = choice == 2 ? 0.10F : choice == 1 ? 0.15F : 0.13F;
+        float b = choice == 2 ? 0.04F : choice == 1 ? 0.12F : 0.06F;
+        event.setRed(Mth.lerp(s, event.getRed(), r));
+        event.setGreen(Mth.lerp(s, event.getGreen(), g));
+        event.setBlue(Mth.lerp(s, event.getBlue(), b));
     }
 
     @SubscribeEvent

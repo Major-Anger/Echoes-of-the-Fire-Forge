@@ -10,8 +10,8 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /** Une fois par seconde : le joueur est-il dans la caverne de la Grande Machine ? Son client en tire l'ambiance (15b). */
@@ -20,7 +20,8 @@ public final class MachineAmbienceEvents {
 
     private MachineAmbienceEvents() {}
 
-    private static final Set<UUID> INSIDE = new HashSet<>();
+    /** Ce que chaque joueur a reçu en dernier : 0 dehors ; dedans : 1 + le choix (1 rien, 2 baissée, 3 poussée). */
+    private static final Map<UUID, Integer> SENT = new HashMap<>();
 
     /** Dans la caverne (ou sur la machine, son quai, son tunnel). */
     public static boolean inside(ServerPlayer player) {
@@ -31,21 +32,31 @@ public final class MachineAmbienceEvents {
     @SubscribeEvent
     public static void onTick(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || player.tickCount % 20 != 0) return;
-        boolean now = inside(player);
-        if (now == INSIDE.contains(player.getUUID())) return;
-        if (now) INSIDE.add(player.getUUID()); else INSIDE.remove(player.getUUID());
-        PacketDistributor.sendToPlayer(player, new MachineAmbiencePayload(now));
+        update(player);
+    }
+
+    private static void update(ServerPlayer player) {
+        int now = inside(player) ? 1 + GrandMachineState.get(player.serverLevel()).choice().ordinal() : 0;
+        Integer before = SENT.get(player.getUUID());
+        if (before != null && before == now || before == null && now == 0) return;
+        SENT.put(player.getUUID(), now);
+        PacketDistributor.sendToPlayer(player, new MachineAmbiencePayload(now > 0, (byte) Math.max(0, now - 1)));
+    }
+
+    /** Le choix vient d'être fait : ceux qui sont dans la caverne l'entendent tout de suite. */
+    public static void refresh(net.minecraft.server.level.ServerLevel level) {
+        for (ServerPlayer player : level.players()) update(player);
     }
 
     @SubscribeEvent
     public static void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
-        INSIDE.remove(event.getEntity().getUUID());
+        SENT.remove(event.getEntity().getUUID());
     }
 
     @SubscribeEvent
     public static void onDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player && INSIDE.remove(player.getUUID())) {
-            PacketDistributor.sendToPlayer(player, new MachineAmbiencePayload(false));
+        if (event.getEntity() instanceof ServerPlayer player && SENT.remove(player.getUUID()) != null) {
+            PacketDistributor.sendToPlayer(player, new MachineAmbiencePayload(false, (byte) 0));
         }
     }
 }

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "kind=lower,turned=false": {
+      "model": "echoes_fireforge:block/regulator_valve_lower"
+    },
+    "kind=lower,turned=true": {
+      "model": "echoes_fireforge:block/regulator_valve_lower_turned"
+    },
+    "kind=raise,turned=false": {
+      "model": "echoes_fireforge:block/regulator_valve_raise"
+    },
+    "kind=raise,turned=true": {
+      "model": "echoes_fireforge:block/regulator_valve_raise_turned"
+    }
+  }
+}

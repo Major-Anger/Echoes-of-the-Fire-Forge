@@ -412,5 +412,17 @@
   "block.echoes_fireforge.steam_vent": "Bouche de vapeur",
   "block.echoes_fireforge.machine_piston": "Piston géant",
   "death.attack.echoes_fireforge.steam": "%1$s a été ébouillanté par la vapeur",
-  "death.attack.echoes_fireforge.piston": "%1$s a été écrasé par un piston géant"
+  "death.attack.echoes_fireforge.piston": "%1$s a été écrasé par un piston géant",
+  "block.echoes_fireforge.regulator_valve": "Vanne du régulateur",
+  "block.echoes_fireforge.heart_mouth": "Bouche du cœur",
+  "item.echoes_fireforge.heart_ember": "Braise du cœur",
+  "message.echoes_fireforge.valve.confirm": "Ce choix vaut pour tout le monde, et pour toujours. Tourne encore la vanne pour confirmer.",
+  "message.echoes_fireforge.valve.locked": "Le régulateur ne bouge plus.",
+  "message.echoes_fireforge.machine.lowered": "La Grande Machine ralentit, puis se tait.",
+  "message.echoes_fireforge.machine.raised": "La Grande Machine gronde.",
+  "message.echoes_fireforge.machine.drained": "Sous la machine, la lave se retire.",
+  "message.echoes_fireforge.heart.nothing": "Rien ne sort de la bouche du cœur.",
+  "message.echoes_fireforge.heart.cold": "Le cœur est froid.",
+  "message.echoes_fireforge.heart.tomorrow": "Le cœur n'a plus rien à donner aujourd'hui.",
+  "message.echoes_fireforge.heart.ember": "Le cœur te donne une braise."
 }
