@@ -121,6 +121,15 @@
       15d (Plan de la Grande Machine, succès et son Écho « une charge de vapeur sur quatre ne se dépense pas », Manomètre
       d'Attiseur `machine/StokerGaugeItem`, guide) : faite. La Grande Machine est finie. Textes du plan provisoires (Anger).
 
+## Préparation de la sortie (en cours)
+- Décisions d'Anger : le Core passe en 1.0.0 (la Forge garde sa version) ; licence « All Rights Reserved » ; `/witherset`
+  gardée pour l'instant ; chaque mod dans son dépôt (le Core dans `Major-Anger/Echoes-Core`, privé).
+- Logos validés : `tools/textures/make_logos.py`, rangés dans `art/logos/` (avec texte pour `logoFile`, carrés sans texte
+  pour CurseForge et Modrinth) ; celui de la Forge dans le jar (`logoFile`).
+- Le dépôt `Echoes-Core` : l'application GitHub de Claude ne peut pas le créer ; Anger le crée (privé, vide) et lui
+  donne accès, puis Claude y pousse le Core séparé (historique gardé, construction autonome, version 1.0.0, logo), et
+  la Forge dépendra alors du Core publié (`fr.anger.echoes:echoes_core:1.0.0`, `core_version_range=[1.0,2.0)`), comme le Silt.
+
 ## Points en attente (côté Anger)
 - Musiques du Core (décision d'Anger, faites) : des morceaux de style vanilla, pour la diversité, sans rôle dans le lore
   (seules les musiques de dimension, de structure et les disques comptent pour le lore). Ajoutés aux listes du jeu
