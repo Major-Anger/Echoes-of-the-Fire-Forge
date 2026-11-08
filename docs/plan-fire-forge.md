@@ -866,7 +866,7 @@ la géométrie `client/ForgeMasterGeometry` est générée depuis le fichier d'A
 `tools/data/make_forgemaster_data.py`, un œuf d'apparition (créatif) pour les essais. Les phases 2 « foyers et
 Cendreux » viennent avec l'arène (14b).
 
-## 15. La Grande Machine (idée gardée de côté au 14 ; proposition, à valider par Anger)
+## 15. La Grande Machine (idée gardée de côté au 14 ; plan validé par Anger)
 La machine des Attiseurs qui a réchauffé le Nether, et qui tourne encore. Raison d'être (règle 3) : c'est la source
 de la chaleur et de la vapeur dont parlent les plans. Elle montre que la vapeur est partie par le toit de bedrock (lore
 décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit d'où vient la maladie.
@@ -874,6 +874,12 @@ décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit
 ### Décisions d'Anger
 - **A + B** : un lieu à explorer, et un choix au cœur de la machine.
 - **Une seule par monde.**
+- **Toute la proposition ci-dessous est validée**, et le succès « La Grande Machine » laisse un **Écho** (son bonus
+  sera proposé au 15d).
+- **15a, gabarit** : `grand_machine` (42 x 114 x 42 : la coque de 40 et une marge d'un bloc pour les conduites du
+  dehors ; il commence à y = 18) et `grand_machine_pier` (le quai, 28 x 16 x 6), par `tools/structures/make_structures.py`.
+  Aperçu posé à la main dans une caverne creusée (planche « planche-15a-apercu ») : à valider avant le code de la
+  génération.
 
 ### Proposition (aperçu en coupe : planche « apercu-grande-machine »)
 - **Où** : une seule, dans le Nether, placée comme les forteresses de l'End (anneaux concentriques, un seul point),

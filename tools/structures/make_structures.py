@@ -9,7 +9,9 @@ Usage : python3 tools/structures/make_structures.py <dossier de sortie (data/ech
 - boiler_hall : la chaufferie, creusée dans la roche, et sa salle scellée ; boiler_hall_gate : son entrée, posée là où
   son couloir débouche à l'air libre ;
 - last_hearth : le dernier foyer ;
-- ceiling_chimneys : les cheminées qui pendent du plafond de bedrock.
+- ceiling_chimneys : les cheminées qui pendent du plafond de bedrock ;
+- forge_arena : l'arène du maître de forge (14b) ;
+- grand_machine, grand_machine_pier : la Grande Machine et son quai (section 15).
 Les blocs non décrits ne sont pas posés : le terrain reste. L'air décrit creuse la place.
 """
 import os
@@ -582,6 +584,365 @@ def forge_arena():
     return b
 
 
+# ---------------------------------------------------------------------- la Grande Machine (plan, section 15)
+GM_N, GM_BASE, GM_TOP = 40, 18, 131                 # 40 x 40 ; des pieds (y 18, dans la lave) au-dessus du toit (y 131)
+GM_FLOORS = (36, 52, 70, 90, 106)                   # les planchers ; le dernier est le toit
+GM_ENTRY = (18, 21)                                 # la porte, à l'ouest (z), au niveau du premier plancher
+
+
+def _rot(k, x, z, n=GM_N):
+    """Le quart de tour k (0 : le mur nord) d'une position, autour du centre de la machine."""
+    for _ in range(k):
+        x, z = n - 1 - z, x
+    return x, z
+
+
+_FACING = ["north", "east", "south", "west"]
+
+
+def _turn(facing, k):
+    return _FACING[(_FACING.index(facing) + k) % 4]
+
+
+def _flight(b, rnd, k, floor, upper, sealed):
+    """Un escalier contre un mur (k : 0 nord, 1 est, 2 sud, 3 ouest) qui monte du plancher `floor` au plancher `upper`,
+    et en haut le sas : une petite pièce fermée, sa porte scellée (un chaudron plein d'eau et un fourneau allumé
+    l'ouvrent : la machine manque d'eau, c'est le joueur qui l'apporte)."""
+    Y = lambda y: y - GM_BASE
+    n = upper - floor
+    def put(x, y, z, state, nbt_=None):
+        wx, wz = _rot(k, x, z)
+        b.set(wx, Y(y), wz, state, nbt_)
+    for step in range(1, n + 1):
+        x = 4 + step
+        for z in (1, 2, 3):
+            put(x, floor + step, z, S("polished_blackstone_brick_stairs", facing=_turn("east", k), half="bottom", shape="straight", waterlogged=False))
+            for y in range(floor + 1, floor + step):
+                put(x, y, z, brick(rnd, 0.1))
+        for y in range(floor + step + 1, floor + step + 4):     # la place pour la tête
+            for z in (1, 2, 3):
+                put(x, y, z, AIR)
+    for x in range(4 + n - 5, 4 + n):                             # le passage dans le plancher du dessus
+        for z in (1, 2, 3):
+            put(x, upper, z, AIR)
+    if not sealed:
+        return
+    x0, x1 = 4 + n - 6, 4 + n + 5
+    for x in range(x0, x1 + 1):
+        for z in range(0, 7):
+            for y in range(upper + 1, upper + 6):
+                wall = x in (x0, x1) or z == 6 or y == upper + 5
+                if wall:
+                    put(x, y, z, S("polished_basalt", axis="y") if (x in (x0, x1) and z == 6) else brick(rnd, 0.1))
+                elif not (z in (1, 2, 3) and 4 + n - 5 <= x < 4 + n):
+                    put(x, y, z, AIR)
+    dx = 4 + n + 1
+    for x in range(dx, dx + 3):
+        for y in range(upper + 1, upper + 4):
+            put(x, y, 6, S(NS + ":sealed_machine", lock=False))
+    put(dx + 1, upper + 1, 6, S(NS + ":sealed_machine", lock=True))
+    for x in range(dx - 1, dx + 4):
+        put(x, upper + 4, 6, BRASS)
+    put(dx + 3, upper + 1, 4, S("cauldron"))
+    put(dx + 3, upper + 1, 2, S("furnace", facing=_turn("west", k), lit=False))
+    for z in (2, 4):
+        put(dx + 3, upper + 2, z, S("lightning_rod", facing="up", powered=False, waterlogged=False))
+        put(dx + 3, upper + 3, z, S("lightning_rod", facing="up", powered=False, waterlogged=False))
+    put(dx + 1, upper + 4, 5, S("waxed_exposed_copper_bulb", lit=False, powered=False))   # le manomètre, éteint
+
+
+class _Shifted:
+    """Une vue décalée d'un gabarit : on y écrit en coordonnées de la coque, le gabarit garde sa marge."""
+
+    def __init__(self, build, d):
+        self.build, self.d = build, d
+
+    def set(self, x, y, z, state, block_nbt=None):
+        self.build.set(x + self.d, y, z + self.d, state, block_nbt)
+
+    def get(self, x, y, z):
+        return self.build.get(x + self.d, y, z + self.d)
+
+    def fill(self, x0, y0, z0, x1, y1, z1, state):
+        self.build.fill(x0 + self.d, y0, z0 + self.d, x1 + self.d, y1, z1 + self.d, state)
+
+    def carve(self, x0, y0, z0, x1, y1, z1):
+        self.build.carve(x0 + self.d, y0, z0 + self.d, x1 + self.d, y1, z1 + self.d)
+
+    def chest(self, x, y, z, facing, loot):
+        self.build.chest(x + self.d, y, z + self.d, facing, loot)
+
+
+def grand_machine():
+    """La Grande Machine : 40 x 40 (le gabarit en fait 42 : une marge d'un bloc pour les conduites du dehors ; la coque
+    commence donc en (1, 1) du gabarit), une centaine de blocs de haut. Les pieds dans la mer de lave ; on entre à l'ouest,
+    au premier plancher (y 36), et on monte : 1. les foyers (encore allumés), 2. les cuves (vides, les marques de l'eau),
+    3. les pistons, 4. le cœur et son régulateur, puis le toit, et les conduites qui percent le bedrock et ressortent
+    dessus. Les blocs non décrits ne sont pas posés : sous la coque, la lave de la caverne reste."""
+    rnd = random.Random(71)
+    N = GM_N
+    raw = Build(N + 2, GM_TOP - GM_BASE + 1, N + 2)     # une marge d'un bloc autour de la coque, pour ce qui dépasse
+    b = _Shifted(raw, 1)                               # dans ce qui suit, (0, 0) est le coin de la coque
+    Y = lambda y: y - GM_BASE
+    GRATE = S("iron_trapdoor", facing="north", half="bottom", open=False, powered=False, waterlogged=False)
+    CHAIN = S("chain", axis="y", waterlogged=False)
+
+    # les pieds, plantés dans la lave, et leurs traverses
+    legs = ((3, 3), (33, 3), (3, 33), (33, 33), (18, 18))
+    for lx, lz in legs:
+        for x in range(lx, lx + 4):
+            for z in range(lz, lz + 4):
+                for y in range(GM_BASE, 36):
+                    b.set(x, Y(y), z, BRASS if y in (25, 31) else PIPE)
+    for i in range(7, 33):
+        for a in (4, 5):
+            for y in (34, 35):
+                b.set(i, Y(y), a, S("polished_basalt", axis="x"))
+                b.set(i, Y(y), N - 1 - a, S("polished_basalt", axis="x"))
+                b.set(a, Y(y), i, S("polished_basalt", axis="z"))
+                b.set(N - 1 - a, Y(y), i, S("polished_basalt", axis="z"))
+
+    # la coque : murs à piliers, bandes de laiton, fenêtres à barreaux à chaque étage
+    for y in range(36, 107):
+        for x in range(N):
+            for z in range(N):
+                if not (x in (0, N - 1) or z in (0, N - 1)):
+                    continue
+                along = z if x in (0, N - 1) else x
+                pillar = along % 8 == 3 or along in (0, N - 1)
+                band = y in GM_FLOORS or y in (44, 61, 80, 98)
+                b.set(x, Y(y), z, PIPE if pillar else BRASS if band else brick(rnd, 0.15))
+    for fy, top in zip(GM_FLOORS[:4], GM_FLOORS[1:]):
+        for along in range(N):
+            if along % 8 not in (6, 7, 0) or along in (0, N - 1):
+                continue
+            for y in range(fy + 4, min(fy + 9, top - 2)):
+                for x, z in ((along, 0), (along, N - 1), (0, along), (N - 1, along)):
+                    b.set(x, Y(y), z, S("iron_bars", waterlogged=False))
+    # les planchers (pierre noire, des lignes de basalte dans l'axe des piliers) ; le toit, et son parapet
+    for fy in GM_FLOORS:
+        for x in range(1, N - 1):
+            for z in range(1, N - 1):
+                line = x % 8 == 3 or z % 8 == 3
+                if fy == 106:
+                    b.set(x, Y(fy), z, S("smooth_basalt"))
+                else:
+                    b.set(x, Y(fy), z, S("smooth_basalt") if line else brick(rnd, 0.08))
+    for along in range(N):
+        for x, z in ((along, 0), (along, N - 1), (0, along), (N - 1, along)):
+            b.set(x, Y(107), z, S("polished_blackstone_brick_wall", east="none", north="none", south="none", west="none", up=True, waterlogged=False)
+                  if along % 8 == 3 else S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+
+    # l'entrée, à l'ouest : 4 de large, 4 de haut, sous un linteau de laiton
+    z0, z1 = GM_ENTRY
+    b.fill(0, Y(37), z0, 0, Y(40), z1, AIR)
+    b.fill(0, Y(37), z0 - 1, 0, Y(41), z0 - 1, PIPE)
+    b.fill(0, Y(37), z1 + 1, 0, Y(41), z1 + 1, PIPE)
+    b.fill(0, Y(41), z0, 0, Y(41), z1, BRASS)
+
+    # 1. les foyers (y 37 à 51) : quatre grands foyers de lave sous des grilles, leurs hottes et leurs conduites
+    hearths = ((9, 9), (30, 9), (9, 30), (30, 30))
+    for hx, hz in hearths:
+        for x in range(hx - 3, hx + 4):
+            for z in range(hz - 3, hz + 4):
+                edge = abs(x - hx) == 3 or abs(z - hz) == 3
+                if edge:
+                    b.fill(x, Y(37), z, x, Y(38), z, S("polished_blackstone_bricks"))
+                    b.set(x, Y(39), z, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+                else:
+                    b.set(x, Y(37), z, S("lava", level=0))
+                    b.set(x, Y(38), z, GRATE)
+        for x in range(hx - 2, hx + 3):
+            for z in range(hz - 2, hz + 3):
+                b.set(x, Y(44), z, BRASS)
+        for x in range(hx - 1, hx + 2):
+            for z in range(hz - 1, hz + 2):
+                b.set(x, Y(45), z, BRASS_SLAB)
+        for x, z in ((hx - 2, hz - 2), (hx + 2, hz - 2), (hx - 2, hz + 2), (hx + 2, hz + 2)):
+            b.fill(x, Y(40), z, x, Y(43), z, CHAIN)
+        b.fill(hx, Y(46), hz, hx, Y(51), hz, PIPE)
+        b.set(hx, Y(49), hz, BRASS)
+    # du charbon en tas, des machines comprimées le long des murs, des chaînes au plafond
+    for x, z in ((15, 6), (24, 33), (5, 24), (34, 15)):
+        b.fill(x, Y(37), z, x + 1, Y(37), z + 1, S("coal_block"))
+        b.set(x, Y(38), z, S("coal_block"))
+    for x, z in ((1, 12), (1, 27), (38, 24), (12, 38), (27, 38)):
+        b.fill(x, Y(37), z, x, Y(38), z, MACHINE)
+    for x, z in ((14, 14), (25, 14), (14, 25), (25, 25), (20, 20)):
+        b.fill(x, Y(46), z, x, Y(51), z, CHAIN)
+        b.set(x, Y(45), z, S("lantern", hanging=True, waterlogged=False))
+
+    # 2. les cuves (y 53 à 69) : deux cuves de cuivre, vides ; le vert-de-gris marque où l'eau est descendue
+    tanks = ((12, 23), (27, 23))
+    for tx, tz in tanks:
+        for x in range(tx - 6, tx + 7):
+            for z in range(tz - 6, tz + 7):
+                r = ((x - tx) ** 2 + (z - tz) ** 2) ** 0.5
+                if r > 6.4:
+                    continue
+                wall = r > 5.3
+                for y in range(53, 68):
+                    if wall:
+                        mark = y in (56, 59, 63)
+                        ring = y in (54, 61, 66)
+                        b.set(x, Y(y), z, BRASS if ring else S("waxed_oxidized_copper") if mark else COPPER)
+                    else:
+                        b.set(x, Y(y), z, AIR)
+                b.set(x, Y(68), z, BRASS if wall else COPPER)
+        for x, z, h in ((tx - 2, tz + 1, 3), (tx + 1, tz - 2, 2), (tx + 2, tz + 2, 4), (tx - 1, tz - 3, 2)):
+            b.set(x, Y(67), z, S("dripstone_block"))
+            length = h - 1                                         # des stalactites : l'eau a coulé là longtemps
+            for i in range(1, h):
+                shape = "tip" if i == length else "frustum" if i == length - 1 else "base" if i == 1 else "middle"
+                b.set(x, Y(67 - i), z, S("pointed_dripstone", thickness=shape, vertical_direction="down", waterlogged=False))
+        b.fill(tx, Y(69), tz, tx, Y(70), tz, PIPE)                 # vers les pistons
+    # une brèche dans chaque cuve, pour y entrer
+    b.fill(11, Y(53), 17, 13, Y(56), 17, AIR)
+    b.fill(26, Y(53), 29, 28, Y(55), 29, AIR)
+    for x in (11, 13):
+        b.set(x, Y(57), 17, S("waxed_exposed_cut_copper_stairs", facing="south", half="top", shape="straight", waterlogged=False))
+    # les conduites des foyers montent jusqu'aux cuves
+    for hx, hz in hearths:
+        b.fill(hx, Y(53), hz, hx, Y(58), hz, PIPE)
+        tz = 23
+        step = 1 if hz < tz else -1
+        z = hz + step
+        tx = 12 if hx < 20 else 27
+        while ((hx - tx) ** 2 + (z - tz) ** 2) ** 0.5 > 6.4:
+            b.set(hx, Y(58), z, S("polished_basalt", axis="z"))
+            z += step
+        b.set(hx, Y(58), hz, BRASS)
+    b.chest(20, Y(53), 30, "north", "grand_machine")
+
+    # 3. les pistons (y 71 à 89) : six pistons géants, leurs têtes de laiton à des hauteurs différentes ; des feux
+    #    de vapeur dans le sol (pour l'instant des feux de camp allumés : ils brûlent qui marche dessus)
+    for (px_, pz), head in zip(((10, 11), (20, 11), (29, 11), (10, 26), (20, 26), (29, 26)), (78, 83, 80, 85, 79, 82)):
+        for x in range(px_ - 2, px_ + 2):
+            for z in range(pz - 2, pz + 2):
+                for y in range(71, 75):
+                    b.set(x, Y(y), z, BRASS if y == 74 else S("polished_blackstone_bricks"))
+        for x in (px_ - 1, px_):
+            for z in (pz - 1, pz):
+                b.fill(x, Y(75), z, x, Y(head - 1), z, PIPE)
+        for x in range(px_ - 3, px_ + 3):
+            for z in range(pz - 3, pz + 3):
+                b.set(x, Y(head), z, BRASS)
+                b.set(x, Y(head + 1), z, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+    for x, z in ((15, 18), (24, 18), (6, 19), (33, 33), (15, 31), (25, 6)):
+        b.set(x, Y(70), z, campfire("north", lit=True))
+    b.fill(12, Y(70), 23, 12, Y(71), 23, PIPE)
+    b.fill(27, Y(70), 23, 27, Y(71), 23, PIPE)
+
+    # 4. le cœur (y 91 à 105) : une boule de cuivre ajouré où brûle la braise, sur son socle ; ses conduites vers le toit ;
+    #    devant, le régulateur et ses deux vannes (baisser, pousser : les vraies vannes viendront en 15c)
+    cx, cy, cz = 19.5, 98.5, 19.5
+    for x in range(12, 28):
+        for z in range(12, 28):
+            for y in range(92, 106):
+                r = ((x - cx) ** 2 + (y - cy) ** 2 + (z - cz) ** 2) ** 0.5
+                if 5.0 < r <= 6.1:
+                    rib = x in (19, 20) or z in (19, 20) or y == 98
+                    b.set(x, Y(y), z, BRASS if rib else S("waxed_exposed_copper_grate", waterlogged=False))
+                elif r <= 3.4:
+                    b.set(x, Y(y), z, S("shroomlight") if (x + y + z) % 3 else S("magma_block"))
+    for x in range(16, 24):
+        for z in range(16, 24):
+            b.set(x, Y(91), z, S("polished_blackstone_bricks"))
+            if 17 <= x <= 22 and 17 <= z <= 22:
+                b.set(x, Y(92), z, BRASS)
+    pipes = ((10, 10), (29, 10), (10, 29), (29, 29))
+    for px_, pz in pipes:
+        dx = 1 if px_ > 20 else -1
+        dz = 1 if pz > 20 else -1
+        x = 25 if dx > 0 else 14
+        while x != px_:
+            b.set(x, Y(100), 20 if dz > 0 else 19, S("polished_basalt", axis="x"))
+            x += dx
+        z = 20 if dz > 0 else 19
+        while z != pz:
+            b.set(px_, Y(100), z, S("polished_basalt", axis="z"))
+            z += dz
+        b.set(px_, Y(100), pz, BRASS)
+    for vx in (14, 25):
+        b.fill(vx, Y(91), 29, vx, Y(92), 29, S("polished_blackstone"))
+        b.set(vx, Y(93), 29, S("waxed_exposed_copper_bulb", lit=False, powered=False))
+    b.fill(15, Y(91), 29, 24, Y(91), 29, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+
+    # les conduites : de l'étage du cœur, à travers le toit, jusqu'au bedrock, qu'elles percent ; elles ressortent dessus
+    for px_, pz in pipes:
+        for x in range(px_ - 1, px_ + 2):
+            for z in range(pz - 1, pz + 2):
+                for y in range(91, GM_TOP + 1):
+                    if y == GM_TOP and (x, z) == (px_, pz):
+                        continue
+                    if y > 106 or (x, z) == (px_, pz):
+                        ring = y in (115, 122, 128)
+                        b.set(x, Y(y), z, BRASS if ring else PIPE)
+        b.set(px_, Y(GM_TOP), pz, S("campfire", facing="north", lit=True, signal_fire=True, waterlogged=False))   # la vapeur qui sort
+
+    # des lanternes pendues aux plafonds des étages du haut (la lumière vient sinon des fenêtres et des foyers)
+    for lo, hi, spots in ((52, 70, ((20, 12), (5, 34), (34, 34), (20, 35))),
+                          (70, 90, ((15, 18), (25, 18), (15, 33), (5, 5), (34, 5), (5, 25))),
+                          (90, 106, ((6, 6), (33, 6), (6, 33), (33, 26), (26, 33)))):
+        for x, z in spots:
+            b.fill(x, Y(hi - 4), z, x, Y(hi - 1), z, CHAIN)
+            b.set(x, Y(hi - 5), z, S("lantern", hanging=True, waterlogged=False))
+
+    # les escaliers, d'un étage à l'autre : nord, est, sud scellés ; le dernier, à l'ouest, monte au toit
+    for k, (lo, hi) in enumerate(zip(GM_FLOORS[:4], GM_FLOORS[1:])):
+        _flight(b, rnd, k, lo, hi, sealed=k < 3)
+
+    # l'air des étages (là où rien n'est posé)
+    for lo, hi in zip(GM_FLOORS[:4], GM_FLOORS[1:]):
+        b.carve(1, Y(lo + 1), 1, N - 2, Y(hi - 1), N - 2)
+
+    # dehors, contre la coque : les grandes conduites montent des foyers jusqu'au-dessus du toit, cerclées de laiton
+    # tous les 12 blocs, avec leurs soupapes à mi-hauteur (côté ouest, la porte reste libre)
+    for along in (7, 31):
+        for ox, oz in ((along, -1), (along, N), (-1, along), (N, along)):
+            for y in range(37, 111):
+                b.set(ox, Y(y), oz, BRASS if y % 12 == 0 else PIPE)
+            b.set(ox, Y(111), oz, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+            b.set(ox, Y(36), oz, BRASS)
+            for y in (58, 82):
+                b.set(ox, Y(y), oz, S("waxed_exposed_copper_bulb", lit=False, powered=False))
+    return raw
+
+
+def grand_machine_pier():
+    """Le quai qui mène à la porte de la machine, depuis la paroi de la caverne : 28 de long, 6 de large, posé à l'ouest
+    (x = 27 touche la machine). Ses poteaux plongent dans la lave ; une travée s'est effondrée."""
+    rnd = random.Random(72)
+    L, W, BASE = 28, 6, 25
+    b = Build(L, 16, W)
+    Y = lambda y: y - BASE
+    for x in range(L):
+        gap = 9 <= x <= 11
+        for z in range(W):
+            edge = z in (0, W - 1)
+            if gap:
+                continue
+            b.set(x, Y(36), z, BRASS if edge else brick(rnd, 0.25))
+        if x % 6 == 1:
+            for z in (0, W - 1):
+                b.fill(x, Y(25), z, x, Y(35), z, PIPE)
+                if not gap:
+                    b.fill(x, Y(37), z, x, Y(38), z, S("polished_blackstone_brick_wall", east="none", north="none", south="none",
+                                                        west="none", up=True, waterlogged=False))
+                    b.set(x, Y(39), z, S("lantern", hanging=False, waterlogged=False))
+    # la travée effondrée : ce qu'il en reste, à moitié dans la lave
+    for x, z in ((9, 1), (10, 3), (11, 2), (10, 4)):
+        b.set(x, Y(31 + rnd.choice((0, 1))), z, S("cracked_polished_blackstone_bricks"))
+    b.set(8, Y(36), 2, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+    b.set(12, Y(36), 3, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+    # à la paroi : une arche, qui continue dans la roche (le tunnel est creusé à la génération)
+    b.fill(0, Y(37), 1, 0, Y(40), 4, AIR)
+    b.fill(0, Y(37), 0, 0, Y(41), 0, PIPE)
+    b.fill(0, Y(37), W - 1, 0, Y(41), W - 1, PIPE)
+    b.fill(0, Y(41), 0, 0, Y(41), W - 1, BRASS)
+    return b
+
+
 forge_ruin("base").save("forge_ruin")
 forge_ruin("crimson").save("forge_ruin_crimson")
 forge_ruin("soul").save("forge_ruin_soul")
@@ -591,3 +952,5 @@ boiler_hall_gate().save("boiler_hall_gate")
 last_hearth().save("last_hearth")
 ceiling_chimneys().save("ceiling_chimneys")
 forge_arena().save("forge_arena")
+grand_machine().save("grand_machine")
+grand_machine_pier().save("grand_machine_pier")
