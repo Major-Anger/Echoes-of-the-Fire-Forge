@@ -25,7 +25,8 @@
         "forge/weapon_mechanisms",
         "forge/cendreux",
         "forge/ash_bed",
-        "forge/wither_set"
+        "forge/wither_set",
+        "forge/forge_master"
       ]
     },
     {

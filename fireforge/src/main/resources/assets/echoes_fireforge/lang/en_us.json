@@ -319,6 +319,7 @@
   "item.echoes_fireforge.forge_master_notebook": "Forge Master's Notebook",
   "tooltip.echoes_fireforge.steam_hammer": "Right-click: steam strike (6 charges)",
   "message.echoes_fireforge.steam_hammer.empty": "Not enough steam: recharge it at the boiler.",
+  "tooltip.echoes_fireforge.forge_master_notebook": "Brass leaves held by iron rings.",
   "guide.echoes_fireforge.forge.compressed_machine.title": "Compressed Machine",
   "guide.echoes_fireforge.forge.compressed_machine.p1": "Deep in the Nether, near the ancient debris, lie even rarer blocks: machines crushed by time.\n\nThey never touch the air: you have to dig for them. The larger veins hide between Y 8 and 24. Needs at least a diamond pickaxe; with Silk Touch, you keep the block.",
   "guide.echoes_fireforge.forge.compressed_machine.p2": "Mined, it drops one random part: a gear, a valve or an engraved plate. The forge and its modules are made of them.",
@@ -380,6 +381,13 @@
   "guide.echoes_fireforge.forge.wither_set.p1": "The sturdiest of the Stokers' armors. It is forged over netherite, at a smithing table, with the Wither Template and a wither skeleton skull.\n\nThe template is rarely found on the Ashen and in Nether fortresses. Stoker's Ash copies it, and mends the armor.",
   "guide.echoes_fireforge.forge.wither_set.p2": "Those who wore it for long did not come back from it. It is said the armor changes with its wearer, and the wearer with it.\n\nTaking it off, piece by piece, leaves time to recover. Up to a point.\n\nWhat remains of them keeps the armor, and gives it only to whoever defeats it.",
   "guide.echoes_fireforge.forge.wither_set.p2.title": "Those who wore it",
+  "guide.echoes_fireforge.forge.forge_master.title": "The Forge Master",
+  "guide.echoes_fireforge.forge.forge_master.p1": "Deep in great forges carved into the Nether rock, a Stoker still keeps his anvil. He sleeps bent over it; he rises when someone comes in, and the portcullis falls behind them.\n\nHis hammer strikes the ground: the wave runs up to six blocks, and jumping avoids it. When his gear races, he readies a blow that goes through shields: step aside.",
+  "guide.echoes_fireforge.forge.forge_master.p2": "At half health, he strikes faster and spits steam behind him. The corner hearths light up again and Ashen come out of them. A hearth put out with a shovel gives no more, but the Ashen know how to light them again.\n\nLeft alone, he goes back to sleep and recovers. If he falls, his forge goes cold; eight Stoker's Ash on the hearth light it again, and he returns.",
+  "guide.echoes_fireforge.forge.forge_master.p2.title": "The fight",
+  "guide.echoes_fireforge.forge.forge_master.p3": "The Forge Master's Steam Hammer: heavy and slow. It is reforged at the Forge like a mace and mended with Stoker's Ash.\n\nRight-click: the steam strike, a ground wave up to five blocks (6 charges, 8 seconds). Its steam recharges at the workbench boiler.",
+  "guide.echoes_fireforge.forge.forge_master.p4": "On the first victory, he leaves his hammer and his notebook. After that, his hammer one time in three.",
+  "guide.echoes_fireforge.forge.forge_master.p4.title": "What he leaves",
   "guide.echoes_fireforge.plans.forge.title": "The Forge Plan",
   "guide.echoes_fireforge.plans.forge.p1": "Two hearths under a single chimney. The line is sure and firm, engraved by someone who had built a hundred.\n\nIn the margin, a smaller line: \"Water first. Fire second. Never the other way.\"",
   "guide.echoes_fireforge.plans.workbench.title": "The Workbench Plan",
@@ -400,6 +408,5 @@
   "guide.echoes_fireforge.cat.forge": "The Forge",
   "guide.echoes_fireforge.cat.forge.desc": "The Stokers turned the Nether into a forge-world. Their machines still sleep under the rock, and their forge can live again.",
   "guide.echoes_fireforge.cat.plans": "Stokers' Notebooks",
-  "guide.echoes_fireforge.cat.plans.desc": "The Stokers' plans, engraved on brass and found in compressed machines.\n\nThe erased pages are waiting to be found.",
-  "tooltip.echoes_fireforge.forge_master_notebook": "Brass leaves held by iron rings."
+  "guide.echoes_fireforge.cat.plans.desc": "The Stokers' plans, engraved on brass and found in compressed machines.\n\nThe erased pages are waiting to be found."
 }

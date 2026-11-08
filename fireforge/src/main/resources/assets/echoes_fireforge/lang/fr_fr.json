@@ -319,6 +319,7 @@
   "item.echoes_fireforge.forge_master_notebook": "Carnet du maître de forge",
   "tooltip.echoes_fireforge.steam_hammer": "Clic droit : coup à la vapeur (6 charges)",
   "message.echoes_fireforge.steam_hammer.empty": "Plus assez de vapeur : recharge-le au bouilleur.",
+  "tooltip.echoes_fireforge.forge_master_notebook": "Des feuilles de laiton tenues par des anneaux de fer.",
   "guide.echoes_fireforge.forge.compressed_machine.title": "La machine comprimée",
   "guide.echoes_fireforge.forge.compressed_machine.p1": "Dans les profondeurs du Nether, près des débris antiques, dorment des blocs plus rares encore : des machines écrasées par le temps.\n\nIls ne touchent jamais l'air : il faut creuser pour les trouver. Les plus gros filons se cachent entre Y 8 et 24. Une pioche en diamant au minimum ; au toucher de soie, on garde le bloc.",
   "guide.echoes_fireforge.forge.compressed_machine.p2": "Minée, elle donne une pièce au hasard : engrenage, soupape ou plaque gravée. La forge et ses modules en sont faits.",
@@ -380,6 +381,13 @@
   "guide.echoes_fireforge.forge.wither_set.p1": "La plus solide des armures des Attiseurs. Elle se forge sur la netherite, à la table de forgeron, avec le Gabarit du Wither et un crâne de wither squelette.\n\nLe gabarit se trouve rarement sur les Cendreux et dans les forteresses du Nether. La Cendre d'Attiseur le reproduit, et répare l'armure.",
   "guide.echoes_fireforge.forge.wither_set.p2": "Ceux qui l'ont portée longtemps n'en sont pas revenus. On dit que l'armure change avec celui qui la porte, et lui avec elle.\n\nL'ôter, pièce par pièce, laisse le temps de se reprendre. Jusqu'à un certain point.\n\nCe qui reste d'eux garde l'armure, et ne la rend qu'à qui le bat.",
   "guide.echoes_fireforge.forge.wither_set.p2.title": "Ceux qui l'ont portée",
+  "guide.echoes_fireforge.forge.forge_master.title": "Le maître de forge",
+  "guide.echoes_fireforge.forge.forge_master.p1": "Au fond de grandes forges creusées dans la roche du Nether, un Attiseur garde encore son enclume. Il dort penché dessus ; il se lève quand on entre, et la herse tombe derrière soi.\n\nSon marteau frappe le sol : l'onde court jusqu'à six blocs, on l'évite en sautant. Quand son rouage s'emballe, il prépare un coup qui traverse les boucliers : on s'écarte.",
+  "guide.echoes_fireforge.forge.forge_master.p2": "À mi-vie, il frappe plus vite et crache de la vapeur dans son dos. Les foyers des coins se rallument et des Cendreux en sortent. Un foyer éteint à la pelle n'en donne plus, mais les Cendreux savent les rallumer.\n\nS'il reste seul, il se rendort et reprend ses forces. S'il tombe, sa forge refroidit ; huit Cendres d'Attiseur sur l'âtre la rallument, et il revient.",
+  "guide.echoes_fireforge.forge.forge_master.p2.title": "Le combat",
+  "guide.echoes_fireforge.forge.forge_master.p3": "Le Marteau-pilon du maître : lourd et lent. Il se reforge à la Forge comme une masse et se répare à la Cendre d'Attiseur.\n\nClic droit : le coup à la vapeur, une onde au sol jusqu'à cinq blocs (6 charges, 8 secondes). Sa vapeur se recharge au bouilleur de l'établi.",
+  "guide.echoes_fireforge.forge.forge_master.p4": "À la première victoire, il laisse son marteau et son carnet. Ensuite, son marteau une fois sur trois.",
+  "guide.echoes_fireforge.forge.forge_master.p4.title": "Ce qu'il laisse",
   "guide.echoes_fireforge.plans.forge.title": "Le Plan de la Forge",
   "guide.echoes_fireforge.plans.forge.p1": "Deux foyers sous une seule cheminée. Le trait est sûr, appuyé, gravé par quelqu'un qui en avait bâti cent.\n\nDans la marge, une ligne plus petite : « L'eau d'abord. Le feu ensuite. Jamais l'inverse. »",
   "guide.echoes_fireforge.plans.workbench.title": "Le Plan de l'Établi",
@@ -400,6 +408,5 @@
   "guide.echoes_fireforge.cat.forge": "La Forge",
   "guide.echoes_fireforge.cat.forge.desc": "Les Attiseurs ont fait du Nether un monde-forge. Leurs machines dorment encore sous la roche, et leur forge peut revivre.",
   "guide.echoes_fireforge.cat.plans": "Carnets des Attiseurs",
-  "guide.echoes_fireforge.cat.plans.desc": "Les plans des Attiseurs, gravés sur laiton et retrouvés dans les machines comprimées.\n\nLes pages effacées attendent d'être découvertes.",
-  "tooltip.echoes_fireforge.forge_master_notebook": "Des feuilles de laiton tenues par des anneaux de fer."
+  "guide.echoes_fireforge.cat.plans.desc": "Les plans des Attiseurs, gravés sur laiton et retrouvés dans les machines comprimées.\n\nLes pages effacées attendent d'être découvertes."
 }

@@ -205,6 +205,20 @@ forge = [
              "Those who wore it for long did not come back from it. It is said the armor changes with its wearer, and the wearer with it.\n\nTaking it off, piece by piece, leaves time to recover. Up to a point.\n\nWhat remains of them keeps the armor, and gives it only to whoever defeats it.",
              title_fr="Ceux qui l'ont portée", title_en="Those who wore it"),
     ]),
+    # plan, section 14 : effacée tant qu'on ne l'a pas croisé (ForgeMasterEntity.SEEN), pour ne pas le dévoiler avant
+    entry("forge/forge_master", I + "steam_hammer", "Le maître de forge", "The Forge Master", [
+        text("Au fond de grandes forges creusées dans la roche du Nether, un Attiseur garde encore son enclume. Il dort penché dessus ; il se lève quand on entre, et la herse tombe derrière soi.\n\nSon marteau frappe le sol : l'onde court jusqu'à six blocs, on l'évite en sautant. Quand son rouage s'emballe, il prépare un coup qui traverse les boucliers : on s'écarte.",
+             "Deep in great forges carved into the Nether rock, a Stoker still keeps his anvil. He sleeps bent over it; he rises when someone comes in, and the portcullis falls behind them.\n\nHis hammer strikes the ground: the wave runs up to six blocks, and jumping avoids it. When his gear races, he readies a blow that goes through shields: step aside."),
+        text("À mi-vie, il frappe plus vite et crache de la vapeur dans son dos. Les foyers des coins se rallument et des Cendreux en sortent. Un foyer éteint à la pelle n'en donne plus, mais les Cendreux savent les rallumer.\n\nS'il reste seul, il se rendort et reprend ses forces. S'il tombe, sa forge refroidit ; huit Cendres d'Attiseur sur l'âtre la rallument, et il revient.",
+             "At half health, he strikes faster and spits steam behind him. The corner hearths light up again and Ashen come out of them. A hearth put out with a shovel gives no more, but the Ashen know how to light them again.\n\nLeft alone, he goes back to sleep and recovers. If he falls, his forge goes cold; eight Stoker's Ash on the hearth light it again, and he returns.",
+             title_fr="Le combat", title_en="The fight"),
+        spot(I + "steam_hammer",
+             "Le Marteau-pilon du maître : lourd et lent. Il se reforge à la Forge comme une masse et se répare à la Cendre d'Attiseur.\n\nClic droit : le coup à la vapeur, une onde au sol jusqu'à cinq blocs (6 charges, 8 secondes). Sa vapeur se recharge au bouilleur de l'établi.",
+             "The Forge Master's Steam Hammer: heavy and slow. It is reforged at the Forge like a mace and mended with Stoker's Ash.\n\nRight-click: the steam strike, a ground wave up to five blocks (6 charges, 8 seconds). Its steam recharges at the workbench boiler."),
+        text("À la première victoire, il laisse son marteau et son carnet. Ensuite, son marteau une fois sur trois.",
+             "On the first victory, he leaves his hammer and his notebook. After that, his hammer one time in three.",
+             title_fr="Ce qu'il laisse", title_en="What he leaves"),
+    ], lore="echoes_fireforge_seen:forge_master"),
 ]
 
 # ---------------------------------------------------------------------- Carnets des Attiseurs (textes provisoires : Anger les écrira)

@@ -852,7 +852,13 @@ Coup à la vapeur : 6 charges, 8 s, une onde au sol jusqu'à 5 blocs, 80 % des d
 Ce qu'il laisse : chaque joueur de l'arène (et celui qui l'a tué) qui le bat pour la première fois a son marteau (chargé)
 et le **Carnet du maître de forge** (`plan/forge_master`, compte comme un plan lu ; page « Le carnet du maître » dans les
 Carnets des Attiseurs, texte provisoire), et le succès « Le maître de forge » (défi, sous « Les noyés de cendre ») ;
-ensuite, le marteau une fois sur trois. Texture du carnet : `tools/textures/make_forgemaster_notebook.py` (validée). Le marteau est tourné de 180° dans les mains (demande d'Anger, dans son fichier Blockbench).
+ensuite, le marteau une fois sur trois. Texture du carnet : `tools/textures/make_forgemaster_notebook.py` (validée). Le marteau est tourné de 180° dans les mains, dans l'inventaire, au sol et dans un cadre (demande d'Anger,
+dans son fichier Blockbench).
+
+**Finitions du maître (faites)** : une page « Le maître de forge » dans le chapitre de la Forge (le combat, ce qu'il
+laisse, le marteau), effacée tant qu'on ne l'a pas vu : à moins de 32 blocs sans mur entre eux, il marque le lore
+`echoes_fireforge_seen:forge_master` (un espace de noms à part : ce n'est ni un plan lu, ni du lore qui ouvrirait les
+Carnets). Sa musique viendra d'Anger : elle jouera dans l'arène quand il se réveille.
 
 **14a, telle que faite** : `forgemaster/ForgeMasterEntity` (le combat), `client/ForgeMasterModel` (les animations ;
 la géométrie `client/ForgeMasterGeometry` est générée depuis le fichier d'Anger par `tools/models/make_forgemaster_model.py`),

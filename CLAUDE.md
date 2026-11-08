@@ -109,7 +109,8 @@
       phases, sa barre de boss, `forgemaster/`) : faite. 14b (l'arène `structure/ForgeArenaStructure`, la forge du maître
       `forgemaster/MasterForgeBlockEntity` qui mène le combat et le fait revenir, la porte, les foyers et les Cendreux de
       la phase 2, l'ambiance `client/ForgeArenaAmbience`) : faite. 14c (le Marteau-pilon du maître `forgemaster/SteamHammerItem`,
-      le carnet `plan/forge_master`, le succès « Le maître de forge », sans Écho) : faite (texture du carnet validée ; marteau tourné de 180° dans les mains, demande d'Anger). `/witherset` : gardée pour l'instant (Anger). Sons du maître (d'Anger : marteau, vapeur, pas, mort ; ses fichiers restent hors du dépôt) : convertis par
+      le carnet `plan/forge_master`, le succès « Le maître de forge », sans Écho) : faite (texture du carnet validée ; marteau tourné de 180° partout, demande d'Anger ; page du guide effacée tant
+      qu'on ne l'a pas vu, lore `echoes_fireforge_seen:forge_master`). Musique du boss : Anger l'enverra (à jouer dans l'arène). `/witherset` : gardée pour l'instant (Anger). Sons du maître (d'Anger : marteau, vapeur, pas, mort ; ses fichiers restent hors du dépôt) : convertis par
       `tools/sounds/make_forgemaster_sounds.py`, déclarés par `tools/data/make_forgemaster_data.py` ; sa voix reste celle du
       wither squelette, plus grave.
 

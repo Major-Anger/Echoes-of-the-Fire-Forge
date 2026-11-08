@@ -318,11 +318,26 @@ public class ForgeMasterEntity extends Monster {
         if (!level().isClientSide) {
             bossEvent.setProgress(getHealth() / getMaxHealth());
             bossEvent.setVisible(!isNoAi());                 // endormi sur son estrade : pas de barre
+            if (tickCount % 20 == 0) markSeen();
         }
         if (level().isClientSide && (action() == Action.CHARGE || isPhaseTwo() && tickCount % 4 == 0)) {
             // la vapeur s'échappe de la bouche du marteau, à sa droite
             Vec3 right = Vec3.directionFromRotation(0, yBodyRot + 90);
             level().addParticle(ParticleTypes.CLOUD, getX() - right.x * 0.9, getY() + 0.7, getZ() - right.z * 0.9, 0, 0.04, 0);
+        }
+    }
+
+    /**
+     * Qui l'a vu (à moins de 32 blocs, sans mur entre eux) : sa page du guide n'est plus effacée. Un espace de noms à
+     * part, pour que cela ne compte ni comme un plan lu ni comme du lore de la Forge (le chapitre des carnets reste caché).
+     */
+    public static final net.minecraft.resources.ResourceLocation SEEN =
+            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("echoes_fireforge_seen", "forge_master");
+    public static final double SEEN_RANGE = 32;
+
+    private void markSeen() {
+        for (ServerPlayer player : ((ServerLevel) level()).getPlayers(p -> !p.isSpectator() && p.distanceToSqr(this) < SEEN_RANGE * SEEN_RANGE)) {
+            if (hasLineOfSight(player)) fr.anger.echoes.core.lore.Lore.markRead(player, SEEN);
         }
     }
 

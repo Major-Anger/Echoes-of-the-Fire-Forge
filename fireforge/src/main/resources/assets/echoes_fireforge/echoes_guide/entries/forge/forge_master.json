@@ -1,0 +1,26 @@
+{
+  "title": "guide.echoes_fireforge.forge.forge_master.title",
+  "icon": "echoes_fireforge:steam_hammer",
+  "lore": "echoes_fireforge_seen:forge_master",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.forge_master.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.forge_master.p2",
+      "title": "guide.echoes_fireforge.forge.forge_master.p2.title"
+    },
+    {
+      "type": "spotlight",
+      "item": "echoes_fireforge:steam_hammer",
+      "text": "guide.echoes_fireforge.forge.forge_master.p3"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.forge_master.p4",
+      "title": "guide.echoes_fireforge.forge.forge_master.p4.title"
+    }
+  ]
+}
