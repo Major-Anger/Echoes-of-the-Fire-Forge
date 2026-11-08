@@ -866,6 +866,46 @@ la géométrie `client/ForgeMasterGeometry` est générée depuis le fichier d'A
 `tools/data/make_forgemaster_data.py`, un œuf d'apparition (créatif) pour les essais. Les phases 2 « foyers et
 Cendreux » viennent avec l'arène (14b).
 
+## 15. La Grande Machine (idée gardée de côté au 14 ; proposition, à valider par Anger)
+La machine des Attiseurs qui a réchauffé le Nether, et qui tourne encore. Raison d'être (règle 3) : c'est la source
+de la chaleur et de la vapeur dont parlent les plans. Elle montre que la vapeur est partie par le toit de bedrock (lore
+décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit d'où vient la maladie.
+
+### Décisions d'Anger
+- **A + B** : un lieu à explorer, et un choix au cœur de la machine.
+- **Une seule par monde.**
+
+### Proposition (aperçu en coupe : planche « apercu-grande-machine »)
+- **Où** : une seule, dans le Nether, placée comme les forteresses de l'End (anneaux concentriques, un seul point),
+  à environ 600 à 1000 blocs du centre. Elle se génère toujours : elle creuse sa propre caverne (environ 96 de large),
+  de la mer de lave jusqu'au toit.
+- **La machine** : environ 40 x 40, une centaine de blocs de haut. Les pieds dans la mer de lave ; on entre par un
+  quai en ruine qui part de la paroi ; on monte à l'intérieur, étage par étage :
+  1. **les foyers**, encore allumés (leur chaleur tient le Nether) ;
+  2. **les cuves**, immenses et vides, les marques de l'eau sur les parois ;
+  3. **les pistons**, géants, qui montent et descendent, et des jets de vapeur réglés comme une horloge (ils brûlent
+     et repoussent, comme ceux du maître) : on passe entre ;
+  4. **le cœur**, qui bat encore, et son régulateur à deux vannes (le choix) ;
+  5. **les conduites**, qui percent le toit de bedrock et ressortent dessus, en crachant de la vapeur.
+- **Passer d'un étage à l'autre** : chaque étage est fermé par une porte scellée (celle des chaufferies : un chaudron
+  plein d'eau et un fourneau allumé). La machine manque d'eau : c'est le joueur qui l'apporte (fioles ou seaux dans
+  le chaudron). Des chaînes pour grimper. Les Cendreux gardent la machine (ils s'en prennent à qui touche ses machines,
+  leur comportement actuel).
+- **Le choix (B)** : au régulateur, baisser ou pousser la pression. Une fois pour tout le monde, pour toujours
+  (un message demande de recommencer pour confirmer). Ni l'un ni l'autre n'est « le bon » :
+  - **baisser** : la machine ralentit et se tait ; autour d'elle, la mer de lave se fige peu à peu (magma, puis
+    basalte) et laisse voir ses fondations noyées (un dernier étage, du butin) ; les jets de vapeur s'arrêtent ;
+    mais les Cendreux de la machine deviennent hostiles à tous ;
+  - **pousser** : la machine gronde ; la chaleur monte dans la caverne (brouillard plus rouge, jets plus forts) ;
+    les Cendreux de la machine reconnaissent un gardien et laissent faire ; le cœur donne une **Braise du cœur** par
+    jour : un combustible pour la Forge, à la chaleur de la lave mais qui dure longtemps (la rareté ne change pas).
+- **Ce qu'elle laisse** : au cœur, le **Plan de la Grande Machine** (le dernier carnet, texte provisoire : Anger
+  l'écrira ; il compte comme un plan lu ; sa page est effacée jusque-là) ; un succès « La Grande Machine ».
+- **La trouver** : un **Manomètre d'Attiseur** (dans le coffre de l'arène et sur le maître) : son aiguille montre la
+  Grande Machine, comme un œil de l'Ender (toutes les jauges des Attiseurs étaient reliées à elle).
+- **Découpage** : 15a la structure et sa génération, l'entrée et les étages ; 15b les portes, les pistons et la vapeur,
+  les Cendreux ; 15c le cœur et le choix, ses suites ; 15d le plan, le succès, le manomètre, le guide.
+
 ## Textures et modèles
 Premières versions originales dessinées par Claude, présentées sur une planche d'aperçu
 avant toute intégration (règles 4 et 5).
