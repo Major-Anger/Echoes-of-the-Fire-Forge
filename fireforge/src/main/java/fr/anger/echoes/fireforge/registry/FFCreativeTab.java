@@ -45,6 +45,8 @@ public final class FFCreativeTab {
                 output.accept(FFItems.STEAM_HAMMER.get());
                 output.accept(FFItems.FORGE_MASTER_NOTEBOOK.get());
                 output.accept(FFItems.HEART_EMBER.get());
+                output.accept(FFItems.GRAND_MACHINE_PLAN.get());
+                output.accept(FFItems.STOKER_GAUGE.get());
                 output.accept(FFItems.WITHER_TEMPLATE.get());
                 output.accept(FFItems.WITHER_HELMET.get());
                 output.accept(FFItems.WITHER_CHESTPLATE.get());

@@ -35,12 +35,41 @@ public final class MachineAmbienceEvents {
         update(player);
     }
 
+    /** Sa page du guide n'est plus effacée une fois qu'on est entré dans sa caverne (15d). */
+    public static final net.minecraft.resources.ResourceLocation SEEN =
+            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("echoes_fireforge_seen", "grand_machine");
+
     private static void update(ServerPlayer player) {
-        int now = inside(player) ? 1 + GrandMachineState.get(player.serverLevel()).choice().ordinal() : 0;
+        boolean in = inside(player);
+        if (in) {
+            fr.anger.echoes.core.lore.Lore.markRead(player, SEEN);
+            reachHeart(player);
+        }
+        int now = in ? 1 + GrandMachineState.get(player.serverLevel()).choice().ordinal() : 0;
         Integer before = SENT.get(player.getUUID());
         if (before != null && before == now || before == null && now == 0) return;
         SENT.put(player.getUUID(), now);
         PacketDistributor.sendToPlayer(player, new MachineAmbiencePayload(now > 0, (byte) Math.max(0, now - 1)));
+    }
+
+    /**
+     * Arrivé au cœur (l'étage du cœur, 15d) : le succès « La Grande Machine » (et son Écho), et le plan, qu'on relève sur
+     * le régulateur (chacun sa copie, une fois).
+     */
+    public static void reachHeart(ServerPlayer player) {
+        if (fr.anger.echoes.fireforge.progress.ForgeEchoes.has(player, fr.anger.echoes.fireforge.progress.ForgeEchoes.GRAND_MACHINE)) return;
+        var start = player.serverLevel().structureManager().getStructureWithPieceAt(player.blockPosition(),
+                holder -> holder.is(FFStructures.GRAND_MACHINE_KEY));
+        if (!start.isValid()) return;
+        net.minecraft.core.BlockPos hull = fr.anger.echoes.fireforge.structure.GrandMachineStructure.hullCorner(start.getChunkPos());
+        net.minecraft.core.BlockPos p = player.blockPosition();
+        int x = p.getX() - hull.getX(), z = p.getZ() - hull.getZ();
+        if (x < 1 || x > 38 || z < 1 || z > 38 || p.getY() < 91 || p.getY() > 105) return;
+        fr.anger.echoes.fireforge.progress.ForgeEchoes.grant(player, fr.anger.echoes.fireforge.progress.ForgeEchoes.GRAND_MACHINE);
+        net.minecraft.world.item.ItemStack plan = new net.minecraft.world.item.ItemStack(fr.anger.echoes.fireforge.registry.FFItems.GRAND_MACHINE_PLAN.get());
+        if (!player.getInventory().add(plan)) player.drop(plan, false);
+        player.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.echoes_fireforge.machine.plan")
+                .withStyle(net.minecraft.ChatFormatting.GOLD), false);
     }
 
     /** Le choix vient d'être fait : ceux qui sont dans la caverne l'entendent tout de suite. */

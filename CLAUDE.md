@@ -118,7 +118,8 @@
       anneaux concentriques à un seul point) : faite. 15b (pistons et bouches de vapeur `machine/`, horloge `MachineClock`,
       Cendreux, ambiance `client/MachineAmbience`, `tools/data/make_machine_data.py`) : faite. 15c (le régulateur et le choix
       `machine/MachineChoice`, `GrandMachineState`, vannes, bouche du cœur, Braise du cœur, fondations) : faite.
-      15d (plan, succès et Écho, manomètre, guide) : à faire.
+      15d (Plan de la Grande Machine, succès et son Écho « une charge de vapeur sur quatre ne se dépense pas », Manomètre
+      d'Attiseur `machine/StokerGaugeItem`, guide) : faite. La Grande Machine est finie. Textes du plan provisoires (Anger).
 
 ## Points en attente (côté Anger)
 - Musiques du Core (décision d'Anger, faites) : des morceaux de style vanilla, pour la diversité, sans rôle dans le lore

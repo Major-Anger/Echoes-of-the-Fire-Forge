@@ -1,0 +1,11 @@
+{
+  "title": "guide.echoes_fireforge.plans.grand_machine.title",
+  "icon": "echoes_fireforge:grand_machine_plan",
+  "lore": "echoes_fireforge:plan/grand_machine",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.plans.grand_machine.p1"
+    }
+  ]
+}

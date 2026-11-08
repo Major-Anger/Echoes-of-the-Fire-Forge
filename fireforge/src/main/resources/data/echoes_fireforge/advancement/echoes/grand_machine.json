@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "echoes_fireforge:stoker_gauge"
+    },
+    "title": {
+      "translate": "advancement.echoes_fireforge.grand_machine.title"
+    },
+    "description": {
+      "translate": "advancement.echoes_fireforge.grand_machine.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "echoes_fireforge:echoes/forge_master",
+  "rewards": {
+    "experience": 60
+  }
+}

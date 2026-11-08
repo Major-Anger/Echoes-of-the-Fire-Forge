@@ -1,0 +1,110 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "echoes_fireforge:item/stoker_gauge_00"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.0
+      },
+      "model": "echoes_fireforge:item/stoker_gauge"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.03125
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_01"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.09375
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_02"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.15625
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_03"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.21875
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_04"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.28125
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_05"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.34375
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_06"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.40625
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_07"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.46875
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_08"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.53125
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_09"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.59375
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_10"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.65625
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_11"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.71875
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_12"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.78125
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_13"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.84375
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_14"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.90625
+      },
+      "model": "echoes_fireforge:item/stoker_gauge_15"
+    },
+    {
+      "predicate": {
+        "echoes_fireforge:angle": 0.96875
+      },
+      "model": "echoes_fireforge:item/stoker_gauge"
+    }
+  ]
+}

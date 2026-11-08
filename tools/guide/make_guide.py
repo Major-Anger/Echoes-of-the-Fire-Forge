@@ -219,6 +219,17 @@ forge = [
              "On the first victory, he leaves his hammer and his notebook. After that, his hammer one time in three.",
              title_fr="Ce qu'il laisse", title_en="What he leaves"),
     ], lore="echoes_fireforge_seen:forge_master"),
+    # plan, section 15 : effacée tant qu'on n'est pas entré dans sa caverne ; ne dit pas ce que font les vannes
+    entry("forge/grand_machine", I + "stoker_gauge", "La Grande Machine", "The Great Machine", [
+        text("Quelque part dans le Nether, une seule dans le monde : la machine des Attiseurs qui chauffe encore. Elle a creusé sa caverne, de la mer de lave jusqu'au toit.\n\nLe Manomètre d'Attiseur la montre : dans le Nether, son aiguille se tourne vers elle.",
+             "Somewhere in the Nether, only one in the world: the Stokers' machine that still burns. It carved its own cavern, from the lava sea up to the roof.\n\nThe Stoker's Gauge shows the way: in the Nether, its needle turns toward it."),
+        text("On entre par le quai, et on monte : les foyers, les cuves, les pistons, le cœur. Chaque sas est fermé par une porte scellée : un chaudron plein d'eau et un fourneau allumé l'ouvrent.\n\nÀ l'étage des pistons, les têtes retombent d'un coup et les bouches crachent leur vapeur : on passe au bon moment.",
+             "You come in by the pier, and climb: the hearths, the tanks, the pistons, the heart. Each airlock is shut by a sealed door: a full cauldron of water and a lit furnace open it.\n\nOn the piston floor, the heads drop all at once and the vents spit steam: pass at the right moment.",
+             title_fr="Les étages", title_en="The floors"),
+        text("Devant le cœur, deux vannes. Ce qu'on en fait vaut pour tout le monde, et pour toujours.\n\nLes Cendreux gardent la machine.",
+             "Before the heart, two valves. What is done with them stands for everyone, and forever.\n\nThe Ashen keep the machine.",
+             title_fr="Le régulateur", title_en="The regulator"),
+    ], lore="echoes_fireforge_seen:grand_machine"),
 ]
 
 # ---------------------------------------------------------------------- Carnets des Attiseurs (textes provisoires : Anger les écrira)
@@ -256,6 +267,11 @@ plans = [
         text("Des commandes, page après page : des engrenages, des soupapes, des marteaux. Les noms des apprentis sont rayés, un par un.\n\nLes dernières lignes sont d'une autre main, plus lourde : « Ils sont tous partis. Moi, je reste. Tant que la forge brûle, quelqu'un doit la tenir. »",
              "Orders, page after page: gears, valves, hammers. The apprentices' names are crossed out, one by one.\n\nThe last lines are in another hand, heavier: \"They have all gone. I stay. As long as the forge burns, someone must keep it.\""),
     ], lore=I + "plan/forge_master"),
+    # plan, 15d : relevé sur le régulateur, au cœur de la Grande Machine (texte provisoire : Anger l'écrira)
+    entry("plans/grand_machine", I + "grand_machine_plan", "Le plan de la Grande Machine", "The Great Machine Plan", [
+        text("Le plus grand des plans. Une tour, ses étages, un cœur au milieu ; des flèches montent de partout et traversent le toit.\n\nDans la marge, deux mains. L'une : « Elle ne doit jamais s'arrêter. » L'autre, plus bas : « Il faudra bien qu'elle s'arrête. »",
+             "The largest of the plans. A tower, its floors, a heart in the middle; arrows rise from everywhere and pass through the roof.\n\nIn the margin, two hands. One: \"It must never stop.\" The other, further down: \"It will have to stop.\""),
+    ], lore=I + "plan/grand_machine"),
 ]
 
 book = {

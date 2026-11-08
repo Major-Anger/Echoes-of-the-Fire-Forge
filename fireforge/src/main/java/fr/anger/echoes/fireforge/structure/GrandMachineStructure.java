@@ -77,6 +77,20 @@ public class GrandMachineStructure extends Structure {
         }));
     }
 
+    /** Le centre de la Grande Machine de ce monde (au niveau du cœur), ou rien si ce Nether n'en a pas. */
+    public static java.util.Optional<BlockPos> locate(net.minecraft.server.level.ServerLevel level) {
+        var sets = level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.STRUCTURE_SET);
+        var set = sets.getHolder(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.STRUCTURE_SET,
+                EchoesFireForge.id("grand_machine")));
+        if (set.isEmpty() || !(set.get().value().placement() instanceof net.minecraft.world.level.levelgen.structure.placement.ConcentricRingsStructurePlacement rings)) {
+            return java.util.Optional.empty();
+        }
+        java.util.List<ChunkPos> places = level.getChunkSource().getGeneratorState().getRingPositionsFor(rings);
+        if (places == null || places.isEmpty()) return java.util.Optional.empty();
+        ChunkPos at = places.get(0);
+        return java.util.Optional.of(new BlockPos(at.getMiddleBlockX(), 98, at.getMiddleBlockZ()));
+    }
+
     @Override
     public StructureType<?> type() {
         return FFStructures.GRAND_MACHINE.get();

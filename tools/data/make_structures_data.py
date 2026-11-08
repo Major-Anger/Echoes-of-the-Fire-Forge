@@ -200,7 +200,8 @@ chest("forge_arena",
                     item("minecraft:diamond", 3, 1, 3), item("minecraft:netherite_scrap", 2)]),
       pool(1, [empty(40), item("workbench_plan", 30), *plans(6)]),
       pool(2, [empty(30), templates(70)]),
-      pool(1, [empty(80), item("wither_template", 20)]))
+      pool(1, [empty(80), item("wither_template", 20)]),
+      pool(1, [item("stoker_gauge", 1)]))                               # le manomètre : il montre la Grande Machine (15d)
 
 # la Grande Machine : le coffre des cuves (les vrais trésors sont plus haut, au cœur : 15c, 15d)
 chest("grand_machine",

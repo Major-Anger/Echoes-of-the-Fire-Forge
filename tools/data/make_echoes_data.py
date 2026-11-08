@@ -69,8 +69,15 @@ ECHOES = [
     ("forge_master", "drowned_in_ash", NS + ":steam_hammer", False,
      "Le maître de forge", "The Forge Master",
      "Vaincre le maître de forge dans sa grande forge.", "Defeat the Forge Master in his great forge.", None, None),
+    # plan, 15d : atteindre son cœur ; l'Écho validé par Anger
+    ("grand_machine", "forge_master", NS + ":stoker_gauge", True,
+     "La Grande Machine", "The Great Machine",
+     "Atteindre le cœur de la Grande Machine. Écho : une charge de vapeur sur quatre ne se dépense pas.",
+     "Reach the heart of the Great Machine. Echo: one steam charge in four is not spent.",
+     "Ta vapeur vient de loin : une charge sur quatre ne se dépense pas.",
+     "Your steam comes from afar: one charge in four is not spent."),
 ]
-FRAMES = {"forge_master": "challenge"}
+FRAMES = {"forge_master": "challenge", "grand_machine": "challenge"}
 
 
 def display(name, icon, frame, toast=True, background=None):

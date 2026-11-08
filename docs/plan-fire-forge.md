@@ -866,7 +866,7 @@ la géométrie `client/ForgeMasterGeometry` est générée depuis le fichier d'A
 `tools/data/make_forgemaster_data.py`, un œuf d'apparition (créatif) pour les essais. Les phases 2 « foyers et
 Cendreux » viennent avec l'arène (14b).
 
-## 15. La Grande Machine (idée gardée de côté au 14 ; plan validé par Anger)
+## 15. La Grande Machine (idée gardée de côté au 14 ; plan validé par Anger, faite)
 La machine des Attiseurs qui a réchauffé le Nether, et qui tourne encore. Raison d'être (règle 3) : c'est la source
 de la chaleur et de la vapeur dont parlent les plans. Elle montre que la vapeur est partie par le toit de bedrock (lore
 décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit d'où vient la maladie.
@@ -937,6 +937,15 @@ décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit
   (gris et silencieux, ou rouge et plus fort). Les fondations dans le gabarit (une salle entre les pieds, sa trappe dans le
   premier plancher, un escalier, deux coffres `chests/grand_machine_foundations`). Textures
   `tools/textures/make_machine_textures.py`, données `tools/data/make_machine_data.py`.
+- **15d, telle que validée (aperçu « apercu-15d ») et faite** : le Plan de la Grande Machine (`plan/grand_machine`, relevé
+  sur le régulateur en arrivant à l'étage du cœur, une copie par joueur ; il compte comme un plan lu ; texte provisoire, les
+  deux mains), le succès « La Grande Machine » (défi, après « Le maître de forge ») et son Écho : une charge de vapeur sur
+  quatre ne se dépense pas (on compte les charges du joueur, la quatrième est gratuite : mécanismes d'armure et coup du
+  marteau-pilon ; la Lampe à vapeur ne prend pas de vapeur), le Manomètre d'Attiseur `machine/StokerGaugeItem` (16 images ;
+  dans le Nether, son aiguille montre la machine, ailleurs elle tourne ; un dans chaque coffre d'arène, un sur le maître à
+  la première victoire), le guide (« La Grande Machine », effacée tant qu'on n'est pas entré dans sa caverne, lore
+  `echoes_fireforge_seen:grand_machine`, sans rien dire des vannes ; « Le plan de la Grande Machine » dans les Carnets).
+  La section 15 est finie.
 - **Découpage** : 15a la structure et sa génération, l'entrée et les étages ; 15b les portes, les pistons et la vapeur,
   les Cendreux ; 15c le cœur et le choix, ses suites ; 15d le plan, le succès, le manomètre, le guide.
 

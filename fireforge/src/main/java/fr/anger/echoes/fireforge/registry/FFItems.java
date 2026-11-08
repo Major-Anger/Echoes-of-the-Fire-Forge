@@ -85,6 +85,12 @@ public final class FFItems {
     public static final DeferredItem<Item> HEART_EMBER = ITEMS.registerSimpleItem("heart_ember",
             new Item.Properties().fireResistant().rarity(Rarity.RARE).durability(fr.anger.echoes.fireforge.machine.MachineChoice.EMBER_REFORGES));
 
+    // La Grande Machine (plan, 15d) : son plan, relevé au cœur ; le Manomètre d'Attiseur, qui la montre
+    public static final DeferredItem<PlanItem> GRAND_MACHINE_PLAN = ITEMS.register("grand_machine_plan",
+            () -> new PlanItem(Plans.GRAND_MACHINE, new Item.Properties().fireResistant().stacksTo(16).rarity(Rarity.RARE)));
+    public static final DeferredItem<fr.anger.echoes.fireforge.machine.StokerGaugeItem> STOKER_GAUGE = ITEMS.register("stoker_gauge",
+            () -> new fr.anger.echoes.fireforge.machine.StokerGaugeItem(new Item.Properties().fireResistant().stacksTo(1).rarity(Rarity.UNCOMMON)));
+
     // Le set du Wither (plan, section 13) : forgé à la table de forgeron sur la netherite
     public static final DeferredItem<WitherArmorItem> WITHER_HELMET = witherPiece("wither_helmet", ArmorItem.Type.HELMET);
     public static final DeferredItem<WitherArmorItem> WITHER_CHESTPLATE = witherPiece("wither_chestplate", ArmorItem.Type.CHESTPLATE);

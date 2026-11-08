@@ -34,7 +34,7 @@ def read(path):
 with tempfile.TemporaryDirectory() as tmp:
     subprocess.run([sys.executable, "-B", os.path.join(TOOLS, "textures", "make_machine_textures.py"), tmp], check=True, stdout=subprocess.DEVNULL)
     for name in os.listdir(tmp):
-        kind = "item" if name == "heart_ember.png" else "block"
+        kind = "item" if name in ("heart_ember.png", "grand_machine_plan.png") or name.startswith("stoker_gauge") else "block"
         os.makedirs(os.path.join(A, "textures", kind), exist_ok=True)
         shutil.copyfile(os.path.join(tmp, name), os.path.join(A, "textures", kind, name))
 write(os.path.join(A, "models/block/steam_vent.json"), {
@@ -77,6 +77,20 @@ if NS + ":heart_ember" not in tag["values"]:
     tag["values"].append(NS + ":heart_ember")
 write(path, tag)
 
+# ---------------------------------------------------------------------- 15d : le plan, le manomètre
+write(os.path.join(A, "models/item/grand_machine_plan.json"), {"parent": "minecraft:item/generated", "textures": {"layer0": NS + ":item/grand_machine_plan"}})
+# l'aiguille : 16 images, choisies comme celles d'une boussole (image 0 : la machine droit devant)
+FRAMES = 16
+for k in range(1, FRAMES):
+    write(os.path.join(A, "models/item/stoker_gauge_%02d.json" % k),
+          {"parent": "minecraft:item/generated", "textures": {"layer0": NS + ":item/stoker_gauge_%02d" % k}})
+overrides = [{"predicate": {NS + ":angle": 0.0}, "model": NS + ":item/stoker_gauge"}]
+for k in range(1, FRAMES):
+    overrides.append({"predicate": {NS + ":angle": round((k - 0.5) / FRAMES, 5)}, "model": NS + ":item/stoker_gauge_%02d" % k})
+overrides.append({"predicate": {NS + ":angle": round((FRAMES - 0.5) / FRAMES, 5)}, "model": NS + ":item/stoker_gauge"})
+write(os.path.join(A, "models/item/stoker_gauge.json"), {
+    "parent": "minecraft:item/generated", "textures": {"layer0": NS + ":item/stoker_gauge_00"}, "overrides": overrides})
+
 # ---------------------------------------------------------------------- les dégâts de la machine
 write(os.path.join(D, "damage_type/steam.json"), {"exhaustion": 0.1, "message_id": NS + ".steam", "scaling": "never", "effects": "burning"})
 write(os.path.join(D, "damage_type/piston.json"), {"exhaustion": 0.1, "message_id": NS + ".piston", "scaling": "never"})
@@ -105,6 +119,11 @@ t("message.echoes_fireforge.heart.nothing", "Rien ne sort de la bouche du cœur.
 t("message.echoes_fireforge.heart.cold", "Le cœur est froid.", "The heart is cold.")
 t("message.echoes_fireforge.heart.tomorrow", "Le cœur n'a plus rien à donner aujourd'hui.", "The heart has nothing more to give today.")
 t("message.echoes_fireforge.heart.ember", "Le cœur te donne une braise.", "The heart gives you an ember.")
+t("item.echoes_fireforge.grand_machine_plan", "Plan de la Grande Machine", "Great Machine Plan")
+t("item.echoes_fireforge.stoker_gauge", "Manomètre d'Attiseur", "Stoker's Gauge")
+t("tooltip.echoes_fireforge.stoker_gauge", "Dans le Nether, son aiguille montre la Grande Machine.", "In the Nether, its needle points to the Great Machine.")
+t("message.echoes_fireforge.machine.plan", "Sur le régulateur, une grande plaque gravée : tu en relèves le plan.",
+  "On the regulator, a large engraved plate: you copy down its plan.")
 t("death.attack.echoes_fireforge.steam", "%1$s a été ébouillanté par la vapeur", "%1$s was scalded by steam")
 t("death.attack.echoes_fireforge.piston", "%1$s a été écrasé par un piston géant", "%1$s was crushed by a giant piston")
 for lang, data in (("fr_fr", FR), ("en_us", EN)):

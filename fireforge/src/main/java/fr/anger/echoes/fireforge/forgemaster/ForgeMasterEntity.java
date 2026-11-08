@@ -384,7 +384,7 @@ public class ForgeMasterEntity extends Monster {
         }
     }
 
-    /** Le marteau à 1 chance sur 3 ; à la première victoire d'un joueur, pour lui, le marteau et le carnet à coup sûr. */
+    /** Le marteau à 1 chance sur 3 ; à la première victoire d'un joueur, pour lui, le marteau, le carnet et le manomètre à coup sûr. */
     public static final float HAMMER_CHANCE = 1 / 3F;
 
     /**
@@ -403,6 +403,8 @@ public class ForgeMasterEntity extends Monster {
             first = true;
             spawnAtLocation(hammer());
             spawnAtLocation(new net.minecraft.world.item.ItemStack(fr.anger.echoes.fireforge.registry.FFItems.FORGE_MASTER_NOTEBOOK.get()));
+            // le Manomètre d'Attiseur (15d) : son aiguille montre la Grande Machine
+            spawnAtLocation(new net.minecraft.world.item.ItemStack(fr.anger.echoes.fireforge.registry.FFItems.STOKER_GAUGE.get()));
             fr.anger.echoes.fireforge.progress.ForgeEchoes.grant(player, fr.anger.echoes.fireforge.progress.ForgeEchoes.FORGE_MASTER);
         }
         if (!first && !victors.isEmpty() && random.nextFloat() < HAMMER_CHANCE) spawnAtLocation(hammer());

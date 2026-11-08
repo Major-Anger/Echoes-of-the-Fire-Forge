@@ -1,0 +1,21 @@
+{
+  "title": "guide.echoes_fireforge.forge.grand_machine.title",
+  "icon": "echoes_fireforge:stoker_gauge",
+  "lore": "echoes_fireforge_seen:grand_machine",
+  "pages": [
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.grand_machine.p1"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.grand_machine.p2",
+      "title": "guide.echoes_fireforge.forge.grand_machine.p2.title"
+    },
+    {
+      "type": "text",
+      "text": "guide.echoes_fireforge.forge.grand_machine.p3",
+      "title": "guide.echoes_fireforge.forge.grand_machine.p3.title"
+    }
+  ]
+}

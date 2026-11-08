@@ -122,7 +122,7 @@ public final class MechanismEffects {
 
     /** Une charge de vapeur, ou un message (« plus de vapeur »). */
     private static boolean steam(ServerPlayer player, EquipmentSlot slot) {
-        if (Steam.spend(player.getItemBySlot(slot))) return true;
+        if (Steam.spend(player.getItemBySlot(slot), player)) return true;
         player.displayClientMessage(Component.translatable("message.echoes_fireforge.no_steam").withStyle(ChatFormatting.GRAY), true);
         player.serverLevel().playSound(null, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.3F, 1.8F);
         return false;
@@ -213,7 +213,7 @@ public final class MechanismEffects {
             } else if (airborne) {
                 player.fallDistance = 0;
                 int ticks = GLIDE_TICKS.merge(id, 1, Integer::sum);
-                if (ticks % GLIDE_TICKS_PER_CHARGE == 0) Steam.spend(chest);
+                if (ticks % GLIDE_TICKS_PER_CHARGE == 0) Steam.spend(chest, player);
                 if (ticks % 4 == 0) player.serverLevel().sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 1, 0.15, 0, 0.15, 0.01);
             }
         }

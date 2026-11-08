@@ -26,7 +26,8 @@
         "forge/cendreux",
         "forge/ash_bed",
         "forge/wither_set",
-        "forge/forge_master"
+        "forge/forge_master",
+        "forge/grand_machine"
       ]
     },
     {
@@ -43,7 +44,8 @@
         "plans/3",
         "plans/4",
         "plans/5",
-        "plans/forge_master"
+        "plans/forge_master",
+        "plans/grand_machine"
       ]
     }
   ]

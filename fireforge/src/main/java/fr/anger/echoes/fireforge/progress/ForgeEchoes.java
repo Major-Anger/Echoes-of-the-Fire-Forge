@@ -32,9 +32,13 @@ public final class ForgeEchoes {
     public static final String FIRST_REFORGE = "first_reforge", WORKBENCH = "workbench", DROWNED_IN_ASH = "drowned_in_ash";
     /** Le maître de forge (plan, 14c) : l'avoir vaincu ; pas d'Écho. */
     public static final String FORGE_MASTER = "forge_master";
+    /** La Grande Machine (plan, 15d) : avoir atteint son cœur. Écho : une charge de vapeur sur quatre ne se dépense pas. */
+    public static final String GRAND_MACHINE = "grand_machine";
+    public static final ResourceLocation MACHINE_MARK = ResourceLocation.fromNamespaceAndPath("echoes_fireforge_echo", "grand_machine");
+    public static final int FREE_STEAM_EVERY = 4;
     // ---- ceux qui laissent un Écho
     public static final String HAND = "hand", BREATH = "breath", NOTEBOOKS = "notebooks", STEAM = "steam";
-    private static final List<String> WITH_ECHO = List.of(HAND, BREATH, NOTEBOOKS, STEAM);
+    private static final List<String> WITH_ECHO = List.of(HAND, BREATH, NOTEBOOKS, STEAM, GRAND_MACHINE);
 
     /** Le souffle juste : 10 fêlures rattrapées au soufflet. Vapeur domptée : 200 charges rechargées. */
     public static final int BREATH_SAVES = 10, STEAM_CHARGES = 200;
@@ -62,6 +66,7 @@ public final class ForgeEchoes {
             Echoes.register(id(name), "echo." + EchoesFireForge.MOD_ID + "." + name, switch (name) {
                 case HAND -> player -> Lore.markRead(player, HAND_MARK);
                 case NOTEBOOKS -> player -> Lore.markRead(player, NOTEBOOKS_MARK);
+                case GRAND_MACHINE -> player -> Lore.markRead(player, MACHINE_MARK);
                 default -> player -> {};
             });
         }

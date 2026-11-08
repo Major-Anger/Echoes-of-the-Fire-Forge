@@ -226,6 +226,16 @@
           "weight": 20
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "echoes_fireforge:stoker_gauge",
+          "weight": 1
+        }
+      ]
     }
   ],
   "random_sequence": "echoes_fireforge:chests/forge_arena"

@@ -15,6 +15,16 @@ public final class FFClient {
 
     private FFClient() {}
 
+    /** Le Manomètre d'Attiseur (15d) : son aiguille, comme celle d'une boussole vers son aimant. */
+    @SubscribeEvent
+    public static void clientSetup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) {
+        event.enqueueWork(() -> net.minecraft.client.renderer.item.ItemProperties.register(fr.anger.echoes.fireforge.registry.FFItems.STOKER_GAUGE.get(),
+                EchoesFireForge.id("angle"), new net.minecraft.client.renderer.item.CompassItemPropertyFunction((level, stack, entity) -> {
+                    var tracker = stack.get(net.minecraft.core.component.DataComponents.LODESTONE_TRACKER);
+                    return tracker != null ? tracker.target().orElse(null) : null;
+                })));
+    }
+
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(FFMenus.FIRE_FORGE.get(), FireForgeScreen::new);

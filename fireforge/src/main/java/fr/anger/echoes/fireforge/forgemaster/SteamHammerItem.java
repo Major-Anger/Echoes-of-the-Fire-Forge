@@ -118,7 +118,7 @@ public class SteamHammerItem extends Item {
 
     /** Public pour les tests : le coup à la vapeur (la vapeur doit suffire, l'attente est posée ici). */
     public static void steamStrike(ServerPlayer player, ItemStack stack) {
-        Steam.setCharges(stack, Steam.charges(stack) - STEAM_COST);
+        for (int i = 0; i < STEAM_COST; i++) Steam.spend(stack, player);       // une à une (l'Écho de la Grande Machine compte)
         player.getCooldowns().addCooldown(stack.getItem(), COOLDOWN);
         float damage = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE) * WAVE_PART;
         WAVES.add(new Wave(player, player.position(), damage, new HashSet<>(), new double[]{0}));

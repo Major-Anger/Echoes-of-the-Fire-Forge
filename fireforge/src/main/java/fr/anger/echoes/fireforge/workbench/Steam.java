@@ -47,4 +47,21 @@ public final class Steam {
         setCharges(stack, charges - 1);
         return true;
     }
+
+    /**
+     * Dépense une charge pour ce joueur : avec l'Écho de la Grande Machine (15d), une charge sur quatre ne se dépense pas
+     * (on compte ses charges, la quatrième est gratuite). @return true si la pièce en avait une
+     */
+    public static boolean spend(ItemStack stack, net.minecraft.world.entity.player.Player player) {
+        if (charges(stack) <= 0) return false;
+        if (player instanceof net.minecraft.server.level.ServerPlayer server
+                && fr.anger.echoes.core.lore.Lore.hasRead(server, fr.anger.echoes.fireforge.progress.ForgeEchoes.MACHINE_MARK)) {
+            int spent = server.getPersistentData().getInt(SPENT_KEY) + 1;
+            server.getPersistentData().putInt(SPENT_KEY, spent);
+            if (spent % fr.anger.echoes.fireforge.progress.ForgeEchoes.FREE_STEAM_EVERY == 0) return true;   // ta vapeur vient de loin
+        }
+        return spend(stack);
+    }
+
+    private static final String SPENT_KEY = "echoes_fireforge.steam_spent";
 }
