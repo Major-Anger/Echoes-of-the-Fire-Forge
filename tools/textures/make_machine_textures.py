@@ -1,5 +1,5 @@
 """Textures 16x16 de la Grande Machine (plan, section 15) : la bouche de vapeur (15b, validée) ; les vannes du régulateur
-et la Braise du cœur (15c). À présenter à Anger sur une planche avant de les garder (règles 4 et 5).
+et la Braise du cœur (15c, validées) ; le Plan de la Grande Machine et le Manomètre d'Attiseur (15d). À présenter à Anger sur une planche avant de les garder (règles 4 et 5).
 
 Usage : python3 tools/textures/make_machine_textures.py <dossier de sortie>
 """
@@ -162,5 +162,57 @@ grid([
     "................",
     "................",
 ], "heart_ember")
+
+# ---------------------------------------------------------------- 15d : le Plan de la Grande Machine (objet)
+# une feuille de laiton gravée, plus grande que les autres plans, rivée en haut : la machine, ses étages, ses conduites
+grid([
+    "................",
+    ".BRbbbbbbbbbbRB.",
+    ".bYYYYYYYYYYYYb.",
+    ".bYbbEbEbEbEbYb.",
+    ".bYbbEbEbEbEbYb.",
+    ".bYbEEEEEEEEbYb.",
+    ".bYbEbbbbbbEbYb.",
+    ".bYbEEEEEEEEbYb.",
+    ".bYbEbbEEbbEbYb.",
+    ".bYbEEEEEEEEbYb.",
+    ".bYbEbbbbbbEbYb.",
+    ".bYbEEEEEEEEbYb.",
+    ".bYbbEbbbbEbbYb.",
+    ".bYEEEEEEEEEEYb.",
+    ".BbbbbbbbbbbbbB.",
+    "................",
+], "grand_machine_plan")
+
+
+# ---------------------------------------------------------------- 15d : le Manomètre d'Attiseur (objet, 16 images)
+# un cadran rond de laiton, sa vitre sombre, ses graduations, son aiguille rouge ; elle montre la Grande Machine
+import math
+for frame in range(16):
+    img = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
+    cx, cy = 7.5, 8.0
+    for y in range(16):
+        for x in range(16):
+            r = math.hypot(x - cx, y - cy)
+            if r <= 7.2:
+                if r > 6.0:
+                    col = PAL['Y'] if (x + y) % 5 else PAL['b']           # la couronne
+                elif r > 5.2:
+                    col = PAL['B']
+                else:
+                    col = (40, 36, 34)                                       # la vitre, sombre
+                img.putpixel((x, y), col + (255,))
+    for k in range(8):                                                       # les graduations
+        a = k * math.pi / 4
+        x, y = round(cx + math.cos(a) * 4.6), round(cy + math.sin(a) * 4.6)
+        img.putpixel((x, y), PAL['L'] + (255,))
+    a = frame * 2 * math.pi / 16 - math.pi / 2                               # l'aiguille (image 0 : vers le haut)
+    for i in range(0, 9):
+        t = i / 2.0
+        x, y = round(cx + math.cos(a) * t), round(cy + math.sin(a) * t)
+        img.putpixel((x, y), ((200, 50, 40) if i > 1 else PAL['R']) + (255,))
+    img.putpixel((round(cx), round(cy)), PAL['R'] + (255,))                  # le moyeu
+    img.putpixel((7, 0), PAL['b'] + (255,)); img.putpixel((8, 0), PAL['b'] + (255,))   # l'anneau du haut
+    img.save(os.path.join(OUT, "stoker_gauge_%02d.png" % frame))
 
 print("ok")
