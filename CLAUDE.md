@@ -113,7 +113,6 @@
       qu'on ne l'a pas vu, lore `echoes_fireforge_seen:forge_master`). Musique du boss : Anger l'enverra (à jouer dans l'arène). `/witherset` : gardée pour l'instant (Anger). Sons du maître (d'Anger : marteau, vapeur, pas, mort ; ses fichiers restent hors du dépôt) : convertis par
       `tools/sounds/make_forgemaster_sounds.py`, déclarés par `tools/data/make_forgemaster_data.py` ; sa voix reste celle du
       wither squelette, plus grave.
-
   12. La Grande Machine (plan section 15, validé : A + B, une seule par monde, le succès avec un Écho) : 15a (gabarit
       `grand_machine` et `grand_machine_pier`, `structure/GrandMachineStructure`, caverne `structure/MachineCavernPiece`,
       anneaux concentriques à un seul point) : faite. 15b (portes, pistons, vapeur, Cendreux), 15c (le cœur et le choix),
