@@ -51,6 +51,7 @@ BIOMES = {
     "fortress_annex": ["#minecraft:is_nether"],    # partout où il y a une forteresse
     "ceiling_chimney": ["#minecraft:is_nether"],
     "forge_arena": ["#minecraft:is_nether"],       # l'arène du maître de forge (14b) : creusée dans la roche
+    "grand_machine": ["#minecraft:is_nether"],     # la Grande Machine (15a) : elle creuse sa propre caverne
 }
 for name, biomes in BIOMES.items():
     write(os.path.join(D, "tags/worldgen/biome/has_structure", name + ".json"), {"values": biomes})
@@ -78,6 +79,8 @@ structure("boiler_hall", "boiler_hall", step="underground_structures", spawns=[C
 structure("fortress_annex", "fortress_annex", chance=1.0 / 3.0)
 structure("ceiling_chimney", "ceiling_chimney", step="underground_structures")
 structure("forge_arena", "forge_arena", step="underground_structures")
+# la Grande Machine : posée après tout le reste, pour que rien ne pousse dans sa caverne
+structure("grand_machine", "grand_machine", step="top_layer_modification")
 
 # ---------------------------------------------------------------------- où et à quelle fréquence (validé par Anger)
 SALT = 61450300
@@ -101,6 +104,12 @@ structure_set("fortress_annex", [("fortress_annex", 1)], 1, 0, SALT + 4)
 structure_set("ceiling_chimney", [("ceiling_chimney", 1)], 32, 8, SALT + 5)
 # l'arène du maître de forge : très rare, une par carré de 128 tronçons
 structure_set("forge_arena", [("forge_arena", 1)], 128, 32, SALT + 6)
+# la Grande Machine : une seule par monde (validé par Anger), comme les forteresses de l'End : un seul point sur un
+# anneau, à environ 33 à 63 tronçons du centre (530 à 1000 blocs du Nether)
+write(os.path.join(D, "worldgen/structure_set", "grand_machine.json"), {
+    "structures": [{"structure": NS + ":grand_machine", "weight": 1}],
+    "placement": {"type": "minecraft:concentric_rings", "distance": 12, "spread": 1, "count": 1,
+                  "preferred_biomes": "#minecraft:is_nether", "salt": SALT + 7}})
 
 # les Cendreux vivent dans les forteresses, les chaufferies, les derniers foyers
 write(os.path.join(D, "tags/worldgen/structure/cendreux_homes.json"), {"values": [
@@ -192,6 +201,14 @@ chest("forge_arena",
       pool(1, [empty(40), item("workbench_plan", 30), *plans(6)]),
       pool(2, [empty(30), templates(70)]),
       pool(1, [empty(80), item("wither_template", 20)]))
+
+# la Grande Machine : le coffre des cuves (les vrais trésors sont plus haut, au cœur : 15c, 15d)
+chest("grand_machine",
+      pool((4, 7), [item("machine_gear", 8, 2, 5), item("machine_valve", 8, 2, 5), item("engraved_plate", 6, 1, 3),
+                    item("stoker_ash", 6, 3, 8), item("minecraft:copper_ingot", 6, 4, 12), item("minecraft:gold_ingot", 4, 2, 6),
+                    item("minecraft:iron_ingot", 6, 3, 8), item("minecraft:netherite_scrap", 2)]),
+      pool(1, [empty(50), *plans(5)]),
+      pool(1, [empty(40), templates(60)]))
 
 # ---------------------------------------------------------------------- la forge du maître (bloc technique, 14b)
 write(os.path.join(A, "blockstates/master_forge.json"), {"variants": {"": {"model": NS + ":block/compressed_machine"}}})

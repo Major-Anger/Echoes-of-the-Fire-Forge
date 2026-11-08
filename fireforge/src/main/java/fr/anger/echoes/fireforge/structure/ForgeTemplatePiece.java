@@ -49,7 +49,7 @@ import java.util.Locale;
 public class ForgeTemplatePiece extends TemplateStructurePiece {
 
     public enum Kind implements StringRepresentable {
-        RUIN, HEARTH, HALL, GATE, ANNEX, CHIMNEY, ARENA;
+        RUIN, HEARTH, HALL, GATE, ANNEX, CHIMNEY, ARENA, MACHINE;
 
         public static final Codec<Kind> CODEC = StringRepresentable.fromEnum(Kind::values);
 
@@ -109,7 +109,7 @@ public class ForgeTemplatePiece extends TemplateStructurePiece {
                         Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS), 0.9F));
                 settings.addProcessor(cracks(0.2F));
             }
-            case HEARTH, HALL, GATE, ANNEX, ARENA -> settings.addProcessor(cracks(0.08F));
+            case HEARTH, HALL, GATE, ANNEX, ARENA, MACHINE -> settings.addProcessor(cracks(0.08F));
             case CHIMNEY -> { }
         }
         return settings;

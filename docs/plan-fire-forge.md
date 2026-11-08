@@ -878,12 +878,19 @@ décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit
   sera proposé au 15d).
 - **15a, gabarit** : `grand_machine` (42 x 114 x 42 : la coque de 40 et une marge d'un bloc pour les conduites du
   dehors ; il commence à y = 18) et `grand_machine_pier` (le quai, 28 x 16 x 6), par `tools/structures/make_structures.py`.
-  Aperçu posé à la main dans une caverne creusée (planche « planche-15a-apercu ») : à valider avant le code de la
-  génération.
+  Aperçu posé à la main dans une caverne creusée (planche « planche-15a-apercu ») : validé par Anger.
+- **15a, telle que faite** : `structure/GrandMachineStructure` (une seule par monde : `structure_set` en anneaux
+  concentriques, un seul point, `distance` 12 ; elle se pose toujours, centrée sur son tronçon, à l'étape
+  `top_layer_modification` pour que rien ne pousse dans sa caverne ; environ 450 à 1100 blocs du centre du Nether, le jeu la
+  décalant un peu vers un biome du Nether) ; `structure/MachineCavernPiece` (la caverne : 48 de rayon au milieu, plus étroite
+  en haut et au fond, parois inégales et cuites, la mer de lave jusqu'à y = 31, le bedrock gardé) ; le quai et un tunnel
+  derrière son arche jusqu'au premier vide (`HallCorridorPiece`) ; le coffre des cuves (`chests/grand_machine`).
+  Données : `tools/data/make_structures_data.py`. Au passage, la porte scellée a une entité de bloc à chaque case (le jeu
+  en attendait une : plus d'avertissement au chargement des chaufferies, de l'arène et de la machine).
 
 ### Proposition (aperçu en coupe : planche « apercu-grande-machine »)
 - **Où** : une seule, dans le Nether, placée comme les forteresses de l'End (anneaux concentriques, un seul point),
-  à environ 600 à 1000 blocs du centre. Elle se génère toujours : elle creuse sa propre caverne (environ 96 de large),
+  à environ 450 à 1100 blocs du centre. Elle se génère toujours : elle creuse sa propre caverne (environ 96 de large),
   de la mer de lave jusqu'au toit.
 - **La machine** : environ 40 x 40, une centaine de blocs de haut. Les pieds dans la mer de lave ; on entre par un
   quai en ruine qui part de la paroi ; on monte à l'intérieur, étage par étage :

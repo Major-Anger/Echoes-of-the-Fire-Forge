@@ -1,0 +1,6 @@
+{
+  "type": "echoes_fireforge:grand_machine",
+  "biomes": "#echoes_fireforge:has_structure/grand_machine",
+  "step": "top_layer_modification",
+  "spawn_overrides": {}
+}

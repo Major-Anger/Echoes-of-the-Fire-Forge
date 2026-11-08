@@ -7,8 +7,10 @@ import fr.anger.echoes.fireforge.structure.FloorRuinStructure;
 import fr.anger.echoes.fireforge.structure.ForgeArenaStructure;
 import fr.anger.echoes.fireforge.structure.ForgeTemplatePiece;
 import fr.anger.echoes.fireforge.structure.FortressAnnexStructure;
+import fr.anger.echoes.fireforge.structure.GrandMachineStructure;
 import fr.anger.echoes.fireforge.structure.HallCorridorPiece;
 import fr.anger.echoes.fireforge.structure.HallVentPiece;
+import fr.anger.echoes.fireforge.structure.MachineCavernPiece;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -43,12 +45,18 @@ public final class FFStructures {
     public static final DeferredHolder<StructureType<?>, StructureType<ForgeArenaStructure>> FORGE_ARENA =
             TYPES.register("forge_arena", () -> () -> ForgeArenaStructure.CODEC);
 
+    /** La Grande Machine (plan, section 15) : une seule par monde. */
+    public static final DeferredHolder<StructureType<?>, StructureType<GrandMachineStructure>> GRAND_MACHINE =
+            TYPES.register("grand_machine", () -> () -> GrandMachineStructure.CODEC);
+
     public static final DeferredHolder<StructurePieceType, StructurePieceType> TEMPLATE_PIECE =
             PIECES.register("template", () -> (StructurePieceType.StructureTemplateType) ForgeTemplatePiece::new);
     public static final DeferredHolder<StructurePieceType, StructurePieceType> CORRIDOR_PIECE =
             PIECES.register("hall_corridor", () -> (StructurePieceType.ContextlessType) HallCorridorPiece::new);
     public static final DeferredHolder<StructurePieceType, StructurePieceType> VENT_PIECE =
             PIECES.register("hall_vent", () -> (StructurePieceType.ContextlessType) HallVentPiece::new);
+    public static final DeferredHolder<StructurePieceType, StructurePieceType> CAVERN_PIECE =
+            PIECES.register("machine_cavern", () -> (StructurePieceType.ContextlessType) MachineCavernPiece::new);
 
     // Les structures (données), pour le code et les essais
     public static final ResourceKey<Structure> FORGE_RUIN = key("forge_ruin");
@@ -60,6 +68,7 @@ public final class FFStructures {
     public static final ResourceKey<Structure> LAST_HEARTH = key("last_hearth");
     public static final ResourceKey<Structure> CEILING_CHIMNEY_KEY = key("ceiling_chimney");
     public static final ResourceKey<Structure> FORGE_ARENA_KEY = key("forge_arena");
+    public static final ResourceKey<Structure> GRAND_MACHINE_KEY = key("grand_machine");
 
     /** Là où vivent les Cendreux, en plus des abords de la lave : forteresses, chaufferies, derniers foyers. */
     public static final TagKey<Structure> CENDREUX_HOMES = TagKey.create(Registries.STRUCTURE, EchoesFireForge.id("cendreux_homes"));

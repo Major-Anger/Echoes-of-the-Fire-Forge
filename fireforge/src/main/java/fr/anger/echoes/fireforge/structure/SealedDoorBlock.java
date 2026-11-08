@@ -49,7 +49,9 @@ public class SealedDoorBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return state.getValue(LOCK) ? new SealedDoorBlockEntity(pos, state) : null;
+        // chaque case en a une (le jeu en attend une pour tout bloc qui en déclare : sinon, un avertissement au
+        // chargement) ; seule la serrure surveille la chaudière (voir getTicker)
+        return new SealedDoorBlockEntity(pos, state);
     }
 
     @Nullable

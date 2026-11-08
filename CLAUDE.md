@@ -114,6 +114,11 @@
       `tools/sounds/make_forgemaster_sounds.py`, déclarés par `tools/data/make_forgemaster_data.py` ; sa voix reste celle du
       wither squelette, plus grave.
 
+  12. La Grande Machine (plan section 15, validé : A + B, une seule par monde, le succès avec un Écho) : 15a (gabarit
+      `grand_machine` et `grand_machine_pier`, `structure/GrandMachineStructure`, caverne `structure/MachineCavernPiece`,
+      anneaux concentriques à un seul point) : faite. 15b (portes, pistons, vapeur, Cendreux), 15c (le cœur et le choix),
+      15d (plan, succès et Écho, manomètre, guide) : à faire.
+
 ## Points en attente (côté Anger)
 - Musiques du Core (décision d'Anger, faites) : des morceaux de style vanilla, pour la diversité, sans rôle dans le lore
   (seules les musiques de dimension, de structure et les disques comptent pour le lore). Ajoutés aux listes du jeu
