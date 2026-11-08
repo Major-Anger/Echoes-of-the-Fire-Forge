@@ -916,6 +916,16 @@ décidé) ; elle ne dit **jamais** où va l'eau (question ouverte). Rien n'y dit
   l'écrira ; il compte comme un plan lu ; sa page est effacée jusque-là) ; un succès « La Grande Machine ».
 - **La trouver** : un **Manomètre d'Attiseur** (dans le coffre de l'arène et sur le maître) : son aiguille montre la
   Grande Machine, comme un œil de l'Ender (toutes les jauges des Attiseurs étaient reliées à elle).
+- **15b, telle que validée (aperçu « apercu-15b ») et faite** : `machine/MachineClock` (une seule horloge pour toute la
+  machine ; le 15c la changera), `machine/SteamVentBlock(Entity)` (la bouche de vapeur, texture
+  `tools/textures/make_machine_textures.py` : 4 s, elle siffle 1 s, souffle 1,5 s un jet de 5 blocs, 1 cœur toutes les
+  demi-secondes et elle repousse vers le haut, puis 1,5 s de calme ; les Cendreux n'y craignent rien),
+  `machine/MachinePistonBlock(Entity)` (le moteur caché dans le corps d'un piston : 6 s, 2 s en bas, il monte en 2,2 s, 1,3 s
+  en haut, il retombe en 0,5 s ; il porte ce qui est sur sa tête ; sur le corps quand la tête retombe : 3 cœurs et chassé
+  hors de dessous ; les six en vague), dégâts `echoes_fireforge:steam` et `echoes_fireforge:piston` ; les Cendreux y
+  apparaissent et y sont chez eux (`cendreux_homes`) ; l'ambiance de la caverne (`machine/MachineAmbienceEvents`,
+  `client/MachineAmbience` : brouillard plus clair et plus chaud, cendres, un ronronnement). Données :
+  `tools/data/make_machine_data.py`.
 - **Découpage** : 15a la structure et sa génération, l'entrée et les étages ; 15b les portes, les pistons et la vapeur,
   les Cendreux ; 15c le cœur et le choix, ses suites ; 15d le plan, le succès, le manomètre, le guide.
 

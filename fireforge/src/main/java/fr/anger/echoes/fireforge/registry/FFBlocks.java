@@ -55,6 +55,25 @@ public final class FFBlocks {
                     .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
                     .sound(SoundType.ANCIENT_DEBRIS)));
 
+    /** La bouche de vapeur de la Grande Machine (plan, 15b) : elle siffle, puis souffle. Pas d'objet, incassable. */
+    public static final DeferredBlock<fr.anger.echoes.fireforge.machine.SteamVentBlock> STEAM_VENT = BLOCKS.register("steam_vent",
+            () -> new fr.anger.echoes.fireforge.machine.SteamVentBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .strength(-1.0F, 3600000.0F)
+                    .noLootTable()
+                    .lightLevel(state -> 6)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
+                    .sound(SoundType.COPPER)));
+
+    /** Le moteur d'un piston géant de la Grande Machine (plan, 15b), caché dans son corps. Pas d'objet, incassable. */
+    public static final DeferredBlock<fr.anger.echoes.fireforge.machine.MachinePistonBlock> MACHINE_PISTON = BLOCKS.register("machine_piston",
+            () -> new fr.anger.echoes.fireforge.machine.MachinePistonBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .strength(-1.0F, 3600000.0F)
+                    .noLootTable()
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK)
+                    .sound(SoundType.ANCIENT_DEBRIS)));
+
     /** La Forge des Attiseurs (2 blocs). Le foyer éclaire quand elle travaille. */
     public static final DeferredBlock<FireForgeBlock> FIRE_FORGE = BLOCKS.register("fire_forge",
             () -> new FireForgeBlock(BlockBehaviour.Properties.of()

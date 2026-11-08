@@ -408,5 +408,9 @@
   "guide.echoes_fireforge.cat.forge": "La Forge",
   "guide.echoes_fireforge.cat.forge.desc": "Les Attiseurs ont fait du Nether un monde-forge. Leurs machines dorment encore sous la roche, et leur forge peut revivre.",
   "guide.echoes_fireforge.cat.plans": "Carnets des Attiseurs",
-  "guide.echoes_fireforge.cat.plans.desc": "Les plans des Attiseurs, gravés sur laiton et retrouvés dans les machines comprimées.\n\nLes pages effacées attendent d'être découvertes."
+  "guide.echoes_fireforge.cat.plans.desc": "Les plans des Attiseurs, gravés sur laiton et retrouvés dans les machines comprimées.\n\nLes pages effacées attendent d'être découvertes.",
+  "block.echoes_fireforge.steam_vent": "Bouche de vapeur",
+  "block.echoes_fireforge.machine_piston": "Piston géant",
+  "death.attack.echoes_fireforge.steam": "%1$s a été ébouillanté par la vapeur",
+  "death.attack.echoes_fireforge.piston": "%1$s a été écrasé par un piston géant"
 }

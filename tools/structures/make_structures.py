@@ -814,22 +814,22 @@ def grand_machine():
         b.set(hx, Y(58), hz, BRASS)
     b.chest(20, Y(53), 30, "north", "grand_machine")
 
-    # 3. les pistons (y 71 à 89) : six pistons géants, leurs têtes de laiton à des hauteurs différentes ; des feux
-    #    de vapeur dans le sol (pour l'instant des feux de camp allumés : ils brûlent qui marche dessus)
-    for (px_, pz), head in zip(((10, 11), (20, 11), (29, 11), (10, 26), (20, 26), (29, 26)), (78, 83, 80, 85, 79, 82)):
+    # 3. les pistons (y 71 à 89) : six pistons géants ; leur moteur (machine/MachinePistonBlockEntity), caché dans le
+    #    corps, fait monter et retomber leur tête, en vague (décalés d'une seconde) ; ils sont posés tête en bas.
+    #    Dans le sol, six bouches de vapeur (machine/SteamVentBlockEntity), décalées elles aussi.
+    for i, (px_, pz) in enumerate(((10, 11), (20, 11), (29, 11), (29, 26), (20, 26), (10, 26))):
         for x in range(px_ - 2, px_ + 2):
             for z in range(pz - 2, pz + 2):
                 for y in range(71, 75):
                     b.set(x, Y(y), z, BRASS if y == 74 else S("polished_blackstone_bricks"))
-        for x in (px_ - 1, px_):
-            for z in (pz - 1, pz):
-                b.fill(x, Y(75), z, x, Y(head - 1), z, PIPE)
+        b.set(px_ - 1, Y(71), pz - 1, S(NS + ":machine_piston"),
+              Compound({"id": String(NS + ":machine_piston"), "phase": Int(i * 20), "head": Int(4)}))
         for x in range(px_ - 3, px_ + 3):
             for z in range(pz - 3, pz + 3):
-                b.set(x, Y(head), z, BRASS)
-                b.set(x, Y(head + 1), z, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
-    for x, z in ((15, 18), (24, 18), (6, 19), (33, 33), (15, 31), (25, 6)):
-        b.set(x, Y(70), z, campfire("north", lit=True))
+                b.set(x, Y(75), z, BRASS)
+                b.set(x, Y(76), z, S("polished_blackstone_brick_slab", type="bottom", waterlogged=False))
+    for (x, z), phase in zip(((15, 18), (24, 18), (6, 19), (33, 33), (15, 31), (25, 6)), (0, 40, 10, 50, 20, 60)):
+        b.set(x, Y(70), z, S(NS + ":steam_vent"), Compound({"id": String(NS + ":steam_vent"), "phase": Int(phase)}))
     b.fill(12, Y(70), 23, 12, Y(71), 23, PIPE)
     b.fill(27, Y(70), 23, 27, Y(71), 23, PIPE)
 

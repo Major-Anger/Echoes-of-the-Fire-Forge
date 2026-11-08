@@ -3,6 +3,7 @@
     "minecraft:fortress",
     "echoes_fireforge:boiler_hall",
     "echoes_fireforge:last_hearth",
-    "echoes_fireforge:forge_arena"
+    "echoes_fireforge:forge_arena",
+    "echoes_fireforge:grand_machine"
   ]
 }

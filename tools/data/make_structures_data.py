@@ -80,7 +80,7 @@ structure("fortress_annex", "fortress_annex", chance=1.0 / 3.0)
 structure("ceiling_chimney", "ceiling_chimney", step="underground_structures")
 structure("forge_arena", "forge_arena", step="underground_structures")
 # la Grande Machine : posée après tout le reste, pour que rien ne pousse dans sa caverne
-structure("grand_machine", "grand_machine", step="top_layer_modification")
+structure("grand_machine", "grand_machine", step="top_layer_modification", spawns=[CENDREUX])   # ses gardiens (15b)
 
 # ---------------------------------------------------------------------- où et à quelle fréquence (validé par Anger)
 SALT = 61450300
@@ -111,9 +111,9 @@ write(os.path.join(D, "worldgen/structure_set", "grand_machine.json"), {
     "placement": {"type": "minecraft:concentric_rings", "distance": 12, "spread": 1, "count": 1,
                   "preferred_biomes": "#minecraft:is_nether", "salt": SALT + 7}})
 
-# les Cendreux vivent dans les forteresses, les chaufferies, les derniers foyers
+# les Cendreux vivent dans les forteresses, les chaufferies, les derniers foyers, l'arène et la Grande Machine
 write(os.path.join(D, "tags/worldgen/structure/cendreux_homes.json"), {"values": [
-    "minecraft:fortress", NS + ":boiler_hall", NS + ":last_hearth", NS + ":forge_arena"]})
+    "minecraft:fortress", NS + ":boiler_hall", NS + ":last_hearth", NS + ":forge_arena", NS + ":grand_machine"]})
 
 # ---------------------------------------------------------------------- le butin des coffres
 

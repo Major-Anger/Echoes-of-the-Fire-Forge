@@ -41,6 +41,16 @@ public final class FFBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SealedDoorBlockEntity>> SEALED_DOOR = BLOCK_ENTITIES.register("sealed_door",
             () -> BlockEntityType.Builder.of(SealedDoorBlockEntity::new, FFBlocks.SEALED_MACHINE.get()).build(null));
 
+    /** La Grande Machine (plan, 15b) : ses bouches de vapeur et ses pistons géants. */
+    @SuppressWarnings("DataFlowIssue")
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<fr.anger.echoes.fireforge.machine.SteamVentBlockEntity>> STEAM_VENT =
+            BLOCK_ENTITIES.register("steam_vent", () -> BlockEntityType.Builder.of(fr.anger.echoes.fireforge.machine.SteamVentBlockEntity::new,
+                    FFBlocks.STEAM_VENT.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<fr.anger.echoes.fireforge.machine.MachinePistonBlockEntity>> MACHINE_PISTON =
+            BLOCK_ENTITIES.register("machine_piston", () -> BlockEntityType.Builder.of(fr.anger.echoes.fireforge.machine.MachinePistonBlockEntity::new,
+                    FFBlocks.MACHINE_PISTON.get()).build(null));
+
     /** La forge du maître, qui mène son arène (plan, 14b). */
     @SuppressWarnings("DataFlowIssue")
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MasterForgeBlockEntity>> MASTER_FORGE = BLOCK_ENTITIES.register("master_forge",

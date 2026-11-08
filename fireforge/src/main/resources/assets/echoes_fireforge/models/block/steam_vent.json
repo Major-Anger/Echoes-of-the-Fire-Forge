@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "echoes_fireforge:block/steam_vent_top",
+    "side": "echoes_fireforge:block/steam_vent_side",
+    "bottom": "echoes_fireforge:block/steam_vent_side"
+  }
+}
